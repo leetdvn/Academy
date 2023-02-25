@@ -16,10 +16,6 @@
 #include "leeBaseButton.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCorrectClick,FString,SymbolName);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDropFail, int, FailTimes);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDropCorrect, int, CorrectTimes);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDropTimes, int, Droptimes);
-
 
 //correct drop action
 
@@ -76,15 +72,6 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 		FOnCorrectClick OnCorrectClick;
 
-	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
-		FOnDropFail OnDropFail;
-
-	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
-		FOnDropCorrect OnDropCorrect;
-
-	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
-		FOnDropTimes OnDropTimes;
-
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetNormalFromPath(FString imgPath, FVector2D normalSize);
 
@@ -111,9 +98,6 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetVisibility(bool visible);
-
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void lSetUpdateSizeRule(ESlateSizeRule::Type ruleType);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetDrop(bool isDrop) { lDrop = isDrop; };
@@ -146,9 +130,8 @@ public:
 	
 	UleeBaseButton* lCopyRef(UleeBaseButton*& other);
 
-	int32 Droptimes;
-	int32 DropCorrecttimes;
-	int32 DropFailtimes;
+	UFUNCTION()
+		void lOnListenCallback();
 
 #pragma endregion
 	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
@@ -157,14 +140,12 @@ public:
 
 	virtual void lInitialized(FString ImagePath, FString& text, bool ImageOnly = false);
 
-	virtual FVector2D lGetSizeTexture(FString imgPath); 
-
 	virtual UTexture2D* lGetTextureButton() { return ltexture2D; }
 	int32 rowID;
 protected:
 	virtual void NativeConstruct() override;
 
-	void ListenForInputAction(FName ActionName, TEnumAsByte<EInputEvent> EventType, bool bConsume, FOnInputAction Callback);
+	//void ListenForInputAction(FName ActionName, TEnumAsByte<EInputEvent> EventType, bool bConsume, FOnInputAction Callback);
 
 	virtual void NativeDestruct() override;
 
@@ -208,8 +189,6 @@ protected:
 	/// </summary>
 	/// <param name="imgPath"></param>
 	/// <returns></returns>
-	UTexture2D* lGetTextureFromPath(FString imgPath);
-
 	UTexture2D* ltexture2D;
 	static UleeBaseButton* ins;
 	bool ltextHiden;

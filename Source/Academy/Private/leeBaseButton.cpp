@@ -50,13 +50,14 @@ void UleeBaseButton::NativeConstruct()
 	//lDebug("Construction debug.. ", FColor::Purple, "Native :");
 	//FString text = "", img = "";
 	//lInitialized(img,text,lImageOnly);
+	FOnInputAction abc;
+	ListenForInputAction("Touching", EInputEvent::IE_Pressed, true,abc);
 }
 
-void UleeBaseButton::ListenForInputAction(FName ActionName, TEnumAsByte<EInputEvent> EventType, bool bConsume, FOnInputAction Callback)
-{
-	Callback.Execute();
-	lDebug("Listening");
-}
+//void UleeBaseButton::ListenForInputAction(FName ActionName, TEnumAsByte<EInputEvent> EventType, bool bConsume, FOnInputAction Callback)
+//{
+//	lDebug("Listening");
+//}
 
 void UleeBaseButton::NativeDestruct()
 {
@@ -77,7 +78,9 @@ void UleeBaseButton::NativeOnInitialized()
 void UleeBaseButton::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
 {
 	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
+
 	if (!lDrag) return;
+
 	//lDebug("Mouse On Drag.... ", FColor::Blue, "Native :");
 	if (lWidgetVisual && lDragVisual) {
 		UleeBaseButton* WidgetVisual = CreateWidget<UleeBaseButton>(this, lWidgetVisual);
@@ -100,14 +103,20 @@ void UleeBaseButton::NativeOnDragDetected(const FGeometry& InGeometry, const FPo
 
 FReply UleeBaseButton::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-	FEventReply iReply = UWidgetBlueprintLibrary::DetectDragIfPressed(InMouseEvent,this,EKeys::MiddleMouseButton);
-	//Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
+	//FEventReply iReply = UWidgetBlueprintLibrary::DetectDragIfPressed(InMouseEvent,this,EKeys::MiddleMouseButton);
+	////Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
+	//if (InMouseEvent.IsTouchEvent())
+	//{
+	//	iReply.NativeReply.DetectDrag(TakeWidget(), EKeys::LeftMouseButton);
+	//	lDebug("mouse touching.");
+	//}
 
-	if (InMouseEvent.GetEffectingButton() == EKeys::MiddleMouseButton || InMouseEvent.GetEffectingButton() == EKeys::MiddleMouseButton) {
-		iReply.NativeReply.DetectDrag(TakeWidget(), EKeys::MiddleMouseButton);
-		return iReply.NativeReply;
-	}
-	return iReply.NativeReply;//Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
+	//if (InMouseEvent.GetEffectingButton() == EKeys::MiddleMouseButton || InMouseEvent.GetEffectingButton() == EKeys::MiddleMouseButton) {
+	//	iReply.NativeReply.DetectDrag(TakeWidget(), EKeys::MiddleMouseButton);
+	//	return iReply.NativeReply;
+	//}
+	//return iReply.NativeReply;//Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
+	return Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
 }
 
 bool UleeBaseButton::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
@@ -125,20 +134,17 @@ bool UleeBaseButton::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 			return false;
 
 		}
-		Droptimes++;
-		OnDropTimes.Broadcast(Droptimes);
+		//OnDropTimes.Broadcast(Droptimes);
 
 		if (ltexture2D->GetName().EndsWith(DropName)) {
 			lSetNormalFromPath(DragVisual->lNormalPath, DragVisual->lSize);
-			DropCorrecttimes++;
-			OnDropCorrect.Broadcast(DropCorrecttimes);
+			//OnDropCorrect.Broadcast(DropCorrecttimes);
 			if (lCheckStatus) lSetChecked(true);
 			return false;
 		}
 
 		//on Drop Fail
-		DropFailtimes++;
-		OnDropFail.Broadcast(DropFailtimes);
+		//OnDropFail.Broadcast(DropFailtimes);
 		if (DragObj)
 			DragObj->lSetVisibility(false);
 	}
@@ -153,7 +159,8 @@ void UleeBaseButton::NativePreConstruct()
 	lSetButtonSize(lSizeOverride);
 	lSetTextVisibility(lImageOnly);
 	lSetNormalFromPath(lNormalPath, lSizeOverride);
-	lSetUpdateSizeRule(ESlateSizeRule::Fill);
+	if(Slot)
+		lSetUpdateSizeRules(Slot,ESlateSizeRule::Fill);
 
 }
 
@@ -167,26 +174,12 @@ FReply UleeBaseButton::NativeOnTouchStarted(const FGeometry& InGeometry, const F
 	}
 
 	if (InTouchEvent.IsTouchEvent()) {
-		iReply.DetectDrag(TakeWidget(), EKeys::Steam_Touch_0);
+		iReply.DetectDrag(TakeWidget(), EKeys::LeftMouseButton);
 		lDebug("Touch....3");
 
 	}
-
-	if (InTouchEvent.IsTouchForceChangedEvent()) {
-		iReply.DetectDrag(TakeWidget(), EKeys::Steam_Touch_0);
-		lDebug("Touch....1");
-
-	}
-
-	if (InTouchEvent.IsTouchForceChangedEvent()) {
-		iReply.DetectDrag(TakeWidget(), EKeys::LeftMouseButton);
-		lDebug("Touch....1");
-
-	}
-
 	return iReply;
 }
-
 
 FEventReply UleeBaseButton::OnTouchMoved(FGeometry MyGeometry, const FPointerEvent& InTouchEvent)
 {
@@ -195,7 +188,6 @@ FEventReply UleeBaseButton::OnTouchMoved(FGeometry MyGeometry, const FPointerEve
 
 	return iReply;
 }
-
 
 void UleeBaseButton::lSetDrag(UUserWidget* DragVisual, bool isDrag)
 {
@@ -264,7 +256,6 @@ bool UleeBaseButton::lGetChecked()
 	return results;
 }
 
-
 TEnumAsByte<lSlotType> UleeBaseButton::lGetSlotType()
 {
 	TEnumAsByte<lSlotType> mSlot{};
@@ -310,22 +301,11 @@ void UleeBaseButton::lInitialized(FString ImagePath,FString &text, bool ImageOnl
 	lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OpenMap);
 }
 
-FVector2D UleeBaseButton::lGetSizeTexture(FString imgPath)
-{
-	FVector2D v2d{};
-	if (imgPath.IsEmpty()) return v2d;
-	UTexture2D* tex = lGetTextureFromPath(imgPath);
-	v2d.X = tex->GetSizeX();
-	v2d.Y = tex->GetSizeY();
-	return v2d;
-}
-
 void UleeBaseButton::OnCorrectClicked()
 {
 	lDebug("Correct Clicked.");
 	OnCorrectClick.Broadcast(GetName());
 }
-
 //change map level
 void UleeBaseButton::OpenMap()
 {
@@ -360,6 +340,11 @@ UleeBaseButton* UleeBaseButton::lCopyRef(UleeBaseButton*& other)
 	return other;
 }
 
+void UleeBaseButton::lOnListenCallback()
+{
+	lDebug("call back Touch..");
+}
+
 void UleeBaseButton::lSetNormalFromPath(FString imgPath, FVector2D normalSize)
 {
 	//if (normalSize.X > 0 || normalSize.Y > 0) WidgetStyle.Normal.ImageSize = normalSize;
@@ -375,17 +360,7 @@ void UleeBaseButton::lSetNormalFromPath(FString imgPath, FVector2D normalSize)
 	Texture->GetPathName();
 	lSetHorverFromPath(imgPath);
 	lSetPressFromPath(imgPath);
-	lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OnCorrectClicked);
-}
-
-UTexture2D* UleeBaseButton::lGetTextureFromPath(FString imgPath)
-{
-	if (imgPath.IsEmpty()) return nullptr;
-	UTexture2D* tex = LoadObject<UTexture2D>(nullptr, *imgPath);
-	if (tex);
-	else { lDebug("texture loading fail"); return nullptr; }
-	lNormalPath = tex->GetPathName();
-	return tex;
+	//lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OnCorrectClicked);
 }
 
 void UleeBaseButton::lSetHorverFromPath(FString imgPath)
@@ -449,36 +424,4 @@ void UleeBaseButton::lSetVisibility(bool visible)
 	if (GetVisibility() != state)
 		SetVisibility(state);
 
-}
-
-void UleeBaseButton::lSetUpdateSizeRule(ESlateSizeRule::Type ruleType)
-{
-	if (Slot) {
-		FString slotName = Slot->GetClass()->GetName();
-		if (slotName.StartsWith("Vertical"))
-		{
-			//lDebug("Vertical..Slot..");
-			UVerticalBoxSlot* panel = Cast<UVerticalBoxSlot>(Slot);
-			if (panel) {
-				FSlateChildSize cSize = panel->Size;
-				cSize.SizeRule = ruleType;
-				panel->SetSize(cSize);
-			}
-		}
-		else if (slotName.StartsWith("Horizontal"))
-		{
-			//lDebug("Horizontal..Slot..");
-			UHorizontalBoxSlot* panel = Cast<UHorizontalBoxSlot>(Slot);
-			if (panel) {
-
-				FSlateChildSize cSize = panel->Size;
-				cSize.SizeRule = ruleType;
-				panel->SetSize(cSize);
-			}
-
-		}
-		else {
-			lDebug("Support Only Vertical Panel and Horizontal Panel.");
-		}
-	}
 }

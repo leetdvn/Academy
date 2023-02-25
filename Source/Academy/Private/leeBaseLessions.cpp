@@ -27,11 +27,10 @@ void UleeBaseLessions::NativeDestruct()
 
 bool UleeBaseLessions::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
 {
-	UleeBaseButton* DragVisual = Cast<UleeBaseButton>(InOperation->DefaultDragVisual);
-	UleeBaseButton* DragObj = Cast<UleeBaseButton>(InOperation->Payload);
+	UleeDragWidget* DragVisual = Cast<UleeDragWidget>(InOperation->DefaultDragVisual);
+	UleeDragWidget* DragObj = Cast<UleeDragWidget>(InOperation->Payload);
 	lDebug("drop Bgr");
 	if (DragVisual) {
-		DragVisual->lSetContentSize();
 		if (DragObj)
 		{
 			if (lOnDropVisible) {
@@ -75,8 +74,7 @@ void UleeBaseLessions::InitializeAnswers(TArray<FString> correctName, FString An
 				FString randPath = "/Game/" + AnswerDir + "/" + shape[i];
 
 				//create buttons and binding Muticast DeleGate
-				UleeBaseButton* btn = lAnswersPanels[count]->lCreateButton(randPath, true, true, "", false, count + 1);
-				btn->lSetContentSize();
+				UleeDragWidget* btn = lAnswersPanels[count]->lCreateDragButton(randPath, true, true, "", count + 1);
 				btn->OnDropCorrect.AddDynamic(this, &UleeBaseLessions::OnDropCorrected);
 				btn->OnDropFail.AddDynamic(this, &UleeBaseLessions::OnDropFailure);
 				btn->OnDropTimes.AddDynamic(this, &UleeBaseLessions::OnDropTimes);
@@ -89,7 +87,7 @@ void UleeBaseLessions::InitializeAnswers(TArray<FString> correctName, FString An
 
 void UleeBaseLessions::InitializeTopic()
 {
-	if (!lTopicPanel || lPanelWidget->GetClass()->GetName().StartsWith("Scroll")) return;
+	if (lPanelWidget->GetClass()->GetName().StartsWith("Scroll")) return;
 
 	lTopicPanel->ClearButtons();
 	FString defaultPath = "AcademyAssets/Assets/Topic/Animal";
@@ -103,8 +101,7 @@ void UleeBaseLessions::InitializeTopic()
 
 	for (int i = 0; i < exceptions.Num(); i++) {
 		FString iPath = "/Game/" + defaultPath + "/" + exceptions[i];
-		UleeBaseButton* btn = lTopicPanel->lCreateButton(iPath, true, false, "", true,i+1);
-		btn->lSetContentSize();
+		UleeDragWidget* btn = lTopicPanel->lCreateDragButton(iPath, true, false, "", i+1);
 
 	}
 	InitializeAnswers(exceptions, "AcademyAssets/Assets/ChoiseAnswers/AnimalShape");
@@ -178,7 +175,7 @@ void UleeBaseLessions::OnLoadLession(int lessionId)
 	lDebug(load->lCurrentGame->lGameType, FColor::Purple, "Type");
 }
 
-void UleeBaseLessions::OnDropTimes(int times)
+void UleeBaseLessions::OnDropTimes()
 {
 	Droptimes++;
 	FString report = "Tong So Lan la : " + FString::FromInt(Droptimes);
@@ -186,13 +183,13 @@ void UleeBaseLessions::OnDropTimes(int times)
 
 }
 
-void UleeBaseLessions::OnDropFailure(int times)
+void UleeBaseLessions::OnDropFailure()
 {
 	lDebug("Tra loi sai roi");
 	DropFailtimes++;
 }
 
-void UleeBaseLessions::OnDropCorrected(int times)
+void UleeBaseLessions::OnDropCorrected()
 {
 	DropCorrecttimes++;
 	FString report = "Chuc Mung Ban Tra loi dung : " + FString::FromInt(DropCorrecttimes);

@@ -78,12 +78,21 @@ void UleePanelBase::lNewPanelImageFromFiles(FString dir, bool Hastext)
 	for (int i = 0; i < initNum; i++) {
 		if (files[i].IsEmpty()) break;
 		FString imgpath = "/Game/" + dir + "/" + files[i];
-		lCreateButton(imgpath, ImageOnly, iDrop, files[i],iDrag);
+
+		if (!iDrop && !iDrag) {
+			lCreateButton(imgpath, ImageOnly, iDrop, files[i], iDrag);
+		}
+		else {
+			lCreateDragButton(imgpath, ImageOnly, iDrop, files[i]);
+		}
 	}
-	lOverrideTextures(lTexturesOverride, lbuttons, FVector2D{ 80,80 });
-	lOverrideTextName(lTexts, lbuttons);
-	lOverridePadding(lMargin, lbuttons);
-	lCurrentDir = dir;
+
+	if (!iDrop || !iDrag) {
+		lOverrideTextures(lTexturesOverride, lbuttons, FVector2D{ 80,80 });
+		lOverrideTextName(lTexts, lbuttons);
+		lOverridePadding(lMargin, lbuttons);
+		lCurrentDir = dir;
+	}
 
 }
 
@@ -134,6 +143,15 @@ void UleePanelBase::lOverridePadding(TArray<FMargin> margins, TArray<UleeBaseBut
 		if (btns[i])	btns[i]->lSetPading(margins[i]);
 	}
 
+}
+
+void UleePanelBase::lSetAutoFill(UleeDragWidget*& btn, bool isAuto)
+{
+	//UCanvasPanelSlot* vSlot = Cast<UCanvasPanelSlot>(btn->Slot);
+	//if (vSlot) {
+	//	vSlot->SetR;
+	//	vSlot->SetHorizontalAlignment(HAlign_Fill);
+	//}
 }
 
 template<class T>
@@ -222,5 +240,22 @@ UleeBaseButton* UleePanelBase::lCreateButton(FString imgPath, bool ImgOnly, bool
 	wid->lDrop = isDrop;
 	wid->lDrag = isDrag;
 	wid->rowID = rID;
+	return wid;
+}
+
+UleeDragWidget* UleePanelBase::lCreateDragButton(FString imgPath, bool ImgOnly, bool isDrop, FString text, int32 rID)
+{
+
+	UleeDragWidget* wid = CreateWidget<UleeDragWidget>(GetWorld(), lRuntimeButton);
+
+	if (!wid) return nullptr;
+	int32 cCount = lPanelWidget->GetChildrenCount();
+	lPanelWidget->AddChild(wid);
+
+	lSetUpdateSizeRules(wid->Slot, ESlateSizeRule::Fill);
+	wid->lIsDrop = isDrop;
+	wid->lSetTexture(imgPath);
+	wid->lSetId(rID);
+
 	return wid;
 }

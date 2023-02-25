@@ -1,7 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
+#include <Components/CanvasPanelSlot.h>
+#include <Components/VerticalBoxSlot.h>
+#include <Components/ScrollBoxSlot.h>
+#include <Components/HorizontalBoxSlot.h>
+#include <Components/PanelSlot.h>
+#include "Blueprint/UserWidget.h"
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "leePublicInterface.generated.h"
@@ -80,27 +85,27 @@ public:
 	/// </summary>
 	/// <param name="directory"></param>
 	/// <returns></returns>
-	FORCEINLINE TArray<FString> lGetAllDirectory(const FString directory, bool isfile = false);
+	TArray<FString> lGetAllDirectory(const FString directory, bool isfile = false);
 
 	template<class T>
-	FORCEINLINE T* lGetAssetFromContent(FName referencePath, bool &success);
+	T* lGetAssetFromContent(FName referencePath, bool &success);
 
 	template<class T>
-	FORCEINLINE T* lGetAssetFromContent(FString referencePath,bool &success);
+	T* lGetAssetFromContent(FString referencePath,bool &success);
 
-	FORCEINLINE float lRand(float min, float max) { return FMath::RandRange(min, max); }
+	float lRand(float min, float max) { return FMath::RandRange(min, max); }
 
-	FORCEINLINE int32 lRand(int32 min, int32 max) { return FMath::RandRange(min, max-1); }
+	int32 lRand(int32 min, int32 max) { return FMath::RandRange(min, max-1); }
 
-	FORCEINLINE int64 lRand(int64 min, int64 max) { return FMath::RandRange(min, max-1); }
+	int64 lRand(int64 min, int64 max) { return FMath::RandRange(min, max-1); }
 
-	FORCEINLINE bool isNull(void* ptr, FString message);
+	bool isNull(void* ptr, FString message);
 
-	FORCEINLINE FString FindContentFromPath(FString dir, FString filename);
+	FString FindContentFromPath(FString dir, FString filename);
 
 	//FORCEINLINE TArray<FString> RemoveContentFromPath(FString dir, FString filename);
 
-	FORCEINLINE TArray<FString> FilterContentFromPath(FString dir, int32 number) ;
+	TArray<FString> FilterContentFromPath(FString dir, int32 number) ;
 
 	/// <summary>
 	/// get number files diffirent in the directory
@@ -108,8 +113,16 @@ public:
 	/// <param name="dir"></param>
 	/// <param name="exceptions"></param>
 	/// <param name="number"></param>
-	FORCEINLINE void lGetRandFilesFromDirectory(FString dir, TArray<FString> &exceptions,int32 number);
+	void lGetRandFilesFromDirectory(FString dir, TArray<FString> &exceptions,int32 number);
 
-	FORCEINLINE void lGetRandNums(TArray<int32> &nums,int length);
+	void lGetRandNums(TArray<int32> &nums,int length);
 
+
+	UTexture2D* lGetTextureFromPath(FString imgPath);
+
+	bool lFilesExists(FString iPath);
+
+	FVector2D lGetSizeTexture(FString imgPath);
+
+	void lSetUpdateSizeRules(UPanelSlot* &panelSlot, ESlateSizeRule::Type ruleType);
 };

@@ -15,18 +15,18 @@ void AleeHub::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if (!lMenuWidget) return;
+	//if (!lMenuWidget) return;
 
-	FString map = GetWorld()->GetMapName();
-	TSubclassOf<UUserWidget> panel = map.EndsWith("AMenu") ? lMenuWidget : lMove;
-	//Create Menu
-	lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), panel);
-	//add to view port
+	//FString map = GetWorld()->GetMapName();
+	//TSubclassOf<UUserWidget> panel = map.EndsWith("AMenu") ? lMenuWidget : lMove;
+	////Create Menu
+	//lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), panel);
+	////add to view port
 
-	if (lCurrentWidget) {
-		lCurrentWidget->AddToViewport();
-		GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
-	}
+	//if (lCurrentWidget) {
+	//	lCurrentWidget->AddToViewport();
+	//	GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
+	//}
 	//active Event start game
 
 	//if (lMove) {

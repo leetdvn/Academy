@@ -7,7 +7,12 @@
 		{
 			"Name": "Academy",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Paper2D",
+				"Engine",
+				"UMG"
+			]
 		}
 	]
 }

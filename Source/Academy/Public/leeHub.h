@@ -63,7 +63,6 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Test")
 		FOnGameStart lOnGStart;
-	UUserWidget* lCurrentWidget;
 
 
 #pragma endregion

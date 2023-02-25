@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "leeDragWidget.h"
 #include "leeLessionData.h"
 #include "PlayerData.h"
 #include "leeBaseButton.h"
@@ -56,10 +57,6 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Margin Pading")
 		TArray<FMargin> lMargin;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Reference")
-		UleePanelBase* lReferencePanel;
-
-
 	/// <summary>
 	/// create Button From List Dir input dir can add Image Override
 	/// </summary>
@@ -104,6 +101,8 @@ public:
 	/// </summary>
 	UleeBaseButton* lCreateButton(FString imgPath, bool ImgOnly, bool isDrop,FString text="", bool isDrag = false,int32 rID =-1);
 
+	UleeDragWidget* lCreateDragButton(FString imgPath, bool ImgOnly, bool isDrop, FString text = "", int32 rID = -1);
+
 	//void OnDragDetected() override;
 #pragma endregion
 
@@ -127,6 +126,7 @@ protected:
 
 	bool lExistsDirectory(FString dir) {return FPaths::DirectoryExists(FPaths::ProjectContentDir() + dir);}
 
+	virtual void lSetAutoFill(UleeDragWidget*& btn, bool isAuto);
 	/// <summary>
 	/// create button add to panel
 	/// </summary>

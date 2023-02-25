@@ -96,13 +96,13 @@ public:
 		void OnLoadLession(int lessionId);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnDropFailure(int times);
+		void OnDropFailure();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnDropCorrected(int times);
+		void OnDropCorrected();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnDropTimes(int times);
+		void OnDropTimes();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void InitializeTopic();
@@ -123,9 +123,9 @@ protected:
 
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 
-	int32 Droptimes;
-	int32 DropCorrecttimes;
-	int32 DropFailtimes;
+	int Droptimes;
+	int DropCorrecttimes;
+	int DropFailtimes;
 
 
 	/// <summary>

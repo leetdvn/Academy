@@ -4,7 +4,6 @@
 #include "leePublicInterface.h"
 #include <AssetRegistry/AssetRegistryModule.h>
 #include "HAL/FileManagerGeneric.h"
-#include <Components/CanvasPanelSlot.h>
 
 
 // Add default functionality here for any IleeInterface functions that are not pure virtual.
@@ -209,6 +208,66 @@ void IleePublicInterface::lGetRandNums(TArray<int32>& nums, int length)
 		lDebug(rand);
 	}
 	if (nums.Num() < length) return lGetRandNums(nums, length);
+}
+
+UTexture2D* IleePublicInterface::lGetTextureFromPath(FString imgPath)
+{
+	if (imgPath.IsEmpty()) return nullptr;
+	UTexture2D* tex = LoadObject<UTexture2D>(nullptr, *imgPath);
+	if (tex) return tex;
+
+	lDebug("texture loading fail");
+	return nullptr;
+}
+
+bool IleePublicInterface::lFilesExists(FString iPath)
+{
+	FString path = FPaths::ProjectContentDir() + iPath;
+
+	return FPaths::FileExists(path);
+}
+
+FVector2D IleePublicInterface::lGetSizeTexture(FString imgPath)
+{
+	FVector2D v2d{};
+	if (imgPath.IsEmpty()) return v2d;
+	UTexture2D* tex = lGetTextureFromPath(imgPath);
+	v2d.X = tex->GetSizeX();
+	v2d.Y = tex->GetSizeY();
+	return v2d;
+
+}
+
+void IleePublicInterface::lSetUpdateSizeRules(UPanelSlot*&panelSlot, ESlateSizeRule::Type ruleType)
+{
+	if (panelSlot == nullptr) return;
+
+	FString slotName = panelSlot->GetClass()->GetName();
+	if (slotName.StartsWith("Vertical"))
+	{
+		//lDebug("Vertical..Slot..");
+		UVerticalBoxSlot* panel = Cast<UVerticalBoxSlot>(panelSlot);
+		if (panel) {
+			FSlateChildSize cSize = panel->Size;
+			cSize.SizeRule = ruleType;
+			panel->SetSize(cSize);
+		}
+	}
+	else if (slotName.StartsWith("Horizontal"))
+	{
+		//lDebug("Horizontal..Slot..");
+		UHorizontalBoxSlot* panel = Cast<UHorizontalBoxSlot>(panelSlot);
+		if (panel) {
+
+			FSlateChildSize cSize = panel->Size;
+			cSize.SizeRule = ruleType;
+			panel->SetSize(cSize);
+		}
+
+	}
+	else {
+		//lDebug("Support Only Vertical Panel and Horizontal Panel.");
+	}
 }
 
 bool IleePublicInterface::lMapExists(FString mapname)
