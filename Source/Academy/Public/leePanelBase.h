@@ -47,6 +47,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Panel Type")
 		TEnumAsByte<PanelType> lpaneltype;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Game Type")
+		TEnumAsByte<lGameType> ltypeofgame;
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Quantity Override")
 		int lQuantityOverride;
 
@@ -56,6 +59,7 @@ public:
 		bool iDrag;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Drop")
 		bool iDrop;
+
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Margin Pading")
 		TArray<FMargin> lMargin;

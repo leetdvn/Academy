@@ -20,8 +20,8 @@ enum AgeType {
 
 UENUM(BlueprintType)
 enum lGameType {
-
-	Threelines UMETA(DisplayName = "Three Row"),
+	None UMETA(DisplayName = "None"),
+	Threelines UMETA(DisplayName = "Three Lines"),
 	FourBox UMETA(DisplayName = "Four Box"),
 	DragDrop UMETA(DisplayName = "Drag Drop"),
 	Line2Column UMETA(DisplayName = "Shape"),

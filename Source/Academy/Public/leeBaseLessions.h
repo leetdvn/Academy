@@ -75,7 +75,7 @@ public:
 		UleeLessionData* lData;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Lession Type")
-		TEnumAsByte<lGameType> llessiontype;
+		TEnumAsByte<lGameType> lgametype;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
 		TEnumAsByte<lTopicType> ltopictype;
@@ -85,9 +85,6 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 		FOnCompletedGame OnCorrectClick;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
-		bool lOnDropVisible;
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnSaving();
@@ -105,7 +102,7 @@ public:
 		void OnDropTimes();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void InitializeTopic();
+		void InitializeThreeLineopic(TEnumAsByte<lGameType> igametype=None);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void InitializeAnswers(TArray<FString> correctName, FString AnswerDir="");
@@ -127,6 +124,7 @@ protected:
 	int32 DropCorrecttimes;
 	int32 DropFailtimes;
 
+	bool lOnDropVisible;
 
 	/// <summary>
 	/// implant Choise Answer

@@ -46,6 +46,7 @@ FReply UleeDragWidget::NativeOnTouchStarted(const FGeometry& InGeometry, const F
 
 	if (InTouchEvent.IsTouchEvent()) {
 		iReply.NativeReply.DetectDrag(TakeWidget(), EKeys::LeftMouseButton);
+
 		//lDebug("Touching Drag Widget");
 		return iReply.NativeReply;
 	}
@@ -93,7 +94,6 @@ void UleeDragWidget::lInitializeDefault(FString ipath)
 			lPanelSlot->SetPosition(FVector2D{ 0,0 });
 			FVector2D v2D = lGetSizeTexture(ipath);
 			// do mobile specific stuff
-			currenRes = lFitResolutons();
 			lDragImage->SetBrushSize(v2D);
 			sizeRes = v2D;
 			lDragImage->SetBrushSize(sizeRes);

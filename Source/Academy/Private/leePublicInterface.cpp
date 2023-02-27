@@ -274,8 +274,10 @@ FVector2D IleePublicInterface::lScreenResolution()
 {
 	FVector2D viewportSize{};
 	if (GEngine) {
+#if !WITH_EDITOR
 		GEngine->GameViewport->GetViewportSize(viewportSize);
 		return viewportSize;
+#endif
 	}
 	return viewportSize;
 }

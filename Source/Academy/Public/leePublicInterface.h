@@ -126,7 +126,7 @@ public:
 
 	void lSetUpdateSizeRules(UPanelSlot* &panelSlot, ESlateSizeRule::Type ruleType);
 
-	bool lExistsDirectory(FString &dir) { return FPaths::DirectoryExists(FPaths::ProjectContentDir() + dir); }
+	bool lExistsDirectory(FString& dir) {  return FPaths::DirectoryExists(FPaths::ProjectContentDir() + dir); }
 
 	const FVector2D lbaseScreenXY =FVector2D(768,1024);
 	const int lbaseScreenX = 768;

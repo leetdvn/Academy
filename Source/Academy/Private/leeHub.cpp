@@ -18,16 +18,23 @@ void AleeHub::BeginPlay()
 	if (!lMenuWidget) return;
 
 	FString map = GetWorld()->GetMapName();
-	TSubclassOf<UUserWidget> panel = map.EndsWith("AMenu") ? lMenuWidget : lLession;
+	TSubclassOf<UUserWidget> panel;// = map.EndsWith("AMenu") ? lMenuWidget : lThreeLine;
+
+	if (map.EndsWith("AMenu"))
+		panel = lMenuWidget;
+	else if (map.EndsWith("ThreeLines"))
+		panel = lThreeLine;
+	else if (map.EndsWith("AlphaBet"))
+		panel = lFourBox;
 	//Create Menu
+	if (!panel) return;
 	lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), panel);
 	//add to view port
 
 	if (lCurrentWidget) {
 		lCurrentWidget->AddToViewport();
-		GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
-		FVector2D resolution = lScreenResolution();
-		UIleeDelegate::OnResolutionChanged.Broadcast(resolution);
+		//GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
+		//FVector2D resolution = lScreenResolution();
 	}
 	//active Event start game
 

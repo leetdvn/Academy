@@ -82,6 +82,9 @@ public:
 		void lSetText(FString newtext);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		FString lGetText() { return ltextblock->GetText().ToString(); };
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetTextVisibility(bool visible);
 	
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
@@ -118,12 +121,17 @@ public:
 	UFUNCTION()
 		void lOnListenCallback();
 
+	UFUNCTION()
+		void lReplyFourBox();
+
 #pragma endregion
 	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 	template<class T>
 	void lSetRules(ESlateSizeRule::Type nRules);
 
-	virtual void lInitialized(FString ImagePath, FString& text, bool ImageOnly = false);
+	virtual void lInitialized(FString ImagePath, FString& text, bool ImageOnly = false,TEnumAsByte<lGameType> gametype=None);
+
+	virtual void lDynamicGameType(TEnumAsByte<lGameType> gametype);
 
 	virtual UTexture2D* lGetTextureButton() { return ltexture2D; }
 	int32 rowID;

@@ -34,7 +34,10 @@ public:
 	TSubclassOf<UUserWidget> lMenuWidget;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
-		TSubclassOf<UUserWidget> lLession;
+		TSubclassOf<UUserWidget> lThreeLine;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
+		TSubclassOf<UUserWidget> lFourBox;
 
 	/// <summary>
 	/// Widget ingame list

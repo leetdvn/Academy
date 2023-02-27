@@ -102,7 +102,7 @@ void UleePanelBase::lInitializePanels(FString dir, TEnumAsByte<PanelType> panel,
 		lDebug("current load this", FColor::Green, "Current Panels.");
 		return;
 	}
-	if (lPanelWidget->HasAnyChildren()) ClearButtons();
+	//if (lPanelWidget->HasAnyChildren()) ClearButtons();
 	switch (panel)
 	{
 	case Files: return lNewPanelImageFromFiles(dir, Hastext);
@@ -193,14 +193,14 @@ void UleePanelBase::lInitializeChoiseAnswer(FString dir, FString ref)
 void UleePanelBase::NativePreConstruct()
 {
 	if (!lExistsDirectory(lDirectory)) return;
-
+	
 	//preview UI
 	lInitializePanels(lDirectory, lpaneltype, ImageOnly);
-	lStaticImage.Empty(0);
-	for (auto& i : lPanelWidget->GetAllChildren()) {
-		UImage* img = Cast<UImage>(i);
-		if (img) lStaticImage.AddUnique(img);
-	}
+
+	//for (auto& i : lPanelWidget->GetAllChildren()) {
+	//	UImage* img = Cast<UImage>(i);
+	//	if (img) lStaticImage.AddUnique(img);
+	//}
 
 }
 
@@ -231,11 +231,14 @@ void UleePanelBase::ClearButtons()
 UleeBaseButton* UleePanelBase::lCreateNormalButton(FString imgPath, bool ImgOnly, FString text,int32 rID)
 {
 	UleeBaseButton* wid = CreateWidget<UleeBaseButton>(GetWorld(), lRuntimeButton);
-	if (!wid) return nullptr;
+	if (!wid) {
+		lDebug("null Base Button");
+		return nullptr;
+	}
 	//------------------------------------
 	int32 cCount = lPanelWidget->GetChildrenCount(); 
 	lPanelWidget->AddChild(wid);
-
+	lSetUpdateSizeRules(wid->Slot, ESlateSizeRule::Fill);
 	wid->lInitialized(imgPath, text, ImgOnly);
 	wid->lSetTextVisibility(ImgOnly);
 	lbuttons.Add(wid);
@@ -248,7 +251,11 @@ UleeDragWidget* UleePanelBase::lCreateDragButton(FString imgPath, bool ImgOnly, 
 
 	UleeDragWidget* wid = CreateWidget<UleeDragWidget>(GetWorld(), lRuntimeButton);
 
-	if (!wid) return nullptr;
+	if (!wid) {
+		lDebug("null Drag Button");
+		return nullptr;
+	}
+
 	int32 cCount = lPanelWidget->GetChildrenCount();
 	lPanelWidget->AddChild(wid);
 

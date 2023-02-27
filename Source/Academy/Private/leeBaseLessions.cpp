@@ -16,7 +16,7 @@ void UleeBaseLessions::NativeConstruct()
 {
 	//binding event drop for answers
 	//load tabale data from path
-	InitializeTopic();
+	InitializeThreeLineopic(Threelines);
 
 
 }
@@ -85,11 +85,14 @@ void UleeBaseLessions::InitializeAnswers(TArray<FString> correctName, FString An
 	}
 }
 
-void UleeBaseLessions::InitializeTopic()
+void UleeBaseLessions::InitializeThreeLineopic(TEnumAsByte<lGameType> igametype)
 {
 	if (lPanelWidget->GetClass()->GetName().StartsWith("Scroll")) return;
+	if (igametype != Threelines) return;
 
-	lTopicPanel->ClearButtons();
+	// case has child
+	if(lTopicPanel->ltypeofgame==Threelines)
+		lTopicPanel->ClearButtons();
 	FString defaultPath = "AcademyAssets/Assets/Topic/Animal";
 	FString path = FPaths::ProjectContentDir() + defaultPath;
 	TArray<FString> ref{}, exceptions{};
@@ -100,7 +103,7 @@ void UleeBaseLessions::InitializeTopic()
 	}
 
 	for (int i = 0; i < exceptions.Num(); i++) {
-		FString iPath = "/Game/" + defaultPath + "/" + exceptions[i];
+		FString iPath = "/Game/" + defaultPath + "/" + exceptions[i] ;
 		UleeDragWidget* btn = lTopicPanel->lCreateDragButton(iPath, true, false, "", i+1);
 
 	}

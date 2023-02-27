@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include <PaperSprite.h>
 #include "Components/CanvasPanelSlot.h"
 #include "Components/Image.h"
 #include "leePublicInterface.h"
@@ -100,6 +101,9 @@ protected:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Path")
 		FString lImagePath;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Path")
+		UPaperSprite* lSprite;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Default Path")
 		FString lImageDefault;

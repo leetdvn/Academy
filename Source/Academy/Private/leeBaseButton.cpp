@@ -159,7 +159,7 @@ void UleeBaseButton::lSetRules(ESlateSizeRule::Type nRules)
 	}
 }
 
-void UleeBaseButton::lInitialized(FString ImagePath,FString &text, bool ImageOnly)
+void UleeBaseButton::lInitialized(FString ImagePath,FString &text, bool ImageOnly, TEnumAsByte<lGameType> gametype)
 {
 	//init text size may be not need
 	lSetTextFont(ltextsize);
@@ -176,7 +176,35 @@ void UleeBaseButton::lInitialized(FString ImagePath,FString &text, bool ImageOnl
 	lNormalPath = ImagePath;
 
 	//lDebug(ltextsize);
-	lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OpenMap);
+	if (lButton)
+		lDynamicGameType(gametype);
+}
+
+void UleeBaseButton::lDynamicGameType(TEnumAsByte<lGameType> gametype)
+{
+	if (!lButton) return;
+
+	switch (gametype)
+	{
+	case None:
+		lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OpenMap);
+		break;
+	case Threelines:
+		//btn->lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OpenMap);
+		break;
+	case FourBox:
+		lButton->OnClicked.AddDynamic(this, &UleeBaseButton::lReplyFourBox);
+		break;
+	case DragDrop:
+		//lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OpenMap);
+		break;
+	case Line2Column:
+		//lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OpenMap);
+		break;
+	case AlphaBet:
+		//lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OpenMap);
+		break;
+	}
 }
 
 void UleeBaseButton::OnCorrectClicked()
@@ -189,13 +217,13 @@ void UleeBaseButton::OpenMap()
 {
 	//
 	FString CurrentMap = GetWorld()->GetMapName();
-	FString newMap = "ThreeLines";
+	FString newMap = ltexture2D->GetName() == "count" ? "AlphaBet" :  "ThreeLines";
 	if (CurrentMap.EndsWith(newMap) || !lMapExists(newMap)) return;
 	//lDebug(CurrentMap);
 	//TArray<FString> maps= lGetAllMapNames();
 	//for (auto m : maps)
 	//	if(!m.StartsWith("UEDPIE_0"))lDebug(m);
-	UGameplayStatics::OpenLevel(GetWorld(),TEXT("ThreeLines"));
+	UGameplayStatics::OpenLevel(GetWorld(),FName(*newMap));
 }
 
 UleeBaseButton* UleeBaseButton::lCopyRef(UleeBaseButton*& other)
@@ -221,6 +249,12 @@ UleeBaseButton* UleeBaseButton::lCopyRef(UleeBaseButton*& other)
 void UleeBaseButton::lOnListenCallback()
 {
 	lDebug("call back Touch..");
+}
+
+void UleeBaseButton::lReplyFourBox()
+{
+	FString answer = " answer : " + lGetText();
+	lDebug(answer);
 }
 
 void UleeBaseButton::lSetNormalFromPath(FString imgPath, FVector2D normalSize)
