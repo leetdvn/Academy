@@ -4,6 +4,7 @@
 #include <Components/Image.h>
 #include "leePublicInterface.h"
 #include "CoreMinimal.h"
+#include "UILeeDelegate.h"
 #include "GameFramework/HUD.h"
 #include "leeHub.generated.h"
 
@@ -33,7 +34,7 @@ public:
 	TSubclassOf<UUserWidget> lMenuWidget;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
-		TSubclassOf<UUserWidget> lMove;
+		TSubclassOf<UUserWidget> lLession;
 
 	/// <summary>
 	/// Widget ingame list
@@ -78,5 +79,6 @@ protected:
 	LevelChanged onlevelChanged;
 
 	UUserWidget* lMoveButton;
+	UUserWidget* lCurrentWidget;
 
 };

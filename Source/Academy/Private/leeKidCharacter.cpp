@@ -103,18 +103,18 @@ void AleeKidCharacter::Tick(float DeltaSeconds)
 void AleeKidCharacter::BeginPlay()
 {
 
-	if (!lMenuWidget) return;
+	//if (!lMenuWidget) return;
 
-	FString map = GetWorld()->GetMapName();
-	TSubclassOf<UUserWidget> panel = map.EndsWith("AMenu") ? lMenuWidget : lLession;
-	//Create Menu
-	lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), panel);
-	//add to view port
+	//FString map = GetWorld()->GetMapName();
+	//TSubclassOf<UUserWidget> panel = map.EndsWith("AMenu") ? lMenuWidget : lLession;
+	////Create Menu
+	//lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), panel);
+	////add to view port
 
-	if (lCurrentWidget) {
-		lCurrentWidget->AddToViewport();
-		//ShowScreen<UUserWidget>(lCurrentWidget);
-	}
+	//if (lCurrentWidget) {
+	//	lCurrentWidget->AddToViewport();
+	//	//ShowScreen<UUserWidget>(lCurrentWidget);
+	//}
 
 }
 

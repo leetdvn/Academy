@@ -125,4 +125,14 @@ public:
 	FVector2D lGetSizeTexture(FString imgPath);
 
 	void lSetUpdateSizeRules(UPanelSlot* &panelSlot, ESlateSizeRule::Type ruleType);
+
+	bool lExistsDirectory(FString &dir) { return FPaths::DirectoryExists(FPaths::ProjectContentDir() + dir); }
+
+	const FVector2D lbaseScreenXY =FVector2D(768,1024);
+	const int lbaseScreenX = 768;
+	const int lbaseScreenY = 1024;
+
+	FVector2D lScreenResolution();
+
+	FVector2D lFitResolutons();
 };

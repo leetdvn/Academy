@@ -46,7 +46,7 @@ void UleePanelBase::lNewPanelImageFromDir(FString dir, bool Hastext)
 	for (auto& f : folders) {
 		if (f.IsEmpty()) break;
 		FString imgpath = "/Game/" + lDirectory + "/" + f;
-		lCreateButton(imgpath, ImageOnly, iDrop, f, iDrag);
+		lCreateNormalButton(imgpath, ImageOnly,  f);
 
 		//UleeBaseButton* wid = CreateWidget<UleeBaseButton>(GetWorld(), lRuntimeButton);
 		//if (wid) {
@@ -80,7 +80,7 @@ void UleePanelBase::lNewPanelImageFromFiles(FString dir, bool Hastext)
 		FString imgpath = "/Game/" + dir + "/" + files[i];
 
 		if (!iDrop && !iDrag) {
-			lCreateButton(imgpath, ImageOnly, iDrop, files[i], iDrag);
+			lCreateNormalButton(imgpath, ImageOnly, files[i]);
 		}
 		else {
 			lCreateDragButton(imgpath, ImageOnly, iDrop, files[i]);
@@ -145,15 +145,6 @@ void UleePanelBase::lOverridePadding(TArray<FMargin> margins, TArray<UleeBaseBut
 
 }
 
-void UleePanelBase::lSetAutoFill(UleeDragWidget*& btn, bool isAuto)
-{
-	//UCanvasPanelSlot* vSlot = Cast<UCanvasPanelSlot>(btn->Slot);
-	//if (vSlot) {
-	//	vSlot->SetR;
-	//	vSlot->SetHorizontalAlignment(HAlign_Fill);
-	//}
-}
-
 template<class T>
 T* UleePanelBase::lExistsWidget(UPanelWidget* Parent, FString& name, bool status)
 {
@@ -181,6 +172,11 @@ T* UleePanelBase::lExistsWidget(UPanelWidget* Parent, FString& name, bool status
 void UleePanelBase::NativeConstruct()
 {
 	
+	if (!lExistsDirectory(lDirectory)) return;
+
+	//preview UI
+	lInitializePanels(lDirectory, lpaneltype, ImageOnly);
+
 	//FString folder = FPaths::ProjectContentDir() +lDirectory;
 	//FString convert = FPaths::ConvertRelativePathToFull("/Game/AcademyAssets/leetdvn/sapxep");
 	//lDebug(convert,FColor::Cyan,"Native Panel ");
@@ -199,7 +195,13 @@ void UleePanelBase::NativePreConstruct()
 	if (!lExistsDirectory(lDirectory)) return;
 
 	//preview UI
-	lInitializePanels(lDirectory,lpaneltype , ImageOnly);
+	lInitializePanels(lDirectory, lpaneltype, ImageOnly);
+	lStaticImage.Empty(0);
+	for (auto& i : lPanelWidget->GetAllChildren()) {
+		UImage* img = Cast<UImage>(i);
+		if (img) lStaticImage.AddUnique(img);
+	}
+
 }
 
 UleeBaseButton* UleePanelBase::lGetButton(int idx)
@@ -226,7 +228,7 @@ void UleePanelBase::ClearButtons()
 	}
 }
 
-UleeBaseButton* UleePanelBase::lCreateButton(FString imgPath, bool ImgOnly, bool isDrop, FString text,bool isDrag,int32 rID)
+UleeBaseButton* UleePanelBase::lCreateNormalButton(FString imgPath, bool ImgOnly, FString text,int32 rID)
 {
 	UleeBaseButton* wid = CreateWidget<UleeBaseButton>(GetWorld(), lRuntimeButton);
 	if (!wid) return nullptr;
@@ -237,8 +239,6 @@ UleeBaseButton* UleePanelBase::lCreateButton(FString imgPath, bool ImgOnly, bool
 	wid->lInitialized(imgPath, text, ImgOnly);
 	wid->lSetTextVisibility(ImgOnly);
 	lbuttons.Add(wid);
-	wid->lDrop = isDrop;
-	wid->lDrag = isDrag;
 	wid->rowID = rID;
 	return wid;
 }

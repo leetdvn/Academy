@@ -123,9 +123,9 @@ protected:
 
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 
-	int Droptimes;
-	int DropCorrecttimes;
-	int DropFailtimes;
+	int32 Droptimes;
+	int32 DropCorrecttimes;
+	int32 DropFailtimes;
 
 
 	/// <summary>

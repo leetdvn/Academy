@@ -39,9 +39,6 @@ UleeBaseButton::UleeBaseButton(const FObjectInitializer& ObjectInitializer)
 {
 	if (this != nullptr)
 		ins = this;
-	//bCanChildrenBeAccessible = true;
-	//bCreatedByConstructionScript = true;
-	//UTextBlock* t = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass());
 }
 
 void UleeBaseButton::NativeConstruct()
@@ -53,11 +50,6 @@ void UleeBaseButton::NativeConstruct()
 	FOnInputAction abc;
 	ListenForInputAction("Touching", EInputEvent::IE_Pressed, true,abc);
 }
-
-//void UleeBaseButton::ListenForInputAction(FName ActionName, TEnumAsByte<EInputEvent> EventType, bool bConsume, FOnInputAction Callback)
-//{
-//	lDebug("Listening");
-//}
 
 void UleeBaseButton::NativeDestruct()
 {
@@ -73,120 +65,6 @@ void UleeBaseButton::NativeOnInitialized()
 	//	lDrop = !lDrag;
 	//lDebug("OnInitialized debug.. ", FColor::Purple, "Native :");
 
-}
-
-void UleeBaseButton::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
-{
-	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
-
-	if (!lDrag) return;
-
-	//lDebug("Mouse On Drag.... ", FColor::Blue, "Native :");
-	if (lWidgetVisual && lDragVisual) {
-		UleeBaseButton* WidgetVisual = CreateWidget<UleeBaseButton>(this, lWidgetVisual);
-		WidgetVisual=lCopyRef(ins);
-	
-		WidgetVisual->lButton=this->lButton;// = *&this->lButton;
-		WidgetVisual->ltextblock->SetText(FText::FromString(""));
-		//WidgetVisual->rowID = rowID;
-		//WidgetVisual->lSetButtonSize(iSize);
-
-		UDragDropOperation* DragVisual = NewObject<UDragDropOperation>(this, lDragVisual);
-		DragVisual->Payload = this;// lGetTextureFromPath(lNormalPath);
-		DragVisual->DefaultDragVisual = WidgetVisual;
-		DragVisual->Pivot = EDragPivot::CenterCenter;
-		OutOperation = DragVisual;
-		lSetVisibility(true);
-	}
-
-}
-
-FReply UleeBaseButton::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
-{
-	//FEventReply iReply = UWidgetBlueprintLibrary::DetectDragIfPressed(InMouseEvent,this,EKeys::MiddleMouseButton);
-	////Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
-	//if (InMouseEvent.IsTouchEvent())
-	//{
-	//	iReply.NativeReply.DetectDrag(TakeWidget(), EKeys::LeftMouseButton);
-	//	lDebug("mouse touching.");
-	//}
-
-	//if (InMouseEvent.GetEffectingButton() == EKeys::MiddleMouseButton || InMouseEvent.GetEffectingButton() == EKeys::MiddleMouseButton) {
-	//	iReply.NativeReply.DetectDrag(TakeWidget(), EKeys::MiddleMouseButton);
-	//	return iReply.NativeReply;
-	//}
-	//return iReply.NativeReply;//Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
-	return Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
-}
-
-bool UleeBaseButton::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
-{
-	if (!lDrop) return false;
-	UIleeDelegate::OnCorrectDrop.Broadcast(InOperation);
-	UleeBaseButton* DragVisual = Cast<UleeBaseButton>(InOperation->DefaultDragVisual);
-	if (DragVisual) {
-		DragVisual->lSetContentSize();
-		UleeBaseButton* DragObj = Cast<UleeBaseButton>(InOperation->Payload);
-		FString DropName= DragVisual->lGetTextureButton()->GetName();
-		if (DragVisual->rowID != rowID  || DropName == lGetTextureButton()->GetName()) {
-			if (DragObj)
-				DragObj->lSetVisibility(false);
-			return false;
-
-		}
-		//OnDropTimes.Broadcast(Droptimes);
-
-		if (ltexture2D->GetName().EndsWith(DropName)) {
-			lSetNormalFromPath(DragVisual->lNormalPath, DragVisual->lSize);
-			//OnDropCorrect.Broadcast(DropCorrecttimes);
-			if (lCheckStatus) lSetChecked(true);
-			return false;
-		}
-
-		//on Drop Fail
-		//OnDropFail.Broadcast(DropFailtimes);
-		if (DragObj)
-			DragObj->lSetVisibility(false);
-	}
-
-	return false;
-
-}
-
-void UleeBaseButton::NativePreConstruct()
-{
-	lSetTextFont(ltextsize);
-	lSetButtonSize(lSizeOverride);
-	lSetTextVisibility(lImageOnly);
-	lSetNormalFromPath(lNormalPath, lSizeOverride);
-	if(Slot)
-		lSetUpdateSizeRules(Slot,ESlateSizeRule::Fill);
-
-}
-
-FReply UleeBaseButton::NativeOnTouchStarted(const FGeometry& InGeometry, const FPointerEvent& InTouchEvent)
-{
-	FReply iReply = Super::NativeOnTouchStarted(InGeometry, InTouchEvent);
-	if (InTouchEvent.IsTouchEvent()) {
-		iReply.DetectDrag(TakeWidget(), EKeys::LeftMouseButton);
-		lDebug("Touch....2");
-
-	}
-
-	if (InTouchEvent.IsTouchEvent()) {
-		iReply.DetectDrag(TakeWidget(), EKeys::LeftMouseButton);
-		lDebug("Touch....3");
-
-	}
-	return iReply;
-}
-
-FEventReply UleeBaseButton::OnTouchMoved(FGeometry MyGeometry, const FPointerEvent& InTouchEvent)
-{
-	FEventReply iReply = Super::OnTouchMoved(MyGeometry, InTouchEvent);
-	lDebug("toouch...");
-
-	return iReply;
 }
 
 void UleeBaseButton::lSetDrag(UUserWidget* DragVisual, bool isDrag)

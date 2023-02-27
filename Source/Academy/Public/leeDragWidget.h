@@ -89,6 +89,9 @@ protected:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Drag Image", meta = (BindWidget))
 		UImage* lDragImage;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Status Image", meta = (BindWidget))
+		UImage* lStatusImage;
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Drag Drop Operation")
 		TSubclassOf<UDragDropOperation> lDragSubOperation;
 
@@ -100,7 +103,6 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Default Path")
 		FString lImageDefault;
-
 
 private:
 

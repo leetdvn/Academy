@@ -270,6 +270,22 @@ void IleePublicInterface::lSetUpdateSizeRules(UPanelSlot*&panelSlot, ESlateSizeR
 	}
 }
 
+FVector2D IleePublicInterface::lScreenResolution()
+{
+	FVector2D viewportSize{};
+	if (GEngine) {
+		GEngine->GameViewport->GetViewportSize(viewportSize);
+		return viewportSize;
+	}
+	return viewportSize;
+}
+
+FVector2D IleePublicInterface::lFitResolutons()
+{
+	FVector2D v2D = lScreenResolution();
+	return lScreenResolution() / lbaseScreenXY;
+}
+
 bool IleePublicInterface::lMapExists(FString mapname)
 {
 #pragma omp parallel for

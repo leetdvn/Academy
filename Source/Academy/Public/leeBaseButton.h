@@ -53,18 +53,6 @@ public:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Runtime", DisplayName = "Image Only")
 		bool lImageOnly;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Native Construction", DisplayName = "Drag Drop Operation")
-		TSubclassOf<UDragDropOperation> lDragVisual;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Native Construction", DisplayName = "WidgetVisual")
-		TSubclassOf<UUserWidget> lWidgetVisual;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Native Construction", DisplayName = "Make Drag")
-		bool lDrag;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Native Construction", DisplayName = "Make Drop")
-		bool lDrop;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Runtime", DisplayName = "Text Block", meta = (BindWidget))
 		UTextBlock* ltextblock;
@@ -98,9 +86,6 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetVisibility(bool visible);
-
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void lSetDrop(bool isDrop) { lDrop = isDrop; };
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetDrag(UUserWidget* DragVisual, bool isDrag);
@@ -154,36 +139,6 @@ protected:
 /// </summary>
 	virtual void NativeOnInitialized() override;
 
-	/// <summary>
-	/// Detected Mouse Drag...
-	/// </summary>
-	/// <param name="InGeometry"></param>
-	/// <param name="InMouseEvent"></param>
-	/// <param name="OutOperation"></param>
-	virtual void NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation) override;
-
-	/// <summary>
-	/// lee Mouse Button Drown Event
-	/// </summary>
-	/// <param name="InGeometry"></param>
-	/// <param name="InMouseEvent"></param>
-	/// <returns></returns>
-	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
-
-	/// <summary>
-	/// lee Native Drop Event
-	/// </summary>
-	/// <param name="InGeometry"></param>
-	/// <param name="InDragDropEvent"></param>
-	/// <param name="InOperation"></param>
-	/// <returns></returns>
-	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
-
-	virtual void NativePreConstruct() override;
-
-	virtual FReply NativeOnTouchStarted(const FGeometry& InGeometry, const FPointerEvent& InTouchEvent) override;
-
-	 FEventReply OnTouchMoved(FGeometry MyGeometry, const FPointerEvent& InTouchEvent);;
 	/// <summary>
 	/// get Texture from Path file  // example   : /Game/you folder/texture name
 	/// </summary>

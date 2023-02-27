@@ -41,6 +41,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Text Override")
 		TArray<FString> lTexts;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Static Image")
+		TArray<UImage*> lStaticImage;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Panel Type")
 		TEnumAsByte<PanelType> lpaneltype;
 
@@ -99,7 +102,7 @@ public:
 	/// <summary>
 	/// create button add to panels
 	/// </summary>
-	UleeBaseButton* lCreateButton(FString imgPath, bool ImgOnly, bool isDrop,FString text="", bool isDrag = false,int32 rID =-1);
+	UleeBaseButton* lCreateNormalButton(FString imgPath, bool ImgOnly, FString text="",int32 rID =-1);
 
 	UleeDragWidget* lCreateDragButton(FString imgPath, bool ImgOnly, bool isDrop, FString text = "", int32 rID = -1);
 
@@ -123,13 +126,6 @@ protected:
 	void lOverrideTextures(TArray<UTexture2D*> textures, TArray<UleeBaseButton*> btns, FVector2D size);
 
 	void lOverridePadding(TArray<FMargin> margin, TArray<UleeBaseButton*> btns);
-
-	bool lExistsDirectory(FString dir) {return FPaths::DirectoryExists(FPaths::ProjectContentDir() + dir);}
-
-	virtual void lSetAutoFill(UleeDragWidget*& btn, bool isAuto);
-	/// <summary>
-	/// create button add to panel
-	/// </summary>
 
 	UleePanelBase* ins;
 private:

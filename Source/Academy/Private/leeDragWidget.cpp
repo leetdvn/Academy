@@ -16,7 +16,6 @@ void UleeDragWidget::NativePreConstruct()
 	if (!lFilesExists(lImagePath)) lInitializeDefault(lImageDefault);
 
 	lInitializeDefault(lImagePath);
-
 }
 
 void UleeDragWidget::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
@@ -27,15 +26,15 @@ void UleeDragWidget::NativeOnDragDetected(const FGeometry& InGeometry, const FPo
 	//lDebug("Touching Detected");
 	if (!lDragSubVisual || !lDragSubOperation) return;
 
-	UleeDragWidget* WidgetVisual = CreateWidget<UleeDragWidget>(this, lDragSubVisual);
+	UleeDragWidget* WidgetVisual = CreateWidget<UleeDragWidget>(GetWorld(), lDragSubVisual);
 	WidgetVisual->lSetTexture(ltexture);
 	WidgetVisual->lIdname = lIdname;
 	//WidgetVisual->lSetButtonSize(iSize);
 
-	UDragDropOperation* DragVisual = NewObject<UDragDropOperation>(this, lDragSubOperation);
+	UDragDropOperation* DragVisual = NewObject<UDragDropOperation>(GetWorld(), lDragSubOperation);
+	DragVisual->Pivot = EDragPivot::CenterCenter;
 	DragVisual->Payload = this;// lGetTextureFromPath(lNormalPath);
 	DragVisual->DefaultDragVisual = WidgetVisual;
-	DragVisual->Pivot = EDragPivot::CenterCenter;
 	OutOperation = DragVisual;
 	SetVisibility(ESlateVisibility::Hidden);
 }
@@ -65,6 +64,7 @@ bool UleeDragWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 		if (ltexture->GetName().EndsWith(DropName) && DragVisual->lIdname == lIdname) {
 			lSetTexture(DragVisual->ltexture);
 			OnDropCorrect.Broadcast();
+			lStatusImage->SetVisibility(ESlateVisibility::Visible);
 			return false;
 		}
 		if (DragObj)
@@ -78,8 +78,10 @@ bool UleeDragWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 
 void UleeDragWidget::lInitializeDefault(FString ipath)
 {
+	FVector2D currenRes, sizeRes;
 	UTexture2D* tex2D = lGetTextureFromPath(ipath);
 	if (tex2D) {
+		ltexture = tex2D;
 		lDragImage->SetBrushResourceObject(tex2D);
 		lPanelSlot = Cast<UCanvasPanelSlot>(lDragImage->Slot);
 		if (lPanelSlot) {
@@ -90,8 +92,18 @@ void UleeDragWidget::lInitializeDefault(FString ipath)
 			lPanelSlot->SetAnchors(anchor);
 			lPanelSlot->SetPosition(FVector2D{ 0,0 });
 			FVector2D v2D = lGetSizeTexture(ipath);
+			// do mobile specific stuff
+			currenRes = lFitResolutons();
 			lDragImage->SetBrushSize(v2D);
-			ltexture = tex2D;
+			sizeRes = v2D;
+			lDragImage->SetBrushSize(sizeRes);
+			//-----------note scale resolution--------------------------------
+			//sizeRes = currenRes.IsZero() ? v2D : currenRes.X <= 1 ? v2D * (currenRes.X * 0.8) : v2D * (currenRes.X);
+			//lDragImage->SetBrushSize(v2D);
+			//FVector2D statusSize = currenRes.X <= 1 ? lStatusImage->Brush.GetImageSize() * currenRes.X :
+			//	lStatusImage->Brush.GetImageSize() * (currenRes.X * 0.7);
+			//lStatusImage->SetBrushSize(statusSize);
+
 		}
 	}
 
