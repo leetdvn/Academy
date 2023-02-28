@@ -74,6 +74,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Data Lession")
 		UleeLessionData* lData;
 	
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Data ")
+		FString lstructdata;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Lession Type")
 		TEnumAsByte<lGameType> lgametype;
 
@@ -82,6 +85,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Input Data")
 		UPlayerData* lDataSave;
+
+	UPROPERTY(VisibleAnyWhere)
+		FDataGamePathConfig lCurrentGameData;
 
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 		FOnCompletedGame OnCorrectClick;

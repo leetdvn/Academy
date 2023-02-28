@@ -12,8 +12,7 @@
 #include "leePublicInterface.generated.h"
 
 #define lDebug(...) lDebugStr(__VA_ARGS__)
-
-
+#define GAMEDIR 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCorrectDrop, FString, ShapeName);
 
 
@@ -34,6 +33,8 @@ class ACADEMY_API IleePublicInterface
 public:
 
 	FORCEINLINE TArray<FString> lGetAllMapNames();
+
+	FString GameDir= FPaths::ProjectContentDir();
 
 	bool lMapExists(FString mapname);
 
@@ -87,6 +88,11 @@ public:
 	/// <returns></returns>
 	TArray<FString> lGetAllDirectory(const FString directory, bool isfile = false);
 
+	FORCEINLINE void lCreateFileFromString(FString content,FString &filepath);
+
+	FORCEINLINE void lCreateFileFromString(FString content, FString filepath);
+
+
 	template<class T>
 	T* lGetAssetFromContent(FName referencePath, bool &success);
 
@@ -126,7 +132,7 @@ public:
 
 	void lSetUpdateSizeRules(UPanelSlot* &panelSlot, ESlateSizeRule::Type ruleType);
 
-	bool lExistsDirectory(FString& dir) {  return FPaths::DirectoryExists(FPaths::ProjectContentDir() + dir); }
+	bool lExistsDirectory(FString& dir) {  return FPaths::DirectoryExists(GameDir + dir); }
 
 	const FVector2D lbaseScreenXY =FVector2D(768,1024);
 	const int lbaseScreenX = 768;

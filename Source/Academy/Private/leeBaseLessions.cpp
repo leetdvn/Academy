@@ -4,6 +4,7 @@
 #include "leeBaseLessions.h"
 #include <Kismet/GameplayStatics.h>
 #include <Engine/DataTable.h>
+#include <JsonUtilities/Public/JsonObjectConverter.h>
 
 UleeBaseLessions::UleeBaseLessions(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
@@ -66,7 +67,7 @@ void UleeBaseLessions::InitializeAnswers(TArray<FString> correctName, FString An
 
 			//get number diffirent files in directory ignore duplicate
 			lGetRandFilesFromDirectory(path, shape, correctName.Num());
-
+			FDataChoises regdata;
 			for (int i = 0; i < shape.Num();i++) {
 				//FString correctStr = FindContentFromPath(path, correctName[count]);
 				//files.Remove(correctStr);
@@ -75,20 +76,34 @@ void UleeBaseLessions::InitializeAnswers(TArray<FString> correctName, FString An
 
 				//create buttons and binding Muticast DeleGate
 				UleeDragWidget* btn = lAnswersPanels[count]->lCreateDragButton(randPath, true, true, "", count + 1);
+				regdata.Choises.Add(randPath);
+				regdata.Names.Add(btn->lGetTexture()->GetPathName());
 				btn->OnDropCorrect.AddDynamic(this, &UleeBaseLessions::OnDropCorrected);
 				btn->OnDropFail.AddDynamic(this, &UleeBaseLessions::OnDropFailure);
 				btn->OnDropTimes.AddDynamic(this, &UleeBaseLessions::OnDropTimes);
 
 			}
+			lCurrentGameData.PlayerChoiseData.Add(regdata);
 		}
 		count++;
 	}
+
+	//create data
+	lDataTable->AddRow("CurrentGame", lCurrentGameData);
+	//lDataTable->WriteTableAsJSON(EDataTableExportFlags::UsePrettyEnumNames);
+	FString fileAbc = FPaths::ProjectSavedDir() + "SaveGames/jsWriteTest.json";
+	FString outJsStr;
+	bool success = FJsonObjectConverter::UStructToJsonObjectString<FDataGamePathConfig>(lCurrentGameData, outJsStr);
+	lCreateFileFromString(outJsStr, *fileAbc);
 }
 
 void UleeBaseLessions::InitializeThreeLineopic(TEnumAsByte<lGameType> igametype)
 {
 	if (lPanelWidget->GetClass()->GetName().StartsWith("Scroll")) return;
 	if (igametype != Threelines) return;
+
+	lCurrentGameData.GameDescriptions = lDescription->GetText().ToString();
+	lCurrentGameData.GameTitle = ltitle->GetText().ToString();
 
 	// case has child
 	if(lTopicPanel->ltypeofgame==Threelines)
@@ -105,7 +120,7 @@ void UleeBaseLessions::InitializeThreeLineopic(TEnumAsByte<lGameType> igametype)
 	for (int i = 0; i < exceptions.Num(); i++) {
 		FString iPath = "/Game/" + defaultPath + "/" + exceptions[i] ;
 		UleeDragWidget* btn = lTopicPanel->lCreateDragButton(iPath, true, false, "", i+1);
-
+		lCurrentGameData.TopicGamePath.Add(btn->lGetImagePath());
 	}
 	InitializeAnswers(exceptions, "AcademyAssets/Assets/ChoiseAnswers/AnimalShape");
 

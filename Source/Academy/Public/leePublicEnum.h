@@ -48,15 +48,39 @@ enum lTopicType {
 };
 
 USTRUCT(BlueprintType)
+struct FDataChoises 
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		TArray<FString> Choises;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		TArray<FString> Names;
+
+};
+
+USTRUCT(BlueprintType)
 struct FDataGamePathConfig : public FTableRowBase
 {
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		TEnumAsByte<lTopicType> TopicType;
+		TEnumAsByte<lGameType> GameType;
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		FString TopicPath;
+		FString GameTitle;
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		FString ChoiseAnswerPath;
+		FString GameDescriptions;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		FString GameDecorPath;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		TArray<FDataChoises> PlayerChoiseData;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		TArray<FString> TopicGamePath;
 
 };

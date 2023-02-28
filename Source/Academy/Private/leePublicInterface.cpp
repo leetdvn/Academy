@@ -151,6 +151,23 @@ TArray<FString> IleePublicInterface::lGetAllDirectory(const FString directory,bo
 	return FoundFolders;
 }
 
+void IleePublicInterface::lCreateFileFromString(FString content, FString &filepath)
+{
+	FFileHelper::SaveStringToFile(content, *filepath, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), EFileWrite::FILEWRITE_Silent);
+	//TSharedPtr<FJsonObject> JsObject = MakeShareable(new FJsonObject());
+	//TSharedPtr<FJsonObject> JsObject1 = MakeShareable(new FJsonObject());
+	//TSharedRef<TJsonWriter<TCHAR, TPrettyJsonPrintPolicy<TCHAR>>> JsonWriter = TJsonWriterFactory<TCHAR, TPrettyJsonPrintPolicy<TCHAR>>::Create(&fileBcd, 0);
+	//FJsonSerializer::Serialize(JsObject.ToSharedRef(), TJsonWriterFactory<>::Create( & fileBcd, 0));
+
+}
+
+void IleePublicInterface::lCreateFileFromString(FString content, FString filepath)
+{
+	FFileHelper::SaveStringToFile(content, *filepath, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), EFileWrite::FILEWRITE_Silent);
+
+}
+
+
 bool IleePublicInterface::isNull(void* ptr, FString message)
 {
 	if (ptr) {
