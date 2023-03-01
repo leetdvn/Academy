@@ -88,9 +88,9 @@ public:
 	/// <returns></returns>
 	TArray<FString> lGetAllDirectory(const FString directory, bool isfile = false);
 
-	FORCEINLINE void lCreateFileFromString(FString content,FString &filepath);
+	void lCreateFileFromString(FString content,FString &filepath);
 
-	FORCEINLINE void lCreateFileFromString(FString content, FString filepath);
+	//void lCreateFileFromString(FString content, FString filepath);
 
 
 	template<class T>

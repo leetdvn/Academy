@@ -4,6 +4,7 @@
 #include "leePublicInterface.h"
 #include <AssetRegistry/AssetRegistryModule.h>
 #include "HAL/FileManagerGeneric.h"
+#include <Json/Private/Tests/JsonTests.cpp>
 
 
 // Add default functionality here for any IleeInterface functions that are not pure virtual.
@@ -151,22 +152,22 @@ TArray<FString> IleePublicInterface::lGetAllDirectory(const FString directory,bo
 	return FoundFolders;
 }
 
-void IleePublicInterface::lCreateFileFromString(FString content, FString &filepath)
+void IleePublicInterface::lCreateFileFromString(FString content, FString & filepath)
 {
-	FFileHelper::SaveStringToFile(content, *filepath, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), EFileWrite::FILEWRITE_Silent);
 	//TSharedPtr<FJsonObject> JsObject = MakeShareable(new FJsonObject());
-	//TSharedPtr<FJsonObject> JsObject1 = MakeShareable(new FJsonObject());
-	//TSharedRef<TJsonWriter<TCHAR, TPrettyJsonPrintPolicy<TCHAR>>> JsonWriter = TJsonWriterFactory<TCHAR, TPrettyJsonPrintPolicy<TCHAR>>::Create(&fileBcd, 0);
-	//FJsonSerializer::Serialize(JsObject.ToSharedRef(), TJsonWriterFactory<>::Create( & fileBcd, 0));
-
-}
-
-void IleePublicInterface::lCreateFileFromString(FString content, FString filepath)
-{
+	/*TSharedPtr<FJsonObject> JsObject = MakeShareable(new FJsonObject());
+	TSharedRef<TJsonWriter<TCHAR, TPrettyJsonPrintPolicy<TCHAR>>> JsonWriter = TJsonWriterFactory<TCHAR, TPrettyJsonPrintPolicy<TCHAR>>::Create(&filepath, 0);
+	bool succes = FJsonSerializer::Serialize(JsObject.ToSharedRef(), FPrettyJsonStringWriterFactory::Create(&filepath,0));
+	if (succes) lDebug(" success");*/
 	FFileHelper::SaveStringToFile(content, *filepath, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), EFileWrite::FILEWRITE_Silent);
-
+	//TSharedRef< FPrettyJsonStringWriter > Writer = FPrettyJsonStringWriterFactory::Create(&filepath);
 }
 
+//void IleePublicInterface::lCreateFileFromString(FString content, FString filepath)
+//{
+//	FFileHelper::SaveStringToFile(content, *filepath, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), EFileWrite::FILEWRITE_Silent);
+//
+//}
 
 bool IleePublicInterface::isNull(void* ptr, FString message)
 {

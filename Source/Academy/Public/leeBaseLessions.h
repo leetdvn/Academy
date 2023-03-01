@@ -96,7 +96,7 @@ public:
 		void OnSaving();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnLoadLession(int lessionId);
+		void OnLoadLession(FString slotName,int32 lessionId);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnDropFailure();
@@ -115,7 +115,7 @@ public:
 
 
 #pragma endregion //Unreal
-	FORCEINLINE void OnSaving(int lessionId, UleeLessionData* data);
+	FORCEINLINE void OnSaving(FString SlotName,int32 lessionId, UleeLessionData* data);
 
 	FORCEINLINE void lGetAllPanels(UPanelWidget* parent, TArray<UleePanelBase*> &outpanels);
 protected:

@@ -92,9 +92,11 @@ void UleeBaseLessions::InitializeAnswers(TArray<FString> correctName, FString An
 	lDataTable->AddRow("CurrentGame", lCurrentGameData);
 	//lDataTable->WriteTableAsJSON(EDataTableExportFlags::UsePrettyEnumNames);
 	FString fileAbc = FPaths::ProjectSavedDir() + "SaveGames/jsWriteTest.json";
-	FString outJsStr;
-	bool success = FJsonObjectConverter::UStructToJsonObjectString<FDataGamePathConfig>(lCurrentGameData, outJsStr);
-	lCreateFileFromString(outJsStr, *fileAbc);
+	UPlayerData* saveGame = Cast<UPlayerData>(UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass()));
+	saveGame->PlayerData = lCurrentGameData;
+	bool isSave = UGameplayStatics::SaveGameToSlot(saveGame, "Lession", 2);
+
+	//OnSaving(1, lData);
 }
 
 void UleeBaseLessions::InitializeThreeLineopic(TEnumAsByte<lGameType> igametype)
@@ -126,7 +128,7 @@ void UleeBaseLessions::InitializeThreeLineopic(TEnumAsByte<lGameType> igametype)
 
 }
 
-void UleeBaseLessions::OnSaving(int lessionId, UleeLessionData* data)
+void UleeBaseLessions::OnSaving(FString SlotName, int32 lessionId, UleeLessionData* data)
 {
 	if (data->isNull()) {
 		return;
@@ -134,7 +136,8 @@ void UleeBaseLessions::OnSaving(int lessionId, UleeLessionData* data)
 	UPlayerData* saveGame = Cast<UPlayerData>(UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass()));
 	saveGame->lGameCompleted.Add(data);
 	saveGame->lCurrentGame = data;
-	bool isSave = UGameplayStatics::SaveGameToSlot(saveGame, lSlotName, lessionId);
+	saveGame->PlayerData = lCurrentGameData;
+	bool isSave = UGameplayStatics::SaveGameToSlot(saveGame, SlotName, lessionId);
 
 	//leeTdDebug(isSave, FColor::Black, "Game is Save");
 }
@@ -165,7 +168,11 @@ void UleeBaseLessions::OnSaving()
 {
 	if (lData->isNull()) return;
 
-	OnSaving(1, lData);
+	OnSaving("Academy", 1, lData);
+	FString fileAbc = FPaths::ProjectSavedDir() + "SaveGames/AcademyPreview.json";
+	FString outJsStr;
+	bool success = FJsonObjectConverter::UStructToJsonObjectString<FDataGamePathConfig>(lCurrentGameData, outJsStr);
+	lCreateFileFromString(outJsStr, fileAbc);
 
 	TArray<UleePanelBase*> panels{};
 	lGetAllPanels(lPanelWidget, panels);
@@ -176,7 +183,7 @@ void UleeBaseLessions::OnSaving()
 
 }
 
-void UleeBaseLessions::OnLoadLession(int lessionId)
+void UleeBaseLessions::OnLoadLession(FString SlotName, int32 lessionId)
 {
 	//debug 
 	if (lessionId <= 0) { 
@@ -186,7 +193,7 @@ void UleeBaseLessions::OnLoadLession(int lessionId)
 	}
 	//====================================================
 
-	UPlayerData* load = Cast<UPlayerData>(UGameplayStatics::LoadGameFromSlot(lSlotName, lessionId));
+	UPlayerData* load = Cast<UPlayerData>(UGameplayStatics::LoadGameFromSlot(SlotName, lessionId));
 	lDebug(load->lCurrentGame->lGameID, FColor::Blue,"ID");
 	lDebug(load->lCurrentGame->llessiontitle, FColor::Purple, "title");
 	lDebug(load->lCurrentGame->ldescription, FColor::Purple, "description");
