@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include <Engine/DataTable.h>
 #include <Components/CanvasPanelSlot.h>
 #include <Components/VerticalBoxSlot.h>
 #include <Components/ScrollBoxSlot.h>
@@ -141,4 +142,23 @@ public:
 	FVector2D lScreenResolution();
 
 	FVector2D lFitResolutons();
+
+
+	/// <summary>
+	/// Create Data Table 
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="other"></param>
+	/// <param name=""></param>
+	/// <param name="savePath"></param>
+	/// <param name=""></param>
+	/// <returns></returns>
+	UDataTable* lCreateDataTableRuntime(FString objName, FString InProjectPath, FString savePath,UScriptStruct* script);
+
+
+	/// <summary>
+	/// Create Runtime Asset , return Package Register out class T
+	/// </summary>
+	template<class T>
+	UPackage* lCreateAssetRuntime(FString objName,FString InProjectPath,FString savePath,T*& OutObject);
 };

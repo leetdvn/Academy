@@ -3,7 +3,6 @@
 #pragma once
 #include "leePublicEnum.h"
 #include "leePublicInterface.h"
-#include "leeLessionData.h"
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
 #include "PlayerData.generated.h"
@@ -21,13 +20,9 @@ class ACADEMY_API UPlayerData : public USaveGame , public IleePublicInterface
 public:
 	UPlayerData();
 	~UPlayerData() {};
-	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		UleeLessionData* lCurrentGame;
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		TArray<UleeLessionData*> lGameCompleted;
-	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		FDataGamePathConfig PlayerData;
+		FGameHistoryData PlayerData;
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		int lStar;
@@ -43,14 +38,14 @@ public:
 		FString lCurrentSlotName;
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		TArray<FString> lPlayerHistorySlot;
+		TArray<FGameHistoryData> lPlayerHistorySlot;
 
-	void SaveLessions(FDataGamePathConfig usersdata, FString &OutPreview);
+	void SaveLessions(FGameHistoryData usersdata, FString &OutPreview);
 
 	void SaveGameDatas();
 
 	void SaveUserData();
 
 
-	FDataGamePathConfig LoadGameData(bool &success);
+	FGameHistoryData LoadGameData(bool &success);
 };

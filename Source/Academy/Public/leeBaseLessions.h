@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "leeDynamicPanel.h"
 #include "leePublicEnum.h"
 #include "PlayerData.h"
-#include "leeLessionData.h"
 #include "leePanelBase.h"
 #include "leePublicInterface.h"
 #include <Components/TextBlock.h>
@@ -35,17 +35,7 @@ public:
 	~UleeBaseLessions() {};
 
 #pragma region UFUNCTION / PROPERTY Uneal
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "decor folder")
-		int lID;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "decor folder")
-		FString lpathDecor;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Title Decor")
-		UImage* lTitleDecor;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Row Object")
-		int lrow;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite,Category="lee's Ultils",DisplayName="Title",meta=(BindWidget))
 		UTextBlock* ltitle;
@@ -70,15 +60,12 @@ public:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Choise Answers", meta = (BindWidget))
 		UPanelWidget* lChoiseAnswersPanel;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Data Lession")
-		UleeLessionData* lData;
 	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Dynamic Canvas", meta = (BindWidget))
+		UThreeLines* gCanvas;
+
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Data ")
 		FString lstructdata;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Lession Type")
-		TEnumAsByte<lGameType> lgametype;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
 		TEnumAsByte<lTopicType> ltopictype;
@@ -87,7 +74,7 @@ public:
 		UPlayerData* lDataSave;
 
 	UPROPERTY(VisibleAnyWhere)
-		FDataGamePathConfig lCurrentGameData;
+		FGameLession lCurrentGameData;
 
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 		FOnCompletedGame OnCorrectClick;
@@ -115,7 +102,7 @@ public:
 
 
 #pragma endregion //Unreal
-	FORCEINLINE void OnSaving(FString SlotName,int32 lessionId, UleeLessionData* data);
+	FORCEINLINE void OnSaving(FString SlotName,int32 lessionId);
 
 	FORCEINLINE void lGetAllPanels(UPanelWidget* parent, TArray<UleePanelBase*> &outpanels);
 protected:

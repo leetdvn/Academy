@@ -1,4 +1,5 @@
 #pragma once
+#include "Components/CanvasPanel.h"
 #include <Engine/DataTable.h>
 #include "CoreMinimal.h"
 #include "leePublicEnum.generated.h"
@@ -48,7 +49,7 @@ enum lTopicType {
 };
 
 USTRUCT(BlueprintType)
-struct FDataChoises 
+struct FGameTopics : public FTableRowBase
 {
 	GENERATED_BODY()
 
@@ -56,17 +57,23 @@ struct FDataChoises
 		TArray<FString> Choises;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		TArray<FString> Names;
+		FString Label;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		FString ImagePath;
 
 };
 
 USTRUCT(BlueprintType)
-struct FDataGamePathConfig : public FTableRowBase
+struct FGameLession : public FTableRowBase
 {
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		TEnumAsByte<lGameType> GameType;
+		TEnumAsByte<lGameType> LessionType;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		int LessionID;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 		FString GameTitle;
@@ -78,9 +85,28 @@ struct FDataGamePathConfig : public FTableRowBase
 		FString GameDecorPath;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		TArray<FDataChoises> PlayerChoiseData;
+		TArray<FGameTopics> Topics;
+
+	FString gName;
+	int TopicsNum() { return Topics.Num(); }
+
+	FGameLession& operator=(const FGameLession& other) {
+		return *this;
+	}
+};
+
+USTRUCT(BlueprintType)
+struct FGameHistoryData : public FTableRowBase
+{
+	GENERATED_BODY()
+
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		TArray<FString> TopicGamePath;
+		TArray<FGameLession> Games;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		FGameLession CurrentGame;
+
+	int NumCompleted() { return Games.Num(); }
 
 };

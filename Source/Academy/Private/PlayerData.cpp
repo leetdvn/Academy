@@ -8,7 +8,7 @@ UPlayerData::UPlayerData()
 
 }
 
-void UPlayerData::SaveLessions(FDataGamePathConfig usersdata, FString& OutPreview)
+void UPlayerData::SaveLessions(FGameHistoryData usersdata, FString& OutPreview)
 {
 	// TODO: save lessions
 }
@@ -23,10 +23,10 @@ void UPlayerData::SaveUserData()
 }
 
 
-FDataGamePathConfig UPlayerData::LoadGameData(bool& success)
+FGameHistoryData UPlayerData::LoadGameData(bool& success)
 {
 	// TODO: Load All Game Data
-	FDataGamePathConfig result;
+	FGameHistoryData result;
 	return result;
 }
 

@@ -61,6 +61,24 @@ T* IleePublicInterface::lGetAssetFromContent(FString referencePath, bool& succes
 	return lGetAssetFromContent<T>(FName(*referencePath),success);
 }
 
+template<class T>
+UPackage* IleePublicInterface::lCreateAssetRuntime(FString objName, FString InProjectPath, FString savePath,T*&OutObject)
+{
+	//create Package
+	UPackage* Package=CreatePackage(*InProjectPath);
+	//asset type of Package
+	T* TestAsset = NewObject<T>(Package, T::StaticClass(), *objName, EObjectFlags::RF_Public | EObjectFlags::RF_Standalone);
+	OutObject = TestAsset;
+	//register Asset
+	FAssetRegistryModule::AssetCreated(TestAsset);
+
+	//out log debug
+	FString FilePath = FString::Printf(TEXT("%s%s%s"), *savePath, *objName, *FPackageName::GetAssetPackageExtension());
+	UE_LOG(LogTemp, Warning, TEXT("Saved Package: %s"),*FilePath);
+	return Package;
+
+}
+
 void IleePublicInterface::lDebugStr(FString message, FColor color, FString startStr)
 {
 	return lBaseDebugStr<FString>(message, color, startStr);
@@ -304,6 +322,21 @@ FVector2D IleePublicInterface::lFitResolutons()
 {
 	FVector2D v2D = lScreenResolution();
 	return lScreenResolution() / lbaseScreenXY;
+}
+
+UDataTable* IleePublicInterface::lCreateDataTableRuntime(FString objName, FString InProjectPath, FString savePath, UScriptStruct* script)
+{
+	//example Path
+	//FString AssetPath = FPaths::ProjectContentDir() + "Data/TestingAsset.uasset";
+	//FString PackagePath = FString("/Game/Data/TestingAsset");
+
+	//--------------------------------
+	UDataTable* TestAsset{};
+	UPackage* Package =lCreateAssetRuntime<UDataTable>(objName, InProjectPath, savePath, TestAsset);
+	TestAsset->RowStruct = script;
+	bool bSuccess = UPackage::SavePackage(Package, nullptr, EObjectFlags::RF_Public | EObjectFlags::RF_Standalone, *savePath, GError, nullptr, false, true, ESaveFlags::SAVE_NoError);
+
+	return TestAsset;
 }
 
 bool IleePublicInterface::lMapExists(FString mapname)
