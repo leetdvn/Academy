@@ -37,44 +37,35 @@ public:
 #pragma region UFUNCTION / PROPERTY Uneal
 
 
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
+		TEnumAsByte<lGameType> GameType;
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite,Category="lee's Ultils",DisplayName="Title",meta=(BindWidget))
 		UTextBlock* ltitle;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Description", meta = (BindWidget))
 		UTextBlock* lDescription;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Panel Widget", meta = (BindWidget))
-		UPanelWidget* lPanelWidget;
-
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Top Decor Panel" , meta = (BindWidget))
 		UPanelWidget* ltopdecor;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Bottom Decor Panel", meta = (BindWidget))
 		UPanelWidget* lbottomdecor;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Topic", meta = (BindWidget))
-		UleePanelBase* lTopicPanel;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Answer Panels")
-		TArray<UleePanelBase*> lAnswersPanels;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Choise Answers", meta = (BindWidget))
-		UPanelWidget* lChoiseAnswersPanel;
 	
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Dynamic Canvas", meta = (BindWidget))
-		UThreeLines* gCanvas;
+		UThreeLines* lThreeline;
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Data ")
-		FString lstructdata;
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game ID")
+		int  SessionID;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
-		TEnumAsByte<lTopicType> ltopictype;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Input Data",meta=(CreateDefaultSubobject))
+		class UPlayerData* lDataSave;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Input Data")
-		UPlayerData* lDataSave;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Base Data")
+		TSubclassOf<UPlayerData> lBaseData;
 
-	UPROPERTY(VisibleAnyWhere)
-		FGameLession lCurrentGameData;
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
+		FGameHistoryData mainData;
 
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 		FOnCompletedGame OnCorrectClick;
@@ -92,10 +83,16 @@ public:
 		void OnDropCorrected();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnCompleted();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnDropTimes();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void InitializeThreeLineopic(TEnumAsByte<lGameType> igametype=None);
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool lIsValidThreeLine();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void InitializeAnswers(TArray<FString> correctName, FString AnswerDir="");
@@ -119,17 +116,9 @@ protected:
 
 	bool lOnDropVisible;
 
-	/// <summary>
-	/// implant Choise Answer
-	/// </summary>
-	/// <param name="correctName"></param>
-
-	/// <summary>
-	/// implant topic 
-	/// </summary>
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Data Path")
 		UDataTable* lDataTable;
 
 	TArray<UleePanelBase*> lPanels;
+
 };

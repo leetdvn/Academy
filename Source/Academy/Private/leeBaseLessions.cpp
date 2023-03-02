@@ -9,6 +9,7 @@
 UleeBaseLessions::UleeBaseLessions(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
 {
+
 	//implant static 
 	//UIleeDrop::F
 }
@@ -16,6 +17,10 @@ UleeBaseLessions::UleeBaseLessions(const FObjectInitializer& ObjectInitializer)
 void UleeBaseLessions::NativeConstruct()
 {
 	//binding event drop for answers
+	//load Game History
+	//lDataSave = Cast<UPlayerData>(UGameplayStatics::LoadGameFromSlot("LeeTdvnGameData", 1));
+	lDataSave = Cast<UPlayerData>(UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass()));
+	mainData = lDataSave->lPlayerHistorySlot;
 	//load tabale data from path
 	InitializeThreeLineopic(Threelines);
 
@@ -47,79 +52,78 @@ bool UleeBaseLessions::NativeOnDrop(const FGeometry& InGeometry, const FDragDrop
 
 void UleeBaseLessions::InitializeAnswers(TArray<FString> correctName, FString AnswerDir)
 {
-	if (!lChoiseAnswersPanel || correctName.Num() <=0) {
-		lDebug("missing panel ");
-		return;
-	}
+	//if (!lChoiseAnswersPanel || correctName.Num() <=0) {
+	//	lDebug("missing panel ");
+	//	return;
+	//}
 
 	int count{};
-	for (auto& p : lChoiseAnswersPanel->GetAllChildren()) {
-		UleePanelBase* answerPanel = Cast<UleePanelBase>(p);
-		lAnswersPanels.AddUnique(answerPanel);
-		if (answerPanel) {
-			answerPanel->ClearButtons();
-			//FString defaultPath = "AcademyAssets/Assets/ChoiseAnswers/AnimalShape";
-			FString path = FPaths::ProjectContentDir() + AnswerDir;
-			//get all img in directory
-			TArray<FString> shape{};
-			FString correctStr = FindContentFromPath(path, correctName[count]);
-			shape.AddUnique(correctStr);
+	for (auto& p : lThreeline->lUserChoises) {
 
-			//get number diffirent files in directory ignore duplicate
-			lGetRandFilesFromDirectory(path, shape, correctName.Num());
-			FGameTopics regdata;
-			for (int i = 0; i < shape.Num();i++) {
-				//FString correctStr = FindContentFromPath(path, correctName[count]);
-				//files.Remove(correctStr);
-				shape.SwapMemory(i, lRand(i,shape.Num()));
-				FString randPath = "/Game/" + AnswerDir + "/" + shape[i];
+		//FString defaultPath = "AcademyAssets/Assets/ChoiseAnswers/AnimalShape";
+		FString path = FPaths::ProjectContentDir() + AnswerDir;
+		//get all img in directory
+		TArray<FString> shape{};
+		FString correctStr = FindContentFromPath(path, correctName[count]);
+		shape.AddUnique(correctStr);
 
-				//create buttons and binding Muticast DeleGate
-				UleeDragWidget* btn = lAnswersPanels[count]->lCreateDragButton(randPath, true, true, "", count + 1);
-				regdata.Choises.Add(randPath);
+		//get number diffirent files in directory ignore duplicate
+		lGetRandFilesFromDirectory(path, shape, correctName.Num());
+		for (int i = 0; i < shape.Num();i++) {
 
-				//draft need refactor
-				regdata.Label = btn->lGetTexture()->GetPathName();
-				btn->OnDropCorrect.AddDynamic(this, &UleeBaseLessions::OnDropCorrected);
-				btn->OnDropFail.AddDynamic(this, &UleeBaseLessions::OnDropFailure);
-				btn->OnDropTimes.AddDynamic(this, &UleeBaseLessions::OnDropTimes);
+			shape.SwapMemory(i, lRand(i,shape.Num()));
+			FString randPath = "/Game/" + AnswerDir + "/" + shape[i];
 
-			}
-			lCurrentGameData.Topics.Add(regdata);
+			//create buttons and binding Muticast DeleGate
+			UleeDragWidget* btn = p->lCreateDragButton(randPath, true, true, "", count + 1);
+			//draft need refactor
+			btn->OnDropCorrect.AddDynamic(this, &UleeBaseLessions::OnDropCorrected);
+			btn->OnDropFail.AddDynamic(this, &UleeBaseLessions::OnDropFailure);
+			btn->OnDropTimes.AddDynamic(this, &UleeBaseLessions::OnDropTimes);
+			mainData.CurrentGame.Topics[count].Choises.Add(randPath);
 		}
+
 		count++;
 	}
 
 	//create data
-	lDataTable->AddRow("CurrentGame", lCurrentGameData);
+	//lDataTable->AddRow("CurrentGame", mainData.CurrentGame);
 	//lDataTable->WriteTableAsJSON(EDataTableExportFlags::UsePrettyEnumNames);
 	FString fileAbc = FPaths::ProjectSavedDir() + "SaveGames/jsPreview.json";
-	UPlayerData* saveGame = Cast<UPlayerData>(UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass()));
-	saveGame->PlayerData.CurrentGame = lCurrentGameData;
-	bool isSave = UGameplayStatics::SaveGameToSlot(saveGame, "Lession", 2);
 	
 	//runtime create asset devlopment
 	FString AssetPath = FPaths::ProjectContentDir() + "Data/TestingAsset.uasset";
 	FString InPackagePath = FString("/Game/Data/TestingAsset");
 
-	UDataTable* nData = lCreateDataTableRuntime("TestingAsset", InPackagePath,AssetPath, lDataTable->RowStruct);
+	//UDataTable* nData = lCreateDataTableRuntime("TestingAsset", InPackagePath,AssetPath, lDataTable->RowStruct);
+
+	lDataSave->SaveLessions(mainData);
 }
 
 void UleeBaseLessions::InitializeThreeLineopic(TEnumAsByte<lGameType> igametype)
 {
-	if (lPanelWidget->GetClass()->GetName().StartsWith("Scroll")) return;
-	if (igametype != Threelines) return;
+	//if (lPanelWidget->GetClass()->GetName().StartsWith("Scroll")) return;
+	if (!lIsValidThreeLine()) {
+		lDebug("not is Valid Question or user choises.");
+		return;
+	}
+	
+	GameType = Threelines;
+	//register game id
+	int id =lDataSave->lPlayerHistorySlot.Games.Num();
+	mainData.CurrentGame.LessionID = id == 0 ? 1 : id ;
+	mainData.CurrentGame.LessionType = GameType;
+	mainData.CurrentGame.GameTitle = ltitle->GetText().ToString();
+	mainData.CurrentGame.GameDescriptions = lDescription->GetText().ToString();
+	//if (igametype != Threelines) return;
 
-	lCurrentGameData.GameDescriptions = lDescription->GetText().ToString();
-	lCurrentGameData.GameTitle = ltitle->GetText().ToString();
 
-	FGameTopics topic{};
 	// case has child
-	if(lTopicPanel->ltypeofgame==Threelines)
-		lTopicPanel->ClearButtons();
+	//if (lThreeline->ltypeGame == Threelines)
+	//	lThreeline->lTopics.lQuestion->ClearButtons();//lTopicPanel->ClearButtons();
 	FString defaultPath = "AcademyAssets/Assets/Topic/Animal";
 	FString path = FPaths::ProjectContentDir() + defaultPath;
-	TArray<FString> ref{}, exceptions{};
+	TArray<FString>  exceptions{};
 	lGetRandFilesFromDirectory(path, exceptions, 3);
 	if (exceptions.Num() == 0) {
 		lDebug(exceptions.Num());
@@ -127,22 +131,31 @@ void UleeBaseLessions::InitializeThreeLineopic(TEnumAsByte<lGameType> igametype)
 	}
 
 	for (int i = 0; i < exceptions.Num(); i++) {
+		FGameTopics topic{};
 		FString iPath = "/Game/" + defaultPath + "/" + exceptions[i] ;
-		UleeDragWidget* btn = lTopicPanel->lCreateDragButton(iPath, true, false, "", i+1);
-		
-		//write topics
-		topic.Choises.Add(btn->lGetImagePath());
+		lThreeline->lQuestions[i]->lSetTexture(iPath);
+		lThreeline->lQuestions[i]->lSetId(i + 1);
+		topic.ImagePath = iPath;
+		mainData.CurrentGame.Topics.Add(topic);
 	}
+
 	InitializeAnswers(exceptions, "AcademyAssets/Assets/ChoiseAnswers/AnimalShape");
 
+}
+
+bool UleeBaseLessions::lIsValidThreeLine()
+{
+	if (lThreeline->lQuestions.Num() <= 0 || lThreeline->lUserChoises.Num() <= 0) return false;
+	if (lThreeline->lQuestions.Num() != lThreeline->lUserChoises.Num()) return false;
+	return true;
 }
 
 void UleeBaseLessions::OnSaving(FString SlotName, int32 lessionId)
 {
 
-	UPlayerData* saveGame = Cast<UPlayerData>(UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass()));
-	saveGame->PlayerData.CurrentGame = lCurrentGameData;
-	bool isSave = UGameplayStatics::SaveGameToSlot(saveGame, SlotName, lessionId);
+	//UPlayerData* saveGame = Cast<UPlayerData>(UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass()));
+	//saveGame->lPlayerHistorySlot = mainData;
+	//bool isSave = UGameplayStatics::SaveGameToSlot(saveGame, SlotName, lessionId);
 
 	//leeTdDebug(isSave, FColor::Black, "Game is Save");
 }
@@ -176,16 +189,9 @@ void UleeBaseLessions::OnSaving()
 	FString fileAbc = FPaths::ProjectSavedDir() + "SaveGames/AcademyPreview.json";
 	FString outJsStr;
 	//convert Struct to String
-	bool success = FJsonObjectConverter::UStructToJsonObjectString<FGameLession>(lCurrentGameData, outJsStr);
+	bool success = FJsonObjectConverter::UStructToJsonObjectString<FGameHistoryData>(mainData, outJsStr);
 	//Save Preview Json on Project/Save/SaveGames
 	lCreateFileFromString(outJsStr, fileAbc);
-
-	TArray<UleePanelBase*> panels{};
-	lGetAllPanels(lPanelWidget, panels);
-	if (panels.Num() > 0) {
-		for (auto& p : panels)
-			lDebug(p->GetName());
-	}
 
 }
 
@@ -228,4 +234,10 @@ void UleeBaseLessions::OnDropCorrected()
 	lDebug(report);
 	lOnDropVisible = true;
 
+}
+
+void UleeBaseLessions::OnCompleted() {
+
+	//lDataSave->lPlayerHistorySlot.Games.Add(mainData.CurrentGame);
+	lDataSave->SaveLessions(mainData);
 }

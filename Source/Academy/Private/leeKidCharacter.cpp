@@ -150,17 +150,17 @@ void AleeKidCharacter::TouchStarted(const ETouchIndex::Type FingerIndex, const F
 	UleeBaseLessions* panel = Cast<UleeBaseLessions>(lCurrentWidget);
 	if (panel) {
 		//panel->lTopicPanel->execListenForInputAction(GetWorld(),FFrame::FlowStack);
-		lDebug("info touching", FColor::Green, "Panel");
-		UPanelWidget* pWidget = Cast < UPanelWidget>(panel->lTopicPanel);
-		if (pWidget) {
-			for (auto& child : pWidget->GetAllChildren()) {
-				UleeBaseButton* btn = Cast<UleeBaseButton>(child);
-				if (btn) {
-					//btn->OnTouchStarted()
-					lDebug("abc");
-				}
-			}
-		}
+		//lDebug("info touching", FColor::Green, "Panel");
+		//UPanelWidget* pWidget = Cast < UPanelWidget>(panel->lTopicPanel);
+		//if (pWidget) {
+		//	for (auto& child : pWidget->GetAllChildren()) {
+		//		UleeBaseButton* btn = Cast<UleeBaseButton>(child);
+		//		if (btn) {
+		//			//btn->OnTouchStarted()
+		//			lDebug("abc");
+		//		}
+		//	}
+		//}
 		//for(auto& b : panel.getAllChi
 	}
 }

@@ -62,6 +62,10 @@ struct FGameTopics : public FTableRowBase
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 		FString ImagePath;
 
+	FGameTopics& operator=(const FGameTopics& other) {
+		return *this;
+	}
+
 };
 
 USTRUCT(BlueprintType)
@@ -108,5 +112,9 @@ struct FGameHistoryData : public FTableRowBase
 		FGameLession CurrentGame;
 
 	int NumCompleted() { return Games.Num(); }
+
+	FGameHistoryData& operator=(const FGameHistoryData& other) {
+		return *this;
+	}
 
 };

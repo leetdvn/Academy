@@ -18,11 +18,8 @@ class ACADEMY_API UPlayerData : public USaveGame , public IleePublicInterface
 	GENERATED_BODY()
 
 public:
-	UPlayerData();
+	UPlayerData(const FObjectInitializer& ObjectInitializer);
 	~UPlayerData() {};
-
-	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		FGameHistoryData PlayerData;
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		int lStar;
@@ -38,9 +35,9 @@ public:
 		FString lCurrentSlotName;
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		TArray<FGameHistoryData> lPlayerHistorySlot;
+		FGameHistoryData lPlayerHistorySlot;
 
-	void SaveLessions(FGameHistoryData usersdata, FString &OutPreview);
+	void SaveLessions(FGameHistoryData &usersdata, FString OutPreview="");
 
 	void SaveGameDatas();
 
@@ -48,4 +45,11 @@ public:
 
 
 	FGameHistoryData LoadGameData(bool &success);
+
+	FGameLession LoadCurrentGameSession();
+
+	void OnCompleted(FGameLession &current);
+
+private:
+	static UPlayerData* Ins;
 };
