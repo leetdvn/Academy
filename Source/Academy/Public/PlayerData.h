@@ -25,31 +25,9 @@ public:
 		int lStar;
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		int32 lUserIndex;
+		FGameLession CurrentGame;
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		FString lSaveSlotName;
+		TArray<FGameLession> HistoryGames;
 
-
-	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		FString lCurrentSlotName;
-
-	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		FGameHistoryData lPlayerHistorySlot;
-
-	void SaveLessions(FGameHistoryData &usersdata, FString OutPreview="");
-
-	void SaveGameDatas();
-
-	void SaveUserData();
-
-
-	FGameHistoryData LoadGameData(bool &success);
-
-	FGameLession LoadCurrentGameSession();
-
-	void OnCompleted(FGameLession &current);
-
-private:
-	static UPlayerData* Ins;
 };

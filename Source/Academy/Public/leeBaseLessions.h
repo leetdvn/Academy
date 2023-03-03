@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "leeGameInstance.h"
 #include "leeDynamicPanel.h"
 #include "leePublicEnum.h"
 #include "PlayerData.h"
@@ -61,29 +62,20 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Input Data",meta=(CreateDefaultSubobject))
 		class UPlayerData* lDataSave;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Base Data")
-		TSubclassOf<UPlayerData> lBaseData;
-
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
-		FGameHistoryData mainData;
+		FGameLession mainData;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
+		UleeGameInstance* GameIns;
 
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 		FOnCompletedGame OnCorrectClick;
-
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnSaving();
-
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnLoadLession(FString slotName,int32 lessionId);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnDropFailure();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnDropCorrected();
-
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnCompleted();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnDropTimes();
@@ -97,9 +89,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void InitializeAnswers(TArray<FString> correctName, FString AnswerDir="");
 
-
 #pragma endregion //Unreal
-	FORCEINLINE void OnSaving(FString SlotName,int32 lessionId);
 
 	FORCEINLINE void lGetAllPanels(UPanelWidget* parent, TArray<UleePanelBase*> &outpanels);
 protected:
