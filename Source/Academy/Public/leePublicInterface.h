@@ -134,7 +134,11 @@ public:
 
 	void lSetUpdateSizeRules(UPanelSlot* &panelSlot, ESlateSizeRule::Type ruleType);
 
-	bool lExistsDirectory(FString& dir) {  return FPaths::DirectoryExists(GameDir + dir); }
+	bool lExistsDirectory(FString& dir) {  
+		FString nDir = GameDir + dir;
+		UE_LOG(LogTemp, Warning, TEXT("dir : %s"), *nDir);
+		return FPaths::DirectoryExists(nDir);
+	}
 
 	const FVector2D lbaseScreenXY =FVector2D(768,1024);
 	const int lbaseScreenX = 768;
@@ -162,4 +166,7 @@ public:
 	/// </summary>
 	template<class T>
 	UPackage* lCreateAssetRuntime(FString objName,FString InProjectPath,FString savePath,T*& OutObject);
+
+	template<typename T>
+	void lDelayFunction(float delay, T &name);
 };

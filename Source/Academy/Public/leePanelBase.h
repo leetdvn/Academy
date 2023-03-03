@@ -63,6 +63,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Margin Pading")
 		TArray<FMargin> lMargin;
 
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Drops Buttons")
+		TArray<UleeDragWidget*> lDragDropButtons;
+
 	/// <summary>
 	/// create Button From List Dir input dir can add Image Override
 	/// </summary>
@@ -96,12 +99,15 @@ public:
 		TArray<UleeBaseButton*> lGetButtons() { return lbuttons; }
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnDelegate(FString gName);
+		TArray<UleeDragWidget*> lGetDragDropButtons() { return lDragDropButtons; }
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnDelegate(FString gName);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void ClearButtons();
 	
+
 	/// <summary>
 	/// create button add to panels
 	/// </summary>
@@ -116,6 +122,7 @@ public:
 
 protected:
 	TArray<UleeBaseButton*> lbuttons;
+
 
 	virtual void NativeConstruct() override;
 

@@ -14,19 +14,61 @@ void UThreeLines::lClearTopics()
 	//}
 }
 
-//TArray<UleeDragWidget*> UThreeLines::lCreateDragButtons(TArray<FString> ImagePaths, bool ImgOnly, bool isDrop, TArray<int32> IDs, TArray<FString> texts )
-//{
-//	TArray<UleeDragWidget*> btnsReults{};
-//	if (lTopics.Num() == 0) return TArray<UleeDragWidget*>();
-//
-//	int count{};
-//	for (auto& tp : lTopics) {
-//		if (tp.lQuestion) {
-//			UleeDragWidget* newButton = tp.lQuestion->lCreateDragButton(ImagePaths[count], ImgOnly, isDrop, texts[count], IDs[count]);
-//			btnsReults.Add(newButton);
-//		}
-//		count++;
-//	}
-//
-//	return btnsReults;
-//}
+TArray<FGameTopics> UThreeLines::LoadQuestions(TArray<FString> paths, TArray<int32> ids)
+{
+	if (paths.Num() == 0 || ids.Num() <= 0 || paths.Num() != ids.Num()) return TArray<FGameTopics>();
+	TArray<FGameTopics> topics;
+	int count{};
+	for (auto& q : lQuestions) {
+		FGameTopics topic{};
+		q->lSetTexture(paths[count]);
+		q->lSetId(ids[count]);
+		topic.ImagePath = paths[count];
+		topics.Add(topic);
+		count++;
+	}
+	return topics;
+}
+
+TArray<UleeDragWidget*> UThreeLines::LoadChoisesAt(TArray<FString> paths,int32 ids, int32 idx)
+{
+	if (paths.Num() <= 0 || idx <0 && idx > lUserChoises.Num() ) {
+		lDebug("Array zero");
+		return TArray<UleeDragWidget*>();
+	}
+
+	TArray<UleeDragWidget*> btns = lUserChoises[idx]->lGetDragDropButtons();
+
+	for (int i = 0; i < paths.Num(); i++) {
+		UleeDragWidget* b = btns.Num() > 0 ? btns[i] :
+			lUserChoises[idx]->lCreateDragButton(paths[i], true, true, "", ids);
+		b->lSetTexture(paths[i]);
+		b->lSetId(ids);
+		if (btns.Num() <= 0)
+			btns.Add(b);
+	}
+	return btns;
+}
+
+TArray<UleeDragWidget*> UThreeLines::GetAllButtons()
+{
+	int n = 0;
+	TArray<UleeDragWidget*> alls{};
+	for (auto& p : lUserChoises) {
+		for (int i = 0; i < p->lDragDropButtons.Num(); i++) {
+			alls.Add(p->lDragDropButtons[i]);
+		}
+		n++;
+	}
+	return TArray<UleeDragWidget*>();
+}
+
+void UThreeLines::LoadAllChoise(FGameLession& data)
+{
+	int n = 0;
+	for (auto& c : lUserChoises) {
+		TArray<FString> paths = data.Topics[n].Choises;
+		LoadChoisesAt(paths, n + 1, n);
+		n++;
+	}
+}

@@ -359,3 +359,13 @@ TArray<FString> IleePublicInterface::lGetAllMapNames()
 	}
 	return Lista;
 }
+
+template<typename T>
+void IleePublicInterface::lDelayFunction(float delay, T& name) {
+	FTimerHandle timer;
+
+	UWorld* world = GetWorld();
+	if (world) {
+		world->GetTimerManager().SetTimer(timer, name, false, delay);
+	}
+}

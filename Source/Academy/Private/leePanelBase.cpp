@@ -193,10 +193,8 @@ void UleePanelBase::lInitializeChoiseAnswer(FString dir, FString ref)
 void UleePanelBase::NativePreConstruct()
 {
 	if (!lExistsDirectory(lDirectory)) return;
-	
-	//preview UI
+		//preview UI
 	lInitializePanels(lDirectory, lpaneltype, ImageOnly);
-
 	//for (auto& i : lPanelWidget->GetAllChildren()) {
 	//	UImage* img = Cast<UImage>(i);
 	//	if (img) lStaticImage.AddUnique(img);
@@ -226,6 +224,9 @@ void UleePanelBase::ClearButtons()
 			}
 		}
 	}
+
+	if (lDragDropButtons.Num() > 0) lDragDropButtons.Empty();
+	if (lbuttons.Num() > 0) lbuttons.Empty();
 }
 
 UleeBaseButton* UleePanelBase::lCreateNormalButton(FString imgPath, bool ImgOnly, FString text,int32 rID)
@@ -263,6 +264,7 @@ UleeDragWidget* UleePanelBase::lCreateDragButton(FString imgPath, bool ImgOnly, 
 	wid->lIsDrop = isDrop;
 	wid->lSetTexture(imgPath);
 	wid->lSetId(rID);
+	lDragDropButtons.Add(wid);
 
 	return wid;
 }

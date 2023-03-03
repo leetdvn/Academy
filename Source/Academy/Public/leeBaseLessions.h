@@ -59,13 +59,10 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game ID")
 		int  SessionID;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Input Data",meta=(CreateDefaultSubobject))
-		class UPlayerData* lDataSave;
-
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		FGameLession mainData;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;
 
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
@@ -81,14 +78,26 @@ public:
 		void OnDropTimes();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void InitializeThreeLineopic(TEnumAsByte<lGameType> igametype=None);
+		void InitializeThreeLineopic(FString &sourcefolder, FString& choiseFolder);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		bool lIsValidThreeLine();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void InitializeAnswers(TArray<FString> correctName, FString AnswerDir="");
+		void InitializeAnswers(TArray<FString> correctName, FGameLession &lession ,FString AnswerDir="",bool isSwap=false);
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnLoadCurrentGame();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void ReplayGame();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void NewGameThreelineInit();
+
+
+	UFUNCTION()
+		void lDeleyCall();
 #pragma endregion //Unreal
 
 	FORCEINLINE void lGetAllPanels(UPanelWidget* parent, TArray<UleePanelBase*> &outpanels);
@@ -105,10 +114,21 @@ protected:
 	int32 DropFailtimes;
 
 	bool lOnDropVisible;
+	bool isNewGame;
+	FGameLession gamedata;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Data Path")
 		UDataTable* lDataTable;
 
 	TArray<UleePanelBase*> lPanels;
 
+	//random ssawp string
+	TArray<FString> lGetSwapString(FString dir, TArray<FString> correctname);
+	//load current game from save data
+	void LoadThreeLineGame(FGameLession& game);
+
+	void LoadFourBoxGame(FGameLession& game);
+
+	void ReloadData();
+	///generate new game random topic answer
 };

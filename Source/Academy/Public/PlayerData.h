@@ -7,8 +7,6 @@
 #include "GameFramework/SaveGame.h"
 #include "PlayerData.generated.h"
 
-
-const FString CurrentLessionSlotName = "currentGame";
 /**
  * 
  */
@@ -21,6 +19,10 @@ public:
 	UPlayerData(const FObjectInitializer& ObjectInitializer);
 	~UPlayerData() {};
 
+
+	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+		FString username;
+
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		int lStar;
 
@@ -30,4 +32,7 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		TArray<FGameLession> HistoryGames;
 
+	FGameLession GetLastGame() { return HistoryGames[HistoryGames.Num()-1]; }
+
+	FGameLession GetHistoryAt(int32 index) { return HistoryGames[index]; }
 };

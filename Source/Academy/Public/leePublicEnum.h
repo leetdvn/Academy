@@ -62,10 +62,14 @@ struct FGameTopics : public FTableRowBase
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 		FString ImagePath;
 
-	FGameTopics& operator=(const FGameTopics& other) {
-		return *this;
-	}
 
+	FString GetTopic() { return ImagePath; }
+
+	FGameTopics() : Choises({}),
+		Label(""),
+		ImagePath("")
+	{
+	}
 };
 
 USTRUCT(BlueprintType)
@@ -74,7 +78,7 @@ struct FGameLession : public FTableRowBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		TEnumAsByte<lGameType> LessionType;
+		TEnumAsByte<lGameType> LessionType ;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 		int LessionID;
@@ -89,14 +93,42 @@ struct FGameLession : public FTableRowBase
 		FString GameDecorPath;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		TArray<FString> TopicNames;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 		TArray<FGameTopics> Topics;
 
 	FString gName;
+
 	int TopicsNum() { return Topics.Num(); }
 
-	FGameLession& operator=(const FGameLession& other) {
-		return *this;
+	TArray<FString> GetQuestions(){
+		TArray<FString> results{};
+		for (auto& p : Topics)
+			results.Add(p.GetTopic());
+		return results;
 	}
+
+	TArray<FString> GetChoiseAt(int32 idx) {
+		TArray<FString> results{};
+		return Topics[idx].Choises;
+	}
+	//FGameLession& operator=(const FGameLession& other) {
+	//	return ;
+	//}
+
+	FGameLession() :
+		LessionType(None),
+		LessionID(0),
+		GameTitle(""),
+		GameDescriptions(""),
+		GameDecorPath(""),
+		TopicNames({}),
+		Topics({}),
+		gName("")
+	{
+	}
+
 };
 
 USTRUCT(BlueprintType)

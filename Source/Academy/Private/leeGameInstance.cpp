@@ -18,8 +18,6 @@ void UleeGameInstance::SaveCurrentGameData(FGameLession& data)
 {
 	if (!GameData) { return; }
 	GameData->CurrentGame = data;
-	UGameplayStatics::SaveGameToSlot(GameData, SaveSlot, 0);
-
 	FString fileAbc = FString(FPaths::ProjectSavedDir() + "SaveGames/ACademyPreview.json");
 	FString outStr;
 	bool success = FJsonObjectConverter::UStructToJsonObjectString<FGameLession>(data, outStr);
@@ -28,6 +26,11 @@ void UleeGameInstance::SaveCurrentGameData(FGameLession& data)
 		lCreateFileFromString(outStr, fileAbc);
 	}
 	//lDebug("Nullptr Game data");
+	UGameplayStatics::DeleteGameInSlot(SaveSlot, 0);
+
+
+
+	UGameplayStatics::SaveGameToSlot(GameData, SaveSlot, 0);
 
 }
 
@@ -44,7 +47,7 @@ UPlayerData* UleeGameInstance::LoadGameData()
 
 UPlayerData* UleeGameInstance::LoadCurrentGameData() {
 
-	UPlayerData* currentGame= Cast<UPlayerData>(UGameplayStatics::LoadGameFromSlot(SaveSlot, 1));
+	UPlayerData* currentGame= Cast<UPlayerData>(UGameplayStatics::LoadGameFromSlot(SaveSlot, 0));
 	if (currentGame) return currentGame;
 	return nullptr;
 }
