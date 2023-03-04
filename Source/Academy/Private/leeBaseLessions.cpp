@@ -128,7 +128,7 @@ void UleeBaseLessions::InitializeThreeLineopic(FString& sourcefolder, FString& c
 		FString iPath = "/Game/" + defaultPath + "/" + exceptions[i] ;
 		lThreeline->lQuestions[i]->lSetTexture(iPath);
 		lThreeline->lQuestions[i]->lSetId(i + 1);
-		if (lThreeline->lQuestions[i]->GetVisibility() == ESlateVisibility::Hidden)
+		if (lThreeline->lQuestions[i]->GetVisibility() != ESlateVisibility::Visible)
 			lThreeline->lQuestions[i]->SetVisibility(ESlateVisibility::Visible);
 		topic.ImagePath = iPath;
 		nlession.Topics.Add(topic);
@@ -242,9 +242,12 @@ void UleeBaseLessions::BindButtons()
 {
 	for (auto &p : lThreeline->lUserChoises) {
 		for (auto& b : p->lDragDropButtons)	{
-			b->OnDropCorrect.AddDynamic(this, &UleeBaseLessions::OnDropCorrected);
-			b->OnDropFail.AddDynamic(this, &UleeBaseLessions::OnDropFailure);
-			b->OnDropTimes.AddDynamic(this, &UleeBaseLessions::OnDropTimes);
+			if(!b->OnDropCorrect.IsBound())
+				b->OnDropCorrect.AddDynamic(this, &UleeBaseLessions::OnDropCorrected);
+			if (!b->OnDropFail.IsBound())
+				b->OnDropFail.AddDynamic(this, &UleeBaseLessions::OnDropFailure);
+			if (!b->OnDropTimes.IsBound())
+				b->OnDropTimes.AddDynamic(this, &UleeBaseLessions::OnDropTimes);
 		}
 	}
 }
