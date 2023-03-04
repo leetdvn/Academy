@@ -208,17 +208,16 @@ FString IleePublicInterface::FindContentFromPath(FString dir, FString filename)
 	return FString();
 }
 
-TArray<FString> IleePublicInterface::FilterContentFromPath(FString dir, int32 number)
+void IleePublicInterface::lGetRandomFromPath(FString dir, TArray<FString>& OutArray, int32 number)
 {
 	//if(ref.Num() != number) {lDebug("") }
 	TArray<FString> files = lGetAllDirectory(dir, true), result{};
 	for (int i = 0; i < number; i++) {
-
+		if (OutArray.Num() >= number) return;
 		int32 rand = lRand(0, files.Num());
-		result.Add(files[rand]);
-		files.Remove(files[rand]);
+		result.AddUnique(files[rand]);
 	}
-	return result;
+	if (result.Num() < number) return lGetRandomFromPath(dir, OutArray,number);
 }
 
 void IleePublicInterface::lGetRandFilesFromDirectory(FString dir, TArray<FString>& exceptions,int32 number)

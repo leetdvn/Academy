@@ -91,9 +91,6 @@ public:
 		void lSetVisibility(bool visible);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void lSetDrag(UUserWidget* DragVisual, bool isDrag);
-
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetPading(FMargin newMargin);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
@@ -142,10 +139,6 @@ protected:
 
 	virtual void NativeDestruct() override;
 
-	/// <summary>
-/// Native Initialize
-/// </summary>
-	virtual void NativeOnInitialized() override;
 
 	/// <summary>
 	/// get Texture from Path file  // example   : /Game/you folder/texture name

@@ -14,24 +14,27 @@ UleePanelBase::UleePanelBase(const FObjectInitializer& ObjectInitializer)
 		ins = this;
 }
 
-UleePanelBase* UleePanelBase::operator=(UleePanelBase*& other)
-{
-	if (ins) other = *&ins;
-	//other = CreateWidget<UleePanelBase>(this, UleePanelBase::StaticClass());
-	//other->lDirectory = *&lDirectory;
-	//other->lbuttons = *&lbuttons;
-	//other->lCurrentDir = *&lCurrentDir;
-	//other->lMargin = *&lMargin;
-	//other->lRuntimeButton = *&lRuntimeButton;
-	//other->ImageOnly = ImageOnly;
-	//other->lpaneltype = lpaneltype;
-	//other->lQuantityOverride = *&lQuantityOverride;
-	//other->lTexts = *&lTexts;
-	//other->lTexturesOverride = *&lTexturesOverride;
-	//other->iDrag = iDrag;
-	//other->iDrop = iDrop;
-	return other;
-}
+//UleePanelBase* UleePanelBase::operator=(UleePanelBase*& other)
+//{
+//	if (this == *&other)
+//		return this;
+//
+//	//if (ins) other = *&ins;
+//	//other = CreateWidget<UleePanelBase>(this, UleePanelBase::StaticClass());
+//	//other->lDirectory = *&lDirectory;
+//	//other->lbuttons = *&lbuttons;
+//	//other->lCurrentDir = *&lCurrentDir;
+//	//other->lMargin = *&lMargin;
+//	//other->lRuntimeButton = *&lRuntimeButton;
+//	//other->ImageOnly = ImageOnly;
+//	//other->lpaneltype = lpaneltype;
+//	//other->lQuantityOverride = *&lQuantityOverride;
+//	//other->lTexts = *&lTexts;
+//	//other->lTexturesOverride = *&lTexturesOverride;
+//	//other->iDrag = iDrag;
+//	//other->iDrop = iDrop;
+//	return this;
+//}
 
 
 void UleePanelBase::lNewPanelImageFromDir(FString dir, bool Hastext)
@@ -190,17 +193,17 @@ void UleePanelBase::lInitializeChoiseAnswer(FString dir, FString ref)
 	
 }
 
-void UleePanelBase::NativePreConstruct()
-{
-	if (!lExistsDirectory(lDirectory)) return;
-		//preview UI
-	lInitializePanels(lDirectory, lpaneltype, ImageOnly);
-	//for (auto& i : lPanelWidget->GetAllChildren()) {
-	//	UImage* img = Cast<UImage>(i);
-	//	if (img) lStaticImage.AddUnique(img);
-	//}
-
-}
+//void UleePanelBase::NativePreConstruct()
+//{
+//	if (!lExistsDirectory(lDirectory)) return;
+//		//preview UI
+//	lInitializePanels(lDirectory, lpaneltype, ImageOnly);
+//	//for (auto& i : lPanelWidget->GetAllChildren()) {
+//	//	UImage* img = Cast<UImage>(i);
+//	//	if (img) lStaticImage.AddUnique(img);
+//	//}
+//
+//}
 
 UleeBaseButton* UleePanelBase::lGetButton(int idx)
 {

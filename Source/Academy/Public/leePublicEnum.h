@@ -130,23 +130,3 @@ struct FGameLession : public FTableRowBase
 	}
 
 };
-
-USTRUCT(BlueprintType)
-struct FGameHistoryData : public FTableRowBase
-{
-	GENERATED_BODY()
-
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		TArray<FGameLession> Games;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		FGameLession CurrentGame;
-
-	int NumCompleted() { return Games.Num(); }
-
-	FGameHistoryData& operator=(const FGameHistoryData& other) {
-		return *this;
-	}
-
-};

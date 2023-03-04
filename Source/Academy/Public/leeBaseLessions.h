@@ -19,9 +19,6 @@
 class UImage;
 class UPanelWidget;
 
-const FString lSlotName = "Academy";
-
-
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCompletedGame, UleeBaseLessions*, CurrentGame);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLoseGame, UleeBaseLessions*, CurrentGame);
 /**

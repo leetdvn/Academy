@@ -42,7 +42,7 @@ void AleeHub::BeginPlay()
 
 void AleeHub::Tick(float DeltaTime)
 {
-	double x{}, y{};
+	//double x{}, y{};
 }
 
 void AleeHub::lSetGameWidgets(int index)

@@ -22,7 +22,7 @@ class ACADEMY_API UleePanelBase : public UUserWidget, public IleePublicInterface
 public:
 	UleePanelBase(const FObjectInitializer& ObjectInitializer);
 
-	UleePanelBase* operator=(UleePanelBase*& other);
+	//UleePanelBase* operator=(UleePanelBase*& other);
 #pragma region UPROPERTY/ UFUNCTION
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Directory")
@@ -126,7 +126,7 @@ protected:
 
 	virtual void NativeConstruct() override;
 
-	virtual void NativePreConstruct() override;
+	//virtual void NativePreConstruct() override;
 
 	template<class T>
 	T* lExistsWidget(UPanelWidget* Parent, FString& name, bool status = false);

@@ -114,7 +114,7 @@ public:
 
 	//FORCEINLINE TArray<FString> RemoveContentFromPath(FString dir, FString filename);
 
-	TArray<FString> FilterContentFromPath(FString dir, int32 number) ;
+	void lGetRandomFromPath(FString dir,  TArray<FString> &OutArray, int32 number) ;
 
 	/// <summary>
 	/// get number files diffirent in the directory

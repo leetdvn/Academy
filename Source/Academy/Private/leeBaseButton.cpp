@@ -57,22 +57,6 @@ void UleeBaseButton::NativeDestruct()
 	//lDebug("native destroy...");
 }
 
-void UleeBaseButton::NativeOnInitialized()
-{
-	//if (lDrop)
-	//	lDrag = !lDrop;
-	//else if (lDrag)
-	//	lDrop = !lDrag;
-	//lDebug("OnInitialized debug.. ", FColor::Purple, "Native :");
-
-}
-
-void UleeBaseButton::lSetDrag(UUserWidget* DragVisual, bool isDrag)
-{
-	//lDragVisual
-	/*{ lDrag = isDrag; lDragVisual = DragVisual; };*/
-}
-
 void UleeBaseButton::lSetPading(FMargin newMargin)
 {
 	if (Slot) {

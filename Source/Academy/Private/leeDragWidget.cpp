@@ -16,11 +16,19 @@ UleeDragWidget::~UleeDragWidget()
 	lDelegateClear();
 }
 
+void UleeDragWidget::NativeConstruct()
+{
+	if (!lFilesExists(lImagePath)) lInitializeDefault(lImageDefault);
+	lInitializeDefault(lImagePath);
+}
+
 void UleeDragWidget::NativePreConstruct()
 {
+#if WITH_EDITOR
 	if (!lFilesExists(lImagePath)) lInitializeDefault(lImageDefault);
 
 	lInitializeDefault(lImagePath);
+#endif
 }
 
 void UleeDragWidget::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
