@@ -20,6 +20,8 @@ TArray<FGameTopics> UThreeLines::LoadQuestions(TArray<FString> paths, TArray<int
 	TArray<FGameTopics> topics;
 	int count{};
 	for (auto& q : lQuestions) {
+		if (q->GetVisibility() == ESlateVisibility::Hidden)
+			q->SetVisibility(ESlateVisibility::Visible);
 		FGameTopics topic{};
 		q->lSetTexture(paths[count]);
 		q->lSetId(ids[count]);
@@ -56,6 +58,7 @@ TArray<UleeDragWidget*> UThreeLines::GetAllButtons()
 	TArray<UleeDragWidget*> alls{};
 	for (auto& p : lUserChoises) {
 		for (int i = 0; i < p->lDragDropButtons.Num(); i++) {
+			p->lDragDropButtons[i]->lDelegateClear();
 			alls.Add(p->lDragDropButtons[i]);
 		}
 		n++;
@@ -68,7 +71,12 @@ void UThreeLines::LoadAllChoise(FGameLession& data)
 	int n = 0;
 	for (auto& c : lUserChoises) {
 		TArray<FString> paths = data.Topics[n].Choises;
-		LoadChoisesAt(paths, n + 1, n);
+		TArray<UleeDragWidget*> choises= LoadChoisesAt(paths, n + 1, n);
+		for (auto& wd : choises)
+		{
+			if (wd->lStatusImage->GetVisibility() == ESlateVisibility::Visible)
+				wd->lStatusImage->SetVisibility(ESlateVisibility::Hidden);
+		}
 		n++;
 	}
 }

@@ -161,7 +161,7 @@ TArray<FString> IleePublicInterface::lGetAllDirectory(const FString directory,bo
 				FoundFolders[i].ParseIntoArray(temp, TEXT("."), true);
 				FoundFolders[i] = temp[0];
 			}
-			UE_LOG(LogTemp, Warning, TEXT("Found Folder: %s"), *FoundFolders[i]);
+			//UE_LOG(LogTemp, Warning, TEXT("Found Folder: %s"), *FoundFolders[i]);
 		}
 	}
 	else{
@@ -361,10 +361,8 @@ TArray<FString> IleePublicInterface::lGetAllMapNames()
 }
 
 template<typename T>
-void IleePublicInterface::lDelayFunction(float delay, T& name) {
+void IleePublicInterface::lDelayFunction(UWorld*world, float delay, T& name) {
 	FTimerHandle timer;
-
-	UWorld* world = GetWorld();
 	if (world) {
 		world->GetTimerManager().SetTimer(timer, name, false, delay);
 	}

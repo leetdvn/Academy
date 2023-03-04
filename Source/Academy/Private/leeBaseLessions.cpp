@@ -12,7 +12,7 @@ UleeBaseLessions::UleeBaseLessions(const FObjectInitializer& ObjectInitializer)
 
 	//implant static 
 	//UIleeDrop::F
-
+	//isNewGame = false;
 }
 
 void UleeBaseLessions::NativeConstruct()
@@ -27,7 +27,9 @@ void UleeBaseLessions::NativeConstruct()
 	//load tabale data from path
 	//InitGameData();
 	ReloadData();
-	return !isNewGame ? OnLoadCurrentGame() : NewGameThreelineInit();
+	//onlevelChanged.AddUObject(this,&UleeBaseLessions::OnlevelChange);
+	FWorldDelegates::LevelAddedToWorld.AddUFunction(this, FName("OnlevelChange"));
+	return  !isNewGame ? InitNewGame() : LoadThreeLineGame();
 	//int gameid = GameIns->GameData->HistoryGames.Num();
 	//SessionID = gameid > 0 ? gameid : 1;
 	//FString Topics = lThreeline->lTopicSourceFolder;
@@ -39,6 +41,16 @@ void UleeBaseLessions::NativeConstruct()
 
 void UleeBaseLessions::NativeDestruct()
 {
+}
+
+void UleeBaseLessions::OnReplay()
+{
+	FString current = GetWorld()->GetMapName();
+	if (current.EndsWith("ThreeLines")) {
+		UGameplayStatics::OpenLevel(GetWorld(), FName("ThreeLines"));
+		FTimerHandle timer;
+		GetWorld()->GetTimerManager().SetTimer(timer, [this]() {LoadThreeLineGame(); }, 3.0f, false);
+	}
 }
 
 bool UleeBaseLessions::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
@@ -60,35 +72,22 @@ bool UleeBaseLessions::NativeOnDrop(const FGeometry& InGeometry, const FDragDrop
 	return false;
 }
 
-void UleeBaseLessions::InitializeAnswers(TArray<FString> correctName, FGameLession& lession , FString AnswerDir, bool isSwap)
+void UleeBaseLessions::lCreateNewChoises(TArray<FString> correctName, FGameLession& lession , FString AnswerDir, bool isSwap)
 {
 	//craete shape
 	int count{};
 	for (auto& p : lThreeline->lUserChoises) {
 
 		p->ClearButtons();
-		//FString defaultPath = "AcademyAssets/Assets/ChoiseAnswers/AnimalShape";
-		FString path = FPaths::ProjectContentDir() + AnswerDir;
-		//get all img in directory
-		TArray<FString> shape{};
-		FString correctStr = FindContentFromPath(path, correctName[count]);
-		shape.AddUnique(correctStr);
 
-		//get number diffirent files in directory ignore duplicate
-		lGetRandFilesFromDirectory(path, shape, correctName.Num());
+		//get list Choise Swaped positions
+		TArray<FString> shape = lSwapChoises(AnswerDir, correctName[count]);
 
-		//TArray<UleeDragWidget*> btns = lThreeline->LoadChoisesAt(mainData.GetChoiseAt(count), count + 1, count);
 		for (int i = 0; i < shape.Num();i++) {
-
-			//swap index
-			if(isSwap)
-				shape.SwapMemory(i, lRand(i,shape.Num()));
 			FString randPath = "/Game/" + AnswerDir + "/" + shape[i];
-
 			//create buttons and binding Muticast DeleGate
 			UleeDragWidget* btn = p->lCreateDragButton(randPath, true, true, "", count + 1);
-				//btns[i];
-			//draft need refactor
+			//bind delegate function
 			btn->OnDropCorrect.AddDynamic(this, &UleeBaseLessions::OnDropCorrected);
 			btn->OnDropFail.AddDynamic(this, &UleeBaseLessions::OnDropFailure);
 			btn->OnDropTimes.AddDynamic(this, &UleeBaseLessions::OnDropTimes);
@@ -106,7 +105,7 @@ void UleeBaseLessions::InitializeThreeLineopic(FString& sourcefolder, FString& c
 		lDebug("not is Valid Question or user choises.");
 		return;
 	}
-	FGameLession  nlession;
+	FGameLession  nlession = FGameLession();
 	nlession.LessionType = Threelines;
 	//register game id
 	nlession.LessionID = SessionID == 0 ? 1 : SessionID;
@@ -129,12 +128,14 @@ void UleeBaseLessions::InitializeThreeLineopic(FString& sourcefolder, FString& c
 		FString iPath = "/Game/" + defaultPath + "/" + exceptions[i] ;
 		lThreeline->lQuestions[i]->lSetTexture(iPath);
 		lThreeline->lQuestions[i]->lSetId(i + 1);
+		if (lThreeline->lQuestions[i]->GetVisibility() == ESlateVisibility::Hidden)
+			lThreeline->lQuestions[i]->SetVisibility(ESlateVisibility::Visible);
 		topic.ImagePath = iPath;
 		nlession.Topics.Add(topic);
 		nlession.TopicNames.Add(exceptions[i]);
 	}
 	//"AcademyAssets/Assets/ChoiseAnswers/AnimalShape"
-	InitializeAnswers(exceptions,nlession, choiseFolder,true);
+	lCreateNewChoises(exceptions,nlession, choiseFolder,true);
 
 	GameIns->SaveCurrentGameData(nlession);
 
@@ -196,12 +197,12 @@ void UleeBaseLessions::OnDropCorrected()
 
 }
 
-void UleeBaseLessions::OnLoadCurrentGame() {
+void UleeBaseLessions::InitNewGame() {
 
-	switch (mainData.LessionType)
+	switch (DataLoaded.LessionType)
 	{
 	case None:return lDebug("None game type");
-	case Threelines: return  LoadThreeLineGame(mainData);
+	case Threelines: return NewGameThreelineInit();
 	case FourBox:
 		break;
 	case DragDrop:
@@ -213,48 +214,58 @@ void UleeBaseLessions::OnLoadCurrentGame() {
 	}
 }
 
-void UleeBaseLessions::LoadThreeLineGame(FGameLession& game)
+void UleeBaseLessions::LoadThreeLineGame()
 {
-	//load current game from save data
-	lDebug(game.GameTitle, FColor::Blue, "Title");
-	lDebug(game.GameDescriptions, FColor::Blue, "Desc");
-	lDebug(game.LessionType, FColor::Green, "Desc");
 
-	//reload data
+	//reload data load from Save Game;
 	ReloadData();
-	//ltitle->SetText(FText::FromString(game.GameTitle));
-	//lDescription->SetText(FText::FromString(game.GameDescriptions));
 
-	/*int gameid = GameIns->GameData->HistoryGames.Num();
-	SessionID = gameid > 0 ? gameid : 1;
-	FString Topics = lThreeline->lTopicSourceFolder;
-	FString Choise = lThreeline->lChoiseSourceFolder;
-	InitializeThreeLineopic(Topics, Choise);*/
+	//load current game from save data
+	lDebug(DataLoaded.GameTitle, FColor::Blue, "Title");
+	lDebug(DataLoaded.GameDescriptions, FColor::Blue, "Desc");
+	lDebug(DataLoaded.LessionType, FColor::Green, "Desc");
+
+	//load Questions and Player choise
 	TArray<int32> ids = { 1,2,3 };
-	TArray<FString> correctName = game.TopicNames;
-	lThreeline->LoadQuestions(game.GetQuestions(), ids);
-	InitializeAnswers(correctName,game, lThreeline->lChoiseSourceFolder, false);
-	//lThreeline->LoadAllChoise(mainData);
+	TArray<FString> correctName = DataLoaded.TopicNames;
+	lThreeline->LoadQuestions(DataLoaded.GetQuestions(), ids);
+	lThreeline->LoadAllChoise(DataLoaded);
+	BindButtons();
+	DropCorrecttimes = 0;
 }
 
 void UleeBaseLessions::LoadFourBoxGame(FGameLession& game)
 {
 }
 
-TArray<FString> UleeBaseLessions::lGetSwapString(FString dir, TArray<FString> correctname)
+void UleeBaseLessions::BindButtons()
+{
+	for (auto &p : lThreeline->lUserChoises) {
+		for (auto& b : p->lDragDropButtons)	{
+			b->OnDropCorrect.AddDynamic(this, &UleeBaseLessions::OnDropCorrected);
+			b->OnDropFail.AddDynamic(this, &UleeBaseLessions::OnDropFailure);
+			b->OnDropTimes.AddDynamic(this, &UleeBaseLessions::OnDropTimes);
+		}
+	}
+}
+
+// Swap position Player Choise Shape
+TArray<FString> UleeBaseLessions::lSwapChoises(FString AnswerDir, FString correctname)
 {
 	TArray<FString> shape{};
-	for (int i = 0; i < correctname.Num(); i++) {
-		FString path = FPaths::ProjectContentDir() + dir;
-		//get all img in directory
+	FString path = FPaths::ProjectContentDir() + AnswerDir;
+	//get all img in directory
 		
-		FString correctStr = FindContentFromPath(path, correctname[i]);
-		shape.AddUnique(correctStr);
+	FString correctStr = FindContentFromPath(path, correctname);
+	shape.AddUnique(correctStr);
 
-		//get number diffirent files in directory ignore duplicate
-		lGetRandFilesFromDirectory(path, shape, correctname.Num());
+	//get number diffirent files in directory ignore duplicate
+	lGetRandFilesFromDirectory(path, shape, 3);
+	for (int32 i = 0; i < shape.Num(); i++) {
+		shape.SwapMemory(i, lRand(i, shape.Num()));
+		UE_LOG(LogTemp,Warning,TEXT("view Swaper :%s"), *shape[i]);
 	}
-	return TArray<FString>();
+	return shape;
 }
 
 void UleeBaseLessions::ReloadData()
@@ -262,7 +273,7 @@ void UleeBaseLessions::ReloadData()
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (!GameIns) { lDebug("Game Instance Nullptr"); }
 	GameIns->LoadGameData();
-	mainData = GameIns->GameData->CurrentGame;
+	DataLoaded = GameIns->GameData->CurrentGame;
 	//mainData.LessionType = Threelines;
 }
 
@@ -281,11 +292,11 @@ void UleeBaseLessions::lDeleyCall() {
 	lDebug("delay call");
 }
 
-void UleeBaseLessions::ReplayGame() {
-
-	FString current = GetWorld()->GetCurrentLevel()->GetName();
-	UGameplayStatics::OpenLevel(GetWorld(), FName(current));
-	FTimerHandle timer;
-	GetWorld()->GetTimerManager().SetTimer(timer, [this]() {LoadThreeLineGame(mainData); }, 3.0f, false);
-
-}
+//void UleeBaseLessions::ReplayGame() {
+//
+//	//FString current = GetWorld()->GetCurrentLevel()->GetName();
+//	//UGameplayStatics::OpenLevel(GetWorld(), FName(current));
+//	//FTimerHandle timer;
+//	//GetWorld()->GetTimerManager().SetTimer(timer, [this]() {LoadThreeLineGame(); }, 3.0f, false);
+//
+//}

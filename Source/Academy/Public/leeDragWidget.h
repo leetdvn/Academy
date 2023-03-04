@@ -25,7 +25,7 @@ class ACADEMY_API UleeDragWidget : public UUserWidget , public IleePublicInterfa
 
 public:
 	UleeDragWidget(const FObjectInitializer& ObjectInitializer);
-
+	~UleeDragWidget();
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		FString lGetImagePath() { return lImagePath; }
 
@@ -76,6 +76,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetVisibility(bool visible);
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Status Image", meta = (BindWidget))
+		UImage* lStatusImage;
+
+	void lDelegateClear();
 protected:
 
 	virtual void NativePreConstruct() override;
@@ -89,9 +93,6 @@ protected:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Drag Image", meta = (BindWidget))
 		UImage* lDragImage;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Status Image", meta = (BindWidget))
-		UImage* lStatusImage;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Drag Drop Operation")
 		TSubclassOf<UDragDropOperation> lDragSubOperation;

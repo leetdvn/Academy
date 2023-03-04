@@ -10,6 +10,8 @@
 #include <Components/TextBlock.h>
 #include <Components/CanvasPanel.h>
 #include "CoreMinimal.h"
+#include "Engine/World.h"
+#include "Async/Async.h"
 #include "Blueprint/UserWidget.h"
 #include <Engine/DataTable.h>
 #include "leeBaseLessions.generated.h"
@@ -22,7 +24,6 @@ const FString lSlotName = "Academy";
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCompletedGame, UleeBaseLessions*, CurrentGame);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLoseGame, UleeBaseLessions*, CurrentGame);
-
 /**
  * 
  */
@@ -33,7 +34,7 @@ class ACADEMY_API UleeBaseLessions : public UUserWidget , public IleePublicInter
 	
 public:
 	UleeBaseLessions(const FObjectInitializer& ObjectInitializer);
-	~UleeBaseLessions() {};
+	~UleeBaseLessions() {  };
 
 #pragma region UFUNCTION / PROPERTY Uneal
 
@@ -59,8 +60,11 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game ID")
 		int  SessionID;
 
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "New Game")
+		bool isNewGame;
+
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
-		FGameLession mainData;
+		FGameLession DataLoaded;
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;
@@ -84,20 +88,34 @@ public:
 		bool lIsValidThreeLine();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void InitializeAnswers(TArray<FString> correctName, FGameLession &lession ,FString AnswerDir="",bool isSwap=false);
+		void lCreateNewChoises(TArray<FString> correctName, FGameLession &lession ,FString AnswerDir="",bool isSwap=false);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnLoadCurrentGame();
+		void InitNewGame();
 
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void ReplayGame();
-
+	//Create new Game Type Three line lession
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void NewGameThreelineInit();
 
+	//load current game from save data
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void LoadThreeLineGame();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnReplay();
+	//UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
+	//	FWorldDelegates::FOnLevelChanged onlevelChanged;
 
 	UFUNCTION()
 		void lDeleyCall();
+
+	UFUNCTION()
+		void OnlevelChange(ULevel* lv,UWorld* world)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("level change.."))
+	};
+
+
 #pragma endregion //Unreal
 
 	FORCEINLINE void lGetAllPanels(UPanelWidget* parent, TArray<UleePanelBase*> &outpanels);
@@ -114,18 +132,19 @@ protected:
 	int32 DropFailtimes;
 
 	bool lOnDropVisible;
-	bool isNewGame;
 	FGameLession gamedata;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Data Path")
 		UDataTable* lDataTable;
 
 	TArray<UleePanelBase*> lPanels;
+	//assign delegate
+	void BindButtons();
 
-	//random ssawp string
-	TArray<FString> lGetSwapString(FString dir, TArray<FString> correctname);
-	//load current game from save data
-	void LoadThreeLineGame(FGameLession& game);
+
+	// Swap position Player Choise Shape return Array of Paths 
+	TArray<FString> lSwapChoises(FString AnswerDir, FString correctname);
+
 
 	void LoadFourBoxGame(FGameLession& game);
 

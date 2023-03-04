@@ -11,6 +11,7 @@
 #include "Blueprint/UserWidget.h"
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
+#include "Blueprint/UserWidget.h"
 #include "leePublicInterface.generated.h"
 
 #define lDebug(...) lDebugStr(__VA_ARGS__)
@@ -168,5 +169,5 @@ public:
 	UPackage* lCreateAssetRuntime(FString objName,FString InProjectPath,FString savePath,T*& OutObject);
 
 	template<typename T>
-	void lDelayFunction(float delay, T &name);
+	void lDelayFunction(UWorld* world,float delay, T &name);
 };

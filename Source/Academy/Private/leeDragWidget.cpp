@@ -11,6 +11,11 @@ UleeDragWidget::UleeDragWidget(const FObjectInitializer& ObjectInitializer)
 	lImageDefault = "/Game/AcademyAssets/Assets/Textures/UI/btn_check";
 }
 
+UleeDragWidget::~UleeDragWidget()
+{
+	lDelegateClear();
+}
+
 void UleeDragWidget::NativePreConstruct()
 {
 	if (!lFilesExists(lImagePath)) lInitializeDefault(lImageDefault);
@@ -120,5 +125,13 @@ void UleeDragWidget::lSetVisibility(bool visible)
 	ESlateVisibility state = visible ? ESlateVisibility::Hidden : ESlateVisibility::Visible;
 	if (GetVisibility() != state)
 		SetVisibility(state);
+
+}
+
+void UleeDragWidget::lDelegateClear()
+{
+	OnDropCorrect.Clear();
+	OnDropFail.Clear();
+	OnDropTimes.Clear();
 
 }

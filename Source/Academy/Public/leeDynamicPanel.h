@@ -17,31 +17,6 @@
 /**
  * 
  */
-USTRUCT(BlueprintType)
-struct FLessionsProp
-{
-	GENERATED_BODY()
-
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Question")
-		UleeDragWidget* lQuestion;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Question Image")
-		class UImage* lQuestionImage;
-	
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Question Text")
-		class UTextBlock* lQuestionText;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Choise")
-		UleePanelBase* lUserChoises;
-
-	//UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Decorations")
-	TArray<class UImage*> lChoiseImages;
-
-	//UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Choise Texts")
-	TArray<class UTextBlock*> lChoiseText;
-
-};
 
 UCLASS(BlueprintType)
 class ACADEMY_API UThreeLines : public UCanvasPanel , public IleePublicInterface
@@ -84,7 +59,13 @@ public:
 
 	//load all user choise 
 	void LoadAllChoise(FGameLession& data);
-
+	UThreeLines() :ltypeGame(Threelines),
+		lQuestions({}),
+		lUserChoises({}),
+		lTopicSourceFolder(""),
+		lChoiseSourceFolder("")
+	{
+	}
 protected:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Preview Data")
 		FGameLession lGameData;
