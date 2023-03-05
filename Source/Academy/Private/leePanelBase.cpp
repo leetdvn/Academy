@@ -232,6 +232,25 @@ void UleePanelBase::ClearButtons()
 	if (lbuttons.Num() > 0) lbuttons.Empty();
 }
 
+void UleePanelBase::lSetMakeSameAt(FString path, bool DragButton)
+{
+	if (DragButton && path.IsEmpty() && lDragDropButtons.Num() <= 0) return;
+	if (!DragButton && path.IsEmpty() && lbuttons.Num() <= 0) return;
+
+
+	if (DragButton) {
+		for (auto& b : lDragDropButtons)
+			b->lSetTexture(path);
+		return;
+	}
+
+	FVector2D bSize = lGetSizeTexture(path);
+	for (auto& b : lbuttons) {
+		b->lSetNormalFromPath(path, bSize);
+	}
+
+}
+
 UleeBaseButton* UleePanelBase::lCreateNormalButton(FString imgPath, bool ImgOnly, FString text,int32 rID)
 {
 	UleeBaseButton* wid = CreateWidget<UleeBaseButton>(GetWorld(), lRuntimeButton);

@@ -124,6 +124,8 @@ public:
 	/// <param name="number"></param>
 	void lGetRandFilesFromDirectory(FString dir, TArray<FString> &exceptions,int32 number);
 
+	FORCEINLINE FString lGetRandFileFromDirectory(FString dir);
+
 	void lGetRandNums(TArray<int32> &nums,int length);
 
 
@@ -168,6 +170,6 @@ public:
 	template<class T>
 	UPackage* lCreateAssetRuntime(FString objName,FString InProjectPath,FString savePath,T*& OutObject);
 
-	template<typename T>
-	void lDelayFunction(UWorld* world,float delay, T &name);
+	//template<typename T>
+	//void lDelayFunction(UWorld* world,float delay, T &name);
 };

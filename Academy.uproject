@@ -41,10 +41,6 @@
 			"Enabled": false
 		},
 		{
-			"Name": "AutomationUtils",
-			"Enabled": false
-		},
-		{
 			"Name": "ChaosClothEditor",
 			"Enabled": false
 		},
@@ -236,6 +232,10 @@
 		},
 		{
 			"Name": "SubversionSourceControl",
+			"Enabled": false
+		},
+		{
+			"Name": "AutomationUtils",
 			"Enabled": false
 		}
 	]

@@ -4,7 +4,6 @@
 #include "leePublicInterface.h"
 #include <AssetRegistry/AssetRegistryModule.h>
 #include "HAL/FileManagerGeneric.h"
-#include <Json/Private/Tests/JsonTests.cpp>
 
 
 // Add default functionality here for any IleeInterface functions that are not pure virtual.
@@ -305,6 +304,15 @@ void IleePublicInterface::lSetUpdateSizeRules(UPanelSlot*&panelSlot, ESlateSizeR
 	}
 }
 
+FString IleePublicInterface::lGetRandFileFromDirectory(FString dir)
+{
+	TArray<FString> files = lGetAllDirectory(dir, true);
+	int32 rand = lRand(0, files.Num());
+	if (files.Num() > 0) return files[rand];
+	lDebug(" file is zero");
+	return "";
+}
+
 FVector2D IleePublicInterface::lScreenResolution()
 {
 	FVector2D viewportSize{};
@@ -359,10 +367,10 @@ TArray<FString> IleePublicInterface::lGetAllMapNames()
 	return Lista;
 }
 
-template<typename T>
-void IleePublicInterface::lDelayFunction(UWorld*world, float delay, T& name) {
-	FTimerHandle timer;
-	if (world) {
-		world->GetTimerManager().SetTimer(timer, name, false, delay);
-	}
-}
+//template<typename T>
+//void IleePublicInterface::lDelayFunction(UWorld*world, float delay, T& name) {
+//	FTimerHandle timer;
+//	if (world) {
+//		world->GetTimerManager().SetTimer(timer, name, false, delay);
+//	}
+//}

@@ -9,7 +9,7 @@
 UleeBaseLessions::UleeBaseLessions(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
 {
-
+	//lThreeline = Cast<UThreeLines>(lDynamicPanel);
 	//implant static 
 	//UIleeDrop::F
 	//isNewGame = false;

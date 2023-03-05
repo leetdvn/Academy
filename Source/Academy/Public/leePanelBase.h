@@ -107,7 +107,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void ClearButtons();
 	
-
+	bool isCreated() { return lbuttons.Num() > 0 || lDragDropButtons.Num() > 0 ? true : false; };
+	
+	void lSetMakeSameAt(FString path,bool DragButton);
 	/// <summary>
 	/// create button add to panels
 	/// </summary>
