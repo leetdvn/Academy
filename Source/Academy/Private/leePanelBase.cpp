@@ -148,30 +148,6 @@ void UleePanelBase::lOverridePadding(TArray<FMargin> margins, TArray<UleeBaseBut
 
 }
 
-template<class T>
-T* UleePanelBase::lExistsWidget(UPanelWidget* Parent, FString& name, bool status)
-{
-	//check file exits
-	bool Success{};
-	TArray<UWidget*> widgets = Parent->GetAllChildren();
-	if (widgets.Num() <= 0) return nullptr;
-
-	//loop find
-#pragma omp parallel for
-	for (auto wd : widgets) {
-		FString wName = wd->GetFName().ToString();
-		if (wName == name) { return Cast<T>(wd); }
-		UPanelWidget* box = Cast<UPanelWidget>(wd);
-
-		if (box) {
-			Success = lExistsWidget<T>(box, name, status);
-			if (Success) { return nullptr; }
-
-		}
-	}
-	return nullptr;
-}
-
 void UleePanelBase::NativeConstruct()
 {
 	

@@ -126,7 +126,7 @@ public:
 
 	FORCEINLINE FString lGetRandFileFromDirectory(FString dir);
 
-	void lGetRandNums(TArray<int32> &nums,int length);
+	void lGetRandNums(TArray<int32> &Outnums,int32 maxArray, int32 maxValue);
 
 
 	UTexture2D* lGetTextureFromPath(FString imgPath);
@@ -146,11 +146,6 @@ public:
 	const FVector2D lbaseScreenXY =FVector2D(768,1024);
 	const int lbaseScreenX = 768;
 	const int lbaseScreenY = 1024;
-
-	FVector2D lScreenResolution();
-
-	FVector2D lFitResolutons();
-
 
 	/// <summary>
 	/// Create Data Table 
@@ -172,4 +167,8 @@ public:
 
 	//template<typename T>
 	//void lDelayFunction(UWorld* world,float delay, T &name);
+
+	template<class T>
+	T* lExistsWidget(UPanelWidget* Parent, FString& name, bool status = false);
+
 };

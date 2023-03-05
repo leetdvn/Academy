@@ -70,13 +70,7 @@ public:
 		FOnCompletedGame OnCorrectClick;
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnDropFailure();
-
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnDropCorrected();
-
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnDropTimes();
+		void OnIDrop(bool isCorrect);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void InitializeThreeLineopic(FString &sourcefolder, FString& choiseFolder);
@@ -86,9 +80,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lCreateNewChoises(TArray<FString> correctName, FGameLession &lession ,FString AnswerDir="",bool isSwap=false);
-
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void InitNewGame();
 
 	//Create new Game Type Three line lession
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
@@ -100,11 +91,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnReplay();
-	//UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
-	//	FWorldDelegates::FOnLevelChanged onlevelChanged;
-
-	UFUNCTION()
-		void lDeleyCall();
 
 	UFUNCTION()
 		void OnlevelChange(ULevel* lv,UWorld* world)
@@ -141,9 +127,6 @@ protected:
 
 	// Swap position Player Choise Shape return Array of Paths 
 	TArray<FString> lSwapChoises(FString AnswerDir, FString correctname);
-
-
-	void LoadFourBoxGame(FGameLession& game);
 
 	void ReloadData();
 	///generate new game random topic answer

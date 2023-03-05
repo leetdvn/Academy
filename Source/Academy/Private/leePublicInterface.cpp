@@ -232,16 +232,16 @@ void IleePublicInterface::lGetRandFilesFromDirectory(FString dir, TArray<FString
 	//if (exceptions.Num() < number - 1) return lGetRandFilesFromDirectory(dir, exceptions, number);
 }
 
-void IleePublicInterface::lGetRandNums(TArray<int32>& nums, int length)
+void IleePublicInterface::lGetRandNums(TArray<int32>& Outnums, int32 maxArray, int32 maxValue)
 {
 #pragma omp parallel for
-	for (size_t i = 0; i < length; i++)	{
-		int32 rand=lRand(0, length);
-		if (nums.Num() == length) return;
-		nums.AddUnique(rand);
-		lDebug(rand);
+	for (size_t i = 0; i < maxArray; i++)	{
+		int32 rand=lRand(1, maxValue);
+		if (Outnums.Num() == maxArray) return;
+		Outnums.AddUnique(rand);
+		//lDebug(rand);
 	}
-	if (nums.Num() < length) return lGetRandNums(nums, length);
+	if (Outnums.Num() < maxArray) return lGetRandNums(Outnums, maxArray,maxValue);
 }
 
 UTexture2D* IleePublicInterface::lGetTextureFromPath(FString imgPath)
@@ -313,24 +313,6 @@ FString IleePublicInterface::lGetRandFileFromDirectory(FString dir)
 	return "";
 }
 
-FVector2D IleePublicInterface::lScreenResolution()
-{
-	FVector2D viewportSize{};
-	if (GEngine) {
-#if !WITH_EDITOR
-		GEngine->GameViewport->GetViewportSize(viewportSize);
-		return viewportSize;
-#endif
-	}
-	return viewportSize;
-}
-
-FVector2D IleePublicInterface::lFitResolutons()
-{
-	FVector2D v2D = lScreenResolution();
-	return lScreenResolution() / lbaseScreenXY;
-}
-
 UDataTable* IleePublicInterface::lCreateDataTableRuntime(FString objName, FString InProjectPath, FString savePath, UScriptStruct* script)
 {
 	//example Path
@@ -374,3 +356,27 @@ TArray<FString> IleePublicInterface::lGetAllMapNames()
 //		world->GetTimerManager().SetTimer(timer, name, false, delay);
 //	}
 //}
+
+template<class T>
+T* IleePublicInterface::lExistsWidget(UPanelWidget* Parent, FString& name, bool status)
+{
+	//check file exits
+	bool Success{};
+	TArray<UWidget*> widgets = Parent->GetAllChildren();
+	if (widgets.Num() <= 0) return nullptr;
+
+	//loop find
+#pragma omp parallel for
+	for (auto wd : widgets) {
+		FString wName = wd->GetFName().ToString();
+		if (wName == name) { return Cast<T>(wd); }
+		UPanelWidget* box = Cast<UPanelWidget>(wd);
+
+		if (box) {
+			Success = lExistsWidget<T>(box, name, status);
+			if (Success) { return nullptr; }
+
+		}
+	}
+	return nullptr;
+}

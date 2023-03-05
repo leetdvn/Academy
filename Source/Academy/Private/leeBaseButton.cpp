@@ -13,27 +13,6 @@ class UWidgetTree;
 
 UleeBaseButton* UleeBaseButton::ins;
 
-UleeBaseButton* UleeBaseButton::operator=(UleeBaseButton*& other)
-{
-	if(!other)
-		other = CreateWidget<UleeBaseButton>(GetWorld(), UleeBaseButton::StaticClass());
-	other->lSetTextFont(ltextsize);
-	//set size
-	other->lSetButtonSize(lSizeOverride);
-	other->lUpdateBaseSize(lSizeOverride);
-	other->lSetTextVisibility(lImageOnly);
-	//set text
-	other->ltextblock->SetText(FText::FromString(ltext));
-
-	//set Normal Image
-	other->lSetNormalFromPath(lNormalPath, lSizeOverride);
-	other->rowID = rowID;
-	other->lSetTextVisibility(ltextHiden);
-	other->lSetContentSize();
-	//lDebug(ltextsize);
-	return other;
-}
-
 UleeBaseButton::UleeBaseButton(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
 {
@@ -159,55 +138,8 @@ void UleeBaseButton::lInitialized(FString ImagePath,FString &text, bool ImageOnl
 	lSetNormalFromPath(ImagePath,lSizeOverride);
 	lNormalPath = ImagePath;
 
-	//lDebug(ltextsize);
 	if (lButton)
-		lDynamicGameType(gametype);
-}
-
-void UleeBaseButton::lDynamicGameType(TEnumAsByte<lGameType> gametype)
-{
-	if (!lButton) return;
-
-	switch (gametype)
-	{
-	case None:
-		lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OpenMap);
-		break;
-	case Threelines:
-		//btn->lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OpenMap);
-		break;
-	case FourBox:
-		lButton->OnClicked.AddDynamic(this, &UleeBaseButton::lReplyFourBox);
-		break;
-	case DragDrop:
-		//lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OpenMap);
-		break;
-	case Line2Column:
-		//lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OpenMap);
-		break;
-	case AlphaBet:
-		//lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OpenMap);
-		break;
-	}
-}
-
-void UleeBaseButton::OnCorrectClicked()
-{
-	lDebug("Correct Clicked.");
-	OnCorrectClick.Broadcast(GetName());
-}
-//change map level
-void UleeBaseButton::OpenMap()
-{
-	//
-	FString CurrentMap = GetWorld()->GetMapName();
-	FString newMap = ltexture2D->GetName() == "count" ? "AlphaBet" :  "ThreeLines";
-	if (CurrentMap.EndsWith(newMap) || !lMapExists(newMap)) return;
-	//lDebug(CurrentMap);
-	//TArray<FString> maps= lGetAllMapNames();
-	//for (auto m : maps)
-	//	if(!m.StartsWith("UEDPIE_0"))lDebug(m);
-	UGameplayStatics::OpenLevel(GetWorld(),FName(*newMap));
+		lButton->OnClicked.AddDynamic(this, &UleeBaseButton::lClickCallBack);
 }
 
 UleeBaseButton* UleeBaseButton::lCopyRef(UleeBaseButton*& other)
@@ -230,9 +162,10 @@ UleeBaseButton* UleeBaseButton::lCopyRef(UleeBaseButton*& other)
 	return other;
 }
 
-void UleeBaseButton::lOnListenCallback()
+void UleeBaseButton::lClickCallBack()
 {
 	lDebug("call back Touch..");
+	OnMenuClick.Broadcast(ltexture2D->GetName());
 }
 
 void UleeBaseButton::lReplyFourBox()

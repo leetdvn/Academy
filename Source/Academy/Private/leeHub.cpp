@@ -3,6 +3,7 @@
 #include "leeHub.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include <leePanelBase.h>
 
 class UKidWidget;
 
@@ -17,15 +18,18 @@ void AleeHub::BeginPlay()
 	
 	if (!lMenuWidget) return;
 
-	FString map = GetWorld()->GetMapName();
+	FString map = UGameplayStatics::GetCurrentLevelName(GetWorld());// ->GetMapName();
 	TSubclassOf<UUserWidget> panel;// = map.EndsWith("AMenu") ? lMenuWidget : lThreeLine;
 
 	if (map.EndsWith("AMenu"))
 		panel = lMenuWidget;
 	else if (map.EndsWith("ThreeLines"))
 		panel = lThreeLine;
-	else if (map.EndsWith("AlphaBet"))
+	//else if (map.EndsWith("AlphaBet"))
+	//	panel = lFourBox;
+	else if (map.EndsWith("FourBox"))
 		panel = lFourBox;
+
 	//Create Menu
 	if (!panel) return;
 	lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), panel);
@@ -33,6 +37,8 @@ void AleeHub::BeginPlay()
 
 	if (lCurrentWidget) {
 		lCurrentWidget->AddToViewport();
+		UPanelWidget* parent= lCurrentWidget->GetRootWidget()->GetParent();
+		//lget
 		//GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
 		//FVector2D resolution = lScreenResolution();
 	}

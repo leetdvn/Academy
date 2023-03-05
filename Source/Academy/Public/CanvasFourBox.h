@@ -5,7 +5,6 @@
 #include "leePanelBase.h"
 #include "Components/PanelWidget.h"
 #include "Components/Image.h"
-#include "leePublicInterface.h"
 #include "leePublicEnum.h"
 #include "CoreMinimal.h"
 #include "Components/CanvasPanel.h"
@@ -16,7 +15,7 @@
  */
 
 UCLASS(BlueprintType)
-class ACADEMY_API UCanvasFourBox : public UCanvasPanel, public IleePublicInterface
+class ACADEMY_API UCanvasFourBox : public UCanvasPanel
 {
 	GENERATED_BODY()
 
@@ -26,7 +25,7 @@ public:
 		TEnumAsByte<lGameType> ltypeGame = FourBox;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Question")
-		TArray<class UImage*> lQuestions;
+		TArray<UImage*> lQuestions;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Choises")
 		TArray<UleePanelBase*> lUserChoises;

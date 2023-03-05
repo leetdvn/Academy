@@ -10,9 +10,7 @@
 #include "leeDragWidget.generated.h"
 
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDropFail);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDropCorrect);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDropTimes);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnIDrop,bool,isCorrect);
 
 class UImage;
 /**
@@ -63,13 +61,7 @@ public:
 		int32 lGetId() { return lIdname; }
 
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
-		FOnDropFail OnDropFail;
-
-	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
-		FOnDropCorrect OnDropCorrect;
-
-	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
-		FOnDropTimes OnDropTimes;
+		FOnIDrop OniDrop;
 
 	void lSetTexture(UTexture2D* newtexture) { lImagePath = newtexture->GetPathName(); return lDragImage->SetBrushResourceObject(newtexture); }
 
@@ -79,7 +71,6 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Status Image", meta = (BindWidget))
 		UImage* lStatusImage;
 
-	void lDelegateClear();
 protected:
 
 	virtual void NativeConstruct() override;

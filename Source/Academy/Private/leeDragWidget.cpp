@@ -13,7 +13,7 @@ UleeDragWidget::UleeDragWidget(const FObjectInitializer& ObjectInitializer)
 
 UleeDragWidget::~UleeDragWidget()
 {
-	lDelegateClear();
+	OniDrop.Clear();
 }
 
 void UleeDragWidget::NativeConstruct()
@@ -69,24 +69,20 @@ FReply UleeDragWidget::NativeOnTouchStarted(const FGeometry& InGeometry, const F
 bool UleeDragWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
 {
 	if (!lIsDrop) return false;
-
+	bool isCorrect{};
 	UleeDragWidget* DragVisual = Cast<UleeDragWidget>(InOperation->DefaultDragVisual);
 	if (DragVisual) {
 		UleeDragWidget* DragObj = Cast<UleeDragWidget>(InOperation->Payload);
 		FString DropName = DragVisual->ltexture->GetName();
-		OnDropTimes.Broadcast();
 		if (ltexture->GetName().EndsWith(DropName) && DragVisual->lIdname == lIdname) {
 			lSetTexture(DragVisual->ltexture);
-			OnDropCorrect.Broadcast();
 			lStatusImage->SetVisibility(ESlateVisibility::Visible);
-			return false;
+			isCorrect = true;
 		}
-		if (DragObj)
+		else if(DragObj)
 			DragObj->lSetVisibility(false);
 	}
-	OnDropFail.Broadcast();
-
-
+	OniDrop.Broadcast(isCorrect);
 	return false;
 }
 
@@ -133,13 +129,5 @@ void UleeDragWidget::lSetVisibility(bool visible)
 	ESlateVisibility state = visible ? ESlateVisibility::Hidden : ESlateVisibility::Visible;
 	if (GetVisibility() != state)
 		SetVisibility(state);
-
-}
-
-void UleeDragWidget::lDelegateClear()
-{
-	OnDropCorrect.Clear();
-	OnDropFail.Clear();
-	OnDropTimes.Clear();
 
 }

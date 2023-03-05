@@ -40,8 +40,11 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Bottom Decor Panel", meta = (BindWidget))
 		UPanelWidget* lbottomdecor;
 
-
-	void NewFourBoxInit();
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void NewFourBoxInit();
+	
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void lSetChoiseDiffAt(int32 idx);
 
 protected:
 

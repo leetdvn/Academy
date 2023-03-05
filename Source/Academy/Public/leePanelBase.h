@@ -117,6 +117,13 @@ public:
 
 	UleeDragWidget* lCreateDragButton(FString imgPath, bool ImgOnly, bool isDrop, FString text = "", int32 rID = -1);
 
+
+	void lOverrideTextName(TArray<FString> texts, TArray<UleeBaseButton*> btns);
+
+	void lOverrideTextures(TArray<UTexture2D*> textures, TArray<UleeBaseButton*> btns, FVector2D size);
+
+	void lOverridePadding(TArray<FMargin> margin, TArray<UleeBaseButton*> btns);
+
 	//void OnDragDetected() override;
 #pragma endregion
 
@@ -129,15 +136,6 @@ protected:
 	virtual void NativeConstruct() override;
 
 	//virtual void NativePreConstruct() override;
-
-	template<class T>
-	T* lExistsWidget(UPanelWidget* Parent, FString& name, bool status = false);
-
-	void lOverrideTextName(TArray<FString> texts, TArray<UleeBaseButton*> btns);
-
-	void lOverrideTextures(TArray<UTexture2D*> textures, TArray<UleeBaseButton*> btns, FVector2D size);
-
-	void lOverridePadding(TArray<FMargin> margin, TArray<UleeBaseButton*> btns);
 
 	UleePanelBase* ins;
 private:

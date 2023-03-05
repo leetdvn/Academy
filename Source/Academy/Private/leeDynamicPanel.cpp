@@ -58,7 +58,6 @@ TArray<UleeDragWidget*> UThreeLines::GetAllButtons()
 	TArray<UleeDragWidget*> alls{};
 	for (auto& p : lUserChoises) {
 		for (int i = 0; i < p->lDragDropButtons.Num(); i++) {
-			p->lDragDropButtons[i]->lDelegateClear();
 			alls.Add(p->lDragDropButtons[i]);
 		}
 		n++;

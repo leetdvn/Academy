@@ -1,4 +1,5 @@
 #include "leeFourBox.h"
+#include "Kismet/KismetStringLibrary.h"
 
 void UleeFourBox::NewFourBoxInit()
 {
@@ -31,13 +32,43 @@ void UleeFourBox::NewFourBoxInit()
 	for (auto& ans : lFourBox->lUserChoises) {
 		//cDir.SwapMemory(xcount, );
 		FString cPath = "/Game/" + lFourBox->lChoiseSourceFolder +  "/" + cDir[wrap[xcount]];
-		lDebug(cDir[xcount], FColor::Green);
+		//lDebug(cDir[xcount], FColor::Green);
 		ans->lSetMakeSameAt(cPath, false);
+		lSetChoiseDiffAt(xcount);
 		xcount++;
 	}
+}
+
+void UleeFourBox::lSetChoiseDiffAt(int32 idx)
+{
+	if (idx < 0 || idx > lFourBox->lQuestions.Num()) return ;
+
+	FString qName = lFourBox->lQuestions[idx]->Brush.GetResourceName().ToString();
+	FString number = qName.Left(1);
+	//convert string to int
+	int32 num =UKismetStringLibrary::Conv_StringToInt(number);
+	TArray<UleeBaseButton*> buttons = lFourBox->lUserChoises[idx]->lGetButtons();
+	if (buttons.Num() <= 0) return ;
+
+	//get Array numbers diffirence
+	TArray<int32> nums{ num };
+	lGetRandNums(nums, buttons.Num(),11);
+
+	//conver Array Number to String
+	TArray<FString> overText{};
+	for (auto& n : nums)
+		overText.AddUnique(FString::FromInt(n));
+
+	//lDebug(overText.Num());
+
+	lFourBox->lUserChoises[idx]->lOverrideTextName(overText, buttons);
+
+
+	return ;
 }
 
 void UleeFourBox::NativeConstruct()
 {
 	NewFourBoxInit();
+	//lGetTopicCaculateAt(1);
 }

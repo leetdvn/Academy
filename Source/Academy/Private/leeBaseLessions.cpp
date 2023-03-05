@@ -19,23 +19,8 @@ void UleeBaseLessions::NativeConstruct()
 {
 	//binding event drop for answers
 	//load Game History
-	//lDataSave = Cast<UPlayerData>(UGameplayStatics::LoadGameFromSlot("LeeTdvnGameData", 1));
-	/*lDataSave = Cast<UPlayerData>(UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass()));
-	bool isSuccess{};
-	lDataSave->LoadGameData(isSuccess);
-	mainData = lDataSave->CurrentGame;*/
-	//load tabale data from path
-	//InitGameData();
 	ReloadData();
-	//onlevelChanged.AddUObject(this,&UleeBaseLessions::OnlevelChange);
-	FWorldDelegates::LevelAddedToWorld.AddUFunction(this, FName("OnlevelChange"));
-	return  !isNewGame ? InitNewGame() : LoadThreeLineGame();
-	//int gameid = GameIns->GameData->HistoryGames.Num();
-	//SessionID = gameid > 0 ? gameid : 1;
-	//FString Topics = lThreeline->lTopicSourceFolder;
-	//FString Choise = lThreeline->lChoiseSourceFolder;
-	//InitializeThreeLineopic(Topics,Choise);
-
+	return  !isNewGame ? NewGameThreelineInit() : LoadThreeLineGame();
 
 }
 
@@ -88,9 +73,7 @@ void UleeBaseLessions::lCreateNewChoises(TArray<FString> correctName, FGameLessi
 			//create buttons and binding Muticast DeleGate
 			UleeDragWidget* btn = p->lCreateDragButton(randPath, true, true, "", count + 1);
 			//bind delegate function
-			btn->OnDropCorrect.AddDynamic(this, &UleeBaseLessions::OnDropCorrected);
-			btn->OnDropFail.AddDynamic(this, &UleeBaseLessions::OnDropFailure);
-			btn->OnDropTimes.AddDynamic(this, &UleeBaseLessions::OnDropTimes);
+			btn->OniDrop.AddDynamic(this, &UleeBaseLessions::OnIDrop);
 			lession.Topics[count].Choises.Add(randPath);
 		}
 
@@ -170,48 +153,15 @@ void UleeBaseLessions::lGetAllPanels(UPanelWidget* parent, TArray<UleePanelBase*
 	}
 }
 
-void UleeBaseLessions::OnDropTimes()
+void UleeBaseLessions::OnIDrop(bool isCorrect)
 {
 	Droptimes++;
-	FString report = "Tong So Lan la : " + FString::FromInt(Droptimes);
-	lDebug(report,FColor::Green,"Count");
-
-}
-
-void UleeBaseLessions::OnDropFailure()
-{
-	lDebug("Tra loi sai roi");
-	DropFailtimes++;
-}
-
-void UleeBaseLessions::OnDropCorrected()
-{
-	DropCorrecttimes++;
-	FString report = "Chuc Mung Ban Tra loi dung : " + FString::FromInt(DropCorrecttimes);
-	//if (DropCorrecttimes == 3) {
-	//	GameIns->GameData->HistoryGames.Add(mainData);
-	//	GameIns->SaveCurrentGameData(mainData);
-	//}
-	lDebug(report);
-	lOnDropVisible = true;
-
-}
-
-void UleeBaseLessions::InitNewGame() {
-
-	switch (DataLoaded.LessionType)
-	{
-	case None:return lDebug("None game type");
-	case Threelines: return NewGameThreelineInit();
-	case FourBox:
-		break;
-	case DragDrop:
-		break;
-	case Line2Column:
-		break;
-	case AlphaBet:
-		break;
-	}
+	DropCorrecttimes += isCorrect ? 1 : 0;
+	lOnDropVisible = isCorrect;
+	//add History Game List
+	//if(DropCorrecttimes ==3 && isCorrect)
+	//	GameIns->GameData->HistoryGames.Add(DataLoaded);
+	lDebug(DropCorrecttimes);
 }
 
 void UleeBaseLessions::LoadThreeLineGame()
@@ -234,20 +184,13 @@ void UleeBaseLessions::LoadThreeLineGame()
 	DropCorrecttimes = 0;
 }
 
-void UleeBaseLessions::LoadFourBoxGame(FGameLession& game)
-{
-}
-
 void UleeBaseLessions::BindButtons()
 {
 	for (auto &p : lThreeline->lUserChoises) {
 		for (auto& b : p->lDragDropButtons)	{
-			if(!b->OnDropCorrect.IsBound())
-				b->OnDropCorrect.AddDynamic(this, &UleeBaseLessions::OnDropCorrected);
-			if (!b->OnDropFail.IsBound())
-				b->OnDropFail.AddDynamic(this, &UleeBaseLessions::OnDropFailure);
-			if (!b->OnDropTimes.IsBound())
-				b->OnDropTimes.AddDynamic(this, &UleeBaseLessions::OnDropTimes);
+			if (!b->OniDrop.IsBound())
+				b->OniDrop.AddDynamic(this, &UleeBaseLessions::OnIDrop);
+
 		}
 	}
 }
@@ -290,16 +233,3 @@ void UleeBaseLessions::NewGameThreelineInit()
 	InitializeThreeLineopic(Topics, Choise);
 
 }
-
-void UleeBaseLessions::lDeleyCall() {
-	lDebug("delay call");
-}
-
-//void UleeBaseLessions::ReplayGame() {
-//
-//	//FString current = GetWorld()->GetCurrentLevel()->GetName();
-//	//UGameplayStatics::OpenLevel(GetWorld(), FName(current));
-//	//FTimerHandle timer;
-//	//GetWorld()->GetTimerManager().SetTimer(timer, [this]() {LoadThreeLineGame(); }, 3.0f, false);
-//
-//}
