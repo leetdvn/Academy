@@ -109,21 +109,26 @@ protected:
 	virtual void NativeDestruct() override;
 
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
-
 	int32 Droptimes;
 	int32 DropCorrecttimes;
 	int32 DropFailtimes;
 
 	bool lOnDropVisible;
-	FGameLession gamedata;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Data Path")
 		UDataTable* lDataTable;
+
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils")
+		FGameLession gamedata;
+
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils")
+		UPlayerData* userdata;
 
 	TArray<UleePanelBase*> lPanels;
 	//assign delegate
 	void BindButtons();
 
+	bool isReplay;
 
 	// Swap position Player Choise Shape return Array of Paths 
 	TArray<FString> lSwapChoises(FString AnswerDir, FString correctname);

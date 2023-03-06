@@ -28,7 +28,7 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "SaveGame")
 		UPlayerData* GameData;
 
-	void SaveCurrentGameData(FGameLession &data);
+	void SaveCurrentGameData(UPlayerData*& data);
 
 	UPlayerData* LoadGameData();
 

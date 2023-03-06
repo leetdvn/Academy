@@ -141,7 +141,7 @@ FString IleePublicInterface::lJsontoStr(const TSharedPtr<FJsonObject> JsonObject
 {
 	FString OutStr;
 	if (!JsonObject) return FString();
-	auto Writer = TJsonWriterFactory<>::Create(&OutStr);
+	auto Writer = TJsonWriterFactory<TCHAR,TPrettyJsonPrintPolicy<TCHAR>>::Create(&OutStr);
 	FJsonSerializer::Serialize(JsonObject.ToSharedRef(), Writer);
 	return OutStr;
 }

@@ -14,23 +14,27 @@ void UleeGameInstance::Init()
 	}
 }
 
-void UleeGameInstance::SaveCurrentGameData(FGameLession& data)
+void UleeGameInstance::SaveCurrentGameData(UPlayerData*& data)
 {
 	if (!GameData) { return; }
-	GameData->CurrentGame = data;
+
 	FString fileAbc = FString(FPaths::ProjectSavedDir() + "SaveGames/ACademyPreview.json");
 	FString outStr;
-	bool success = FJsonObjectConverter::UStructToJsonObjectString<FGameLession>(data, outStr);
+	TSharedPtr<FJsonObject> Jsarray = data->HistoryStr();
+	//FString allData = array.ad;
+	FString preview = lJsontoStr(Jsarray);
+	UE_LOG(LogTemp,Warning,TEXT("previe : %s"),*preview)
+	bool success = FJsonObjectConverter::UStructToJsonObjectString<FGameLession>(data->CurrentGame, outStr);
 	if (success) {
 		UE_LOG(LogTemp, Warning,TEXT("data : %s"),* outStr);
-		lCreateFileFromString(outStr, fileAbc);
+		lCreateFileFromString(preview, fileAbc);
 	}
 	//lDebug("Nullptr Game data");
 	UGameplayStatics::DeleteGameInSlot(SaveSlot, 0);
 
 
 
-	UGameplayStatics::SaveGameToSlot(GameData, SaveSlot, 0);
+	UGameplayStatics::SaveGameToSlot(data, SaveSlot, 0);
 
 }
 

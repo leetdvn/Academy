@@ -1,4 +1,5 @@
 #pragma once
+#include <JsonUtilities/Public/JsonObjectConverter.h>
 #include "Components/CanvasPanel.h"
 #include <Engine/DataTable.h>
 #include "CoreMinimal.h"
@@ -113,9 +114,28 @@ struct FGameLession : public FTableRowBase
 		TArray<FString> results{};
 		return Topics[idx].Choises;
 	}
-	//FGameLession& operator=(const FGameLession& other) {
-	//	return ;
-	//}
+
+	bool operator==(const FGameLession& other) {
+		if (LessionType == other.LessionType && 
+			LessionID == other.LessionID &&
+			GameTitle == other.GameTitle &&
+			GameDescriptions == other.GameDescriptions &&
+			TopicNames == other.TopicNames &&
+			gName==other.gName
+			) {
+			return true;
+		}
+		return false;
+	}
+	TSharedPtr<FJsonObject> ToObject() {
+		return FJsonObjectConverter::UStructToJsonObject(*this);
+	}
+
+	FString ToString() {
+		FString OutStr;
+		FJsonObjectConverter::UStructToJsonObjectString<FGameLession>(*this, OutStr);
+		return OutStr;
+	}
 
 	FGameLession() :
 		LessionType(None),
@@ -126,6 +146,7 @@ struct FGameLession : public FTableRowBase
 		TopicNames({}),
 		Topics({}),
 		gName("")
+		
 	{
 	}
 

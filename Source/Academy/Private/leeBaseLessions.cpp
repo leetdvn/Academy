@@ -119,9 +119,10 @@ void UleeBaseLessions::InitializeThreeLineopic(FString& sourcefolder, FString& c
 	}
 	//"AcademyAssets/Assets/ChoiseAnswers/AnimalShape"
 	lCreateNewChoises(exceptions,nlession, choiseFolder,true);
-
-	GameIns->SaveCurrentGameData(nlession);
-
+	nlession.LessionID= userdata->HistoryGames.Num() +1;
+	userdata->CurrentGame = nlession;
+	if(isReplay) isReplay = false;
+	//GameIns->SaveCurrentGameData(userdata);
 }
 
 bool UleeBaseLessions::lIsValidThreeLine()
@@ -159,8 +160,11 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 	DropCorrecttimes += isCorrect ? 1 : 0;
 	lOnDropVisible = isCorrect;
 	//add History Game List
-	//if(DropCorrecttimes ==3 && isCorrect)
-	//	GameIns->GameData->HistoryGames.Add(DataLoaded);
+	if (DropCorrecttimes == 3 && isCorrect) {
+		if (isReplay) return;
+		userdata->HistoryGames.Add(userdata->CurrentGame);
+		GameIns->SaveCurrentGameData(userdata);
+	}
 	lDebug(DropCorrecttimes);
 }
 
@@ -169,12 +173,11 @@ void UleeBaseLessions::LoadThreeLineGame()
 
 	//reload data load from Save Game;
 	ReloadData();
-
 	//load current game from save data
 	lDebug(DataLoaded.GameTitle, FColor::Blue, "Title");
 	lDebug(DataLoaded.GameDescriptions, FColor::Blue, "Desc");
 	lDebug(DataLoaded.LessionType, FColor::Green, "Desc");
-
+	isReplay = true;
 	//load Questions and Player choise
 	TArray<int32> ids = { 1,2,3 };
 	TArray<FString> correctName = DataLoaded.TopicNames;
@@ -219,7 +222,8 @@ void UleeBaseLessions::ReloadData()
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (!GameIns) { lDebug("Game Instance Nullptr"); }
 	GameIns->LoadGameData();
-	DataLoaded = GameIns->GameData->CurrentGame;
+	userdata = GameIns->GameData;
+	DataLoaded = userdata->CurrentGame;
 	//mainData.LessionType = Threelines;
 }
 
