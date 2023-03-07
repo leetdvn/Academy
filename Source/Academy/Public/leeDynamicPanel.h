@@ -10,6 +10,7 @@
 #include "leePublicEnum.h"
 #include "CoreMinimal.h"
 #include "Components/CanvasPanel.h"
+#include "Components/ComboBoxString.h"
 #include "leeDynamicPanel.generated.h"
 
 
@@ -39,6 +40,9 @@ public:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Choise Source Folder")
 		FString lChoiseSourceFolder;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Choise Source Folder")
+		UComboBoxString* boxStr;
 
 	//FGameLession lGetData() { return lGameData; }
 

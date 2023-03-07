@@ -4,6 +4,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include <leePanelBase.h>
+#include <Kismet/KismetInternationalizationLibrary.h>
 
 class UKidWidget;
 
@@ -41,6 +42,7 @@ void AleeHub::BeginPlay()
 		//lget
 		//GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
 		//FVector2D resolution = lScreenResolution();
+		//UKismetInternationalizationLibrary::SetCurrentLanguage("vi",true);
 	}
 	//active Event start game
 

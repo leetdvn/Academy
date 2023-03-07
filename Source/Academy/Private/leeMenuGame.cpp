@@ -18,6 +18,25 @@ void UleeMenuGame::OnMenuClick(FString menuName)
 	UGameplayStatics::OpenLevel(GetWorld(),FName(*mapOpen));
 }
 
+//void UleeMenuGame::OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType)
+//{
+//	if (itemname.IsEmpty()) return;
+//	FString culture = itemname == "English" ? "culture=en" : "culture=vi";
+//	lDebug("changed");
+//	lDebug(culture);
+//
+//	int32 idx = box->GetSelectedIndex();
+//	box->SetSelectedIndex(idx);
+//	//if(itemname == "English")
+//	UKismetInternationalizationLibrary::SetCurrentCulture(culture);
+//	//else
+//	UKismetInternationalizationLibrary::SetCurrentLanguage(culture, true);
+//	UKismetInternationalizationLibrary::SetCurrentLocale(culture, true);
+//	GEngine->Exec(GetWorld(), TEXT("-culture=vi"));
+//	//GEngine->Exec(GetWorld(), TEXT("stat Game"));
+//
+//}
+
 void UleeMenuGame::NativeConstruct()
 {
 	if (GameMenu) {
@@ -30,6 +49,7 @@ void UleeMenuGame::NativeConstruct()
 	FString map=UGameplayStatics::GetCurrentLevelName(GetWorld());
 	//lDebug(map);
 
-	for (auto& m : lGetAllMapNames())
-		lDebug(m);
+	//box->OnSelectionChanged.AddDynamic(this, &UleeMenuGame::OnSelectChanged);
+	//for (auto& m : lGetAllMapNames())
+	//	lDebug(m);
 }

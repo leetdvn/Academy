@@ -5,6 +5,7 @@
 #include <Kismet/GameplayStatics.h>
 #include <Engine/DataTable.h>
 #include <JsonUtilities/Public/JsonObjectConverter.h>
+#include <Kismet/KismetInternationalizationLibrary.h>
 
 UleeBaseLessions::UleeBaseLessions(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
@@ -20,6 +21,7 @@ void UleeBaseLessions::NativeConstruct()
 	//binding event drop for answers
 	//load Game History
 	ReloadData();
+	lThreeline->boxStr->OnSelectionChanged.AddDynamic(this, &UleeBaseLessions::OnSelectChanged);
 	return  !isNewGame ? NewGameThreelineInit() : LoadThreeLineGame();
 
 }
@@ -36,6 +38,23 @@ void UleeBaseLessions::OnReplay()
 		FTimerHandle timer;
 		GetWorld()->GetTimerManager().SetTimer(timer, [this]() {LoadThreeLineGame(); }, 3.0f, false);
 	}
+}
+
+void UleeBaseLessions::OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType)
+{
+	if (itemname.IsEmpty()) return;
+	FString culture = itemname != "Vietnam" ? "=en" : "=vi";
+	TArray<FString> cultures= UKismetInternationalizationLibrary::GetLocalizedCultures();
+	int32 idx = lThreeline->boxStr->GetSelectedIndex();
+	lThreeline->boxStr->SetSelectedIndex(idx);
+	//if(itemname == "English")
+	UKismetInternationalizationLibrary::SetCurrentCulture("culture"+culture,true);
+	//else
+	UKismetInternationalizationLibrary::SetCurrentLanguage("language"+culture, true);
+	UKismetInternationalizationLibrary::SetCurrentLocale("locale"+culture, true);
+	FString cmd = "-culture" + culture;
+	GEngine->Exec(GetWorld(),*cmd);
+
 }
 
 bool UleeBaseLessions::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)

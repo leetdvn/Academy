@@ -1,0 +1,155 @@
+﻿# Game Vietnamese translation.
+# Copyright Epic Games, Inc. All Rights Reserved.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Game\n"
+"POT-Creation-Date: 2023-03-07 07:49\n"
+"PO-Revision-Date: 2023-03-07 07:49\n"
+"Language-Team: \n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. Key:	0125BC3C4987E80CE0C26BBE7E371575
+#. SourceLocation:	/Game/Widgets/Main/ThreeLine.ThreeLine_C:GetText_0 [Script Bytecode]
+#: /Game/Widgets/Main/ThreeLine.ThreeLine_C:GetText_0 [Script Bytecode]
+msgctxt ",0125BC3C4987E80CE0C26BBE7E371575"
+msgid "FPS : {FPS_input}"
+msgstr "FPS : {FPS_input}"
+
+#. Key:	01F9EE9941BA5D600D9597AE5DE3E1A2
+#. SourceLocation:	/Game/Widgets/BaseWidget/Button/FourBoxButton.FourBoxButton_C:WidgetTree.ltextblock.Text
+#: /Game/Widgets/BaseWidget/Button/FourBoxButton.FourBoxButton_C:WidgetTree.ltextblock.Text
+msgctxt ",01F9EE9941BA5D600D9597AE5DE3E1A2"
+msgid "10"
+msgstr "10"
+
+#. Key:	098C3A604800608ADE88F2A7231CE860
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_123.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_123.Text
+msgctxt ",098C3A604800608ADE88F2A7231CE860"
+msgid "Save"
+msgstr "Lưu"
+
+#. Key:	11023B4F4AEE75FCF4CBF291A7A3A615
+#. SourceLocation:	/Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.RichTextBlock_48.Text
+#: /Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.RichTextBlock_48.Text
+msgctxt ",11023B4F4AEE75FCF4CBF291A7A3A615"
+msgid "<span size=\"36\">This would be 36pt font</>"
+msgstr "<span size=\"36\">This would be 36pt font</>"
+
+#. Key:	15C9F1CC46BDD6FF6D2406AC7E3EF9CA
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.lDescription.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.lDescription.Text
+msgctxt ",15C9F1CC46BDD6FF6D2406AC7E3EF9CA"
+msgid "Children look at the number on the left, then type\r\n the corresponding animals in each line"
+msgstr "Trẻ nhìn số bên trái rồi gõ\r\n  các con vật tương ứng trong mỗi dòng"
+
+#. Key:	1660E64D4CEE81D57B698CAC97481489
+#. SourceLocation:	/Game/Widgets/Main/ThreeLine.ThreeLine_C:WidgetTree.TextBlock_123.Text
+#: /Game/Widgets/Main/ThreeLine.ThreeLine_C:WidgetTree.TextBlock_123.Text
+msgctxt ",1660E64D4CEE81D57B698CAC97481489"
+msgid "Save"
+msgstr "Lưu"
+
+#. Key:	1AE5CC0847D14B83197D148015260523
+#. SourceLocation:	/Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.TextBlock_199.Text
+#: /Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.TextBlock_199.Text
+msgctxt ",1AE5CC0847D14B83197D148015260523"
+msgid "Home Work"
+msgstr "Bài Tập"
+
+#. Key:	202948A84340C108B3B558934181B27D
+#. SourceLocation:	/Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.TextBlock_123.Text
+#: /Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.TextBlock_123.Text
+msgctxt ",202948A84340C108B3B558934181B27D"
+msgid "Save"
+msgstr "Lưu"
+
+#. Key:	242D2EA246CB032D92420D81114E098E
+#. SourceLocation:	/Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.ltitle.Text
+#: /Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.ltitle.Text
+msgctxt ",242D2EA246CB032D92420D81114E098E"
+msgid "Choose the correct number"
+msgstr "Chọn Số Đúng"
+
+#. Key:	2519259A46878C78222027B8CCD6328F
+#. SourceLocation:	/Game/Widgets/BaseWidget/Button/Button.Button_C:WidgetTree.ltextblock.Text
+#: /Game/Widgets/BaseWidget/Button/Button.Button_C:WidgetTree.ltextblock.Text
+msgctxt ",2519259A46878C78222027B8CCD6328F"
+msgid "Text block"
+msgstr "Text block"
+
+#. Key:	265982F44D8AC42A89AA1097AB5661FC
+#. SourceLocation:	/Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.TextBlock_461.Text
+#: /Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.TextBlock_461.Text
+msgctxt ",265982F44D8AC42A89AA1097AB5661FC"
+msgid "Load"
+msgstr "Tải"
+
+#. Key:	351F038843F5812CA3C0648A93F2447A
+#. SourceLocation:	/Game/Widgets/Main/ThreeLine.ThreeLine_C:WidgetTree.ltitle.Text
+#: /Game/Widgets/Main/ThreeLine.ThreeLine_C:WidgetTree.ltitle.Text
+msgctxt ",351F038843F5812CA3C0648A93F2447A"
+msgid "Choose the correct number"
+msgstr "Chọn Số Đúng"
+
+#. Key:	4C457A5B4036240301B505A2A8893D03
+#. SourceLocation:	/Game/Widgets/Main/ThreeLine.ThreeLine_C:WidgetTree.TextBlock_461.Text
+#: /Game/Widgets/Main/ThreeLine.ThreeLine_C:WidgetTree.TextBlock_461.Text
+msgctxt ",4C457A5B4036240301B505A2A8893D03"
+msgid "Load"
+msgstr "Tải"
+
+#. Key:	64A65267470A88C928347BA436E755AD
+#. SourceLocation:	/Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.TextBlock.Text
+#: /Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.TextBlock.Text
+msgctxt ",64A65267470A88C928347BA436E755AD"
+msgid "Achiement"
+msgstr ""
+
+#. Key:	7BEE68214A35BA183C351F983C4A6625
+#. SourceLocation:	/Game/Widgets/Main/ThreeLine.ThreeLine_C:WidgetTree.lDescription.Text
+#: /Game/Widgets/Main/ThreeLine.ThreeLine_C:WidgetTree.lDescription.Text
+msgctxt ",7BEE68214A35BA183C351F983C4A6625"
+msgid "Children look at the number on the left, then type\r\n the corresponding animals in each line"
+msgstr "Trẻ nhìn số bên trái rồi gõ\r\n  các con vật tương ứng trong mỗi dòng"
+
+#. Key:	B58E0CBE4B52FD7FB95892846F2E4400
+#. SourceLocation:	/Game/Widgets/Main/FPS.FPS_C:GetText_0 [Script Bytecode]
+#: /Game/Widgets/Main/FPS.FPS_C:GetText_0 [Script Bytecode]
+msgctxt ",B58E0CBE4B52FD7FB95892846F2E4400"
+msgid "FPS : {FPS_input}"
+msgstr "FPS : {FPS_input}"
+
+#. Key:	C0DD3DEA406F3AAEB3DF359B1766A087
+#. SourceLocation:	/Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.lDescription.Text
+#: /Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.lDescription.Text
+msgctxt ",C0DD3DEA406F3AAEB3DF359B1766A087"
+msgid "Children look at the number on the left, then type\r\n the corresponding animals in each line"
+msgstr "Trẻ nhìn số bên trái rồi gõ\r\n  các con vật tương ứng trong mỗi dòng"
+
+#. Key:	CB72BFA84927EB23C71EDF9A95BC0CF9
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.ltitle.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.ltitle.Text
+msgctxt ",CB72BFA84927EB23C71EDF9A95BC0CF9"
+msgid "Choose the correct number"
+msgstr "Chọn Số Đúng"
+
+#. Key:	DBC1FCC44AD70292780381A454640196
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.RichTextBlock_48.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.RichTextBlock_48.Text
+msgctxt ",DBC1FCC44AD70292780381A454640196"
+msgid "<span size=\"36\">This would be 36pt font</>"
+msgstr "<span size=\"36\">This would be 36pt font</>"
+
+#. Key:	EF988E194D92FA6C185006A84D323217
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_461.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_461.Text
+msgctxt ",EF988E194D92FA6C185006A84D323217"
+msgid "Load"
+msgstr "Tải"
+

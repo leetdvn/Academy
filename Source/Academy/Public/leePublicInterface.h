@@ -82,7 +82,7 @@ public:
 	/// </summary>
 	/// <param name="JsonObject"></param>
 	/// <returns></returns>
-	FORCEINLINE FString lJsontoStr(const TSharedPtr<FJsonObject> JsonObject);
+	FString lJsontoStr(const TSharedPtr<FJsonObject> JsonObject);
 
 	/// <summary>
 	/// Get All directory dir form directory
@@ -124,7 +124,7 @@ public:
 	/// <param name="number"></param>
 	void lGetRandFilesFromDirectory(FString dir, TArray<FString> &exceptions,int32 number);
 
-	FORCEINLINE FString lGetRandFileFromDirectory(FString dir);
+	FString lGetRandFileFromDirectory(FString dir);
 
 	void lGetRandNums(TArray<int32> &Outnums,int32 maxArray, int32 maxValue);
 
@@ -168,7 +168,8 @@ public:
 	//template<typename T>
 	//void lDelayFunction(UWorld* world,float delay, T &name);
 
-	template<class T>
-	T* lExistsWidget(UPanelWidget* Parent, FString& name, bool status = false);
+	//template<class T>
+	//T* lExistsWidget(UPanelWidget* Parent, FString& name, bool status = false);
 
+	void ResetMapLevel(UWorld* world);
 };

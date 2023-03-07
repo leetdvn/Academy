@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include <Kismet/KismetInternationalizationLibrary.h>
+#include <Components/ComboBoxString.h>
 #include "Kismet/GameplayStatics.h"
 #include "leePanelBase.h"
 #include "leePublicInterface.h"
@@ -18,8 +20,18 @@ class ACADEMY_API UleeMenuGame : public UUserWidget, public IleePublicInterface
 	
 public:
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidget))
+		UComboBoxString* box;
+
+	//UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
+	//	FText box = LOCTEXT("abc", TEXT("bb"));
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMenuClick(FString menuName);
+
+	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+	//	void OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType);
+
 protected:
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Menu" ,meta=(BindWidget));

@@ -4,7 +4,7 @@
 #include "leePublicInterface.h"
 #include <AssetRegistry/AssetRegistryModule.h>
 #include "HAL/FileManagerGeneric.h"
-
+#include <Kismet/GameplayStatics.h>
 
 // Add default functionality here for any IleeInterface functions that are not pure virtual.
 
@@ -357,26 +357,33 @@ TArray<FString> IleePublicInterface::lGetAllMapNames()
 //	}
 //}
 
-template<class T>
-T* IleePublicInterface::lExistsWidget(UPanelWidget* Parent, FString& name, bool status)
-{
-	//check file exits
-	bool Success{};
-	TArray<UWidget*> widgets = Parent->GetAllChildren();
-	if (widgets.Num() <= 0) return nullptr;
+//template<class T>
+//T* IleePublicInterface::lExistsWidget(UPanelWidget* Parent, FString& name, bool status)
+//{
+//	//check file exits
+//	bool Success{};
+//	TArray<UWidget*> widgets = Parent->GetAllChildren();
+//	if (widgets.Num() <= 0) return nullptr;
+//
+//	//loop find
+//#pragma omp parallel for
+//	for (auto wd : widgets) {
+//		FString wName = wd->GetFName().ToString();
+//		if (wName == name) { return Cast<T>(wd); }
+//		UPanelWidget* box = Cast<UPanelWidget>(wd);
+//
+//		if (box) {
+//			Success = lExistsWidget<T>(box, name, status);
+//			if (Success) { return nullptr; }
+//
+//		}
+//	}
+//	return nullptr;
+//}
 
-	//loop find
-#pragma omp parallel for
-	for (auto wd : widgets) {
-		FString wName = wd->GetFName().ToString();
-		if (wName == name) { return Cast<T>(wd); }
-		UPanelWidget* box = Cast<UPanelWidget>(wd);
 
-		if (box) {
-			Success = lExistsWidget<T>(box, name, status);
-			if (Success) { return nullptr; }
+void IleePublicInterface::ResetMapLevel(UWorld* world) {
 
-		}
-	}
-	return nullptr;
+	FString map = UGameplayStatics::GetCurrentLevelName(world);
+	return UGameplayStatics::OpenLevel(world, FName(*map));
 }
