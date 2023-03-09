@@ -61,9 +61,6 @@ public:
 		bool isNewGame;
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
-		FGameLession DataLoaded;
-
-	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;
 
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
@@ -118,11 +115,7 @@ protected:
 
 	bool lOnDropVisible;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Data Path")
-		UDataTable* lDataTable;
-
-	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils")
-		FGameLession gamedata;
+	FGameLession gamedata, DataLastGame;
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils")
 		UPlayerData* userdata;

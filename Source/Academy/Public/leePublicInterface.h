@@ -176,4 +176,8 @@ public:
 	//T* lExistsWidget(UPanelWidget* Parent, FString& name, bool status = false);
 
 	void ResetMapLevel(UWorld* world);
+
+	int32 lGetEnumFromStr(const FString name,FString enumStr);
+
+	//FString lGetEnumToString(UEnum ipEnum);
 };

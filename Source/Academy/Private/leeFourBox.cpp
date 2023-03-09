@@ -75,7 +75,7 @@ void UleeFourBox::lSetChoiseDiffAt(int32 idx)
 	//lDebug(overText.Num());
 
 	lFourBox->lUserChoises[idx]->lOverrideTextName(overText, buttons);
-
+	fourdata.topicNums.Add(num);
 	//implantation Buttons and correct click
 	int count{};
 	for (auto& btn : buttons) {
@@ -96,11 +96,9 @@ void UleeFourBox::lSetChoiseDiffAt(int32 idx)
 
 void UleeFourBox::LoadCurrentGame()
 {
-	//button Load Game Onclick
-	FFourBoxData* fourbox = new FFourBoxData();
-	FString last = userdata->GetLastGameStr();
-	TSharedPtr<FJsonValue> obj = userdata->GetLastGame();
-	FJsonObjectConverter::JsonObjectToUStruct<FFourBoxData>(obj->AsObject().ToSharedRef(), fourbox);
+	//dont' need reload neet make choise new avaible
+	lDebug("On Replay", FColor::Purple, " ");
+	
 }
 
 void UleeFourBox::OnCorrectAnswer()
@@ -119,6 +117,33 @@ void UleeFourBox::OnCorrectAnswer()
 void UleeFourBox::OnIdReCeiveClick(int idsent)
 {
 	lDebug(idsent);
+}
+
+void UleeFourBox::LoadQuestionsAt(FString choisePath, int32 idx)
+{
+
+	if(!lFilesExists(choisePath) || idx < 0 && idx >= lFourBox->lQuestions.Num()) return;
+
+	//----------------------------------------------
+	UImage* img =lFourBox->lQuestions[idx];
+
+	UTexture2D* tex = lGetTextureFromPath(choisePath);
+	FVector2D bSize = lGetSizeTexture(choisePath);
+	if (tex) {
+		img->SetBrushResourceObject(tex);
+		img->SetBrushSize(bSize);
+	}
+}
+
+void UleeFourBox::LoadChoiseAt(FString topicsPath, int32 idx)
+{
+}
+
+void UleeFourBox::LoadCurrentQuestions()
+{
+	AnswerCorrect = 0;
+	//for (int i = 0; i < lFourBox->lQuestions.Num(); i++) 
+	//	LoadQuestionsAt(fourdata.topicPaths[i], i);
 }
 
 void UleeFourBox::NativeConstruct()

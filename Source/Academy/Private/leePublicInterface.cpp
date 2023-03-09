@@ -254,7 +254,7 @@ void IleePublicInterface::lGetRandomFromPath(FString dir, TArray<FString>& OutAr
 
 void IleePublicInterface::lGetRandFilesFromDirectory(FString dir, TArray<FString>& exceptions,int32 number)
 {
-	TArray<FString> files = lGetAllDirectory(dir, true), result{};
+	TArray<FString> files = lGetAllDirectory(dir, true);
 	if (files.Num() < number) { lDebug("folder dont' have enoght files"); return; }
 	for (auto& f : files) {
 		int rand = lRand(0, files.Num());
@@ -262,7 +262,7 @@ void IleePublicInterface::lGetRandFilesFromDirectory(FString dir, TArray<FString
 		exceptions.AddUnique(files[rand]);
 	}
 
-	//if (exceptions.Num() < number - 1) return lGetRandFilesFromDirectory(dir, exceptions, number);
+	if (exceptions.Num() < number) return lGetRandFilesFromDirectory(dir, exceptions, number);
 }
 
 void IleePublicInterface::lGetRandNums(TArray<int32>& Outnums, int32 maxArray, int32 maxValue)
@@ -414,9 +414,18 @@ TArray<FString> IleePublicInterface::lGetAllMapNames()
 //	return nullptr;
 //}
 
-
 void IleePublicInterface::ResetMapLevel(UWorld* world) {
 
 	FString map = UGameplayStatics::GetCurrentLevelName(world);
 	return UGameplayStatics::OpenLevel(world, FName(*map));
 }
+
+//int32  IleePublicInterface::lGetEnumFromStr(const FString name, FString enumStr) {
+//	const UEnum* iEnum = FindObject<UEnum>(ANY_PACKAGE, *name, true);
+//	if (iEnum) {
+//		int32 Index = iEnum->GetIndexByName(*enumStr);
+//		return Index;
+//	}
+//	return 0;
+//
+//}

@@ -35,35 +35,56 @@ FString UPlayerData::GetRawHistoriesStr()
 	//UE_LOG(LogTemp, Warning, TEXT("log save : %s"), *preview);
 	return RawHistories = preview;
 }
+
 void UPlayerData::SaveConstruct()
 {
 	// Assign Raw data
 	GetRawHistoriesStr();
 }
+
 TSharedPtr<FJsonValue> UPlayerData::GetGamesAt(int32 index)
 {
 	if (JsGames.Num() <= 0 || JsGames.Num() - 1 < index) return TSharedPtr<FJsonValue>();
 	return JsGames[index];
 
 }
+
 TSharedPtr<FJsonValue> UPlayerData::GetLastGame()
 {
 	if (JsGames.Num() <= 0) return TSharedPtr<FJsonValue>();
 	return JsGames[JsGames.Num() - 1];
 
 }
+
+TEnumAsByte<lGameType> UPlayerData::GetLastGameType()
+{
+	TSharedPtr<FJsonObject> obj = GetLastGame()->AsObject();
+	if (!obj.IsValid()) return None;
+	FString outStr;
+	obj->TryGetStringField(gametype, outStr);
+	
+	//int32 idx = 
+	lastGame = lGetEnumFromStr<lGameType>(enumName, outStr); //TEnumAsByte<lGameType>((uint8)idx);
+	//bool success{};
+	//FName abc = "Texture2D'/Game/AcademyAssets/Assets/ChoiseAnswers/AnimalShape/B_Bear.B_Bear'";
+	//lGetAssetFromContent<UTexture2D>(abc, success);
+	//lDebug(lastGame,FColor::Purple,"1");
+	lDebug(lGetStringFromEnum<lGameType>(lastGame));
+	return lastGame;
+}
+
 TSharedPtr<FJsonObject> UPlayerData::BindGamesToHistories()
 {
 	TSharedPtr<FJsonObject> result = MakeShareable(new FJsonObject());
 	TArray<TSharedPtr<FJsonValue>> jsVal;
 	int count{};
 	for (auto& str : JsGames) {
-		FString GameID = "Game_" + FString::FromInt(count);
 		jsVal.Add(str);
 		count++;
 	}
-	result->SetArrayField("Games", jsVal);
-	JsHistoriesObject->SetObjectField("UserHistories", result);
+	// export json Field name =  GameField and main Field
+	result->SetArrayField(GamesField, jsVal);
+	JsHistoriesObject->SetObjectField(mainField, result);
 	return JsHistoriesObject;
 }
 
@@ -82,10 +103,10 @@ TSharedPtr<FJsonObject> UPlayerData::LoadHistoriesFromStr()
 
 	//assign game history Array
 	const TSharedPtr<FJsonObject> *result;
-	JsHistoriesObject->TryGetObjectField("UserHistories", result);
+	JsHistoriesObject->TryGetObjectField(mainField, result);
 
 	if (result) {
-		result->Get()->TryGetArrayField("Games", jsVal);
+		result->Get()->TryGetArrayField(GamesField, jsVal);
 		JsGames = *jsVal;
 	}
 
@@ -104,6 +125,25 @@ FString UPlayerData::GetLastGameStr()
 {
 	TSharedPtr<FJsonValue> obj = GetLastGame();
 	return obj->AsString();
+}
+
+template <typename T>
+T UPlayerData::lGetEnumFromStr(const FString name, FString enumStr) {
+	T result{};
+	const UEnum* iEnum = FindObject<UEnum>(ANY_PACKAGE, *name, true);
+	if (iEnum) {
+		int32 Index = iEnum->GetIndexByName(*enumStr);
+		result= TEnumAsByte<T>((uint8)Index);
+		return result;
+	}
+	return result;
+
+}
+
+template<typename T>
+FString UPlayerData::lGetStringFromEnum(T ipEnum)
+{
+	return UEnum::GetValueAsString(ipEnum);
 }
 
 //

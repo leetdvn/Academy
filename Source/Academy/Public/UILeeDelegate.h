@@ -8,7 +8,8 @@ class UDragDropOperation;
 /// <summary>
 /// static delegate
 /// </summary>
-namespace UIleeDelegate {
+
+namespace  UIleeDelegate {
 
 	DECLARE_MULTICAST_DELEGATE_OneParam(FOnCorrectDrop, UDragDropOperation*);
 	DECLARE_MULTICAST_DELEGATE_OneParam(FOnResolutionChanged, FVector2D);
@@ -20,3 +21,4 @@ namespace UIleeDelegate {
 		extern FOnResolutionChanged OnResolutionChanged;
 
 };
+

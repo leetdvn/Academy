@@ -135,6 +135,11 @@ struct FGameLession : public FTableRowBase
 		return OutStr;
 	}
 
+	bool IsValid() {
+		if (LessionType == None || Topics.Num() <= 0 || TopicNames.Num() <= 0) return false;
+		return true;
+	}
+
 	FGameLession() :
 		LessionType(None),
 		GameID(0),
@@ -154,9 +159,6 @@ USTRUCT(BlueprintType)
 struct FFourBoxData : public FTableRowBase
 {
 	GENERATED_BODY()
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		FString Label;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 		TEnumAsByte<lGameType> LessionType;
@@ -189,7 +191,6 @@ struct FFourBoxData : public FTableRowBase
 	TArray<int32> GetTopicNums() { return topicNums; }
 
 	FFourBoxData() :
-		Label(""),
 		LessionType(None),
 		GameTitle(""),
 		GameDescriptions(""),
@@ -201,3 +202,4 @@ struct FFourBoxData : public FTableRowBase
 	{
 	}
 };
+

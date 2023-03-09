@@ -58,6 +58,13 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnIdReCeiveClick(int idsent);
+	
+	void LoadQuestionsAt(FString choisePath,int32 idx);
+
+	void LoadChoiseAt(FString topicsPath,int32 idx);
+	
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void LoadCurrentQuestions();
 
 protected:
 
@@ -78,8 +85,10 @@ protected:
 
 	int32 GameId;
 
-	FFourBoxData fourdata;
+	FFourBoxData fourdata,LoadData;
 
 	UPlayerData* userdata;
+
+	bool isReplay;
 };
 

@@ -21,6 +21,7 @@ void UleeBaseLessions::NativeConstruct()
 	//binding event drop for answers
 	//load Game History
 	ReloadData();
+
 	lThreeline->boxStr->OnSelectionChanged.AddDynamic(this, &UleeBaseLessions::OnSelectChanged);
 	return  !isNewGame ? NewGameThreelineInit() : LoadThreeLineGame();
 
@@ -208,21 +209,16 @@ void UleeBaseLessions::LoadThreeLineGame()
 
 	//reload data load from Save Game;
 	ReloadData();
+	TEnumAsByte<lGameType> lastgame = userdata->GetLastGameType();
+	FGameLession current = lastgame == Threelines ? DataLastGame : gamedata;
+	lDebug(lastgame, FColor::Purple, "last Game ");
 
-	FGameLession* abc = new FGameLession();
-	TSharedPtr<FJsonValue> obj = userdata->GetLastGame();
-	FJsonObjectConverter::JsonObjectToUStruct<FGameLession>(obj->AsObject().ToSharedRef(), abc);
-	
-	//load current game from save data
-	lDebug(abc->GameTitle, FColor::Blue, "Title");
-	lDebug(abc->GameDescriptions, FColor::Blue, "Desc");
-	lDebug(abc->LessionType, FColor::Green, "Desc");
 	isReplay = true;
 	//load Questions and Player choise
 	TArray<int32> ids = { 1,2,3 };
-	TArray<FString> correctName = DataLoaded.TopicNames;
-	lThreeline->LoadQuestions(DataLoaded.GetQuestions(), ids);
-	lThreeline->LoadAllChoise(DataLoaded);
+	TArray<FString> correctName = current.TopicNames;
+	lThreeline->LoadQuestions(current.GetQuestions(), ids);
+	lThreeline->LoadAllChoise(current);
 	BindButtons();
 	DropCorrecttimes = 0;
 }
@@ -271,13 +267,15 @@ void UleeBaseLessions::ReloadData()
 		return;
 	}
 	
+
+	userdata->GetLastGameType();
 	//init data to Struct
 	TSharedPtr<FJsonValue> last = userdata->GetLastGame();
-	FJsonObjectConverter::JsonObjectToUStruct(last->AsObject().ToSharedRef(), &DataLoaded, 0, 0);
+	FJsonObjectConverter::JsonObjectToUStruct(last->AsObject().ToSharedRef(), &DataLastGame, 0, 0);
 	
 	//previe Log Debug
 	FString preview{};
-	FJsonObjectConverter::UStructToJsonObjectString(DataLoaded, preview);
+	FJsonObjectConverter::UStructToJsonObjectString(DataLastGame, preview);
 	UE_LOG(LogTemp, Warning, TEXT("load : %s"), *preview);
 }
 
