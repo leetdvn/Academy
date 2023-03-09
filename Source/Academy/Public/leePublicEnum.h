@@ -38,17 +38,6 @@ enum lSlotType {
 	ScrollBox UMETA(DisplayName = "Scroll"),
 };
 
-UENUM(BlueprintType)
-enum lTopicType {
-
-	Animal UMETA(DisplayName = "Animal"),
-	Fruit UMETA(DisplayName = "Fruit"),
-	Food UMETA(DisplayName = "Food"),
-	Human UMETA(DisplayName = "Human"),
-	Cube UMETA(DisplayName = "Cube"),
-	Count UMETA(DisplayName = "Count Number"),
-};
-
 USTRUCT(BlueprintType)
 struct FGameTopics : public FTableRowBase
 {
@@ -74,6 +63,15 @@ struct FGameTopics : public FTableRowBase
 };
 
 USTRUCT(BlueprintType)
+struct FPlayerHistories : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite)
+	TArray<UStruct*> Games;
+};
+
+USTRUCT(BlueprintType)
 struct FGameLession : public FTableRowBase
 {
 	GENERATED_BODY()
@@ -82,7 +80,7 @@ struct FGameLession : public FTableRowBase
 		TEnumAsByte<lGameType> LessionType ;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		int LessionID;
+		int32 GameID;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 		FString GameTitle;
@@ -117,7 +115,7 @@ struct FGameLession : public FTableRowBase
 
 	bool operator==(const FGameLession& other) {
 		if (LessionType == other.LessionType && 
-			LessionID == other.LessionID &&
+			GameID == other.GameID &&
 			GameTitle == other.GameTitle &&
 			GameDescriptions == other.GameDescriptions &&
 			TopicNames == other.TopicNames &&
@@ -139,7 +137,7 @@ struct FGameLession : public FTableRowBase
 
 	FGameLession() :
 		LessionType(None),
-		LessionID(0),
+		GameID(0),
 		GameTitle(""),
 		GameDescriptions(""),
 		GameDecorPath(""),
@@ -150,4 +148,56 @@ struct FGameLession : public FTableRowBase
 	{
 	}
 
+};
+
+USTRUCT(BlueprintType)
+struct FFourBoxData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		FString Label;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		TEnumAsByte<lGameType> LessionType;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		FString GameTitle;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		FString GameDescriptions;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		FString GameDecorPath;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		int32 GameID;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		TArray<FString> topicPaths;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		TArray<int32> topicNums;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		TArray<FString> ChoiseBgrs;
+
+	TArray<FString> GetTopicPaths() { return topicPaths; }
+
+	TArray<FString> GetChoiseBgrs() { return ChoiseBgrs; }
+
+	TArray<int32> GetTopicNums() { return topicNums; }
+
+	FFourBoxData() :
+		Label(""),
+		LessionType(None),
+		GameTitle(""),
+		GameDescriptions(""),
+		GameDecorPath(""),
+		GameID(0),
+		topicPaths({}),
+		topicNums({}),
+		ChoiseBgrs({})
+	{
+	}
 };

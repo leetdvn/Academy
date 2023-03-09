@@ -27,39 +27,46 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		int lStar;
 
-	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		FGameLession CurrentGame;
+	//UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+	//	FGameLession CurrentGame;
 
-	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		TArray<FGameLession> HistoryGames;
+	//UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+	//	TArray<FGameLession> HistoryGames;
 
-	FGameLession GetLastGame() { return HistoryGames[HistoryGames.Num()-1]; }
+	UFUNCTION()
+		FString GetRawHistoriesStr();
 
-	FGameLession GetHistoryAt(int32 index) { return HistoryGames[index]; }
+	UFUNCTION()
+		void SaveConstruct();
 
-	TArray<TSharedPtr<FJsonObject>> ToJsHistory() {
-		TArray<TSharedPtr<FJsonObject>> jsArray;
-		TArray<TSharedPtr<FJsonValue>> jsArrayV;
-		for (auto &session : HistoryGames) {
-			jsArray.Add(session.ToObject());
-		}
-		return jsArray;
-	}
+	FString GetAllGames() { return RawHistories; }
 
-	TSharedPtr<FJsonObject> HistoryStr() {
-		TArray<FString> result{};
-		//TArray<TSharedPtr<FJsonValue>> jsValue;
-		TSharedPtr<FJsonObject> obj = MakeShareable(new FJsonObject);
-		int count{};
-		for (auto& game : HistoryGames) {
-			FString Out;
-			FJsonObjectConverter::UStructToJsonObjectString<FGameLession>(game, Out);
-			result.Add(Out);
-			obj.Get()->SetStringField(FString("Game_" + FString::FromInt(count)), Out);
-			count++;
-		}
-		return obj;
-	}
+	TArray<TSharedPtr<FJsonValue>> JsGames;
+
+	TSharedPtr<FJsonObject> JsHistoriesObject;
+	
+	TSharedPtr<FJsonValue> GetGamesAt(int32 index);
+	
+	TSharedPtr<FJsonValue> GetLastGame();
 
 	FString ToString() { return UKismetStringLibrary::Conv_ObjectToString(this); }
+
+	TSharedPtr<FJsonObject> BindGamesToHistories();
+
+	TSharedPtr<FJsonObject> LoadHistoriesFromStr();
+
+	FString GetGameStrAt(int32 index);
+
+	FString GetLastGameStr();
+
+	const FString mainField = "UserHistories";
+	const FString GamesField = "Games";
+
+protected:
+
+	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+		FString RawHistories;
+
 };
+
+

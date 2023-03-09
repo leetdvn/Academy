@@ -34,6 +34,7 @@ public:
 
 	UPlayerData* LoadCurrentGameData();
 
+	void SaveGame(UPlayerData*& data);
 
 protected:
 	FString previewStr;

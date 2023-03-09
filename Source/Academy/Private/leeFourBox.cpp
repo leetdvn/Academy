@@ -7,31 +7,43 @@ void UleeFourBox::NewFourBoxInit()
 	FString choiseDir = FPaths::ProjectContentDir() + lFourBox->lChoiseSourceFolder;
 	TArray<FString> topics = lGetAllDirectory(sourceDir),questions;
 	int count{};
+
+	//in it data game---------------------------------
+	fourdata.LessionType = FourBox;
+	fourdata.GameID = userdata->JsGames.Num() + 1;
+	fourdata.GameTitle = ltitle->GetText().ToString();
+	fourdata.GameDescriptions = lDescription->GetText().ToString();
+	fourdata.GameDecorPath = "";
+	//implantation quession;
 	for (auto& quest : lFourBox->lQuestions) {
 		int32 rand = lRand(0, topics.Num());
 		FString randSource = sourceDir +"/" + topics[rand]; 
 		FString sload = lGetRandFileFromDirectory(randSource);
 		//lGetRandFilesFromDirectory(sourceDir,questions, 1);
-
 		FString imgQuest = "/Game/" + lFourBox->lTopicSourceFolder + "/" + topics[rand] + "/" + sload;
+		
+		//get textures--------------------------------------
 		UTexture2D *tex = lGetTextureFromPath(imgQuest);
+		//set size------------------------------------------
 		FVector2D bSize = lGetSizeTexture(imgQuest);
 		if (tex) {
 			quest->SetBrushResourceObject(tex);
 			quest->SetBrushSize(bSize);
 		}
+		//create data topic---------------------------
+		fourdata.topicPaths.Add(imgQuest);
 	}
 	
-	//"AcademyAssets/Assets/Textures/Caculate/number";
+	//get player choise bgr buttons
 	TArray<FString> cDir = lGetAllDirectory(choiseDir,true);
-	//lDebug(cDir.Num()); lDebug(choiseDir,FColor::Green);
-	//return;
 	TArray<int32> wrap = { 0,1,2,3 };
 	wrap.SwapMemory(0, lRand(1,wrap.Num()));
+	//initialization player choise
 	int xcount=0;
 	for (auto& ans : lFourBox->lUserChoises) {
 		//cDir.SwapMemory(xcount, );
 		FString cPath = "/Game/" + lFourBox->lChoiseSourceFolder +  "/" + cDir[wrap[xcount]];
+		fourdata.ChoiseBgrs.Add(cPath);
 		//lDebug(cDir[xcount], FColor::Green);
 		ans->lSetMakeSameAt(cPath, false);
 		lSetChoiseDiffAt(xcount);
@@ -56,19 +68,84 @@ void UleeFourBox::lSetChoiseDiffAt(int32 idx)
 
 	//conver Array Number to String
 	TArray<FString> overText{};
-	for (auto& n : nums)
+	for (auto& n : nums) {
 		overText.AddUnique(FString::FromInt(n));
 
+	}
 	//lDebug(overText.Num());
 
 	lFourBox->lUserChoises[idx]->lOverrideTextName(overText, buttons);
 
-
+	//implantation Buttons and correct click
+	int count{};
+	for (auto& btn : buttons) {
+		int32 idName = UKismetStringLibrary::Conv_StringToInt(overText[count]);
+		btn->Id = idName;
+		if (idName == num) {
+			//bind correct button when action
+			btn->lButton->OnClicked.AddDynamic(this, &UleeFourBox::OnCorrectAnswer);
+		}
+		else {
+			// case fail to choise
+			btn->OnIdSent.AddDynamic(this, &UleeFourBox::OnIdReCeiveClick);
+		}
+		count++;
+	}
 	return ;
+}
+
+void UleeFourBox::LoadCurrentGame()
+{
+	//button Load Game Onclick
+	FFourBoxData* fourbox = new FFourBoxData();
+	FString last = userdata->GetLastGameStr();
+	TSharedPtr<FJsonValue> obj = userdata->GetLastGame();
+	FJsonObjectConverter::JsonObjectToUStruct<FFourBoxData>(obj->AsObject().ToSharedRef(), fourbox);
+}
+
+void UleeFourBox::OnCorrectAnswer()
+{
+	AnswerCorrect++;
+	if (AnswerCorrect == 4) {
+		AnswerCorrect = 0;
+
+		/// save data pass to next game lession
+		OnSaveData();
+	}
+	//debug
+	lDebug("Correct yeah..!!");
+}
+
+void UleeFourBox::OnIdReCeiveClick(int idsent)
+{
+	lDebug(idsent);
 }
 
 void UleeFourBox::NativeConstruct()
 {
+	ReloadData();
 	NewFourBoxInit();
 	//lGetTopicCaculateAt(1);
+}
+
+void UleeFourBox::ReloadData()
+{
+	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (!GameIns) { lDebug("Game Instance Nullptr"); }
+	//load data
+	GameIns->LoadGameData();
+	userdata = GameIns->GameData;
+
+	UE_LOG(LogTemp, Warning, TEXT("load Data : %s"), *userdata->GetAllGames());
+}
+
+void UleeFourBox::OnSaveData()
+{
+	ReloadData();
+	TSharedPtr<FJsonObject> game = FJsonObjectConverter::UStructToJsonObject<FFourBoxData>(fourdata, 0, 0);
+	userdata->JsGames.Add(MakeShareable(new FJsonValueObject(game)));
+
+	//save
+	if (GameIns)
+		GameIns->SaveCurrentGameData(userdata);
 }

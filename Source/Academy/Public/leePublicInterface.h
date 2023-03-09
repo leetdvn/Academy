@@ -69,6 +69,9 @@ public:
 	/// <returns></returns>
 	FORCEINLINE TSharedPtr<FJsonObject> lGetJsObjectFromFile(FString jsFilePath);
 
+
+	void CreateJSonFile(FString jsFilepath, TSharedPtr<FJsonObject> &obj);
+
 	/// <summary>
 	/// Get data type FString from JsonArray
 	/// </summary>
@@ -77,6 +80,7 @@ public:
 	/// <returns></returns>
 	FORCEINLINE FString lGetStrFromJsArray(TArray<TSharedPtr<FJsonValue>> jsArray, FString FieldName);
 
+	FORCEINLINE TArray <TSharedPtr<FJsonObject>> lGetArrayObjFromObject(TSharedPtr<FJsonObject> InjsObject, FString FieldName);
 	/// <summary>
 	/// convert JsonObject to String
 	/// </summary>

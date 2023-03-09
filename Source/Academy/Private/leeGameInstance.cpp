@@ -10,8 +10,11 @@ void UleeGameInstance::Init()
 	if (!GameData) {
 		GameData = Cast<UPlayerData>(UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass()));
 		UGameplayStatics::SaveGameToSlot(GameData,SaveSlot, 0);
-		GameData->HistoryGames = TArray<FGameLession>();
+		
+		return;
 	}
+	LoadGameData();
+	UE_LOG(LogTemp, Warning, TEXT("Data is Loaded : %s"), *GameData->GetAllGames());
 }
 
 void UleeGameInstance::SaveCurrentGameData(UPlayerData*& data)
@@ -20,20 +23,10 @@ void UleeGameInstance::SaveCurrentGameData(UPlayerData*& data)
 
 	FString fileAbc = FString(FPaths::ProjectSavedDir() + "SaveGames/ACademyPreview.json");
 	FString outStr;
-	TSharedPtr<FJsonObject> Jsarray = data->HistoryStr();
-	//FString allData = array.ad;
-	FString preview = lJsontoStr(Jsarray);
-	UE_LOG(LogTemp,Warning,TEXT("previe : %s"),*preview)
-	bool success = FJsonObjectConverter::UStructToJsonObjectString<FGameLession>(data->CurrentGame, outStr);
-	if (success) {
-		UE_LOG(LogTemp, Warning,TEXT("data : %s"),* outStr);
-		lCreateFileFromString(preview, fileAbc);
-	}
-	//lDebug("Nullptr Game data");
+
+	//Construct Data
+	data->SaveConstruct();
 	UGameplayStatics::DeleteGameInSlot(SaveSlot, 0);
-
-
-
 	UGameplayStatics::SaveGameToSlot(data, SaveSlot, 0);
 
 }
@@ -42,6 +35,15 @@ UPlayerData* UleeGameInstance::LoadGameData()
 {
 	if (GameData) {
 		lDebug("Data IsLoaded...",FColor::Green," Data ");
+		FString result;
+		FString fileAbc = FString(FPaths::ProjectSavedDir() + "SaveGames/ACademyPreview.json");
+		GameData->LoadHistoriesFromStr();
+		lDebug(GameData->JsGames.Num());
+
+		//GameData->HistoriesObject=lGetJsObjectFromFile(fileAbc);
+		//GameData->PlayerHistories = lGetArrayObjFromObject(GameData->HistoriesObject, "UserHistories");
+		//lDebug(GameData->PlayerHistories.Num());
+		//FFileHelper::LoadFileToArray(GameData->HistoryGames, *fileAbc);
 		return GameData;
 	}
 	lDebug("Nullptr Game data");
@@ -54,4 +56,9 @@ UPlayerData* UleeGameInstance::LoadCurrentGameData() {
 	UPlayerData* currentGame= Cast<UPlayerData>(UGameplayStatics::LoadGameFromSlot(SaveSlot, 0));
 	if (currentGame) return currentGame;
 	return nullptr;
+}
+
+void UleeGameInstance::SaveGame(UPlayerData*& data)
+{
+
 }

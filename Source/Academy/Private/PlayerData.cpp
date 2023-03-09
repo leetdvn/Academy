@@ -10,6 +10,10 @@ UPlayerData::UPlayerData(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
 {
 	lStar = 0;
+
+	//init
+	//JsHistoriesObject = MakeShareable(new FJsonObject());
+	//JsGames = TArray<TSharedPtr<FJsonValue>>();
 	//USaveGame* save = UGameplayStatics::LoadGameFromSlot("LeeTdvnGameData", 1);
 	//leeSaveSystem = UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass());
 	//leeSaveSystem=	UGameplayStatics::LoadGameFromSlot("LeeTdvnGameData", 1);//UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass());
@@ -21,6 +25,87 @@ UPlayerData::UPlayerData(const FObjectInitializer& ObjectInitializer)
 	//this = getData;
 	//Loadsave
 }
+
+FString UPlayerData::GetRawHistoriesStr()
+{
+	TSharedPtr<FJsonObject> obj = BindGamesToHistories();
+	FString fileAbc = FString(FPaths::ProjectSavedDir() + "SaveGames/ACademyPreview.json");
+	FString preview = lJsontoStr(obj);
+	lCreateFileFromString(preview, fileAbc);
+	//UE_LOG(LogTemp, Warning, TEXT("log save : %s"), *preview);
+	return RawHistories = preview;
+}
+void UPlayerData::SaveConstruct()
+{
+	// Assign Raw data
+	GetRawHistoriesStr();
+}
+TSharedPtr<FJsonValue> UPlayerData::GetGamesAt(int32 index)
+{
+	if (JsGames.Num() <= 0 || JsGames.Num() - 1 < index) return TSharedPtr<FJsonValue>();
+	return JsGames[index];
+
+}
+TSharedPtr<FJsonValue> UPlayerData::GetLastGame()
+{
+	if (JsGames.Num() <= 0) return TSharedPtr<FJsonValue>();
+	return JsGames[JsGames.Num() - 1];
+
+}
+TSharedPtr<FJsonObject> UPlayerData::BindGamesToHistories()
+{
+	TSharedPtr<FJsonObject> result = MakeShareable(new FJsonObject());
+	TArray<TSharedPtr<FJsonValue>> jsVal;
+	int count{};
+	for (auto& str : JsGames) {
+		FString GameID = "Game_" + FString::FromInt(count);
+		jsVal.Add(str);
+		count++;
+	}
+	result->SetArrayField("Games", jsVal);
+	JsHistoriesObject->SetObjectField("UserHistories", result);
+	return JsHistoriesObject;
+}
+
+TSharedPtr<FJsonObject> UPlayerData::LoadHistoriesFromStr()
+{
+	if (RawHistories.IsEmpty()) {
+		lDebug("empty Data...");
+		return TSharedPtr<FJsonObject>();
+	}
+
+	TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(RawHistories);
+	bool Success = FJsonSerializer::Deserialize(Reader, JsHistoriesObject);
+
+	const TArray<TSharedPtr<FJsonValue>>* jsVal;
+	FString Field = "UserHistories";
+
+	//assign game history Array
+	const TSharedPtr<FJsonObject> *result;
+	JsHistoriesObject->TryGetObjectField("UserHistories", result);
+
+	if (result) {
+		result->Get()->TryGetArrayField("Games", jsVal);
+		JsGames = *jsVal;
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("load Histories : %d"), JsGames.Num());
+
+	return JsHistoriesObject;
+}
+
+FString UPlayerData::GetGameStrAt(int32 index)
+{
+	TSharedPtr<FJsonValue> obj = GetGamesAt(index);
+	return obj->AsString();
+}
+
+FString UPlayerData::GetLastGameStr()
+{
+	TSharedPtr<FJsonValue> obj = GetLastGame();
+	return obj->AsString();
+}
+
 //
 //void UPlayerData::SaveLessions(FGameLession &usersdata, FString OutPreview)
 //{

@@ -164,8 +164,9 @@ UleeBaseButton* UleeBaseButton::lCopyRef(UleeBaseButton*& other)
 
 void UleeBaseButton::lClickCallBack()
 {
-	lDebug("call back Touch..");
+	//lDebug("call back Touch..");
 	OnMenuClick.Broadcast(ltexture2D->GetName());
+	OnIdSent.Broadcast(Id);
 }
 
 void UleeBaseButton::lReplyFourBox()

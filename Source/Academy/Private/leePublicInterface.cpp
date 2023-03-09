@@ -123,6 +123,27 @@ TSharedPtr<FJsonObject> IleePublicInterface::lGetJsObjectFromFile(FString jsFile
 	return obj;
 }
 
+void IleePublicInterface::CreateJSonFile(FString jsFilepath, TSharedPtr<FJsonObject>& obj)
+{
+	FString data;
+	//create file
+	//FFileHelper::SaveStringToFile(jsFilepath, *jsFilepath, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), EFileWrite::FILEWRITE_Silent);
+	//FFileManagerGeneric* file = new FFileManagerGeneric();
+	//file->CreateFileWriter(*jsFilepath);
+
+	//write to file
+	TSharedRef<TJsonWriter<TCHAR, TPrettyJsonPrintPolicy<TCHAR>>> Writer = TJsonWriterFactory<TCHAR, TPrettyJsonPrintPolicy<TCHAR>>::Create(& jsFilepath);
+	bool Success = FJsonSerializer::Serialize(obj.ToSharedRef(), Writer);
+
+	if (Success) {
+		lDebug("Json Created.");
+
+	}
+	else {
+		lDebug("Json Failures");
+	}
+}
+
 FString IleePublicInterface::lGetStrFromJsArray(TArray<TSharedPtr<FJsonValue>> jsArray, FString FieldName)
 {
 	if (jsArray.Num() <=0 || jsArray.Num() <= 0) return FString();
@@ -144,6 +165,18 @@ FString IleePublicInterface::lJsontoStr(const TSharedPtr<FJsonObject> JsonObject
 	auto Writer = TJsonWriterFactory<TCHAR,TPrettyJsonPrintPolicy<TCHAR>>::Create(&OutStr);
 	FJsonSerializer::Serialize(JsonObject.ToSharedRef(), Writer);
 	return OutStr;
+}
+
+TArray <TSharedPtr<FJsonObject>> IleePublicInterface::lGetArrayObjFromObject(TSharedPtr<FJsonObject> InjsObject, FString FieldName)
+{
+	TArray <TSharedPtr<FJsonObject>> obj;
+	for (auto& js : InjsObject->GetArrayField(FieldName)) {
+		if (js) {
+			obj.Add(js->AsObject());
+			lDebug(js->AsString());
+		}
+	}
+	return obj;
 }
 
 TArray<FString> IleePublicInterface::lGetAllDirectory(const FString directory,bool isfile)

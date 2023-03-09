@@ -16,6 +16,7 @@
 #include "leeBaseButton.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMenuClick,FString,SymbolName);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnIdSent, int32, nameId);
 
 //correct drop action
 
@@ -52,11 +53,17 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Runtime", DisplayName = "Image Only")
 		bool lImageOnly;
 	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Runtime", DisplayName = "Button Id")
+		int Id;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Runtime", DisplayName = "Text Block", meta = (BindWidget))
 		UTextBlock* ltextblock;
 
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 		FOnMenuClick OnMenuClick;
+	
+	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
+		FOnIdSent OnIdSent;
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetNormalFromPath(FString imgPath, FVector2D normalSize);

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "leeGameInstance.h"
 #include "CanvasFourBox.h"
 #include "leeDragWidget.h"
 #include "leePublicEnum.h"
@@ -15,6 +16,7 @@
 
 /**
  *
+ class game type fourbox all 
  */
 
 UCLASS(BlueprintType)
@@ -46,8 +48,38 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetChoiseDiffAt(int32 idx);
 
+	FFourBoxData &GetData() { return fourdata; }
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void LoadCurrentGame();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnCorrectAnswer();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnIdReCeiveClick(int idsent);
+
 protected:
 
 	virtual void NativeConstruct() override;
+
+	void ReloadData();
+
+	void OnSaveData();
+
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
+		UleeGameInstance* GameIns;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Answer Limited")
+		int32 Answerlimited;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Max Correct Answer")
+		int32 AnswerCorrect;
+
+	int32 GameId;
+
+	FFourBoxData fourdata;
+
+	UPlayerData* userdata;
 };
 
