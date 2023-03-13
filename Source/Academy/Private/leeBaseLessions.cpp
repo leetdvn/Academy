@@ -73,6 +73,7 @@ bool UleeBaseLessions::NativeOnDrop(const FGeometry& InGeometry, const FDragDrop
 			}
 			else {
 				DragObj->lSetVisibility(false);
+				DragObj->lDragImage->SetVisibility(ESlateVisibility::Visible);
 			}
 		}
 	}
@@ -97,6 +98,7 @@ void UleeBaseLessions::lCreateNewChoises(TArray<FString> correctName, FGameLessi
 			//bind delegate function
 			btn->OniDrop.AddDynamic(this, &UleeBaseLessions::OnIDrop);
 			lession.Topics[count].Choises.Add(randPath);
+			btn->lSetShadowVisible(false);
 		}
 
 		count++;

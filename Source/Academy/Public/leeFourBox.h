@@ -11,6 +11,7 @@
 #include "leePublicEnum.h"
 #include "CoreMinimal.h"
 #include "Components/CanvasPanel.h"
+#include <Components/RichTextBlock.h>
 #include "leeFourBox.generated.h"
 
 
@@ -31,7 +32,7 @@ public:
 		UCanvasFourBox* lFourBox;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Title", meta = (BindWidget))
-		UTextBlock* ltitle;
+		URichTextBlock* ltitle;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Description", meta = (BindWidget))
 		UTextBlock* lDescription;
@@ -61,7 +62,7 @@ public:
 	
 	void LoadQuestionsAt(FString choisePath,int32 idx);
 
-	void LoadChoiseAt(FString topicsPath,int32 idx);
+	void LoadChoiseAt(int32 corrects, FString bgrs);
 	
 	void OnRePlayGame(FFourBoxData & odata);
 

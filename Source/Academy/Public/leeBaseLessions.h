@@ -16,6 +16,7 @@
 #include <Engine/DataTable.h>
 #include <NiagaraSystemWidget.h>
 #include <Particles/ParticleSystemComponent.h>
+#include <Components/RichTextBlock.h>
 #include "leeBaseLessions.generated.h"
 
 class UImage;
@@ -42,7 +43,7 @@ public:
 		TEnumAsByte<lGameType> GameType;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite,Category="lee's Ultils",DisplayName="Title",meta=(BindWidget))
-		UTextBlock* ltitle;
+		URichTextBlock* ltitle;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "VFX", meta = (BindWidget))
 		UNiagaraSystemWidget* mouseFX;

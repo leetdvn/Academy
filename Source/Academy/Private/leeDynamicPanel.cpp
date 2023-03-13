@@ -22,6 +22,9 @@ TArray<FGameTopics> UThreeLines::LoadQuestions(TArray<FString> paths, TArray<int
 	for (auto& q : lQuestions) {
 		if (q->GetVisibility() == ESlateVisibility::Hidden)
 			q->SetVisibility(ESlateVisibility::Visible);
+		if (q->lDragImage->GetVisibility() == ESlateVisibility::Hidden)
+			q->lDragImage->SetVisibility(ESlateVisibility::Visible);
+
 		FGameTopics topic{};
 		q->lSetTexture(paths[count]);
 		q->lSetId(ids[count]);

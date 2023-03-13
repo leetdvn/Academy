@@ -116,9 +116,10 @@ void UleeFourBox::LoadCurrentGame(int dataIndex)
 		int i = 0;
 		for (auto& p : lFourBox->lQuestions) {
 			LoadQuestionsAt(nData->topicPaths[i], i);
-			lSetChoiseDiffAt(i,false);
+			//lSetChoiseDiffAt(i,false);
 			i++;
 		}
+		//OnRePlayGame(fourdata);
 			
 	}
 
@@ -131,9 +132,7 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 	
 	lFourBox->lUserChoises[button->Id]->lSetDisable(true);
 	if (button) {
-		//button->lCheckStatus->SetColorAndOpacity(FLinearColor{ 1,1,1,1 });
 		button->lSetChecked(true);
-		//lDebug("Correct yeah..!!");
 
 	}
 	if (AnswerCorrect == 4) {
@@ -164,8 +163,9 @@ void UleeFourBox::LoadQuestionsAt(FString choisePath, int32 idx)
 	}
 }
 
-void UleeFourBox::LoadChoiseAt(FString topicsPath, int32 idx)
+void UleeFourBox::LoadChoiseAt(int32 corrects, FString bgrs)
 {
+	//TArray<>
 }
 
 void UleeFourBox::OnRePlayGame(FFourBoxData& odata)

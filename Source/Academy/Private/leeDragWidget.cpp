@@ -31,6 +31,7 @@ void UleeDragWidget::NativePreConstruct()
 #endif
 }
 
+//drag detected object
 void UleeDragWidget::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
 {
 	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
@@ -42,6 +43,7 @@ void UleeDragWidget::NativeOnDragDetected(const FGeometry& InGeometry, const FPo
 	UleeDragWidget* WidgetVisual = CreateWidget<UleeDragWidget>(GetWorld(), lDragSubVisual);
 	WidgetVisual->lSetTexture(ltexture);
 	WidgetVisual->lIdname = lIdname;
+	WidgetVisual->lShadow->SetVisibility(ESlateVisibility::Hidden);
 	//WidgetVisual->lSetButtonSize(iSize);
 
 	UDragDropOperation* DragVisual = NewObject<UDragDropOperation>(GetWorld(), lDragSubOperation);
@@ -49,7 +51,8 @@ void UleeDragWidget::NativeOnDragDetected(const FGeometry& InGeometry, const FPo
 	DragVisual->Payload = this;// lGetTextureFromPath(lNormalPath);
 	DragVisual->DefaultDragVisual = WidgetVisual;
 	OutOperation = DragVisual;
-	SetVisibility(ESlateVisibility::Hidden);
+	//SetVisibility(ESlateVisibility::Hidden);
+	lDragImage->SetVisibility(ESlateVisibility::Hidden);
 }
 
 FReply UleeDragWidget::NativeOnTouchStarted(const FGeometry& InGeometry, const FPointerEvent& InTouchEvent)
@@ -122,6 +125,12 @@ void UleeDragWidget::lSetTexture(FString path)
 {
 	lImagePath = path;
 	lInitializeDefault(path);
+}
+
+void UleeDragWidget::lSetShadowVisible(bool visible)
+{
+	ESlateVisibility vis = visible ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
+	lShadow->SetVisibility(vis);
 }
 
 void UleeDragWidget::lSetVisibility(bool visible)

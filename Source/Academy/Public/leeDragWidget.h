@@ -60,6 +60,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		int32 lGetId() { return lIdname; }
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void lSetShadowVisible(bool visible);
+
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 		FOnIDrop OniDrop;
 
@@ -70,6 +73,12 @@ public:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Status Image", meta = (BindWidget))
 		UImage* lStatusImage;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "shadow Image", meta = (BindWidget))
+		UImage* lShadow;
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Drag Image", meta = (BindWidget))
+		UImage* lDragImage;
 
 protected:
 
@@ -83,9 +92,6 @@ protected:
 	
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Drag Image", meta = (BindWidget))
-		UImage* lDragImage;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Drag Drop Operation")
 		TSubclassOf<UDragDropOperation> lDragSubOperation;
