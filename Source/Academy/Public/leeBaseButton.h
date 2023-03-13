@@ -16,7 +16,7 @@
 #include "leeBaseButton.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMenuClick,FString,SymbolName);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnIdSent, int32, nameId);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCorrect, UleeBaseButton*, button);
 
 //correct drop action
 
@@ -63,7 +63,7 @@ public:
 		FOnMenuClick OnMenuClick;
 	
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
-		FOnIdSent OnIdSent;
+		FOnCorrect OnCorrect;
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetNormalFromPath(FString imgPath, FVector2D normalSize);

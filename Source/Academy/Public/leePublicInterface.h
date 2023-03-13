@@ -128,6 +128,8 @@ public:
 	/// <param name="number"></param>
 	void lGetRandFilesFromDirectory(FString dir, TArray<FString> &exceptions,int32 number);
 
+	void lGetRandDirsFromDirectory(FString dir, TArray<FString>& exceptions, int32 number);
+
 	FString lGetRandFileFromDirectory(FString dir);
 
 	void lGetRandNums(TArray<int32> &Outnums,int32 maxArray, int32 maxValue);

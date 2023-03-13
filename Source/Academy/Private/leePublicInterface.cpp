@@ -265,6 +265,19 @@ void IleePublicInterface::lGetRandFilesFromDirectory(FString dir, TArray<FString
 	if (exceptions.Num() < number) return lGetRandFilesFromDirectory(dir, exceptions, number);
 }
 
+void IleePublicInterface::lGetRandDirsFromDirectory(FString dir, TArray<FString>& exceptions, int32 number)
+{
+	TArray<FString> files = lGetAllDirectory(dir);
+	if (files.Num() < number) { lDebug("folder dont' have enoght files"); return; }
+	for (auto& f : files) {
+		int rand = lRand(0, files.Num());
+		if (exceptions.Num() >= number) return;
+		exceptions.AddUnique(files[rand]);
+	}
+
+	if (exceptions.Num() < number) return lGetRandDirsFromDirectory(dir, exceptions, number);
+}
+
 void IleePublicInterface::lGetRandNums(TArray<int32>& Outnums, int32 maxArray, int32 maxValue)
 {
 #pragma omp parallel for

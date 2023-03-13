@@ -14,6 +14,8 @@
 #include "Async/Async.h"
 #include "Blueprint/UserWidget.h"
 #include <Engine/DataTable.h>
+#include <NiagaraSystemWidget.h>
+#include <Particles/ParticleSystemComponent.h>
 #include "leeBaseLessions.generated.h"
 
 class UImage;
@@ -41,6 +43,9 @@ public:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite,Category="lee's Ultils",DisplayName="Title",meta=(BindWidget))
 		UTextBlock* ltitle;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "VFX", meta = (BindWidget))
+		UNiagaraSystemWidget* mouseFX;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Description", meta = (BindWidget))
 		UTextBlock* lDescription;
@@ -109,6 +114,9 @@ protected:
 	virtual void NativeDestruct() override;
 
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
+
+	virtual FReply NativeOnTouchStarted(const FGeometry& InGeometry, const FPointerEvent& InTouchEvent) override;
+
 	int32 Droptimes;
 	int32 DropCorrecttimes;
 	int32 DropFailtimes;

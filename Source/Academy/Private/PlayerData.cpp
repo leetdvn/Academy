@@ -10,6 +10,7 @@ UPlayerData::UPlayerData(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
 {
 	lStar = 0;
+	JsHistoriesObject = MakeShareable(new FJsonObject());
 
 	//init
 	//JsHistoriesObject = MakeShareable(new FJsonObject());
@@ -29,6 +30,7 @@ UPlayerData::UPlayerData(const FObjectInitializer& ObjectInitializer)
 FString UPlayerData::GetRawHistoriesStr()
 {
 	TSharedPtr<FJsonObject> obj = BindGamesToHistories();
+	if (!obj.IsValid()) return "";
 	FString fileAbc = FString(FPaths::ProjectSavedDir() + "SaveGames/ACademyPreview.json");
 	FString preview = lJsontoStr(obj);
 	lCreateFileFromString(preview, fileAbc);
@@ -75,6 +77,7 @@ TEnumAsByte<lGameType> UPlayerData::GetLastGameType()
 
 TSharedPtr<FJsonObject> UPlayerData::BindGamesToHistories()
 {
+	if (JsGames.Num() <= 0) return TSharedPtr<FJsonObject>();
 	TSharedPtr<FJsonObject> result = MakeShareable(new FJsonObject());
 	TArray<TSharedPtr<FJsonValue>> jsVal;
 	int count{};
@@ -85,6 +88,7 @@ TSharedPtr<FJsonObject> UPlayerData::BindGamesToHistories()
 	// export json Field name =  GameField and main Field
 	result->SetArrayField(GamesField, jsVal);
 	JsHistoriesObject->SetObjectField(mainField, result);
+
 	return JsHistoriesObject;
 }
 

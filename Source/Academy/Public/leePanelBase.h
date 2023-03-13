@@ -92,9 +92,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		UleeBaseButton* lGetButton(int idx);
 
-	UFUNCTION()
-		void iOnClicked();
-
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		TArray<UleeBaseButton*> lGetButtons() { return lbuttons; }
 
@@ -107,6 +104,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void ClearButtons();
 	
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void lSetDisable(bool disables);
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void lResetChecked();
+
 	bool isCreated() { return lbuttons.Num() > 0 || lDragDropButtons.Num() > 0 ? true : false; };
 	
 	void lSetMakeSameAt(FString path,bool DragButton);
@@ -135,7 +138,7 @@ protected:
 
 	virtual void NativeConstruct() override;
 
-	//virtual void NativePreConstruct() override;
+	virtual void NativePreConstruct() override;
 
 	UleePanelBase* ins;
 private:

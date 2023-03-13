@@ -6,6 +6,8 @@
 #include <Engine/DataTable.h>
 #include <JsonUtilities/Public/JsonObjectConverter.h>
 #include <Kismet/KismetInternationalizationLibrary.h>
+#include <Blueprint/WidgetBlueprintLibrary.h>
+#include <Blueprint/WidgetLayoutLibrary.h>
 
 UleeBaseLessions::UleeBaseLessions(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
@@ -221,6 +223,22 @@ void UleeBaseLessions::LoadThreeLineGame()
 	lThreeline->LoadAllChoise(current);
 	BindButtons();
 	DropCorrecttimes = 0;
+}
+
+FReply UleeBaseLessions::NativeOnTouchStarted(const FGeometry& InGeometry, const FPointerEvent& InTouchEvent)
+{
+	FReply iReply = Super::NativeOnTouchStarted(InGeometry, InTouchEvent);
+	if (mouseFX) {
+		lDebug("mouse FX clicked");
+		UCanvasPanelSlot* mSlot = Cast<UCanvasPanelSlot>(mouseFX->Slot);
+		if (mSlot) {
+			FVector2D mPos = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
+			mSlot->SetPosition(mPos);
+
+			mouseFX->ActivateSystem(true);
+		}
+	}
+	return iReply;
 }
 
 void UleeBaseLessions::BindButtons()

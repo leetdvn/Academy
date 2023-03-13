@@ -113,12 +113,6 @@ void UleePanelBase::lInitializePanels(FString dir, TEnumAsByte<PanelType> panel,
 	}
 }
 
-void UleePanelBase::iOnClicked()
-{
-	//lDebug("Clicked from lee CanvasPanel", FColor::Purple);
-
-}
-
 void UleePanelBase::lOverrideTextName(TArray<FString> texts, TArray<UleeBaseButton*> btns)
 {
 
@@ -169,17 +163,18 @@ void UleePanelBase::lInitializeChoiseAnswer(FString dir, FString ref)
 	
 }
 
-//void UleePanelBase::NativePreConstruct()
-//{
-//	if (!lExistsDirectory(lDirectory)) return;
-//		//preview UI
-//	lInitializePanels(lDirectory, lpaneltype, ImageOnly);
-//	//for (auto& i : lPanelWidget->GetAllChildren()) {
-//	//	UImage* img = Cast<UImage>(i);
-//	//	if (img) lStaticImage.AddUnique(img);
-//	//}
-//
-//}
+void UleePanelBase::NativePreConstruct()
+{
+#if WITH_EDITOR
+	if (!lExistsDirectory(lDirectory)) return;
+		//preview UI
+	lInitializePanels(lDirectory, lpaneltype, ImageOnly);
+	//for (auto& i : lPanelWidget->GetAllChildren()) {
+	//	UImage* img = Cast<UImage>(i);
+	//	if (img) lStaticImage.AddUnique(img);
+	//}
+#endif
+}
 
 UleeBaseButton* UleePanelBase::lGetButton(int idx)
 {
@@ -206,6 +201,26 @@ void UleePanelBase::ClearButtons()
 
 	if (lDragDropButtons.Num() > 0) lDragDropButtons.Empty();
 	if (lbuttons.Num() > 0) lbuttons.Empty();
+}
+
+void UleePanelBase::lSetDisable(bool disables)
+{
+	if (lbuttons.Num() <= 0) return;
+
+	ESlateVisibility vis = disables ? ESlateVisibility::HitTestInvisible : ESlateVisibility::SelfHitTestInvisible;
+
+	for (auto& b : lbuttons) {
+		b->SetVisibility(vis);
+	}
+}
+
+void UleePanelBase::lResetChecked()
+{
+	if (lbuttons.Num() <= 0) return;
+	for (auto& b : lbuttons) {
+		if (b->lGetChecked())
+			b->lSetChecked(false);
+	}
 }
 
 void UleePanelBase::lSetMakeSameAt(FString path, bool DragButton)

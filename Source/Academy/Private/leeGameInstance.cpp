@@ -38,7 +38,7 @@ UPlayerData* UleeGameInstance::LoadGameData()
 		FString result;
 		FString fileAbc = FString(FPaths::ProjectSavedDir() + "SaveGames/ACademyPreview.json");
 		GameData->LoadHistoriesFromStr();
-		lDebug(GameData->JsGames.Num());
+		//lDebug(GameData->JsGames.Num());
 
 		//GameData->HistoriesObject=lGetJsObjectFromFile(fileAbc);
 		//GameData->PlayerHistories = lGetArrayObjFromObject(GameData->HistoriesObject, "UserHistories");

@@ -166,7 +166,7 @@ void UleeBaseButton::lClickCallBack()
 {
 	//lDebug("call back Touch..");
 	OnMenuClick.Broadcast(ltexture2D->GetName());
-	OnIdSent.Broadcast(Id);
+	OnCorrect.Broadcast(this);
 }
 
 void UleeBaseButton::lReplyFourBox()

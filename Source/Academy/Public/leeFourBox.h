@@ -46,23 +46,25 @@ public:
 		void NewFourBoxInit();
 	
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void lSetChoiseDiffAt(int32 idx);
+		void lSetChoiseDiffAt(int32 idx,bool isnewgame =true);
 
 	FFourBoxData &GetData() { return fourdata; }
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void LoadCurrentGame();
+		void LoadCurrentGame(int dataIndex);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnCorrectAnswer();
+		void OnCorrectAnswer(UleeBaseButton* button);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnIdReCeiveClick(int idsent);
+		void OnIdReCeiveClick();
 	
 	void LoadQuestionsAt(FString choisePath,int32 idx);
 
 	void LoadChoiseAt(FString topicsPath,int32 idx);
 	
+	void OnRePlayGame(FFourBoxData & odata);
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void LoadCurrentQuestions();
 
@@ -73,6 +75,7 @@ protected:
 	void ReloadData();
 
 	void OnSaveData();
+
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;
@@ -89,6 +92,6 @@ protected:
 
 	UPlayerData* userdata;
 
-	bool isReplay;
+	bool isReplay, isNewGame = true;
 };
 

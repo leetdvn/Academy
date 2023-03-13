@@ -5,9 +5,11 @@ void UleeFourBox::NewFourBoxInit()
 {
 	FString sourceDir = FPaths::ProjectContentDir() + lFourBox->lTopicSourceFolder;
 	FString choiseDir = FPaths::ProjectContentDir() + lFourBox->lChoiseSourceFolder;
-	TArray<FString> topics = lGetAllDirectory(sourceDir),questions;
+	TArray<FString> topics; //= lGetAllDirectory(sourceDir),questions;
 	int count{};
-
+	lGetRandDirsFromDirectory(sourceDir, topics, 4);
+	for (auto& t : topics)
+		lDebug(t, FColor::Purple, "folder");
 	//in it data game---------------------------------
 	fourdata.LessionType = FourBox;
 	fourdata.GameID = userdata->JsGames.Num() + 1;
@@ -15,12 +17,12 @@ void UleeFourBox::NewFourBoxInit()
 	fourdata.GameDescriptions = lDescription->GetText().ToString();
 	fourdata.GameDecorPath = "";
 	//implantation quession;
+	int32 t = 0;
 	for (auto& quest : lFourBox->lQuestions) {
-		int32 rand = lRand(0, topics.Num());
-		FString randSource = sourceDir +"/" + topics[rand]; 
+		FString randSource = sourceDir +"/" + topics[t]; 
 		FString sload = lGetRandFileFromDirectory(randSource);
 		//lGetRandFilesFromDirectory(sourceDir,questions, 1);
-		FString imgQuest = "/Game/" + lFourBox->lTopicSourceFolder + "/" + topics[rand] + "/" + sload;
+		FString imgQuest = "/Game/" + lFourBox->lTopicSourceFolder + "/" + topics[t] + "/" + sload;
 		
 		//get textures--------------------------------------
 		UTexture2D *tex = lGetTextureFromPath(imgQuest);
@@ -32,6 +34,7 @@ void UleeFourBox::NewFourBoxInit()
 		}
 		//create data topic---------------------------
 		fourdata.topicPaths.Add(imgQuest);
+		t++;
 	}
 	
 	//get player choise bgr buttons
@@ -47,21 +50,23 @@ void UleeFourBox::NewFourBoxInit()
 		//lDebug(cDir[xcount], FColor::Green);
 		ans->lSetMakeSameAt(cPath, false);
 		lSetChoiseDiffAt(xcount);
+		ans->lResetChecked();
 		xcount++;
 	}
 }
 
-void UleeFourBox::lSetChoiseDiffAt(int32 idx)
+void UleeFourBox::lSetChoiseDiffAt(int32 idx,bool isnewgame)
 {
 	if (idx < 0 || idx > lFourBox->lQuestions.Num()) return ;
 
 	FString qName = lFourBox->lQuestions[idx]->Brush.GetResourceName().ToString();
-	FString number = qName.Left(1);
+	FString number = qName.Left(2);
+	//FString test = qName.Left(2);
 	//convert string to int
 	int32 num =UKismetStringLibrary::Conv_StringToInt(number);
 	TArray<UleeBaseButton*> buttons = lFourBox->lUserChoises[idx]->lGetButtons();
 	if (buttons.Num() <= 0) return ;
-
+	//lDebug(num);
 	//get Array numbers diffirence
 	TArray<int32> nums{ num };
 	lGetRandNums(nums, buttons.Num(),11);
@@ -73,9 +78,10 @@ void UleeFourBox::lSetChoiseDiffAt(int32 idx)
 
 	}
 	//lDebug(overText.Num());
-
+	overText.SwapMemory(0, lRand(1, overText.Num()));
 	lFourBox->lUserChoises[idx]->lOverrideTextName(overText, buttons);
-	fourdata.topicNums.Add(num);
+	if(isnewgame)
+		fourdata.topicNums.Add(num);
 	//implantation Buttons and correct click
 	int count{};
 	for (auto& btn : buttons) {
@@ -83,46 +89,69 @@ void UleeFourBox::lSetChoiseDiffAt(int32 idx)
 		btn->Id = idName;
 		if (idName == num) {
 			//bind correct button when action
-			btn->lButton->OnClicked.AddDynamic(this, &UleeFourBox::OnCorrectAnswer);
+			//btn->lButton->OnClicked.AddDynamic(this, &UleeFourBox::OnCorrectAnswer);
+			btn->Id = idx;
+			btn->OnCorrect.AddDynamic(this, &UleeFourBox::OnCorrectAnswer);
+
 		}
 		else {
 			// case fail to choise
-			btn->OnIdSent.AddDynamic(this, &UleeFourBox::OnIdReCeiveClick);
+			btn->lButton->OnClicked.AddDynamic(this, &UleeFourBox::OnIdReCeiveClick);
 		}
 		count++;
 	}
 	return ;
 }
 
-void UleeFourBox::LoadCurrentGame()
+void UleeFourBox::LoadCurrentGame(int dataIndex)
 {
 	//dont' need reload neet make choise new avaible
-	lDebug("On Replay", FColor::Purple, " ");
-	
+	//lDebug("On Replay", FColor::Purple, " ");
+
+	//ResetMapLevel(GetWorld());
+	TSharedPtr<FJsonValue> jsVal= userdata->GetGamesAt(userdata->JsGames.Num()-1);
+	FFourBoxData* nData=new FFourBoxData();
+	FJsonObjectConverter::JsonObjectToUStruct(jsVal->AsObject().ToSharedRef(), nData);
+	if (nData->topicPaths.Num() > 0) {
+		int i = 0;
+		for (auto& p : lFourBox->lQuestions) {
+			LoadQuestionsAt(nData->topicPaths[i], i);
+			lSetChoiseDiffAt(i,false);
+			i++;
+		}
+			
+	}
+
 }
 
-void UleeFourBox::OnCorrectAnswer()
+void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 {
+	if (AnswerCorrect > 4) return;
 	AnswerCorrect++;
-	if (AnswerCorrect == 4) {
-		AnswerCorrect = 0;
+	
+	lFourBox->lUserChoises[button->Id]->lSetDisable(true);
+	if (button) {
+		//button->lCheckStatus->SetColorAndOpacity(FLinearColor{ 1,1,1,1 });
+		button->lSetChecked(true);
+		//lDebug("Correct yeah..!!");
 
+	}
+	if (AnswerCorrect == 4) {
 		/// save data pass to next game lession
 		OnSaveData();
 	}
 	//debug
-	lDebug("Correct yeah..!!");
 }
 
-void UleeFourBox::OnIdReCeiveClick(int idsent)
+void UleeFourBox::OnIdReCeiveClick()
 {
-	lDebug(idsent);
+	//lDebug(idsent);
 }
 
 void UleeFourBox::LoadQuestionsAt(FString choisePath, int32 idx)
 {
 
-	if(!lFilesExists(choisePath) || idx < 0 && idx >= lFourBox->lQuestions.Num()) return;
+	if(idx < 0 && idx >= lFourBox->lQuestions.Num()) return;
 
 	//----------------------------------------------
 	UImage* img =lFourBox->lQuestions[idx];
@@ -139,9 +168,18 @@ void UleeFourBox::LoadChoiseAt(FString topicsPath, int32 idx)
 {
 }
 
+void UleeFourBox::OnRePlayGame(FFourBoxData& odata)
+{
+	for (auto& p : lFourBox->lUserChoises) {
+		p->lSetDisable(false);
+		for (auto& b : p->lGetButtons())
+			if (b->lGetChecked()) b->lSetChecked(false);
+	}
+	AnswerCorrect = 0;
+}
+
 void UleeFourBox::LoadCurrentQuestions()
 {
-	AnswerCorrect = 0;
 	//for (int i = 0; i < lFourBox->lQuestions.Num(); i++) 
 	//	LoadQuestionsAt(fourdata.topicPaths[i], i);
 }
@@ -149,7 +187,8 @@ void UleeFourBox::LoadCurrentQuestions()
 void UleeFourBox::NativeConstruct()
 {
 	ReloadData();
-	NewFourBoxInit();
+	lDebug("two");
+	return isNewGame ? NewFourBoxInit() : LoadCurrentGame(userdata->JsGames.Num()-1);
 	//lGetTopicCaculateAt(1);
 }
 
@@ -160,8 +199,7 @@ void UleeFourBox::ReloadData()
 	//load data
 	GameIns->LoadGameData();
 	userdata = GameIns->GameData;
-
-	UE_LOG(LogTemp, Warning, TEXT("load Data : %s"), *userdata->GetAllGames());
+	//UE_LOG(LogTemp, Warning, TEXT("load Data : %s"), *userdata->GetAllGames());
 }
 
 void UleeFourBox::OnSaveData()
