@@ -16,6 +16,10 @@ UleeDragWidget::~UleeDragWidget()
 	OniDrop.Clear();
 }
 
+void UleeDragWidget::lSetText(FString newText)
+{
+}
+
 void UleeDragWidget::NativeConstruct()
 {
 	if (!lFilesExists(lImagePath)) lInitializeDefault(lImageDefault);

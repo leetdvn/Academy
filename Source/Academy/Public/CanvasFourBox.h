@@ -15,7 +15,7 @@
  */
 
 UCLASS(BlueprintType)
-class ACADEMY_API UCanvasFourBox : public UCanvasPanel
+class ACADEMY_API UCanvasFourBox : public UCanvasPanel , public IleePublicInterface
 {
 	GENERATED_BODY()
 
@@ -35,5 +35,15 @@ public:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Choise Source Folder")
 		FString lChoiseSourceFolder;
+
+	UleePanelBase* lGetChoiseAt(int32 idx);
+
+	UImage* lGetQuestionAt(int32 idx);
+
+	void lSetChoiseBgr(int32 idx, FString& path, bool isDragButton);
+
+	void lSetQuestions(TArray<FString> &paths);
+
+	void lSetChoiseTextAt(int32 idx,TArray<FString> texts);
 
 };

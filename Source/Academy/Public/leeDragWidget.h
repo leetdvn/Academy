@@ -80,6 +80,8 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Drag Image", meta = (BindWidget))
 		UImage* lDragImage;
 
+	void lSetText(FString newText);
+
 protected:
 
 	virtual void NativeConstruct() override;

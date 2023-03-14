@@ -123,6 +123,10 @@ public:
 
 	void lOverrideTextName(TArray<FString> texts, TArray<UleeBaseButton*> btns);
 
+	void lOverrideTextName(TArray<FString> texts, TArray<UleeDragWidget*> btns);
+
+	void lOverrideTextName(TArray<FString> texts ,bool isDragButtons=false);
+
 	void lOverrideTextures(TArray<UTexture2D*> textures, TArray<UleeBaseButton*> btns, FVector2D size);
 
 	void lOverridePadding(TArray<FMargin> margin, TArray<UleeBaseButton*> btns);

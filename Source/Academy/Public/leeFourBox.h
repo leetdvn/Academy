@@ -62,7 +62,7 @@ public:
 	
 	void LoadQuestionsAt(FString choisePath,int32 idx);
 
-	void LoadChoiseAt(int32 corrects, FString bgrs);
+	void LoadChoiseAt(int32 index, FString bgrs);
 	
 	void OnRePlayGame(FFourBoxData & odata);
 

@@ -116,6 +116,7 @@ void UleeFourBox::LoadCurrentGame(int dataIndex)
 		int i = 0;
 		for (auto& p : lFourBox->lQuestions) {
 			LoadQuestionsAt(nData->topicPaths[i], i);
+			lFourBox->lSetChoiseBgr(i, nData->ChoiseBgrs[i],false);
 			//lSetChoiseDiffAt(i,false);
 			i++;
 		}
@@ -163,8 +164,13 @@ void UleeFourBox::LoadQuestionsAt(FString choisePath, int32 idx)
 	}
 }
 
-void UleeFourBox::LoadChoiseAt(int32 corrects, FString bgrs)
+void UleeFourBox::LoadChoiseAt(int32 index, FString bgrs)
 {
+	if (index > lFourBox->lUserChoises.Num() || index <= 0) return;
+	UTexture2D* tex = lGetTextureFromPath(bgrs);
+	FVector2D bSize = lGetSizeTexture(bgrs);
+	for (auto& b : lFourBox->lUserChoises[index]->lGetButtons())
+		b->lSetNormalFromPath(bgrs, bSize);
 	//TArray<>
 }
 

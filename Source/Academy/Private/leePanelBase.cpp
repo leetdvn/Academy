@@ -122,6 +122,25 @@ void UleePanelBase::lOverrideTextName(TArray<FString> texts, TArray<UleeBaseButt
 	}
 }
 
+void UleePanelBase::lOverrideTextName(TArray<FString> texts, TArray<UleeDragWidget*> btns)
+{
+
+	if (btns.Num() <= 0 || texts.Num() <= 0) return;
+	for (int i = 0; i < texts.Num(); i++) {
+		if (btns[i])	btns[i]->lSetText(texts[i]);
+	}
+}
+
+void UleePanelBase::lOverrideTextName(TArray<FString> texts, bool isDragButtons)
+{
+	if (texts.Num() <= 0) return;
+
+	if (!isDragButtons) {
+		return lOverrideTextName(texts, lbuttons);
+	}
+	return lOverrideTextName(texts, lDragDropButtons);
+}
+
 void UleePanelBase::lOverrideTextures(TArray<UTexture2D*> textures, TArray<UleeBaseButton*> btns, FVector2D size)
 {
 	if (textures.Num() <= 0) return;
