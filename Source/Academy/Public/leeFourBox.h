@@ -46,13 +46,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void NewFourBoxInit();
 	
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void lSetChoiseDiffAt(int32 idx,bool isnewgame =true);
-
 	FFourBoxData &GetData() { return fourdata; }
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void LoadCurrentGame(int dataIndex);
+		void LoadGameAt(int32 dataIndex);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnCorrectAnswer(UleeBaseButton* button);
@@ -60,14 +57,20 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnIdReCeiveClick();
 	
-	void LoadQuestionsAt(FString choisePath,int32 idx);
 
-	void LoadChoiseAt(int32 index, FString bgrs);
 	
 	void OnRePlayGame(FFourBoxData & odata);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void LoadCurrentQuestions();
+
+	//load Topics at inidex
+	void LoadQuestionsAt(FString choisePath, int32 idx);
+
+	//load choise at
+	void LoadChoiseAt(int32 index, FString bgrs);
+
+	void BindAction();
 
 protected:
 
@@ -88,6 +91,8 @@ protected:
 		int32 AnswerCorrect;
 
 	int32 GameId;
+
+	TArray<UleeBaseButton*> lCorrectButtons;
 
 	FFourBoxData fourdata,LoadData;
 

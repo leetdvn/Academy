@@ -3,125 +3,59 @@
 
 void UleeFourBox::NewFourBoxInit()
 {
-	FString sourceDir = FPaths::ProjectContentDir() + lFourBox->lTopicSourceFolder;
-	FString choiseDir = FPaths::ProjectContentDir() + lFourBox->lChoiseSourceFolder;
-	TArray<FString> topics; //= lGetAllDirectory(sourceDir),questions;
-	int count{};
-	lGetRandDirsFromDirectory(sourceDir, topics, 4);
-	for (auto& t : topics)
-		lDebug(t, FColor::Purple, "folder");
-	//in it data game---------------------------------
 	fourdata.LessionType = FourBox;
 	fourdata.GameID = userdata->JsGames.Num() + 1;
 	fourdata.GameTitle = ltitle->GetText().ToString();
 	fourdata.GameDescriptions = lDescription->GetText().ToString();
 	fourdata.GameDecorPath = "";
-	//implantation quession;
-	int32 t = 0;
-	for (auto& quest : lFourBox->lQuestions) {
-		FString randSource = sourceDir +"/" + topics[t]; 
-		FString sload = lGetRandFileFromDirectory(randSource);
-		//lGetRandFilesFromDirectory(sourceDir,questions, 1);
-		FString imgQuest = "/Game/" + lFourBox->lTopicSourceFolder + "/" + topics[t] + "/" + sload;
-		
-		//get textures--------------------------------------
-		UTexture2D *tex = lGetTextureFromPath(imgQuest);
-		//set size------------------------------------------
-		FVector2D bSize = lGetSizeTexture(imgQuest);
-		if (tex) {
-			quest->SetBrushResourceObject(tex);
-			quest->SetBrushSize(bSize);
-		}
-		//create data topic---------------------------
-		fourdata.topicPaths.Add(imgQuest);
-		t++;
-	}
 	
-	//get player choise bgr buttons
-	TArray<FString> cDir = lGetAllDirectory(choiseDir,true);
-	TArray<int32> wrap = { 0,1,2,3 };
-	wrap.SwapMemory(0, lRand(1,wrap.Num()));
-	//initialization player choise
-	int xcount=0;
-	for (auto& ans : lFourBox->lUserChoises) {
-		//cDir.SwapMemory(xcount, );
-		FString cPath = "/Game/" + lFourBox->lChoiseSourceFolder +  "/" + cDir[wrap[xcount]];
-		fourdata.ChoiseBgrs.Add(cPath);
-		//lDebug(cDir[xcount], FColor::Green);
-		ans->lSetMakeSameAt(cPath, false);
-		lSetChoiseDiffAt(xcount);
-		ans->lResetChecked();
-		xcount++;
-	}
+	LoadGameAt(1);
+	
 }
 
-void UleeFourBox::lSetChoiseDiffAt(int32 idx,bool isnewgame)
-{
-	if (idx < 0 || idx > lFourBox->lQuestions.Num()) return ;
-
-	FString qName = lFourBox->lQuestions[idx]->Brush.GetResourceName().ToString();
-	FString number = qName.Left(2);
-	//FString test = qName.Left(2);
-	//convert string to int
-	int32 num =UKismetStringLibrary::Conv_StringToInt(number);
-	TArray<UleeBaseButton*> buttons = lFourBox->lUserChoises[idx]->lGetButtons();
-	if (buttons.Num() <= 0) return ;
-	//lDebug(num);
-	//get Array numbers diffirence
-	TArray<int32> nums{ num };
-	lGetRandNums(nums, buttons.Num(),11);
-
-	//conver Array Number to String
-	TArray<FString> overText{};
-	for (auto& n : nums) {
-		overText.AddUnique(FString::FromInt(n));
-
-	}
-	//lDebug(overText.Num());
-	overText.SwapMemory(0, lRand(1, overText.Num()));
-	lFourBox->lUserChoises[idx]->lOverrideTextName(overText, buttons);
-	if(isnewgame)
-		fourdata.topicNums.Add(num);
-	//implantation Buttons and correct click
-	int count{};
-	for (auto& btn : buttons) {
-		int32 idName = UKismetStringLibrary::Conv_StringToInt(overText[count]);
-		btn->Id = idName;
-		if (idName == num) {
-			//bind correct button when action
-			//btn->lButton->OnClicked.AddDynamic(this, &UleeFourBox::OnCorrectAnswer);
-			btn->Id = idx;
-			btn->OnCorrect.AddDynamic(this, &UleeFourBox::OnCorrectAnswer);
-
-		}
-		else {
-			// case fail to choise
-			btn->lButton->OnClicked.AddDynamic(this, &UleeFourBox::OnIdReCeiveClick);
-		}
-		count++;
-	}
-	return ;
-}
-
-void UleeFourBox::LoadCurrentGame(int dataIndex)
+void UleeFourBox::LoadGameAt(int32 dataIndex)
 {
 	//dont' need reload neet make choise new avaible
 	//lDebug("On Replay", FColor::Purple, " ");
+	if (dataIndex < 0 || dataIndex > userdata->JsGames.Num() - 1) {
+		lDebug("Error");
+		return;
+	}
 
-	//ResetMapLevel(GetWorld());
-	TSharedPtr<FJsonValue> jsVal= userdata->GetGamesAt(userdata->JsGames.Num()-1);
+	isReplay = true;
+	//============================Read Data from Game Instance =========================================
+	TSharedPtr<FJsonValue> jsVal= userdata->GetGamesAt(dataIndex);
 	FFourBoxData* nData=new FFourBoxData();
 	FJsonObjectConverter::JsonObjectToUStruct(jsVal->AsObject().ToSharedRef(), nData);
+	//------------------------------------------------------------------------
+
+	//==================load call data
 	if (nData->topicPaths.Num() > 0) {
-		int i = 0;
+		int i = 0; int x = 0;
+		lFourBox->lSetQuestions(nData->topicPaths);
+
 		for (auto& p : lFourBox->lQuestions) {
-			LoadQuestionsAt(nData->topicPaths[i], i);
+			//paint color panel
 			lFourBox->lSetChoiseBgr(i, nData->ChoiseBgrs[i],false);
-			//lSetChoiseDiffAt(i,false);
+			//lFourBox->lUserChoises[i]->lSetMakeSameAt(nData->ChoiseBgrs[i],false);
+			TArray<FString> nums{};
+			for (auto& b : lFourBox->lUserChoises[i]->lGetButtons())
+			{
+				//if(idx < nData->textsChoiss.Num())
+				nums.Add(nData->textsChoiss[x]);
+				x++;
+			}
+
+			lFourBox->lSetChoiseTextAt(i, nums);
 			i++;
 		}
+		lFourBox->lClearActionBound();
+		lFourBox->lClearChecked();
+
+		BindAction();
+		
 		//OnRePlayGame(fourdata);
-			
+		//-----------------------------------------------------------------
 	}
 
 }
@@ -138,7 +72,8 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 	}
 	if (AnswerCorrect == 4) {
 		/// save data pass to next game lession
-		OnSaveData();
+		if(!isReplay)
+			OnSaveData();
 	}
 	//debug
 }
@@ -174,6 +109,15 @@ void UleeFourBox::LoadChoiseAt(int32 index, FString bgrs)
 	//TArray<>
 }
 
+void UleeFourBox::BindAction()
+{
+	TArray<UleeBaseButton*> buttons{};
+	lFourBox->lGetCorrectButtons(buttons);
+	for (auto& b : buttons) {
+		b->OnCorrect.AddDynamic(this, &UleeFourBox::OnCorrectAnswer);
+	}
+}
+
 void UleeFourBox::OnRePlayGame(FFourBoxData& odata)
 {
 	for (auto& p : lFourBox->lUserChoises) {
@@ -194,7 +138,7 @@ void UleeFourBox::NativeConstruct()
 {
 	ReloadData();
 	lDebug("two");
-	return isNewGame ? NewFourBoxInit() : LoadCurrentGame(userdata->JsGames.Num()-1);
+	return isNewGame ? NewFourBoxInit() : LoadGameAt(userdata->JsGames.Num()-1);
 	//lGetTopicCaculateAt(1);
 }
 

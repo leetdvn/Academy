@@ -21,6 +21,8 @@ class ACADEMY_API UCanvasFourBox : public UCanvasPanel , public IleePublicInterf
 
 public:
 
+	UCanvasFourBox(const FObjectInitializer& ObjectInitializer);
+
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Game Type")
 		TEnumAsByte<lGameType> ltypeGame = FourBox;
 
@@ -45,5 +47,38 @@ public:
 	void lSetQuestions(TArray<FString> &paths);
 
 	void lSetChoiseTextAt(int32 idx,TArray<FString> texts);
+
+	//implantation
+	void CreateGenerator(FFourBoxData& outData);
+	
+	//
+	void OnLoadFromData(FFourBoxData& outData);
+
+	//get Correct Number
+	int32 lGetCorrectNumberAt(int32 idx);
+
+	//generator game topic random in the source directory
+	TArray<FString> lGeneratorTopics(FFourBoxData& outData);
+
+	//generator choise random in the source directory
+	TArray<FString> lGeneratorChoiseBgr(FFourBoxData& outData);
+
+	void lGetCorrectButtons(TArray<UleeBaseButton*>& buttons);
+	//topics 
+	TArray<FString> lTopics;
+
+	//bind button
+	TArray<UleeBaseButton*> CorrectButtons;
+	TArray<UleeBaseButton*> UnCorrectButtons;
+
+	void lClearChecked();
+
+	void lClearActionBound();
+
+	void lGeneratorNumber(FFourBoxData& outData);
+
+	
+protected:
+
 
 };

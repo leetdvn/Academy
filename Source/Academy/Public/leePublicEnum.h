@@ -99,6 +99,7 @@ struct FGameLession : public FTableRowBase
 
 	FString gName;
 
+
 	int TopicsNum() { return Topics.Num(); }
 
 	TArray<FString> GetQuestions(){
@@ -149,7 +150,6 @@ struct FGameLession : public FTableRowBase
 		TopicNames({}),
 		Topics({}),
 		gName("")
-		
 	{
 	}
 
@@ -190,6 +190,9 @@ struct FFourBoxData : public FTableRowBase
 
 	TArray<int32> GetTopicNums() { return topicNums; }
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		TArray<FString> textsChoiss;
+
 	FFourBoxData() :
 		LessionType(None),
 		GameTitle(""),
@@ -198,7 +201,8 @@ struct FFourBoxData : public FTableRowBase
 		GameID(0),
 		topicPaths({}),
 		topicNums({}),
-		ChoiseBgrs({})
+		ChoiseBgrs({}),
+		textsChoiss({})
 	{
 	}
 };
