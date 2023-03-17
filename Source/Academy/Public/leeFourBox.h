@@ -1,5 +1,6 @@
 #pragma once
 
+#include "leeGameHistories.h"
 #include "leeGameInstance.h"
 #include "CanvasFourBox.h"
 #include "leeDragWidget.h"
@@ -43,6 +44,15 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Bottom Decor Panel", meta = (BindWidget))
 		UPanelWidget* lbottomdecor;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Histories", meta = (BindWidget))
+		UleeGameHistories* GameHistories;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidgetAnim),Transient)
+		UWidgetAnimation* HistoriesTurnOn;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidgetAnim), Transient)
+		UWidgetAnimation* HistoriesTurnOff;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void NewFourBoxInit();
 	
@@ -57,24 +67,35 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnIdReCeiveClick();
 	
-
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void TurnOffHistories();
 	
 	void OnRePlayGame(FFourBoxData & odata);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void LoadCurrentQuestions();
 
-	//load Topics at inidex
-	void LoadQuestionsAt(FString choisePath, int32 idx);
-
-	//load choise at
-	void LoadChoiseAt(int32 index, FString bgrs);
-
 	void BindAction();
+
+
+	UWidgetAnimation* GetAnimationByName(FName AnimationName) const;
+
+	bool PlayAnimationByName(FName AnimationName,
+		float StartAtTime,
+		int32 NumLoopsToPlay,
+		EUMGSequencePlayMode::Type PlayMode,
+		float PlayBackSpeed
+	);
 
 protected:
 
 	virtual void NativeConstruct() override;
+	UPROPERTY(EditAnyWhere)
+	TMap<FName, UWidgetAnimation*> AnimationsMap;
+
+	TMap<FString, UWidgetAnimation*> AnimationsMaps;
+
+	//void FillAnimationsMap();
 
 	void ReloadData();
 

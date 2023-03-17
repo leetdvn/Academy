@@ -182,4 +182,10 @@ public:
 	int32 lGetEnumFromStr(const FString name,FString enumStr);
 
 	//FString lGetEnumToString(UEnum ipEnum);
+
+#pragma region Animations
+	void FillAnimationsMap(TMap<FString, UWidgetAnimation*>& AnimationsMap,UUserWidget* Widget);
+
+#pragma endregion
+
 };

@@ -38,6 +38,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Choise Source Folder")
 		FString lChoiseSourceFolder;
 
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidgetAnim), Transient)
+	//	UWidgetAnimation* RaiseUp;
+
 	UleePanelBase* lGetChoiseAt(int32 idx);
 
 	UImage* lGetQuestionAt(int32 idx);

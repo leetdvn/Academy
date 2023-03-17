@@ -9,8 +9,15 @@ void UleeFourBox::NewFourBoxInit()
 	fourdata.GameDescriptions = lDescription->GetText().ToString();
 	fourdata.GameDecorPath = "";
 	
-	LoadGameAt(1);
-	
+	LoadGameAt(userdata->JsGames.Num()-1);
+	//if(lFourBox->RaiseUp)
+	//	lFourBox->RaiseUp-
+	//PlayAnimationByName(FName("RaiseUp"),0,1,EUMGSequencePlayMode::Forward,1);
+	//lFourBox->CreateGenerator(fourdata);
+	//BindAction();
+
+	//PlayAnimation(lFourBox->RaiseUp, 0, 1, EUMGSequencePlayMode::Forward, 1);
+
 }
 
 void UleeFourBox::LoadGameAt(int32 dataIndex)
@@ -83,30 +90,12 @@ void UleeFourBox::OnIdReCeiveClick()
 	//lDebug(idsent);
 }
 
-void UleeFourBox::LoadQuestionsAt(FString choisePath, int32 idx)
+void UleeFourBox::TurnOffHistories()
 {
-
-	if(idx < 0 && idx >= lFourBox->lQuestions.Num()) return;
-
-	//----------------------------------------------
-	UImage* img =lFourBox->lQuestions[idx];
-
-	UTexture2D* tex = lGetTextureFromPath(choisePath);
-	FVector2D bSize = lGetSizeTexture(choisePath);
-	if (tex) {
-		img->SetBrushResourceObject(tex);
-		img->SetBrushSize(bSize);
+	if (HistoriesTurnOff) {
+		PlayAnimation(HistoriesTurnOff);
+		GameHistories->OnHistoriesDown();
 	}
-}
-
-void UleeFourBox::LoadChoiseAt(int32 index, FString bgrs)
-{
-	if (index > lFourBox->lUserChoises.Num() || index <= 0) return;
-	UTexture2D* tex = lGetTextureFromPath(bgrs);
-	FVector2D bSize = lGetSizeTexture(bgrs);
-	for (auto& b : lFourBox->lUserChoises[index]->lGetButtons())
-		b->lSetNormalFromPath(bgrs, bSize);
-	//TArray<>
 }
 
 void UleeFourBox::BindAction()
@@ -116,6 +105,27 @@ void UleeFourBox::BindAction()
 	for (auto& b : buttons) {
 		b->OnCorrect.AddDynamic(this, &UleeFourBox::OnCorrectAnswer);
 	}
+}
+
+UWidgetAnimation* UleeFourBox::GetAnimationByName(FName AnimationName) const
+{
+	UWidgetAnimation* const* WidgetAnim = AnimationsMap.Find(AnimationName);
+	if (WidgetAnim)	{
+		return *WidgetAnim;
+	}
+	return nullptr;
+}
+
+bool UleeFourBox::PlayAnimationByName(FName AnimationName, float StartAtTime, int32 NumLoopsToPlay, EUMGSequencePlayMode::Type PlayMode, float PlayBackSpeed)
+{
+	UWidgetAnimation* WidgetAnim = GetAnimationByName(AnimationName);
+	if (WidgetAnim)
+	{
+		PlayAnimation(WidgetAnim, StartAtTime, NumLoopsToPlay, PlayMode, PlayBackSpeed);
+		return true;
+	}
+	return false;
+	
 }
 
 void UleeFourBox::OnRePlayGame(FFourBoxData& odata)
@@ -136,11 +146,62 @@ void UleeFourBox::LoadCurrentQuestions()
 
 void UleeFourBox::NativeConstruct()
 {
+	UUserWidget* widget = Cast<UUserWidget>(this);
+	if (widget) {
+		FillAnimationsMap(AnimationsMaps, widget);
+		for (auto& a : AnimationsMaps) {
+			lDebug(a.Value->GetName());
+			if (a.Value->GetName().StartsWith("RaiseUp")) {
+				PlayAnimationByName(a.Value->GetFName(), 0, 1, EUMGSequencePlayMode::Forward, 1);
+			}
+		}
+	}
 	ReloadData();
-	lDebug("two");
+	//lDebug("two");
+
+	if (HistoriesTurnOn) {
+		GameHistories->OnHistoriesInit(userdata);
+		GameHistories->lTurnOffButton->OnClicked.AddDynamic(this, &UleeFourBox::TurnOffHistories);
+		PlayAnimation(HistoriesTurnOn);
+	}
+
 	return isNewGame ? NewFourBoxInit() : LoadGameAt(userdata->JsGames.Num()-1);
 	//lGetTopicCaculateAt(1);
 }
+
+//void UleeFourBox::FillAnimationsMap()
+//{
+//	AnimationsMap.Empty();
+//
+//	UProperty* Prop = GetClass()->PropertyLink;
+//
+//	// Run through all properties of this class to find any widget animations
+//	while (Prop != nullptr)
+//	{
+//		// Only interested in object properties
+//		if (Prop->GetClass() == UObjectProperty::StaticClass())
+//		{
+//			UObjectProperty* ObjProp = Cast<UObjectProperty>(Prop);
+//
+//			// Only want the properties that are widget animations
+//			if (ObjProp->PropertyClass == UWidgetAnimation::StaticClass())
+//			{
+//				UObject* Obj = ObjProp->GetObjectPropertyValue_InContainer(this);
+//
+//				UWidgetAnimation* WidgetAnim = Cast<UWidgetAnimation>(Obj);
+//				if (WidgetAnim != nullptr && WidgetAnim->MovieScene != nullptr)
+//				{
+//					FName AnimName = WidgetAnim->MovieScene->GetFName();
+//					AnimationsMap.Add(AnimName, WidgetAnim);
+//					lDebug(AnimName.ToString());
+//
+//				}
+//			}
+//		}
+//
+//		Prop = Prop->PropertyLinkNext;
+//	}
+//}
 
 void UleeFourBox::ReloadData()
 {

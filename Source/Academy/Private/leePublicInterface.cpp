@@ -5,6 +5,7 @@
 #include <AssetRegistry/AssetRegistryModule.h>
 #include "HAL/FileManagerGeneric.h"
 #include <Kismet/GameplayStatics.h>
+#include <Blueprint/UserWidget.h>
 
 // Add default functionality here for any IleeInterface functions that are not pure virtual.
 
@@ -442,3 +443,29 @@ void IleePublicInterface::ResetMapLevel(UWorld* world) {
 //	return 0;
 //
 //}
+
+#pragma region Animations
+
+void IleePublicInterface::FillAnimationsMap(TMap<FString, UWidgetAnimation*>& AnimationsMap, UUserWidget* Widget)
+{
+	
+	UWidgetBlueprintGeneratedClass* WidgetClass = Widget->GetWidgetTreeOwningClass();
+
+	AnimationsMap.Empty();
+
+	for (int i = 0; i < WidgetClass->Animations.Num(); i++) {
+
+		FString Name = WidgetClass->Animations[i]->GetDisplayName().ToString();
+		AnimationsMap.Add(Name, WidgetClass->Animations[i]);
+	}
+
+	if (WidgetClass->Animations[0] != NULL) {
+
+		UE_LOG(LogTemp, Warning, TEXT("Yes,this is Name is = %s"), *WidgetClass->Animations[0]->GetName());
+	}
+	else {
+
+		UE_LOG(LogTemp, Warning, TEXT("aa"));
+	}
+}
+#pragma endregion
