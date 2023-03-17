@@ -68,6 +68,9 @@ public:
 		void OnIdReCeiveClick();
 	
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnHistoriesUp() { PlayAnimation(HistoriesTurnOn); }
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void TurnOffHistories();
 	
 	void OnRePlayGame(FFourBoxData & odata);

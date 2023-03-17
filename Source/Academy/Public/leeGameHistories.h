@@ -6,6 +6,7 @@
 #include <Components/Image.h>
 #include <Components/Button.h>
 #include <Components/ScrollBox.h>
+#include <Components/TextBlock.h>
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "leeGameHistories.generated.h"
@@ -28,10 +29,18 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Grid", meta = (BindWidget))
 		UGridPanel* lGridPanel;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Widget")
-		TSubclassOf<UUserWidget> DisplayImg;
+	//UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Grid", meta = (BindWidget))
+	//	UTextBlock* ItemInfo;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Unlock Item")
+		TSubclassOf<UUserWidget> ItemUnlock;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Lock Item")
+		TSubclassOf<UUserWidget> Itemlock;
 
 	void OnHistoriesInit(UPlayerData* &playerData);
 
 	void OnHistoriesDown();
+
+	//UUserWidget* CreateWidgetItem(TSubclassOf<UUserWidget> widget);
 };

@@ -159,10 +159,13 @@ void UleeFourBox::NativeConstruct()
 	ReloadData();
 	//lDebug("two");
 
+	if (lFourBox->GameHistoriesButton) {
+		lFourBox->GameHistoriesButton->OnClicked.AddDynamic(this, &UleeFourBox::OnHistoriesUp);
+	}
+
 	if (HistoriesTurnOn) {
 		GameHistories->OnHistoriesInit(userdata);
 		GameHistories->lTurnOffButton->OnClicked.AddDynamic(this, &UleeFourBox::TurnOffHistories);
-		PlayAnimation(HistoriesTurnOn);
 	}
 
 	return isNewGame ? NewFourBoxInit() : LoadGameAt(userdata->JsGames.Num()-1);

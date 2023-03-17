@@ -38,8 +38,8 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Choise Source Folder")
 		FString lChoiseSourceFolder;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidgetAnim), Transient)
-	//	UWidgetAnimation* RaiseUp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidget))
+		UButton* GameHistoriesButton;
 
 	UleePanelBase* lGetChoiseAt(int32 idx);
 
