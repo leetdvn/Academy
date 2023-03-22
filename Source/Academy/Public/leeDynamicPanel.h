@@ -44,6 +44,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Choise Source Folder")
 		UComboBoxString* boxStr;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidget))
+		UButton* GameHistoriesButton;
+
 	//FGameLession lGetData() { return lGameData; }
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")

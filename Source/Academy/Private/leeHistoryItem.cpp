@@ -19,3 +19,13 @@ UImage* UleeHistoryItem::lTakeItem(bool isLock)
     }
     return ItemBgr;
 }
+
+void UleeHistoryItem::OnMouseDown()
+{
+    OnItemClick.Broadcast(this);
+}
+
+void UleeHistoryItem::NativeConstruct()
+{
+    ItemBgr->OnMouseButtonDownEvent.BindUFunction(this, FName("OnMouseDown"));
+}

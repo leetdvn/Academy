@@ -33,14 +33,39 @@ public:
 	//	UTextBlock* ItemInfo;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Unlock Item")
-		TSubclassOf<UUserWidget> ItemUnlock;
+		TSubclassOf<UUserWidget> ItemHistories;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Lock Item")
-		TSubclassOf<UUserWidget> Itemlock;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidgetAnim), Transient)
+		UWidgetAnimation* OpenUp;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidgetAnim), Transient)
+		UWidgetAnimation* CloseDown;
+
 
 	void OnHistoriesInit(UPlayerData* &playerData);
 
 	void OnHistoriesDown();
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnMouseClicked(UleeHistoryItem* item);
+
+	void OnSwitchMapFromHistories(lGameType gametype);
+
+	void lOpenMapLevel(FString mapname);
+
+	TEnumAsByte<lGameType> lGetTypeFromHistories(UleeHistoryItem* item);
 	//UUserWidget* CreateWidgetItem(TSubclassOf<UUserWidget> widget);
+
+	template <typename T>
+	FORCEINLINE T lGetEnumFromStr(const FString name, FString enumStr);
+	
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnOpenUp();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnCloseDown();
+
+protected:
+	virtual void NativeConstruct() override;
 };
+

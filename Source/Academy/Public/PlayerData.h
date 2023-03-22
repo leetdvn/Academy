@@ -61,6 +61,7 @@ public:
 
 	TEnumAsByte<lGameType> GetLastGameType();
 
+	TEnumAsByte<lGameType> GetGameTypeAt(int32 gameId);
 
 	FString ToString() { return UKismetStringLibrary::Conv_ObjectToString(this); }
 

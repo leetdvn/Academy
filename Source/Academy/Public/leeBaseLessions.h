@@ -15,6 +15,7 @@
 #include "Blueprint/UserWidget.h"
 #include <Engine/DataTable.h>
 #include <NiagaraSystemWidget.h>
+#include <leeGameHistories.h>
 #include <Particles/ParticleSystemComponent.h>
 #include <Components/RichTextBlock.h>
 #include "leeBaseLessions.generated.h"
@@ -72,6 +73,9 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 		FOnCompletedGame OnCorrectClick;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Histories", meta = (BindWidget))
+		UleeGameHistories* GameHistories;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnIDrop(bool isCorrect);
 
@@ -101,6 +105,8 @@ public:
 		UE_LOG(LogTemp,Warning,TEXT("level change.."))
 	};
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnHistoriesUp() { if (GameHistories) GameHistories->OnOpenUp(); }
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType);

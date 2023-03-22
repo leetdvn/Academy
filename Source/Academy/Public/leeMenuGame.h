@@ -22,6 +22,12 @@ public:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidget))
 		UComboBoxString* box;
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidget))
+		UButton* lParentsButton;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidget))
+		UUserWidget* Settings;
 
 	//UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 	//	FText box = LOCTEXT("abc", TEXT("bb"));

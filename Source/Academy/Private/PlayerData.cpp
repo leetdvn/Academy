@@ -75,6 +75,19 @@ TEnumAsByte<lGameType> UPlayerData::GetLastGameType()
 	return lastGame;
 }
 
+TEnumAsByte<lGameType> UPlayerData::GetGameTypeAt(int32 gameId)
+{
+	TSharedPtr<FJsonObject> obj = JsGames[gameId]->AsObject();
+	if (!obj.IsValid()) return None;
+	FString outStr;
+	obj->TryGetStringField(gametype, outStr);
+
+	//int32 idx = 
+	TEnumAsByte<lGameType> _gtype = lGetEnumFromStr<lGameType>(enumName, outStr); 
+	lDebug(lGetStringFromEnum<lGameType>(lastGame));
+	return lastGame;
+}
+
 TSharedPtr<FJsonObject> UPlayerData::BindGamesToHistories()
 {
 	if (JsGames.Num() <= 0) return TSharedPtr<FJsonObject>();

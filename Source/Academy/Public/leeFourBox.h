@@ -47,12 +47,6 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Histories", meta = (BindWidget))
 		UleeGameHistories* GameHistories;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidgetAnim),Transient)
-		UWidgetAnimation* HistoriesTurnOn;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidgetAnim), Transient)
-		UWidgetAnimation* HistoriesTurnOff;
-
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void NewFourBoxInit();
 	
@@ -68,11 +62,8 @@ public:
 		void OnIdReCeiveClick();
 	
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnHistoriesUp() { PlayAnimation(HistoriesTurnOn); }
+		void OnHistoriesUp() { if (GameHistories) GameHistories->OnOpenUp(); }
 
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void TurnOffHistories();
-	
 	void OnRePlayGame(FFourBoxData & odata);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
@@ -80,15 +71,6 @@ public:
 
 	void BindAction();
 
-
-	UWidgetAnimation* GetAnimationByName(FName AnimationName) const;
-
-	bool PlayAnimationByName(FName AnimationName,
-		float StartAtTime,
-		int32 NumLoopsToPlay,
-		EUMGSequencePlayMode::Type PlayMode,
-		float PlayBackSpeed
-	);
 
 protected:
 

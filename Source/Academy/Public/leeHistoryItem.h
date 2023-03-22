@@ -12,6 +12,8 @@
 /**
  * 
  */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHistories, UleeHistoryItem*, Item);
+
 UCLASS()
 class ACADEMY_API UleeHistoryItem : public UUserWidget , public IleePublicInterface
 {
@@ -38,8 +40,19 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Image Path UnLock")
 		UTexture2D* UnLockPath;
 
+	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
+		FOnHistories OnItemClick;
+
 	TSharedPtr<FJsonObject> JsGameObject;
+
+	FString ObjectStr;
 
 	UImage* lTakeItem(bool isLock);
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnMouseDown();
+
+protected:
+
+	virtual void NativeConstruct() override;
 };
