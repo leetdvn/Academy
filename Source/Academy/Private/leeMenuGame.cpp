@@ -18,6 +18,11 @@ void UleeMenuGame::OnMenuClick(FString menuName)
 	UGameplayStatics::OpenLevel(GetWorld(),FName(*mapOpen));
 }
 
+void UleeMenuGame::OnParentClicked()
+{
+	if (Settings) Settings->OnOpenUp();
+}
+
 //void UleeMenuGame::OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType)
 //{
 //	if (itemname.IsEmpty()) return;
@@ -47,6 +52,7 @@ void UleeMenuGame::NativeConstruct()
 	}
 
 	FString map=UGameplayStatics::GetCurrentLevelName(GetWorld());
+	lParentsButton->OnClicked.AddDynamic(this, &UleeMenuGame::OnParentClicked);
 	//lDebug(map);
 
 	//box->OnSelectionChanged.AddDynamic(this, &UleeMenuGame::OnSelectChanged);
