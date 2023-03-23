@@ -20,7 +20,8 @@ void UleeMenuGame::OnMenuClick(FString menuName)
 
 void UleeMenuGame::OnParentClicked()
 {
-	if (Settings) Settings->OnOpenUp();
+	if (!Settings->isAvalible) 
+		Settings->OnOpenUp();
 }
 
 //void UleeMenuGame::OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType)

@@ -29,8 +29,8 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Grid", meta = (BindWidget))
 		UGridPanel* lGridPanel;
 
-	//UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Grid", meta = (BindWidget))
-	//	UTextBlock* ItemInfo;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Bgr", meta = (BindWidget))
+		UImage* lBgr;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Unlock Item")
 		TSubclassOf<UUserWidget> ItemHistories;

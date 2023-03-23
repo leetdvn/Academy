@@ -10,8 +10,8 @@ UleeParentSettings::UleeParentSettings(const FObjectInitializer& ObjectInitializ
 
 void UleeParentSettings::NativeConstruct()
 {
-	MusicOn = Cast<UTexture2D>(Music->Brush.GetResourceObject());
-	SoundOn = Cast<UTexture2D>(Sound->Brush.GetResourceObject());
+	//MusicOn = Cast<UTexture2D>(Music->Brush.GetResourceObject());
+	//SoundOn = Cast<UTexture2D>(Sound->Brush.GetResourceObject());
 	
 	if (Sound) {
 		Sound->OnMouseButtonDownEvent.BindUFunction(this, FName("OnSoundToogle"));
@@ -24,21 +24,29 @@ void UleeParentSettings::NativeConstruct()
 
 	if (lClosed)
 		lClosed->OnClicked.AddDynamic(this, &UleeParentSettings::OnCloseDown);
+
+	if (lBgr)
+		lBgr->OnMouseButtonDownEvent.BindUFunction(this, FName("OnCloseDown"));
 }
 
 void UleeParentSettings::OnSoundToogle()
 {
-	lDebug("Sound clickd");
+	//lDebug(Sound->Brush.GetResourceObject()->GetPathName());
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *Sound->Brush.GetResourceObject()->GetPathName());
 	soundToogle = !soundToogle;
-	UTexture2D* tex = !soundToogle ? SoundOn : SoundOff;
-	Sound->Brush.SetResourceObject(tex);
+	UTexture2D* tex = !soundToogle ? 
+		lGetTextureFromPath(SoundOn) :
+		lGetTextureFromPath(SoundOff);
+	Sound->SetBrushResourceObject(tex);
 }
 
 void UleeParentSettings::OnMusicToogle()
 {
-	lDebug("Music clickd");
+	//lDebug("Music clickd");
 	MusicToogle = !MusicToogle;
-	UTexture2D* tex = !MusicToogle ? MusicOn : SoundOff;
-	Music->Brush.SetResourceObject(tex);
+	UTexture2D* tex = !MusicToogle ? 
+		lGetTextureFromPath(SoundOn) :
+		lGetTextureFromPath(SoundOff);
+	Music->SetBrushResourceObject(tex);
 
 }

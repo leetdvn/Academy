@@ -80,14 +80,13 @@ void UleeGameHistories::OnOpenUp()
 void UleeGameHistories::OnCloseDown()
 {
 	if (!CloseDown) return;
-	lDebug("Closed..");
 	PlayAnimation(CloseDown);
 }
 
 void UleeGameHistories::NativeConstruct()
 {
 	lTurnOffButton->OnClicked.AddDynamic(this, &UleeGameHistories::OnCloseDown);
-
+	lBgr->OnMouseButtonDownEvent.BindUFunction(this, FName("OnCloseDown"));
 }
 
 void UleeGameHistories::OnHistoriesInit(UPlayerData*& playerData)
@@ -96,10 +95,6 @@ void UleeGameHistories::OnHistoriesInit(UPlayerData*& playerData)
 	int32 column = 0;
 	for (int i = 0, x = 0; i < playerData->JsGames.Num() + 12; i++,column++) {
 
-		//TSubclassOf<UUserWidget> createWd =
-		//	i >= playerData->JsGames.Num() ?
-		//	Itemlock :
-		//	ItemUnlock;
 		UleeHistoryItem* img = CreateWidget<UleeHistoryItem>(GetWorld(), ItemHistories);
 		
 

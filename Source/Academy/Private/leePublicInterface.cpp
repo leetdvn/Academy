@@ -449,23 +449,23 @@ void IleePublicInterface::ResetMapLevel(UWorld* world) {
 void IleePublicInterface::FillAnimationsMap(TMap<FString, UWidgetAnimation*>& AnimationsMap, UUserWidget* Widget)
 {
 	
-	UWidgetBlueprintGeneratedClass* WidgetClass = Widget->GetWidgetTreeOwningClass();
+	//UWidgetBlueprintGeneratedClass* WidgetClass = Widget->GetWidgetTreeOwningClass();
 
-	AnimationsMap.Empty();
+	//AnimationsMap.Empty();
 
-	for (int i = 0; i < WidgetClass->Animations.Num(); i++) {
+	//for (int i = 0; i < WidgetClass->Animations.Num(); i++) {
 
-		FString Name = WidgetClass->Animations[i]->GetDisplayName().ToString();
-		AnimationsMap.Add(Name, WidgetClass->Animations[i]);
-	}
+	//	FString Name = WidgetClass->Animations[i]->GetDisplayName().ToString();
+	//	AnimationsMap.Add(Name, WidgetClass->Animations[i]);
+	//}
 
-	if (WidgetClass->Animations[0] != NULL) {
+	//if (WidgetClass->Animations[0] != NULL) {
 
-		UE_LOG(LogTemp, Warning, TEXT("Yes,this is Name is = %s"), *WidgetClass->Animations[0]->GetName());
-	}
-	else {
+	//	UE_LOG(LogTemp, Warning, TEXT("Yes,this is Name is = %s"), *WidgetClass->Animations[0]->GetName());
+	//}
+	//else {
 
-		UE_LOG(LogTemp, Warning, TEXT("aa"));
-	}
+	//	UE_LOG(LogTemp, Warning, TEXT("aa"));
+	//}
 }
 #pragma endregion

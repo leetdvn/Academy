@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Components/TextBlock.h"
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "leeComfirmWidget.generated.h"
@@ -23,6 +24,9 @@ public:
 		class UButton* lButtonYes;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Message", meta = (BindWidget))
-		class UTextBlock* lMessage;
+		UTextBlock* lMessage;
 
+	void lSetConfirmTittle(FString Message);
+
+	void lSetVisible(bool isShow);
 };

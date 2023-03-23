@@ -49,4 +49,6 @@ protected:
 	virtual void NativeConstruct() override;
 
 	FString mapOpen;
+	
+	bool SettingsOn;
 };

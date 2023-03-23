@@ -26,8 +26,8 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Mucis", meta = (BindWidget));
 		UImage* Music;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Sounds Off");
-		UTexture2D* SoundOff;
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Bgr", meta = (BindWidget));
+		UImage* lBgr;
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Closed Button", meta = (BindWidget));
 		UButton* lClosed;
@@ -45,17 +45,23 @@ public:
 		UWidgetAnimation* CloseDown;
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnCloseDown() { PlayAnimation(CloseDown); }
+		void OnCloseDown() { PlayAnimation(CloseDown); isAvalible = false; }
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnOpenUp() { PlayAnimation(OpenUp); }
+		void OnOpenUp() { PlayAnimation(OpenUp); isAvalible = true; }
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool lGetSoundToogle() { return soundToogle; }
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool lGetMusicToogle() { return MusicToogle; }
+
+	bool isAvalible;
 
 protected:
 
-	class UTexture2D* SoundOn;
-
-	class UTexture2D* MusicOn;
+	const FString SoundOn="/Game/AcademyAssets/Assets/Textures/UI/Parents/images/sound_on";
+	const FString SoundOff="/Game/AcademyAssets/Assets/Textures/UI/Parents/images/sound_off";
 
 	virtual void NativeConstruct() override;
 
