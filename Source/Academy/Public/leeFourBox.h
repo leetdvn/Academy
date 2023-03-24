@@ -47,6 +47,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Histories", meta = (BindWidget))
 		UleeGameHistories* GameHistories;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Win Widget", meta = (BindWidget))
+		UUserWidget* WinWidget;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void NewFourBoxInit();
 	
@@ -64,10 +67,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnHistoriesUp() { if (GameHistories) GameHistories->OnOpenUp(); }
 
-	void OnRePlayGame(FFourBoxData & odata);
-
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void LoadCurrentQuestions();
+		void lSetWinOnOff(bool isOn);
+
+	void OnRePlayGame(FFourBoxData & odata);
 
 	void BindAction();
 
@@ -75,10 +78,6 @@ public:
 protected:
 
 	virtual void NativeConstruct() override;
-	UPROPERTY(EditAnyWhere)
-	TMap<FName, UWidgetAnimation*> AnimationsMap;
-
-	TMap<FString, UWidgetAnimation*> AnimationsMaps;
 
 	//void FillAnimationsMap();
 

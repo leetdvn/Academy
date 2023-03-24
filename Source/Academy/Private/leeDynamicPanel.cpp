@@ -5,13 +5,13 @@
 
 void UThreeLines::lClearTopics()
 {
-	//if (lTopics.Num() == 0) return;
+	if (lQuestions.Num() == 0) return;
 
-	//for (auto& tp : lTopics) {
-	//	if (tp.lQuestion) {
-	//		tp.lQuestion->ClearButtons();
-	//	}
-	//}
+	for (auto& tp : lQuestions) {
+		if (tp) {
+			tp->lDragImage->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+		}
+	}
 }
 
 TArray<FGameTopics> UThreeLines::LoadQuestions(TArray<FString> paths, TArray<int32> ids)

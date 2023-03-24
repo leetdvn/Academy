@@ -9,7 +9,9 @@ void UleeFourBox::NewFourBoxInit()
 	fourdata.GameDescriptions = lDescription->GetText().ToString();
 	fourdata.GameDecorPath = "";
 	
-	LoadGameAt(userdata->JsGames.Num()-1);
+	//LoadGameAt(userdata->JsGames.Num()-1);
+	lFourBox->CreateGenerator(fourdata);
+	BindAction();
 }
 
 void UleeFourBox::LoadGameAt(int32 dataIndex)
@@ -73,6 +75,7 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 		/// save data pass to next game lession
 		if(!isReplay)
 			OnSaveData();
+		WinWidget->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 	}
 	//debug
 }
@@ -91,6 +94,13 @@ void UleeFourBox::BindAction()
 	}
 }
 
+void UleeFourBox::lSetWinOnOff(bool isOn)
+{
+	ESlateVisibility vis = isOn ? ESlateVisibility::SelfHitTestInvisible : ESlateVisibility::Hidden;
+	return WinWidget->SetVisibility(vis);
+
+}
+
 void UleeFourBox::OnRePlayGame(FFourBoxData& odata)
 {
 	for (auto& p : lFourBox->lUserChoises) {
@@ -101,15 +111,9 @@ void UleeFourBox::OnRePlayGame(FFourBoxData& odata)
 	AnswerCorrect = 0;
 }
 
-void UleeFourBox::LoadCurrentQuestions()
-{
-	//for (int i = 0; i < lFourBox->lQuestions.Num(); i++) 
-	//	LoadQuestionsAt(fourdata.topicPaths[i], i);
-}
-
 void UleeFourBox::NativeConstruct()
 {
-	UUserWidget* widget = Cast<UUserWidget>(this);
+	//UUserWidget* widget = Cast<UUserWidget>(this);
 
 	ReloadData();
 	//lDebug("two");
@@ -118,7 +122,7 @@ void UleeFourBox::NativeConstruct()
 		lFourBox->GameHistoriesButton->OnClicked.AddDynamic(this, &UleeFourBox::OnHistoriesUp);
 	}
 	GameHistories->OnHistoriesInit(userdata);
-
+	WinWidget->SetVisibility(ESlateVisibility::Hidden);
 	return isNewGame ? NewFourBoxInit() : LoadGameAt(userdata->JsGames.Num()-1);
 	//lGetTopicCaculateAt(1);
 }

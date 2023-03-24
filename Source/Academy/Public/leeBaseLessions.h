@@ -61,6 +61,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Dynamic Canvas", meta = (BindWidget))
 		UThreeLines* lThreeline;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Win Widget", meta = (BindWidget))
+		UUserWidget* WinWidget;
+
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game ID")
 		int  SessionID;
 
@@ -98,6 +101,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnReplay();
+	
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void lSetWinOnOff(bool isOn);
 
 	UFUNCTION()
 		void OnlevelChange(ULevel* lv,UWorld* world)

@@ -23,7 +23,7 @@ void UleeBaseLessions::NativeConstruct()
 	//binding event drop for answers
 	//load Game History
 	ReloadData();
-
+	lSetWinOnOff(false);
 	lThreeline->boxStr->OnSelectionChanged.AddDynamic(this, &UleeBaseLessions::OnSelectChanged);
 
 	if (lThreeline->GameHistoriesButton) {
@@ -206,6 +206,7 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 		//Save game
 
 		GameIns->SaveCurrentGameData(userdata);
+		lSetWinOnOff(true);
 		DropCorrecttimes = 0;
 
 		//UE_LOG(LogTemp, Warning, TEXT("view : %s"), *completed);
@@ -307,11 +308,19 @@ void UleeBaseLessions::ReloadData()
 
 void UleeBaseLessions::NewGameThreelineInit()
 {
+	
+	lThreeline->lClearTopics();
 	///generate new game random topic answer
 	int gameid = GameIns->GameData->JsGames.Num();
 	SessionID = gameid > 0 ? gameid : 1;
 	FString Topics = lThreeline->lTopicSourceFolder;
 	FString Choise = lThreeline->lChoiseSourceFolder;
 	InitializeThreeLineopic(Topics, Choise);
+
+}
+
+void UleeBaseLessions::lSetWinOnOff(bool isOn) {
+	ESlateVisibility vis = isOn ? ESlateVisibility::SelfHitTestInvisible : ESlateVisibility::Hidden;
+	return WinWidget->SetVisibility(vis);
 
 }
