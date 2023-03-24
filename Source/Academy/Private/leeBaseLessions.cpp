@@ -309,7 +309,7 @@ void UleeBaseLessions::ReloadData()
 void UleeBaseLessions::NewGameThreelineInit()
 {
 	
-	lThreeline->lClearTopics();
+	lThreeline->lTopicsAvalible();
 	///generate new game random topic answer
 	int gameid = GameIns->GameData->JsGames.Num();
 	SessionID = gameid > 0 ? gameid : 1;

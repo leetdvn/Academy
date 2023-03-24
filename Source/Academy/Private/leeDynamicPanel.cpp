@@ -3,7 +3,7 @@
 
 #include "leeDynamicPanel.h"
 
-void UThreeLines::lClearTopics()
+void UThreeLines::lTopicsAvalible()
 {
 	if (lQuestions.Num() == 0) return;
 

@@ -49,8 +49,7 @@ public:
 
 	//FGameLession lGetData() { return lGameData; }
 
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void lClearTopics();
+	void lTopicsAvalible();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		TArray<FGameTopics> LoadQuestions(TArray<FString> paths, TArray<int32> ids);
