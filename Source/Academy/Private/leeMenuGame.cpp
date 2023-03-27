@@ -2,6 +2,8 @@
 
 
 #include "leeMenuGame.h"
+#include <Source/Private/OnlineSharingFacebookCommon.h>
+//#include "F:/Epic Games/UE_4.27/Engine/Plugins/Online/OnlineSubsystemGoogle/Source/Public/OnlineSubsystemGoogle.h"
 
 void UleeMenuGame::OnMenuClick(FString menuName)
 {
@@ -54,6 +56,10 @@ void UleeMenuGame::NativeConstruct()
 
 	FString map=UGameplayStatics::GetCurrentLevelName(GetWorld());
 	lParentsButton->OnClicked.AddDynamic(this, &UleeMenuGame::OnParentClicked);
+	//FGoogleAuthConfig
+	FName abc = "ahsdas";
+	//abc.Get()->Init();
+	
 	//lDebug(map);
 
 	//box->OnSelectionChanged.AddDynamic(this, &UleeMenuGame::OnSelectChanged);

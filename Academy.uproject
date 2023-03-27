@@ -262,12 +262,37 @@
 			]
 		},
 		{
-			"Name": "OnlineSubsystemNull",
+			"Name": "OnlineSubsystemUtils",
 			"Enabled": false
 		},
 		{
-			"Name": "OnlineSubsystemUtils",
-			"Enabled": false
+			"Name": "Firebase",
+			"Enabled": true,
+			"SupportedTargetPlatforms": [
+				"Android",
+				"IOS"
+			]
+		},
+		{
+			"Name": "FirebaseAuthentication",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/3285bd4919d5433792ccbdfe034c91e6"
+		},
+		{
+			"Name": "LocationServicesAndroidImpl",
+			"Enabled": true
+		},
+		{
+			"Name": "OnlineFramework",
+			"Enabled": true
+		},
+		{
+			"Name": "OnlineSubsystemFacebook",
+			"Enabled": true
+		},
+		{
+			"Name": "OnlineSubsystemGoogle",
+			"Enabled": true
 		}
 	]
 }
