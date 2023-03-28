@@ -53,11 +53,8 @@ void UleeFourBox::LoadGameAt(int32 dataIndex)
 		lFourBox->lClearActionBound();
 		lFourBox->lClearChecked();
 
-		BindAction();
-		
-		//OnRePlayGame(fourdata);
-		//-----------------------------------------------------------------
 	}
+	BindAction();
 
 }
 

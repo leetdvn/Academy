@@ -55,6 +55,8 @@ void UCanvasFourBox::lSetChoiseTextAt(int32 idx, TArray<FString> texts)
 }
 
 void UCanvasFourBox::CreateGenerator(FFourBoxData& outData) {
+
+	//clear if old data
 	lClearChecked();
 	lClearActionBound();
 	//generator topic

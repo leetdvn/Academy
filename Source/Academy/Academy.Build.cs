@@ -12,7 +12,6 @@ public class Academy : ModuleRules
             "OnlineSubsystem", "OnlineSubsystemUtils", "Networking", "Sockets",
             "FirebaseAuthentication",
             "OnlineSubsystemFacebook",
-            "PsFacebookMobile", 
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
@@ -32,8 +31,8 @@ public class Academy : ModuleRules
             PrivateDependencyModuleNames.Add("OnlineSubsystemFacebook");
 
             //Include
-            PublicIncludePaths.Add("Runtime/Online/OnlineSubsystemFacebook/Public");
-            PublicIncludePaths.Add("Runtime/Online/OnlineSubsystemFacebook/Private/Windows");
+            //PublicIncludePaths.Add("Runtime/Online/OnlineSubsystemFacebook/Public");
+            //PublicIncludePaths.Add("Runtime/Online/OnlineSubsystemFacebook/Private/Windows");
         }    // Uncomment if you are using online features
              // PrivateDependencyModuleNames.Add("OnlineSubsystem");
 

@@ -75,6 +75,7 @@ void UleePanelBase::lNewPanelImageFromFiles(FString dir, bool Hastext)
 	TArray<FString> files = lGetAllDirectory(_dir, true);
 	if (files.Num() <= 0) return;
 
+
 	//override number init button
 	int initNum = lQuantityOverride < files.Num() && lQuantityOverride > 0 ? lQuantityOverride : files.Num();
 	FString label{};
@@ -105,7 +106,8 @@ void UleePanelBase::lInitializePanels(FString dir, TEnumAsByte<PanelType> panel,
 		lDebug("current load this", FColor::Green, "Current Panels.");
 		return;
 	}
-	//if (lPanelWidget->HasAnyChildren()) ClearButtons();
+
+	if (lPanelWidget->HasAnyChildren()) ClearButtons();
 	switch (panel)
 	{
 	case Files: return lNewPanelImageFromFiles(dir, Hastext);

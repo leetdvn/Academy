@@ -274,11 +274,6 @@
 			]
 		},
 		{
-			"Name": "FirebaseAuthentication",
-			"Enabled": true,
-			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/3285bd4919d5433792ccbdfe034c91e6"
-		},
-		{
 			"Name": "LocationServicesAndroidImpl",
 			"Enabled": true
 		},
@@ -293,6 +288,16 @@
 		{
 			"Name": "OnlineSubsystemGoogle",
 			"Enabled": true
+		},
+		{
+			"Name": "FirebaseAnalytics",
+			"Enabled": false,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/2a6af776ec8a493b9fac74cf31503682"
+		},
+		{
+			"Name": "FirebaseAuthentication",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/3285bd4919d5433792ccbdfe034c91e6"
 		}
 	]
 }
