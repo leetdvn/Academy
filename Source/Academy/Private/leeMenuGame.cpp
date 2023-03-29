@@ -22,8 +22,9 @@ void UleeMenuGame::OnMenuClick(FString menuName)
 
 void UleeMenuGame::OnParentClicked()
 {
-	if (!Settings->isAvalible) 
+	if (!Settings->isAvalible) {
 		Settings->OnOpenUp();
+	}
 }
 
 //void UleeMenuGame::OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType)
@@ -55,14 +56,12 @@ void UleeMenuGame::NativeConstruct()
 	}
 
 	FString map=UGameplayStatics::GetCurrentLevelName(GetWorld());
-	lParentsButton->OnClicked.AddDynamic(this, &UleeMenuGame::OnParentClicked);
-	//FGoogleAuthConfig
-	FName abc = "ahsdas";
-	//abc.Get()->Init();
-	
-	//lDebug(map);
+	if (Settings) Settings->CheckLinkAccount();
 
-	//box->OnSelectionChanged.AddDynamic(this, &UleeMenuGame::OnSelectChanged);
-	//for (auto& m : lGetAllMapNames())
-	//	lDebug(m);
+	//UleeGameInstance* GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	//if (GameIns) {
+	//	GameIns->LoadUserLink();
+	//	InfoText->SetText(FText::FromString(GameIns->DisplayName));
+	//}
+	//lParentsButton->OnClicked.AddDynamic(this, &UleeMenuGame::OnParentClicked);
 }

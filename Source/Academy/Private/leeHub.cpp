@@ -45,7 +45,8 @@ void AleeHub::BeginPlay()
 		//UKismetInternationalizationLibrary::SetCurrentLanguage("vi",true);
 	}
 	//active Event start game
-
+	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (!GameIns) { lDebug("Game Instance Nullptr"); return; }
 }
 
 void AleeHub::Tick(float DeltaTime)

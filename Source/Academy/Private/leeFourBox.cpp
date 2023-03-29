@@ -98,6 +98,12 @@ void UleeFourBox::lSetWinOnOff(bool isOn)
 
 }
 
+void UleeFourBox::OnStarUp(int32 valueUp)
+{
+	if (valueUp <= 0) return;
+	userdata->Star += valueUp;
+}
+
 void UleeFourBox::OnRePlayGame(FFourBoxData& odata)
 {
 	for (auto& p : lFourBox->lUserChoises) {

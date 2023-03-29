@@ -298,6 +298,11 @@
 			"Name": "FirebaseAuthentication",
 			"Enabled": true,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/3285bd4919d5433792ccbdfe034c91e6"
+		},
+		{
+			"Name": "FirebaseGoodies",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/a972a30efb2747ce98fce6b92cc35377"
 		}
 	]
 }

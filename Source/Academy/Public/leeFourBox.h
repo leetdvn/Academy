@@ -70,6 +70,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetWinOnOff(bool isOn);
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnStarUp(int32 valueUp);
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		FString lGetUserId() { return userdata->UserID; }
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		int lGetStar() { return userdata->Star; }
+
 	void OnRePlayGame(FFourBoxData & odata);
 
 	void BindAction();

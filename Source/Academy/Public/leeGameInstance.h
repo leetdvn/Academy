@@ -12,6 +12,7 @@
 /**
  * 
  */
+
 UCLASS(BlueprintType)
 class ACADEMY_API UleeGameInstance : public UGameInstance ,public IleePublicInterface
 {
@@ -36,6 +37,8 @@ public:
 
 	void SaveGame(UPlayerData*& data);
 
+
 protected:
 	FString previewStr;
+
 };

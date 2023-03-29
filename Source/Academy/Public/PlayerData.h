@@ -27,21 +27,32 @@ public:
 	UPlayerData(const FObjectInitializer& ObjectInitializer);
 	~UPlayerData() {};
 
-
-	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		FString username;
-
-	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		int lStar;
-
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		TEnumAsByte<lGameType> lastGame;
 
-	//UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-	//	FGameLession CurrentGame;
+	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+		FString DisplayName;
 
-	//UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-	//	TArray<FGameLession> HistoryGames;
+	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+		FString Email;
+
+	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+		FString UserID;
+
+	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+		int Star;
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		FString lGetDisPlayName() { return DisplayName; }
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		FString lGetEmail() { return Email; }
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		FString lGetUserID() { return UserID; }
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		int lGetStar() { return Star; }
 
 	UFUNCTION()
 		FString GetRawHistoriesStr();
@@ -86,5 +97,3 @@ protected:
 		FString RawHistories;
 
 };
-
-

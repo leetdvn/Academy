@@ -34,8 +34,8 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidget))
 		UleeParentSettings* Settings;
 
-	//UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
-	//	FText box = LOCTEXT("abc", TEXT("bb"));
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidget))
+		UTextBlock* InfoText;
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMenuClick(FString menuName);

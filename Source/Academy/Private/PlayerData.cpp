@@ -9,7 +9,6 @@
 UPlayerData::UPlayerData(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
 {
-	lStar = 0;
 	JsHistoriesObject = MakeShareable(new FJsonObject());
 
 	//init

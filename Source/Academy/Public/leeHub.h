@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include <leeGameInstance.h>
 #include <Components/Image.h>
 #include "leePublicInterface.h"
 #include "CoreMinimal.h"
@@ -38,6 +39,9 @@ public:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		TSubclassOf<UUserWidget> lFourBox;
+
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
+		UleeGameInstance* GameIns;
 
 	/// <summary>
 	/// Widget ingame list

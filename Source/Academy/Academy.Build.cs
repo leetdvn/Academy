@@ -12,7 +12,8 @@ public class Academy : ModuleRules
             "OnlineSubsystem", "OnlineSubsystemUtils", "Networking", "Sockets",
             "FirebaseAuthentication",
             "OnlineSubsystemFacebook",
-		});
+            "FirebaseGoodies",
+        });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

@@ -1,6 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include <PlayerData.h>
+#include <leeGameInstance.h>
+#include "leeAccoutAuthenication.h"
 #include "Components/Button.h"
 #include "leePublicInterface.h"
 #include "Components/Image.h"
@@ -32,7 +35,13 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Closed Button", meta = (BindWidget));
 		UButton* lClosed;
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "AccountName", meta = (BindWidget));
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Sign In", meta = (BindWidget));
+		UButton* AccountLink;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Login Widget", meta = (BindWidget));
+		UleeAccoutAuthenication* AccountLogin;
+
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "AccountName", meta = (BindWidget));
 		class UTextBlock* AccountName;
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Star", meta = (BindWidget));
@@ -48,7 +57,7 @@ public:
 		void OnCloseDown() { PlayAnimation(CloseDown); isAvalible = false; }
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnOpenUp() { PlayAnimation(OpenUp); isAvalible = true; }
+		void OnOpenUp();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		bool lGetSoundToogle() { return soundToogle; }
@@ -56,7 +65,25 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		bool lGetMusicToogle() { return MusicToogle; }
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void lAccountLoginToogle();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void lSaveLinkUser(FString UserId, FString Email,FString displayname);
+
+	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+	//	void lOnSinginSuccess(const FString userID,const FString email);
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
+		UleeGameInstance* GameIns;
+
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool CheckLinkAccount();
+
+
+
 	bool isAvalible;
+
 
 protected:
 
@@ -71,7 +98,6 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMusicToogle();
 
-
-
 	bool soundToogle, MusicToogle;
+
 };

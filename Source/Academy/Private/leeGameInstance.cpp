@@ -10,9 +10,9 @@ void UleeGameInstance::Init()
 	if (!GameData) {
 		GameData = Cast<UPlayerData>(UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass()));
 		UGameplayStatics::SaveGameToSlot(GameData,SaveSlot, 0);
-		
-		return;
+
 	}
+
 	LoadGameData();
 	UE_LOG(LogTemp, Warning, TEXT("Data is Loaded : %s"), *GameData->GetAllGames());
 }
@@ -33,6 +33,7 @@ void UleeGameInstance::SaveCurrentGameData(UPlayerData*& data)
 
 UPlayerData* UleeGameInstance::LoadGameData()
 {
+
 	if (GameData) {
 		lDebug("Data IsLoaded...",FColor::Green," Data ");
 		FString result;
@@ -62,3 +63,4 @@ void UleeGameInstance::SaveGame(UPlayerData*& data)
 {
 
 }
+

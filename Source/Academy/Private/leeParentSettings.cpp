@@ -8,11 +8,54 @@ UleeParentSettings::UleeParentSettings(const FObjectInitializer& ObjectInitializ
 {
 }
 
+void UleeParentSettings::OnOpenUp()
+{
+	PlayAnimation(OpenUp); isAvalible = true;
+}
+
+void UleeParentSettings::lAccountLoginToogle()
+{
+	ESlateVisibility vis = AccountLogin->GetVisibility() == ESlateVisibility::Hidden ? 
+		ESlateVisibility::SelfHitTestInvisible : 
+		ESlateVisibility::Hidden;
+	return AccountLogin->SetVisibility(vis);
+	//UFirebaseAuthenticationSubsystem::FacebookSignIn();
+}
+
+void UleeParentSettings::lSaveLinkUser(FString UserId, FString Email, FString displayname)
+{
+	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	UPlayerData* data = GameIns->LoadCurrentGameData();
+	data->DisplayName = displayname;
+	data->Email = Email;
+	data->UserID = UserId;
+	GameIns->SaveCurrentGameData(data);
+
+}
+
+bool UleeParentSettings::CheckLinkAccount()
+{
+	//check link Account
+	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (!GameIns) {
+		lDebug("Game Instance Nullptr"); return false; 
+		
+	}
+	UPlayerData* data = GameIns->LoadCurrentGameData();
+	FString DisplayName = "Account :   " + data->DisplayName;
+	AccountName->SetText(FText::FromString(DisplayName));
+	if (!data->DisplayName.IsEmpty()) {
+		AccountLink->SetVisibility(ESlateVisibility::Hidden);
+		return true;
+	}
+	return false;
+}
+
+
 void UleeParentSettings::NativeConstruct()
 {
-	//MusicOn = Cast<UTexture2D>(Music->Brush.GetResourceObject());
-	//SoundOn = Cast<UTexture2D>(Sound->Brush.GetResourceObject());
-	
+
+	//bind function
 	if (Sound) {
 		Sound->OnMouseButtonDownEvent.BindUFunction(this, FName("OnSoundToogle"));
 	}
