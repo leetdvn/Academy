@@ -38,6 +38,15 @@ enum lSlotType {
 	ScrollBox UMETA(DisplayName = "Scroll"),
 };
 
+UENUM(BlueprintType)
+enum kLanguage {
+
+	English UMETA(DisplayName = "English"),
+	Vietnamese UMETA(DisplayName = "Vietnamese"),
+	Chinaese UMETA(DisplayName = "Chinaese"),
+};
+
+
 USTRUCT(BlueprintType)
 struct FGameTopics : public FTableRowBase
 {

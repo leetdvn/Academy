@@ -82,6 +82,12 @@ void UleeFourBox::OnIdReCeiveClick()
 	//lDebug(idsent);
 }
 
+void UleeFourBox::OnHistoriesUp()
+{
+	if (GameHistories) GameHistories->OnOpenUp();	
+	GameHistories->OnHistoriesInit(userdata);
+}
+
 void UleeFourBox::BindAction()
 {
 	TArray<UleeBaseButton*> buttons{};

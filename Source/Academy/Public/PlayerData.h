@@ -42,6 +42,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		int Star;
 
+	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+		TEnumAsByte<kLanguage> LanguagesSelected;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		FString lGetDisPlayName() { return DisplayName; }
 

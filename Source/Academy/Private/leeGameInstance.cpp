@@ -5,16 +5,12 @@
 
 void UleeGameInstance::Init()
 {
-	SaveSlot = "LeeTdvnGameData";
-	GameData = Cast<UPlayerData>(UGameplayStatics::LoadGameFromSlot(SaveSlot, 0));
-	if (!GameData) {
-		GameData = Cast<UPlayerData>(UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass()));
-		UGameplayStatics::SaveGameToSlot(GameData,SaveSlot, 0);
+	SlotGame = "leeGameData";
+	SlotInfo = "PlayerInfo";
 
-	}
-
-	LoadGameData();
-	UE_LOG(LogTemp, Warning, TEXT("Data is Loaded : %s"), *GameData->GetAllGames());
+	LoadPlayerInfo();
+	GameDataInit();
+	//UE_LOG(LogTemp, Warning, TEXT("Data is Loaded : %s"), *GameData->GetAllGames());
 }
 
 void UleeGameInstance::SaveCurrentGameData(UPlayerData*& data)
@@ -23,12 +19,10 @@ void UleeGameInstance::SaveCurrentGameData(UPlayerData*& data)
 
 	FString fileAbc = FString(FPaths::ProjectSavedDir() + "SaveGames/ACademyPreview.json");
 	FString outStr;
-
 	//Construct Data
 	data->SaveConstruct();
-	UGameplayStatics::DeleteGameInSlot(SaveSlot, 0);
-	UGameplayStatics::SaveGameToSlot(data, SaveSlot, 0);
-
+	UGameplayStatics::DeleteGameInSlot(SlotGame, 0);
+	UGameplayStatics::SaveGameToSlot(data, SlotGame, 0);
 }
 
 UPlayerData* UleeGameInstance::LoadGameData()
@@ -52,15 +46,33 @@ UPlayerData* UleeGameInstance::LoadGameData()
 }
 
 
-UPlayerData* UleeGameInstance::LoadCurrentGameData() {
+UPlayerData* UleeGameInstance::GameDataInit() {
 
-	UPlayerData* currentGame= Cast<UPlayerData>(UGameplayStatics::LoadGameFromSlot(SaveSlot, 0));
-	if (currentGame) return currentGame;
-	return nullptr;
+	 GameData = Cast<UPlayerData>(UGameplayStatics::LoadGameFromSlot(SlotGame, 0));
+	 if (!GameData) {
+		 GameData = Cast<UPlayerData>(UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass()));
+		 UGameplayStatics::SaveGameToSlot(GameData, SlotGame, 0);
+		 return GameData;
+	 }
+	 GameData->LoadHistoriesFromStr();
+	 return GameData;
 }
 
-void UleeGameInstance::SaveGame(UPlayerData*& data)
+UleeUserInfo* UleeGameInstance::LoadPlayerInfo()
+{
+	PlayerInfo = Cast<UleeUserInfo>(UGameplayStatics::LoadGameFromSlot(SlotInfo, 0));
+	if (!PlayerInfo) {
+		PlayerInfo = Cast<UleeUserInfo>(UGameplayStatics::CreateSaveGameObject(UleeUserInfo::StaticClass()));
+		UGameplayStatics::SaveGameToSlot(PlayerInfo, SlotInfo, 0);
+	}
+	return PlayerInfo;
+}
+
+void UleeGameInstance::SaveUserInfo(UleeUserInfo*& info)
 {
 
+	UGameplayStatics::SaveGameToSlot(info, SlotInfo, 0);
+
 }
+
 

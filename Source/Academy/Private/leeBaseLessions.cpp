@@ -29,7 +29,6 @@ void UleeBaseLessions::NativeConstruct()
 	if (lThreeline->GameHistoriesButton) {
 		lThreeline->GameHistoriesButton->OnClicked.AddDynamic(this, &UleeBaseLessions::OnHistoriesUp);
 	}
-	GameHistories->OnHistoriesInit(userdata);
 
 	return  !isNewGame ? NewGameThreelineInit() : LoadThreeLineGame();
 

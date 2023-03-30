@@ -3,7 +3,6 @@
 
 #include "leeMenuGame.h"
 #include <Source/Private/OnlineSharingFacebookCommon.h>
-//#include "F:/Epic Games/UE_4.27/Engine/Plugins/Online/OnlineSubsystemGoogle/Source/Public/OnlineSubsystemGoogle.h"
 
 void UleeMenuGame::OnMenuClick(FString menuName)
 {
@@ -24,6 +23,8 @@ void UleeMenuGame::OnParentClicked()
 {
 	if (!Settings->isAvalible) {
 		Settings->OnOpenUp();
+		if (Settings) Settings->CheckLinkAccount();
+		InfoText->SetText(FText::FromString(Settings->DisplayInfo));
 	}
 }
 
@@ -55,8 +56,6 @@ void UleeMenuGame::NativeConstruct()
 		}
 	}
 
-	FString map=UGameplayStatics::GetCurrentLevelName(GetWorld());
-	if (Settings) Settings->CheckLinkAccount();
 
 	//UleeGameInstance* GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	//if (GameIns) {

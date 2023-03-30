@@ -118,6 +118,8 @@ public:
 	/// </summary>
 	UleeBaseButton* lCreateNormalButton(FString imgPath, bool ImgOnly, FString text="",int32 rID =-1);
 
+	bool ButtonExists(FString &buttonRef);
+
 	UleeDragWidget* lCreateDragButton(FString imgPath, bool ImgOnly, bool isDrop, FString text = "", int32 rID = -1);
 
 

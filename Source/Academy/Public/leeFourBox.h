@@ -65,7 +65,7 @@ public:
 		void OnIdReCeiveClick();
 	
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnHistoriesUp() { if (GameHistories) GameHistories->OnOpenUp(); }
+		void OnHistoriesUp();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetWinOnOff(bool isOn);

@@ -2,6 +2,7 @@
 
 
 #include "leeParentSettings.h"
+#include <Kismet/KismetInternationalizationLibrary.h>
 
 UleeParentSettings::UleeParentSettings(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
@@ -24,25 +25,58 @@ void UleeParentSettings::lAccountLoginToogle()
 
 void UleeParentSettings::lSaveLinkUser(FString UserId, FString Email, FString displayname)
 {
+	///Save link User
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	UPlayerData* data = GameIns->LoadCurrentGameData();
+	UleeUserInfo* data = GameIns->LoadPlayerInfo();
 	data->DisplayName = displayname;
-	data->Email = Email;
 	data->UserID = UserId;
-	GameIns->SaveCurrentGameData(data);
+	GameIns->SaveUserInfo(data);
+}
+
+void UleeParentSettings::lSetImageTexture2D(UImage* image, UTexture2D* newtexture)
+{
+	if (!image || !newtexture) return;
+	image->SetBrushFromTexture(newtexture,true);
+}
+
+#pragma region On Language Changed
+void UleeParentSettings::lOnEnglish()
+{
+	Language_Chinese->SetBrushFromTexture(uncheckImg, true);
+	Language_Vietnamese->SetBrushFromTexture(uncheckImg, true);
+	Language_English->SetBrushFromTexture(checkedImg, true);
+	UKismetInternationalizationLibrary::SetCurrentLanguage("en", true);
 
 }
 
+void UleeParentSettings::lOnVietnam()
+{
+	Language_Chinese->SetBrushFromTexture(uncheckImg, true);
+	Language_Vietnamese->SetBrushFromTexture(checkedImg, true);
+	Language_English->SetBrushFromTexture(uncheckImg, true);
+	UKismetInternationalizationLibrary::SetCurrentLanguage("vn", true);
+
+}
+
+void UleeParentSettings::lOnChinese()
+{
+	Language_Chinese->SetBrushFromTexture(checkedImg, true);
+	Language_Vietnamese->SetBrushFromTexture(uncheckImg, true);
+	Language_English->SetBrushFromTexture(uncheckImg, true);
+	UKismetInternationalizationLibrary::SetCurrentLanguage("cn", true);
+
+}
+#pragma endregion //On Language Changed
+
 bool UleeParentSettings::CheckLinkAccount()
 {
-	//check link Account
+	//check link Account Uuser
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	if (!GameIns) {
-		lDebug("Game Instance Nullptr"); return false; 
-		
-	}
-	UPlayerData* data = GameIns->LoadCurrentGameData();
+	UleeUserInfo* data = GameIns->PlayerInfo;
+
 	FString DisplayName = "Account :   " + data->DisplayName;
+	DisplayInfo = data->DisplayName;
+	lDebug(DisplayName);
 	AccountName->SetText(FText::FromString(DisplayName));
 	if (!data->DisplayName.IsEmpty()) {
 		AccountLink->SetVisibility(ESlateVisibility::Hidden);
@@ -70,6 +104,18 @@ void UleeParentSettings::NativeConstruct()
 
 	if (lBgr)
 		lBgr->OnMouseButtonDownEvent.BindUFunction(this, FName("OnCloseDown"));
+
+	//on English
+	if (Language_English)
+		Language_English->OnMouseButtonDownEvent.BindUFunction(this, FName("lOnEnglish"));
+	//on Vietname
+	if (Language_Vietnamese)
+		Language_Vietnamese->OnMouseButtonDownEvent.BindUFunction(this, FName("lOnVietnam"));
+
+	//on Chinese
+	if (Language_Chinese)
+		Language_Chinese->OnMouseButtonDownEvent.BindUFunction(this, FName("lOnChinese"));
+
 }
 
 void UleeParentSettings::OnSoundToogle()

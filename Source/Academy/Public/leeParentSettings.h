@@ -32,6 +32,21 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Bgr", meta = (BindWidget));
 		UImage* lBgr;
 
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "English", meta = (BindWidget));
+		UImage* Language_English;
+
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Vietnamese", meta = (BindWidget));
+		UImage* Language_Vietnamese;
+
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Chinese", meta = (BindWidget));
+		UImage* Language_Chinese;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "disable image");
+		UTexture2D* uncheckImg;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "enable image");
+		UTexture2D* checkedImg;
+
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Closed Button", meta = (BindWidget));
 		UButton* lClosed;
 
@@ -71,6 +86,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSaveLinkUser(FString UserId, FString Email,FString displayname);
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void lSetImageTexture2D(UImage* image, UTexture2D* newtexture);
+
+	UFUNCTION()
+	void lOnEnglish();
+	UFUNCTION()
+	void lOnVietnam();
+	UFUNCTION()
+	void lOnChinese();
 	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 	//	void lOnSinginSuccess(const FString userID,const FString email);
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
@@ -80,6 +104,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		bool CheckLinkAccount();
 
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
+		FString DisplayInfo;
 
 
 	bool isAvalible;
@@ -87,8 +113,8 @@ public:
 
 protected:
 
-	const FString SoundOn="/Game/AcademyAssets/Assets/Textures/UI/Parents/images/sound_on";
-	const FString SoundOff="/Game/AcademyAssets/Assets/Textures/UI/Parents/images/sound_off";
+	const FString SoundOn="/Game/AcademyAssets/Assets/Textures/UI/Shop/sound_on";
+	const FString SoundOff="/Game/AcademyAssets/Assets/Textures/UI/Shop/sound_off";
 
 	virtual void NativeConstruct() override;
 

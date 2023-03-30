@@ -75,7 +75,6 @@ void UleePanelBase::lNewPanelImageFromFiles(FString dir, bool Hastext)
 	TArray<FString> files = lGetAllDirectory(_dir, true);
 	if (files.Num() <= 0) return;
 
-
 	//override number init button
 	int initNum = lQuantityOverride < files.Num() && lQuantityOverride > 0 ? lQuantityOverride : files.Num();
 	FString label{};
@@ -84,7 +83,8 @@ void UleePanelBase::lNewPanelImageFromFiles(FString dir, bool Hastext)
 		FString imgpath = "/Game/" + dir + "/" + files[i];
 
 		if (!iDrop && !iDrag) {
-			lCreateNormalButton(imgpath, ImageOnly, files[i]);
+			if(!ButtonExists(imgpath))
+				lCreateNormalButton(imgpath, ImageOnly, files[i]);
 		}
 		else {
 			lCreateDragButton(imgpath, ImageOnly, iDrop, files[i]);
@@ -279,6 +279,22 @@ UleeBaseButton* UleePanelBase::lCreateNormalButton(FString imgPath, bool ImgOnly
 	lbuttons.Add(wid);
 	wid->rowID = rID;
 	return wid;
+}
+
+bool UleePanelBase::ButtonExists(FString& buttonRef)
+{
+	if (buttonRef.IsEmpty()) return false;
+
+#pragma omp parallel for
+	for (auto& btn : lPanelWidget->GetAllChildren())
+	{
+		UleeBaseButton* b = Cast< UleeBaseButton>(btn);
+		if (b) {
+			if (b->lNormalPath == buttonRef)
+				return true;
+		}
+	}
+	return false;
 }
 
 UleeDragWidget* UleePanelBase::lCreateDragButton(FString imgPath, bool ImgOnly, bool isDrop, FString text, int32 rID)
