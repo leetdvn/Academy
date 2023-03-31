@@ -55,8 +55,6 @@ void UleeMenuGame::NativeConstruct()
 				btn->OnMenuClick.AddDynamic(this, &UleeMenuGame::OnMenuClick);
 		}
 	}
-
-
 	//UleeGameInstance* GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	//if (GameIns) {
 	//	GameIns->LoadUserLink();

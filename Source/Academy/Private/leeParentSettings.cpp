@@ -12,6 +12,12 @@ UleeParentSettings::UleeParentSettings(const FObjectInitializer& ObjectInitializ
 void UleeParentSettings::OnOpenUp()
 {
 	PlayAnimation(OpenUp); isAvalible = true;
+	FString language = UKismetInternationalizationLibrary::GetCurrentLanguage();
+	lDebug(language);
+	if (language == "vi") lOnVietnam();
+	else if (language == "en") lOnEnglish();
+	else lOnChinese();
+
 }
 
 void UleeParentSettings::lAccountLoginToogle()
@@ -23,12 +29,12 @@ void UleeParentSettings::lAccountLoginToogle()
 	//UFirebaseAuthenticationSubsystem::FacebookSignIn();
 }
 
-void UleeParentSettings::lSaveLinkUser(FString UserId, FString Email, FString displayname)
+void UleeParentSettings::lSaveLinkUser(FString UserId, FString Email, FString dispname)
 {
 	///Save link User
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	UleeUserInfo* data = GameIns->LoadPlayerInfo();
-	data->DisplayName = displayname;
+	data->DisplayName = dispname;
 	data->UserID = UserId;
 	GameIns->SaveUserInfo(data);
 }
@@ -46,7 +52,6 @@ void UleeParentSettings::lOnEnglish()
 	Language_Vietnamese->SetBrushFromTexture(uncheckImg, true);
 	Language_English->SetBrushFromTexture(checkedImg, true);
 	UKismetInternationalizationLibrary::SetCurrentLanguage("en", true);
-
 }
 
 void UleeParentSettings::lOnVietnam()
@@ -54,7 +59,7 @@ void UleeParentSettings::lOnVietnam()
 	Language_Chinese->SetBrushFromTexture(uncheckImg, true);
 	Language_Vietnamese->SetBrushFromTexture(checkedImg, true);
 	Language_English->SetBrushFromTexture(uncheckImg, true);
-	UKismetInternationalizationLibrary::SetCurrentLanguage("vn", true);
+	UKismetInternationalizationLibrary::SetCurrentLanguage("vi", true);
 
 }
 
@@ -74,10 +79,10 @@ bool UleeParentSettings::CheckLinkAccount()
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	UleeUserInfo* data = GameIns->PlayerInfo;
 
-	FString DisplayName = "Account :   " + data->DisplayName;
+	FString DisplayName = data->DisplayName;
 	DisplayInfo = data->DisplayName;
 	lDebug(DisplayName);
-	AccountName->SetText(FText::FromString(DisplayName));
+	Displayname->SetText(FText::FromString(DisplayName));
 	if (!data->DisplayName.IsEmpty()) {
 		AccountLink->SetVisibility(ESlateVisibility::Hidden);
 		return true;
@@ -115,6 +120,7 @@ void UleeParentSettings::NativeConstruct()
 	//on Chinese
 	if (Language_Chinese)
 		Language_Chinese->OnMouseButtonDownEvent.BindUFunction(this, FName("lOnChinese"));
+
 
 }
 

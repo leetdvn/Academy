@@ -56,8 +56,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Login Widget", meta = (BindWidget));
 		UleeAccoutAuthenication* AccountLogin;
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "AccountName", meta = (BindWidget));
-		class UTextBlock* AccountName;
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Displayname", meta = (BindWidget));
+		class UTextBlock* Displayname;
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Star", meta = (BindWidget));
 		class URichTextBlock* KidStar;
@@ -84,7 +84,7 @@ public:
 		void lAccountLoginToogle();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void lSaveLinkUser(FString UserId, FString Email,FString displayname);
+		void lSaveLinkUser(FString UserId, FString Email,FString dispname);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetImageTexture2D(UImage* image, UTexture2D* newtexture);

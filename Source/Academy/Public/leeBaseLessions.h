@@ -112,7 +112,11 @@ public:
 	};
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnHistoriesUp() { if (GameHistories) GameHistories->OnOpenUp(); }
+		void OnHistoriesUp() { 
+		if (GameHistories) GameHistories->OnOpenUp(); 
+		GameHistories->OnHistoriesInit(userdata);
+
+	}
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType);

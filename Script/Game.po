@@ -1,0 +1,344 @@
+﻿# Game English translation.
+# Copyright Epic Games, Inc. All Rights Reserved.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Game\n"
+"POT-Creation-Date: 2023-03-31 09:20\n"
+"PO-Revision-Date: 2023-03-31 09:20\n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Key:	0125BC3C4987E80CE0C26BBE7E371575
+#. SourceLocation:	/Game/Widgets/Main/ThreeLine.ThreeLine_C:GetText_0 [Script Bytecode]
+#: /Game/Widgets/Main/ThreeLine.ThreeLine_C:GetText_0 [Script Bytecode]
+msgctxt ",0125BC3C4987E80CE0C26BBE7E371575"
+msgid "FPS : {FPS_input}"
+msgstr "FPS : {FPS_input}"
+
+#. Key:	098C3A604800608ADE88F2A7231CE860
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_123.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_123.Text
+msgctxt ",098C3A604800608ADE88F2A7231CE860"
+msgid "Save"
+msgstr "Save"
+
+#. Key:	15C9F1CC46BDD6FF6D2406AC7E3EF9CA
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.lDescription.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.lDescription.Text
+msgctxt ",15C9F1CC46BDD6FF6D2406AC7E3EF9CA"
+msgid "Children look at the number on the left, then type\r\n the corresponding animals in each line"
+msgstr "Children look at the number on the left, then type\r\n the corresponding animals in each line"
+
+#. Key:	1F09338F4D35C76074A719BBC6110181
+#. SourceLocation:	/Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_38.Metadata.Description
+#: /Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_38.Metadata.Description
+msgctxt ",1F09338F4D35C76074A719BBC6110181"
+msgid "Mass is factored into the Solver Calculations (Solve Forces and Solve Rotational Forces) where forces are converted into a final velocity. The more massive a particle, the more force is required to move it. "
+msgstr "Mass is factored into the Solver Calculations (Solve Forces and Solve Rotational Forces) where forces are converted into a final velocity. The more massive a particle, the more force is required to move it. "
+
+#. Key:	2B154E2F42B135FFBAB5AFAC92F9B995
+#. SourceLocation:	/Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_19.Metadata.Description
+#: /Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_19.Metadata.Description
+msgctxt ",2B154E2F42B135FFBAB5AFAC92F9B995"
+msgid "Used to drive the Particle Random node in the Material Editor. Without this set, any Particle Randoms will get 0.0."
+msgstr "Used to drive the Particle Random node in the Material Editor. Without this set, any Particle Randoms will get 0.0."
+
+#. Key:	3153E959454C85425841C99D32027103
+#. SourceLocation:	/Game/Widgets/Main/Settings.Settings_C:WidgetTree.Title.Text
+#: /Game/Widgets/Main/Settings.Settings_C:WidgetTree.Title.Text
+msgctxt ",3153E959454C85425841C99D32027103"
+msgid "Parents"
+msgstr "Parents"
+
+#. Key:	41AF3FCB4EC2369F0BF21AB5FD536D62
+#. SourceLocation:	/Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_67.Metadata.Description
+#: /Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_67.Metadata.Description
+msgctxt ",41AF3FCB4EC2369F0BF21AB5FD536D62"
+msgid "The velocity in cm/s of the particle."
+msgstr "The velocity in cm/s of the particle."
+
+#. Key:	56D4F55A46B3C3C857168D8082C8B7EE
+#. SourceLocation:	/Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.ltitle.Text
+#: /Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.ltitle.Text
+msgctxt ",56D4F55A46B3C3C857168D8082C8B7EE"
+msgid "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
+msgstr "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
+
+#. Key:	88FAD3CF4942E69C61C64D979120A8EE
+#. SourceLocation:	/Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_33.Metadata.Description
+#: /Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_33.Metadata.Description
+msgctxt ",88FAD3CF4942E69C61C64D979120A8EE"
+msgid "The lifetime of a particle in seconds."
+msgstr "The lifetime of a particle in seconds."
+
+#. Key:	95E42096417D9BBE19135DA61216E678
+#. SourceLocation:	/Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_31.Metadata.Description
+#: /Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_31.Metadata.Description
+msgctxt ",95E42096417D9BBE19135DA61216E678"
+msgid "Distance from start of ribbon that the particle lies."
+msgstr "Distance from start of ribbon that the particle lies."
+
+#. Key:	A0BFD936491FC0E8C483CEB1D3126471
+#. SourceLocation:	/Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_52.Metadata.Description
+#: /Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_52.Metadata.Description
+msgctxt ",A0BFD936491FC0E8C483CEB1D3126471"
+msgid "The position of the particle."
+msgstr "The position of the particle."
+
+#. Key:	A71E19224BEC010FDF93D38F806E46E6
+#. SourceLocation:	/Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.Yestext.Text
+#: /Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.Yestext.Text
+msgctxt ",A71E19224BEC010FDF93D38F806E46E6"
+msgid "OK"
+msgstr "OK"
+
+#. Key:	AAF8B08F46862195289405B0BD5759BA
+#. SourceLocation:	/Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_58.Metadata.Description
+#: /Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_58.Metadata.Description
+msgctxt ",AAF8B08F46862195289405B0BD5759BA"
+msgid "The age in seconds divided by lifetime in seconds. Useful for animation as the value is between 0 and 1."
+msgstr "The age in seconds divided by lifetime in seconds. Useful for animation as the value is between 0 and 1."
+
+#. Key:	B11AFBEF4D4966FDC4B52286BF0224BF
+#. SourceLocation:	/Game/Particles/Demo.Demo:SystemSpawnScript.SystemScriptSource.SystemScriptGraph.NiagaraScriptVariable_46.Metadata.Description
+#: /Game/Particles/Demo.Demo:SystemSpawnScript.SystemScriptSource.SystemScriptGraph.NiagaraScriptVariable_46.Metadata.Description
+msgctxt ",B11AFBEF4D4966FDC4B52286BF0224BF"
+msgid "The size of the sprite quad."
+msgstr "The size of the sprite quad."
+
+#. Key:	B4ADE0C44EF2C8C81194739FC6E4ECBC
+#. SourceLocation:	/Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_35.Metadata.Description
+#: /Game/Particles/Demo.Demo:SimpleSpriteBurst.NiagaraScriptSource_0.NiagaraGraph_0.NiagaraScriptVariable_35.Metadata.Description
+msgctxt ",B4ADE0C44EF2C8C81194739FC6E4ECBC"
+msgid "The color of the particle."
+msgstr "The color of the particle."
+
+#. Key:	CA1C0CAC4DAF35E921A19DAAEB665679
+#. SourceLocation:	/Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.TextBlock_91.Text
+#: /Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.TextBlock_91.Text
+msgctxt ",CA1C0CAC4DAF35E921A19DAAEB665679"
+msgid "Parents"
+msgstr "Parents"
+
+#. Key:	CB72BFA84927EB23C71EDF9A95BC0CF9
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.ltitle.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.ltitle.Text
+msgctxt ",CB72BFA84927EB23C71EDF9A95BC0CF9"
+msgid "Choose the correct number"
+msgstr "Choose the correct number"
+
+#. Key:	EAC9BF9642E68244271C9A9F70C9EBFE
+#. SourceLocation:	/Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.NoText.Text
+#: /Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.NoText.Text
+msgctxt ",EAC9BF9642E68244271C9A9F70C9EBFE"
+msgid "No"
+msgstr "No"
+
+#. Key:	EF988E194D92FA6C185006A84D323217
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_461.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_461.Text
+msgctxt ",EF988E194D92FA6C185006A84D323217"
+msgid "Load"
+msgstr "Load"
+
+#. Key:	BoxDesc
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,BoxDesc"
+msgid "Let's learn to count and choose the right answer"
+msgstr "Let's learn to count and choose the right answer"
+
+#. Key:	BoxTitle
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,BoxTitle"
+msgid "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
+msgstr "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
+
+#. Key:	Lession
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,Lession"
+msgid "Lession"
+msgstr "Lession"
+
+#. Key:	LineDesc
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,LineDesc"
+msgid "Find the correct shadow of the pictures"
+msgstr "Find the correct shadow of the pictures"
+
+#. Key:	LineTitle
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,LineTitle"
+msgid "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
+msgstr "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
+
+#. Key:	Count
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,Count"
+msgid "Count"
+msgstr "Count"
+
+#. Key:	Match
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,Match"
+msgid "Match"
+msgstr "Match"
+
+#. Key:	None
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,None"
+msgid "Blank"
+msgstr "Blank"
+
+#. Key:	Numbers
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,Numbers"
+msgid "Numbers"
+msgstr "Numbers"
+
+#. Key:	School
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,School"
+msgid "School"
+msgstr "School"
+
+#. Key:	Settings
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,Settings"
+msgid "Parents"
+msgstr "Parents"
+
+#. Key:	Shape
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,Shape"
+msgid "Shape"
+msgstr "Shape"
+
+#. Key:	Ads
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Ads"
+msgid "No Ads"
+msgstr "No Ads"
+
+#. Key:	Apple
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Apple"
+msgid "Apple ID"
+msgstr "Apple ID"
+
+#. Key:	Chinese
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Chinese"
+msgid "Chinese"
+msgstr "Chinese"
+
+#. Key:	Comfirm
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Comfirm"
+msgid "Do you want to buy this package for your baby?"
+msgstr "Do you want to buy this package for your baby?"
+
+#. Key:	Currency
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Currency"
+msgid "Number of stars : "
+msgstr "Number of stars : "
+
+#. Key:	English
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,English"
+msgid "English"
+msgstr "English"
+
+#. Key:	Face
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Face"
+msgid "Facebook"
+msgstr "Facebook"
+
+#. Key:	Google
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Google"
+msgid "Google"
+msgstr "Google"
+
+#. Key:	LinkMessage
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,LinkMessage"
+msgid "You Must login to save your data\r\nyou will lose all your data when you reset factory\r\nor uninstall app on your device"
+msgstr "You Must login to save your data\r\nyou will lose all your data when you reset factory\r\nor uninstall app on your device"
+
+#. Key:	Login
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Login"
+msgid "Link Account"
+msgstr "Link Account"
+
+#. Key:	Music
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Music"
+msgid "Music"
+msgstr "Music"
+
+#. Key:	Sound
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Sound"
+msgid "Sound"
+msgstr "Sound"
+
+#. Key:	Star
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Star"
+msgid "Star"
+msgstr "Star"
+
+#. Key:	User
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,User"
+msgid "Account : "
+msgstr "Account : "
+
+#. Key:	Vietnamese
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Vietnamese"
+msgid "Vietnamese"
+msgstr "Vietnamese"
+
+#. Key:	Vip
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Vip"
+msgid "Premium"
+msgstr "Premium"
+

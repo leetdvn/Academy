@@ -237,6 +237,7 @@ void UleeBaseButton::lUpdateBaseSize(FVector2D newsize)
 void UleeBaseButton::lSetText(FString newtext)
 {
 	ltext = newtext;
+	FText::FromStringTable("", "");
 	return ltextblock->SetText(FText::FromString(newtext));
 }
 
