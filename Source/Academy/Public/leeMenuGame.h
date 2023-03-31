@@ -55,4 +55,8 @@ protected:
 	FString mapOpen;
 	
 	bool SettingsOn;
+
+	FString StrTable = "/Game/Stringtable/HomeMenu";
+
+	TArray<FString> menu = { "Count","Match","Numbers","School","Shape" };
 };

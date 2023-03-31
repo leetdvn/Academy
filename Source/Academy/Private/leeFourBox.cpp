@@ -130,7 +130,7 @@ void UleeFourBox::NativeConstruct()
 	if (lFourBox->GameHistoriesButton) {
 		lFourBox->GameHistoriesButton->OnClicked.AddDynamic(this, &UleeFourBox::OnHistoriesUp);
 	}
-	GameHistories->OnHistoriesInit(userdata);
+	//GameHistories->OnHistoriesInit(userdata);
 	WinWidget->SetVisibility(ESlateVisibility::Hidden);
 	return isNewGame ? NewFourBoxInit() : LoadGameAt(userdata->JsGames.Num()-1);
 	//lGetTopicCaculateAt(1);
@@ -139,7 +139,7 @@ void UleeFourBox::NativeConstruct()
 void UleeFourBox::ReloadData()
 {
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	if (!GameIns) { lDebug("Game Instance Nullptr"); }
+	if (!GameIns) { lDebug("Game Instance Nullptr"); return; }
 	//load data
 	GameIns->LoadGameData();
 	userdata = GameIns->GameData;

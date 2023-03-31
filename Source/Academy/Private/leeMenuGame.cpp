@@ -51,8 +51,12 @@ void UleeMenuGame::NativeConstruct()
 {
 	if (GameMenu) {
 		if (GameMenu->lGetButtons().Num() > 0) {
-			for (auto& btn : GameMenu->lGetButtons()) 
+			int32 count{};
+			for (auto& btn : GameMenu->lGetButtons()) {
 				btn->OnMenuClick.AddDynamic(this, &UleeMenuGame::OnMenuClick);
+				btn->ltextblock->SetText(FText::FromStringTable(FName(*StrTable),menu[count]));
+				count++;
+			}
 		}
 	}
 	//UleeGameInstance* GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
