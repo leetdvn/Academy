@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Game\n"
-"POT-Creation-Date: 2023-04-01 12:15\n"
-"PO-Revision-Date: 2023-04-01 23:57+0700\n"
+"POT-Creation-Date: 2023-04-01 19:12\n"
+"PO-Revision-Date: 2023-04-02 02:38+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh\n"
@@ -15,9 +15,8 @@ msgstr ""
 "X-Generator: Poedit 3.2.2\n"
 
 #. Key:	007BD1D141D0E53257245982BB302CA3
-#. SourceLocation:	/Game/Widgets/Main/Settings.Settings_C:ExecuteUbergraph_Settings [Script Bytecode]
-#: /Game/Widgets/Main/Settings.Settings_C:ExecuteUbergraph_Settings [Script
-#: Bytecode]
+#. SourceLocation:	/Game/Widgets/Main/Settings.Default__Settings_C.Format
+#: /Game/Widgets/Main/Settings.Default__Settings_C.Format
 msgctxt ",007BD1D141D0E53257245982BB302CA3"
 msgid "Account :    {email}"
 msgstr "帐户 : {email}"
@@ -29,23 +28,32 @@ msgctxt ",0125BC3C4987E80CE0C26BBE7E371575"
 msgid "FPS : {FPS_input}"
 msgstr "FPS : {FPS_input}"
 
-#. Key:	098C3A604800608ADE88F2A7231CE860
-#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_123.Text
-#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_123.Text
-msgctxt ",098C3A604800608ADE88F2A7231CE860"
-msgid "Save"
-msgstr "保存"
+#. Key:	0A331BEF49C1527F6918C48F4D8B2C5C
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.RichTextBlock_201.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.RichTextBlock_201.Text
+msgctxt ",0A331BEF49C1527F6918C48F4D8B2C5C"
+msgid "<Blue>Chữ Cái</> <Yellow>K</>"
+msgstr "<Blue>Chữ Cái</> <Yellow>K</>"
 
-#. Key:	15C9F1CC46BDD6FF6D2406AC7E3EF9CA
-#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.lDescription.Text
-#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.lDescription.Text
-msgctxt ",15C9F1CC46BDD6FF6D2406AC7E3EF9CA"
+#. Key:	115E815844288FEADB27BEAF216CE1A3
+#. SourceLocation:	/Game/Widgets/Main/Settings.Settings_C:WidgetTree.Displayname.Text
+#: /Game/Widgets/Main/Settings.Settings_C:WidgetTree.Displayname.Text
+msgctxt ",115E815844288FEADB27BEAF216CE1A3"
+msgid "player1213"
+msgstr "player1213"
+
+#. Key:	28F704BA4FBB6F47C5C18BA12894FC1B
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_118.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_118.Text
+msgctxt ",28F704BA4FBB6F47C5C18BA12894FC1B"
 msgid ""
-"Children look at the number on the left, then type\r\n"
-" the corresponding animals in each line"
+"Bé hãy quan sát hình bên \r\n"
+"cạnh và đọc tên của vật sau đó bé hãy\r\n"
+"dánh dấu các vật có cùng chữ cái"
 msgstr ""
-"孩子们看着左边的数字，然后在每行输入\r\n"
-" 每一行中相应的动物"
+"Bé hãy quan sát hình bên \n"
+"cạnh và đọc tên của vật sau đó bé hãy\n"
+"dánh dấu các vật có cùng chữ cái"
 
 #. Key:	3153E959454C85425841C99D32027103
 #. SourceLocation:	/Game/Widgets/Main/Settings.Settings_C:WidgetTree.Title.Text
@@ -61,19 +69,20 @@ msgctxt ",56D4F55A46B3C3C857168D8082C8B7EE"
 msgid "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
 msgstr "<Red>请选</> <Blue>择正</> <Green> 确的</><Yellow> 号码</>"
 
+#. Key:	7558307A40906F66BA8404849EAEF76A
+#. SourceLocation:	/Game/Widgets/Main/Settings.Settings_C:ExecuteUbergraph_Settings [Script Bytecode]
+#: /Game/Widgets/Main/Settings.Settings_C:ExecuteUbergraph_Settings [Script
+#: Bytecode]
+msgctxt ",7558307A40906F66BA8404849EAEF76A"
+msgid " {email}"
+msgstr " {email}"
+
 #. Key:	A71E19224BEC010FDF93D38F806E46E6
 #. SourceLocation:	/Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.Yestext.Text
 #: /Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.Yestext.Text
 msgctxt ",A71E19224BEC010FDF93D38F806E46E6"
 msgid "OK"
 msgstr "确定"
-
-#. Key:	CB72BFA84927EB23C71EDF9A95BC0CF9
-#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.ltitle.Text
-#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.ltitle.Text
-msgctxt ",CB72BFA84927EB23C71EDF9A95BC0CF9"
-msgid "Choose the correct number"
-msgstr "选择正确的数字"
 
 #. Key:	D4A13AE049E51DFD5FF072AAE1286C00
 #. SourceLocation:	/Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.TextBlock_1.Text
@@ -89,22 +98,25 @@ msgctxt ",EAC9BF9642E68244271C9A9F70C9EBFE"
 msgid "No"
 msgstr "不"
 
-#. Key:	EF988E194D92FA6C185006A84D323217
-#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_461.Text
-#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_461.Text
-msgctxt ",EF988E194D92FA6C185006A84D323217"
-msgid "Load"
-msgstr "加载"
+#. Key:	0586DD0C4FB9CAFCC7D0D8B524670E14_364A12939CFA2E27
+#. SourceLocation:	/Game/Audio/Dialog/Incorrect_Dialog.Incorrect_Dialog
+#. InfoMetaData:	"AudioFile" : "0586DD0C4FB9CAFCC7D0D8B524670E14_364A12939CFA2E27.wav"
+#. InfoMetaData:	"Context" : "Academy -> Duy"
+#. InfoMetaData:	"VoiceActorDirection" : "not greet"
+#: /Game/Audio/Dialog/Incorrect_Dialog.Incorrect_Dialog
+msgctxt "Dialogue,0586DD0C4FB9CAFCC7D0D8B524670E14_364A12939CFA2E27"
+msgid "Incorrect"
+msgstr "不正确"
 
-#. Key:	E5C4B2434C3CF3EF21FDCCA15C82213A_364A1293C784BCCB
+#. Key:	E5C4B2434C3CF3EF21FDCCA15C82213A_9CFA2E27C784BCCB
 #. SourceLocation:	/Game/Audio/Dialog/Correct_Dialogue.Correct_Dialogue
-#. InfoMetaData:	"AudioFile" : "E5C4B2434C3CF3EF21FDCCA15C82213A_364A1293C784BCCB.wav"
-#. InfoMetaData:	"Context" : "Academy -> English"
+#. InfoMetaData:	"AudioFile" : "E5C4B2434C3CF3EF21FDCCA15C82213A_9CFA2E27C784BCCB.wav"
+#. InfoMetaData:	"Context" : "Duy -> English"
 #. InfoMetaData:	"VoiceActorDirection" : "Neuture greeting for many poeple"
 #: /Game/Audio/Dialog/Correct_Dialogue.Correct_Dialogue
-msgctxt "Dialogue,E5C4B2434C3CF3EF21FDCCA15C82213A_364A1293C784BCCB"
+msgctxt "Dialogue,E5C4B2434C3CF3EF21FDCCA15C82213A_9CFA2E27C784BCCB"
 msgid "Heelo"
-msgstr "aa"
+msgstr "Heelo"
 
 #. Key:	BoxDesc
 #. SourceLocation:	/Game/Stringtable/Games.Games

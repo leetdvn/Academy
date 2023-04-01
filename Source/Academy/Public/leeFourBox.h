@@ -62,6 +62,9 @@ public:
 		void OnCorrectAnswer(UleeBaseButton* button);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnUnCorrectAnswer();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnIdReCeiveClick();
 	
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")

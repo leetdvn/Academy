@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include <Kismet/GameplayStatics.h>
 #include "leeDragWidget.h"
 #include "leePublicEnum.h"
 #include "leePanelBase.h"
@@ -41,8 +42,11 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Choise Source Folder")
 		FString lChoiseSourceFolder;
 
-	//UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Choise Source Folder")
-	//	UComboBoxString* boxStr;
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "lee Wave")
+		TArray<UDialogueWave*> lWaveSound;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "lee Dialog Context")
+		TArray<FDialogueContext> lContext;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidget))
 		UButton* GameHistoriesButton;

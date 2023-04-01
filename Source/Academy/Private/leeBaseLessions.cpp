@@ -170,6 +170,9 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 	Droptimes++;
 	DropCorrecttimes += isCorrect ? 1 : 0;
 	lOnDropVisible = isCorrect;
+
+	int32 waveIdx = !isCorrect ? 0 : 1;
+
 	//add History Game List
 	if (DropCorrecttimes == 3 && isCorrect) {
 		//if (isReplay) return;
@@ -193,6 +196,7 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 		//UE_LOG(LogTemp, Warning, TEXT("view : %s"), *completed);
 
 	}
+	UGameplayStatics::PlayDialogue2D(GetWorld(), lThreeline->lWaveSound[waveIdx], lThreeline->lContext[waveIdx]);
 	lDebug(DropCorrecttimes);
 }
 

@@ -66,7 +66,7 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 	lFourBox->lUserChoises[button->Id]->lSetDisable(true);
 	if (button) {
 		button->lSetChecked(true);
-
+		UGameplayStatics::PlayDialogue2D(GetWorld(), lFourBox->lWaveSound[1], lFourBox->lContext[1]);
 	}
 	if (AnswerCorrect == 4) {
 		/// save data pass to next game lession
@@ -75,6 +75,12 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 		WinWidget->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 	}
 	//debug
+}
+
+void UleeFourBox::OnUnCorrectAnswer()
+{
+	UGameplayStatics::PlayDialogue2D(GetWorld(), lFourBox->lWaveSound[0], lFourBox->lContext[0]);
+
 }
 
 void UleeFourBox::OnIdReCeiveClick()
@@ -95,6 +101,10 @@ void UleeFourBox::BindAction()
 	for (auto& b : buttons) {
 		lDebug(b->lGetText());
 		b->OnCorrect.AddDynamic(this, &UleeFourBox::OnCorrectAnswer);
+	}
+
+	for (auto& wb : lFourBox->UnCorrectButtons) {
+		wb->lButton->OnClicked.AddDynamic(this, &UleeFourBox::OnUnCorrectAnswer);
 	}
 }
 
