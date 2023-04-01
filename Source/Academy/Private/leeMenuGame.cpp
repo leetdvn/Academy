@@ -24,7 +24,7 @@ void UleeMenuGame::OnParentClicked()
 	if (!Settings->isAvalible) {
 		Settings->OnOpenUp();
 		if (Settings) Settings->CheckLinkAccount();
-		InfoText->SetText(FText::FromString(Settings->DisplayInfo));
+		//InfoText->SetText(FText::FromString(Settings->DisplayInfo));
 	}
 }
 

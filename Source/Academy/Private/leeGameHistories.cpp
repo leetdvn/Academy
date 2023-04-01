@@ -52,6 +52,7 @@ void UleeGameHistories::OnSwitchMapFromHistories(lGameType gametype)
 
 void UleeGameHistories::lOpenMapLevel(FString mapname)
 {
+	UE_LOG(LogTemp, Warning, TEXT("histories : %s"));
 	return UGameplayStatics::OpenLevel(GetWorld(), FName(mapname));
 }
 
@@ -114,7 +115,8 @@ void UleeGameHistories::OnHistoriesInit(UPlayerData*& playerData)
 			if (img) {
 				bool unlock = i >= playerData->JsGames.Num() ? true : false;
 				img->lTakeItem(unlock);
-				img->ItemInfo->SetText(FText::FromString("Game " + FString::FromInt(i + 1)));
+				FString label =FText::FromStringTable(FName("/Game/Stringtable/Settings"), "Histories").ToString() + " " + FString::FromInt(i + 1);
+				img->ItemInfo->SetText(FText::FromString(label));
 				int32 id = i < playerData->JsGames.Num() ? i : 0;
 				img->ItemID = id;
 				if (i < playerData->JsGames.Num()) {

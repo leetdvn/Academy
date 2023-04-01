@@ -93,6 +93,7 @@ void UleeFourBox::BindAction()
 	TArray<UleeBaseButton*> buttons{};
 	lFourBox->lGetCorrectButtons(buttons);
 	for (auto& b : buttons) {
+		lDebug(b->lGetText());
 		b->OnCorrect.AddDynamic(this, &UleeFourBox::OnCorrectAnswer);
 	}
 }

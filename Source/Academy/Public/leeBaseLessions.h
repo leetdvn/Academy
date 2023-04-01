@@ -118,9 +118,6 @@ public:
 
 	}
 
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType);
-
 #pragma endregion //Unreal
 
 	FORCEINLINE void lGetAllPanels(UPanelWidget* parent, TArray<UleePanelBase*> &outpanels);

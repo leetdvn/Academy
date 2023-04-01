@@ -83,8 +83,9 @@ void UleePanelBase::lNewPanelImageFromFiles(FString dir, bool Hastext)
 		FString imgpath = "/Game/" + dir + "/" + files[i];
 
 		if (!iDrop && !iDrag) {
-			if(!ButtonExists(imgpath))
+			if (!ButtonExists(imgpath))
 				lCreateNormalButton(imgpath, ImageOnly, files[i]);
+
 		}
 		else {
 			lCreateDragButton(imgpath, ImageOnly, iDrop, files[i]);
@@ -237,7 +238,7 @@ void UleePanelBase::lSetDisable(bool disables)
 
 void UleePanelBase::lResetChecked()
 {
-	if (lbuttons.Num() <= 0) return;
+	if (lbuttons.Num() < 0) return;
 	for (auto& b : lbuttons) {
 		if (b->lGetChecked())
 			b->lSetChecked(false);
@@ -283,8 +284,10 @@ UleeBaseButton* UleePanelBase::lCreateNormalButton(FString imgPath, bool ImgOnly
 
 bool UleePanelBase::ButtonExists(FString& buttonRef)
 {
-	if (buttonRef.IsEmpty()) return false;
-
+	if (buttonRef.IsEmpty() || !lPanelWidget->GetClass()->GetName().EndsWith("ScrollBox")) return false;
+	//FString map = UGameplayStatics::GetCurrentLevelName(GetWorld());// ->GetMapName();
+	//if (!map.EndsWith("AMenu")) return false;
+	//lDebug(lPanelWidget->GetClass()->GetName());
 #pragma omp parallel for
 	for (auto& btn : lPanelWidget->GetAllChildren())
 	{

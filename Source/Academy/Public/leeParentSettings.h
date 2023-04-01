@@ -69,7 +69,7 @@ public:
 		UWidgetAnimation* CloseDown;
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnCloseDown() { PlayAnimation(CloseDown); isAvalible = false; }
+		void OnCloseDown();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnOpenUp();
@@ -90,11 +90,11 @@ public:
 		void lSetImageTexture2D(UImage* image, UTexture2D* newtexture);
 
 	UFUNCTION()
-	void lOnEnglish();
+	void lOnEnglish(bool isReset=true);
 	UFUNCTION()
-	void lOnVietnam();
+	void lOnVietnam(bool isReset = true);
 	UFUNCTION()
-	void lOnChinese();
+	void lOnChinese(bool isReset = true);
 	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 	//	void lOnSinginSuccess(const FString userID,const FString email);
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
@@ -103,6 +103,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		bool CheckLinkAccount();
+
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void lLanguageInitialize();
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		FString DisplayInfo;

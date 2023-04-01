@@ -9,14 +9,17 @@ UleeParentSettings::UleeParentSettings(const FObjectInitializer& ObjectInitializ
 {
 }
 
+void UleeParentSettings::OnCloseDown()
+{
+	if (!isAvalible) return;
+	PlayAnimation(CloseDown);
+	isAvalible = false;
+
+}
+
 void UleeParentSettings::OnOpenUp()
 {
 	PlayAnimation(OpenUp); isAvalible = true;
-	FString language = UKismetInternationalizationLibrary::GetCurrentLanguage();
-	lDebug(language);
-	if (language == "vi") lOnVietnam();
-	else if (language == "en") lOnEnglish();
-	else lOnChinese();
 
 }
 
@@ -46,29 +49,23 @@ void UleeParentSettings::lSetImageTexture2D(UImage* image, UTexture2D* newtextur
 }
 
 #pragma region On Language Changed
-void UleeParentSettings::lOnEnglish()
+void UleeParentSettings::lOnEnglish(bool isReset)
 {
-	Language_Chinese->SetBrushFromTexture(uncheckImg, true);
-	Language_Vietnamese->SetBrushFromTexture(uncheckImg, true);
-	Language_English->SetBrushFromTexture(checkedImg, true);
 	UKismetInternationalizationLibrary::SetCurrentLanguage("en", true);
+	ResetMapLevel(GetWorld());
 }
 
-void UleeParentSettings::lOnVietnam()
+void UleeParentSettings::lOnVietnam(bool isReset)
 {
-	Language_Chinese->SetBrushFromTexture(uncheckImg, true);
-	Language_Vietnamese->SetBrushFromTexture(checkedImg, true);
-	Language_English->SetBrushFromTexture(uncheckImg, true);
 	UKismetInternationalizationLibrary::SetCurrentLanguage("vi", true);
+	ResetMapLevel(GetWorld());
 
 }
 
-void UleeParentSettings::lOnChinese()
+void UleeParentSettings::lOnChinese(bool isReset)
 {
-	Language_Chinese->SetBrushFromTexture(checkedImg, true);
-	Language_Vietnamese->SetBrushFromTexture(uncheckImg, true);
-	Language_English->SetBrushFromTexture(uncheckImg, true);
-	UKismetInternationalizationLibrary::SetCurrentLanguage("cn", true);
+	UKismetInternationalizationLibrary::SetCurrentLanguage("zh", true);
+	ResetMapLevel(GetWorld());
 
 }
 #pragma endregion //On Language Changed
@@ -90,6 +87,17 @@ bool UleeParentSettings::CheckLinkAccount()
 	return false;
 }
 
+void UleeParentSettings::lLanguageInitialize()
+{
+	FString language = UKismetInternationalizationLibrary::GetCurrentLanguage();
+	UTexture2D* viTex = language == "vi" ? checkedImg : uncheckImg;
+	UTexture2D* enTex = language == "en" ? checkedImg : uncheckImg;
+	UTexture2D* zhTex = language == "zh" ? checkedImg : uncheckImg;
+	Language_Chinese->SetBrushFromTexture(zhTex, true);
+	Language_Vietnamese->SetBrushFromTexture(viTex, true);
+	Language_English->SetBrushFromTexture(enTex, true);
+
+}
 
 void UleeParentSettings::NativeConstruct()
 {
@@ -120,6 +128,9 @@ void UleeParentSettings::NativeConstruct()
 	//on Chinese
 	if (Language_Chinese)
 		Language_Chinese->OnMouseButtonDownEvent.BindUFunction(this, FName("lOnChinese"));
+
+	///check box init tialize
+	lLanguageInitialize();
 
 
 }

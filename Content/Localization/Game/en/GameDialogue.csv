@@ -1,0 +1,2 @@
+﻿SpeakingVoice,TargetVoices,SpokenDialogue,VoiceActorDirection,AudioFileName,DialogueAsset,IsRecorded,LocalizationKeys,SpeakingVoiceGUID,TargetVoiceGUIDs,DialogueAssetGUID
+Academy,"(""English"")",Heelo,Neuture greeting for many poeple,E5C4B2434C3CF3EF21FDCCA15C82213A_364A1293C784BCCB.wav,/Game/Audio/Dialog/Correct_Dialogue.Correct_Dialogue,TRUE,"(""E5C4B2434C3CF3EF21FDCCA15C82213A_364A1293C784BCCB"")",E5057C45426928300B947CB378E1A40C,"(""DD7908D24FD136DDBCF2B68105765C71"")",E5C4B2434C3CF3EF21FDCCA15C82213A

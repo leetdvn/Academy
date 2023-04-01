@@ -1,0 +1,316 @@
+# Copyright Epic Games, Inc. All Rights Reserved.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Game\n"
+"POT-Creation-Date: 2023-04-01 12:15\n"
+"PO-Revision-Date: 2023-04-01 19:17+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#. Key:	007BD1D141D0E53257245982BB302CA3
+#. SourceLocation:	/Game/Widgets/Main/Settings.Settings_C:ExecuteUbergraph_Settings [Script Bytecode]
+#: /Game/Widgets/Main/Settings.Settings_C:ExecuteUbergraph_Settings [Script
+#: Bytecode]
+msgctxt ",007BD1D141D0E53257245982BB302CA3"
+msgid "Account :    {email}"
+msgstr "帐户 : {email}"
+
+#. Key:	0125BC3C4987E80CE0C26BBE7E371575
+#. SourceLocation:	/Game/Widgets/Main/ThreeLine.ThreeLine_C:GetText_0 [Script Bytecode]
+#: /Game/Widgets/Main/ThreeLine.ThreeLine_C:GetText_0 [Script Bytecode]
+msgctxt ",0125BC3C4987E80CE0C26BBE7E371575"
+msgid "FPS : {FPS_input}"
+msgstr "FPS : {FPS_input}"
+
+#. Key:	098C3A604800608ADE88F2A7231CE860
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_123.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_123.Text
+msgctxt ",098C3A604800608ADE88F2A7231CE860"
+msgid "Save"
+msgstr "保存"
+
+#. Key:	15C9F1CC46BDD6FF6D2406AC7E3EF9CA
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.lDescription.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.lDescription.Text
+msgctxt ",15C9F1CC46BDD6FF6D2406AC7E3EF9CA"
+msgid ""
+"Children look at the number on the left, then type\r\n"
+" the corresponding animals in each line"
+msgstr ""
+"孩子们看着左边的数字，然后在每行输入\r\n"
+" 每一行中相应的动物"
+
+#. Key:	3153E959454C85425841C99D32027103
+#. SourceLocation:	/Game/Widgets/Main/Settings.Settings_C:WidgetTree.Title.Text
+#: /Game/Widgets/Main/Settings.Settings_C:WidgetTree.Title.Text
+msgctxt ",3153E959454C85425841C99D32027103"
+msgid "Parents"
+msgstr "父母"
+
+#. Key:	56D4F55A46B3C3C857168D8082C8B7EE
+#. SourceLocation:	/Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.ltitle.Text
+#: /Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.ltitle.Text
+msgctxt ",56D4F55A46B3C3C857168D8082C8B7EE"
+msgid "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
+msgstr "<Red>请选</> <Blue>择正</> <Green> 确的</><Yellow> 号码</>"
+
+#. Key:	A71E19224BEC010FDF93D38F806E46E6
+#. SourceLocation:	/Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.Yestext.Text
+#: /Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.Yestext.Text
+msgctxt ",A71E19224BEC010FDF93D38F806E46E6"
+msgid "OK"
+msgstr "确定"
+
+#. Key:	CB72BFA84927EB23C71EDF9A95BC0CF9
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.ltitle.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.ltitle.Text
+msgctxt ",CB72BFA84927EB23C71EDF9A95BC0CF9"
+msgid "Choose the correct number"
+msgstr "选择正确的数字"
+
+#. Key:	D4A13AE049E51DFD5FF072AAE1286C00
+#. SourceLocation:	/Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.TextBlock_1.Text
+#: /Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.TextBlock_1.Text
+msgctxt ",D4A13AE049E51DFD5FF072AAE1286C00"
+msgid "中国人"
+msgstr "中国人"
+
+#. Key:	EAC9BF9642E68244271C9A9F70C9EBFE
+#. SourceLocation:	/Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.NoText.Text
+#: /Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.NoText.Text
+msgctxt ",EAC9BF9642E68244271C9A9F70C9EBFE"
+msgid "No"
+msgstr "不"
+
+#. Key:	EF988E194D92FA6C185006A84D323217
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_461.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_461.Text
+msgctxt ",EF988E194D92FA6C185006A84D323217"
+msgid "Load"
+msgstr "加载"
+
+#. Key:	E5C4B2434C3CF3EF21FDCCA15C82213A_364A1293C784BCCB
+#. SourceLocation:	/Game/Audio/Dialog/Correct_Dialogue.Correct_Dialogue
+#. InfoMetaData:	"AudioFile" : "E5C4B2434C3CF3EF21FDCCA15C82213A_364A1293C784BCCB.wav"
+#. InfoMetaData:	"Context" : "Academy -> English"
+#. InfoMetaData:	"VoiceActorDirection" : "Neuture greeting for many poeple"
+#: /Game/Audio/Dialog/Correct_Dialogue.Correct_Dialogue
+msgctxt "Dialogue,E5C4B2434C3CF3EF21FDCCA15C82213A_364A1293C784BCCB"
+msgid "Heelo"
+msgstr "aa"
+
+#. Key:	BoxDesc
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,BoxDesc"
+msgid "Let's learn to count and choose the right answer"
+msgstr "让我们学习数数并选择正确的答案"
+
+#. Key:	BoxTitle
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,BoxTitle"
+msgid "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
+msgstr "<Red>请选</> <Blue>择正</> <Green> 确的</><Yellow> 号码</>"
+
+#. Key:	Lession
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,Lession"
+msgid "Lession"
+msgstr "课程"
+
+#. Key:	LineDesc
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,LineDesc"
+msgid "Find the correct shadow of the pictures"
+msgstr "找到图片的正确阴影"
+
+#. Key:	LineTitle
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,LineTitle"
+msgid "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
+msgstr "<Red>请选</> <Blue>择正</> <Green> 确的</><Yellow> 号码</>"
+
+#. Key:	Count
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,Count"
+msgid "Count"
+msgstr "数数"
+
+#. Key:	Match
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,Match"
+msgid "Match"
+msgstr "匹配"
+
+#. Key:	None
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,None"
+msgid "Blank"
+msgstr "空白"
+
+#. Key:	Numbers
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,Numbers"
+msgid "Numbers"
+msgstr "数字"
+
+#. Key:	School
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,School"
+msgid "School"
+msgstr "学校"
+
+#. Key:	Settings
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,Settings"
+msgid "Parents"
+msgstr "父母"
+
+#. Key:	Shape
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,Shape"
+msgid "Shape"
+msgstr "形状"
+
+#. Key:	Ads
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Ads"
+msgid "No Ads"
+msgstr "无广告"
+
+#. Key:	Apple
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Apple"
+msgid "Apple ID"
+msgstr "Apple ID"
+
+#. Key:	Chinese
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Chinese"
+msgid "中国人"
+msgstr "中国人"
+
+#. Key:	Comfirm
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Comfirm"
+msgid "Do you want to buy this package for your baby?"
+msgstr "你想给你的宝宝买这个套餐吗？"
+
+#. Key:	Currency
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Currency"
+msgid "Number of stars : "
+msgstr "选择正确的数字"
+
+#. Key:	English
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,English"
+msgid "English"
+msgstr "English"
+
+#. Key:	Face
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Face"
+msgid "Facebook"
+msgstr "Facebook"
+
+#. Key:	Google
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Google"
+msgid "Google"
+msgstr "Google"
+
+#. Key:	Histories
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Histories"
+msgid "Game"
+msgstr "游戏"
+
+#. Key:	LinkMessage
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,LinkMessage"
+msgid ""
+"You Must login to save your data\r\n"
+"you will lose all your data when you reset factory\r\n"
+"or uninstall app on your device"
+msgstr ""
+"您必须登录才能保存您的数据\n"
+"恢复出厂设置会丢失所有数据\n"
+"或在您的设备上卸载该应用"
+
+#. Key:	Login
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Login"
+msgid "Link Account"
+msgstr "链接帐户"
+
+#. Key:	Music
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Music"
+msgid "Music"
+msgstr "音乐"
+
+#. Key:	Sound
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Sound"
+msgid "Sound"
+msgstr "声音"
+
+#. Key:	Star
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Star"
+msgid "Star"
+msgstr "星星"
+
+#. Key:	User
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,User"
+msgid "Account : "
+msgstr "帐户 ："
+
+#. Key:	Vietnamese
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Vietnamese"
+msgid "Vietnamese"
+msgstr "Vietnamese"
+
+#. Key:	Vip
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Vip"
+msgid "Premium"
+msgstr "Premium"

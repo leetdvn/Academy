@@ -38,11 +38,6 @@ void AleeHub::BeginPlay()
 
 	if (lCurrentWidget) {
 		lCurrentWidget->AddToViewport();
-		UPanelWidget* parent= lCurrentWidget->GetRootWidget()->GetParent();
-		//lget
-		//GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
-		//FVector2D resolution = lScreenResolution();
-		//UKismetInternationalizationLibrary::SetCurrentLanguage("vi",true);
 	}
 	//active Event start game
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));

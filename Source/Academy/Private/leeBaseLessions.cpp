@@ -24,7 +24,6 @@ void UleeBaseLessions::NativeConstruct()
 	//load Game History
 	ReloadData();
 	lSetWinOnOff(false);
-	lThreeline->boxStr->OnSelectionChanged.AddDynamic(this, &UleeBaseLessions::OnSelectChanged);
 
 	if (lThreeline->GameHistoriesButton) {
 		lThreeline->GameHistoriesButton->OnClicked.AddDynamic(this, &UleeBaseLessions::OnHistoriesUp);
@@ -46,23 +45,6 @@ void UleeBaseLessions::OnReplay()
 		FTimerHandle timer;
 		GetWorld()->GetTimerManager().SetTimer(timer, [this]() {LoadThreeLineGame(); }, 3.0f, false);
 	}
-}
-
-void UleeBaseLessions::OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType)
-{
-	if (itemname.IsEmpty()) return;
-	FString culture = itemname != "Vietnam" ? "=en" : "=vi";
-	TArray<FString> cultures= UKismetInternationalizationLibrary::GetLocalizedCultures();
-	int32 idx = lThreeline->boxStr->GetSelectedIndex();
-	lThreeline->boxStr->SetSelectedIndex(idx);
-	//if(itemname == "English")
-	UKismetInternationalizationLibrary::SetCurrentCulture("culture"+culture,true);
-	//else
-	UKismetInternationalizationLibrary::SetCurrentLanguage("language"+culture, true);
-	UKismetInternationalizationLibrary::SetCurrentLocale("locale"+culture, true);
-	FString cmd = "-culture" + culture;
-	GEngine->Exec(GetWorld(),*cmd);
-
 }
 
 bool UleeBaseLessions::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
@@ -190,7 +172,7 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 	lOnDropVisible = isCorrect;
 	//add History Game List
 	if (DropCorrecttimes == 3 && isCorrect) {
-		if (isReplay) return;
+		//if (isReplay) return;
 		FString completed;
 		//convert to Json object string
 		bool success=FJsonObjectConverter::UStructToJsonObjectString<FGameLession>(gamedata, completed, 0,0,0, nullptr, true);
@@ -221,8 +203,6 @@ void UleeBaseLessions::LoadThreeLineGame()
 	ReloadData();
 	TEnumAsByte<lGameType> lastgame = userdata->GetLastGameType();
 	FGameLession current = lastgame == Threelines ? DataLastGame : gamedata;
-	lDebug(lastgame, FColor::Purple, "last Game ");
-
 	isReplay = true;
 	//load Questions and Player choise
 	TArray<int32> ids = { 1,2,3 };

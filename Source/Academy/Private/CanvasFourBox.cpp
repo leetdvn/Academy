@@ -171,7 +171,6 @@ void UCanvasFourBox::lClearChecked() {
 
 void UCanvasFourBox::lClearActionBound()
 {
-#pragma omp parallel for
 	for (auto& b : lUserChoises) {
 		for (auto& btn : b->lGetButtons())
 			if (btn->OnCorrect.IsBound())
