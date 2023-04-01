@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Game\n"
 "POT-Creation-Date: 2023-04-01 12:15\n"
-"PO-Revision-Date: 2023-04-01 19:17+0700\n"
+"PO-Revision-Date: 2023-04-01 23:57+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh\n"
@@ -223,7 +223,7 @@ msgstr "你想给你的宝宝买这个套餐吗？"
 #: /Game/Stringtable/Settings.Settings
 msgctxt "Settings,Currency"
 msgid "Number of stars : "
-msgstr "选择正确的数字"
+msgstr "选择正确的数字 : "
 
 #. Key:	English
 #. SourceLocation:	/Game/Stringtable/Settings.Settings
