@@ -4,7 +4,7 @@ UCanvasFourBox::UCanvasFourBox(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
 {
 	//init something
-	UE_LOG(LogTemp, Warning, TEXT("4 box init"));
+	//UE_LOG(LogTemp, Warning, TEXT("4 box init"));
 }
 
 UleePanelBase* UCanvasFourBox::lGetChoiseAt(int32 idx)

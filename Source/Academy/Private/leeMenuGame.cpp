@@ -14,6 +14,9 @@ void UleeMenuGame::OnMenuClick(FString menuName)
 	else if (menuName.StartsWith("match") || menuName.StartsWith("shape"))
 		mapOpen = "FourBox";
 
+	else if (menuName.StartsWith("school"))
+		mapOpen = "AlphaBet";
+
 	if (mapOpen.IsEmpty()) return;
 
 	UGameplayStatics::OpenLevel(GetWorld(),FName(*mapOpen));

@@ -29,8 +29,8 @@ void UleeGameHistories::OnMouseClicked(UleeHistoryItem* item)
 	}
 
 	TEnumAsByte<lGameType> gtype = lGetTypeFromHistories(item);
-	UE_LOG(LogTemp, Warning, TEXT("object : %s"), *lJsontoStr(item->JsGameObject));
-	return OnSwitchMapFromHistories(gtype);
+	UE_LOG(LogTemp, Warning, TEXT("object : %s"), gtype);
+	return;// OnSwitchMapFromHistories(gtype);
 }
 
 void UleeGameHistories::OnSwitchMapFromHistories(lGameType gametype)
@@ -76,12 +76,14 @@ void UleeGameHistories::OnOpenUp()
 {
 	if (!OpenUp) return;
 	PlayAnimation(OpenUp);
+	isOpened = true;
 }
 
 void UleeGameHistories::OnCloseDown()
 {
-	if (!CloseDown) return;
+	if (!CloseDown && !isOpened) return;
 	PlayAnimation(CloseDown);
+	isOpened = false;
 }
 
 void UleeGameHistories::NativeConstruct()

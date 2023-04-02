@@ -42,6 +42,8 @@ public:
 		UWidgetAnimation* CloseDown;
 
 
+	bool isOpened;
+
 	void OnHistoriesInit(UPlayerData* &playerData);
 
 	void OnHistoriesDown();

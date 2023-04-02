@@ -16,6 +16,11 @@
 
 #define lDebug(...) lDebugStr(__VA_ARGS__)
 #define GAMEDIR 
+#define GAMETABLE  "/Game/Stringtable/Games"
+#define SETTINGTABLE  "/Game/Stringtable/Settings"
+#define HOMETABLE  "/Game/Stringtable/HomeMenu"
+
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCorrectDrop, FString, ShapeName);
 
 
@@ -35,12 +40,7 @@ class ACADEMY_API IleePublicInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
-	FORCEINLINE TArray<FString> lGetAllMapNames();
-
-	FString GameDir= FPaths::ProjectContentDir();
-
-	bool lMapExists(FString mapname);
-
+#pragma region Lee CUSTOM DEBUG
 	template<class T>
 	void lBaseDebugStr(T message, FColor color = FColor::Red, FString startStr = "");
 
@@ -55,6 +55,9 @@ public:
 	template<class T>
 	FORCEINLINE FString ShowScreen(void* info);
 
+#pragma endregion 
+	
+#pragma region DATA IO JSON
 	/// <summary>
 	/// get FString from Json file
 	/// </summary>
@@ -106,19 +109,13 @@ public:
 	template<class T>
 	T* lGetAssetFromContent(FString referencePath,bool &success);
 
-	float lRand(float min, float max) { return FMath::RandRange(min, max); }
-
-	int32 lRand(int32 min, int32 max) { return FMath::RandRange(min, max-1); }
-
-	int64 lRand(int64 min, int64 max) { return FMath::RandRange(min, max-1); }
-
-	bool isNull(void* ptr, FString message);
-
 	FString FindContentFromPath(FString dir, FString filename);
 
-	//FORCEINLINE TArray<FString> RemoveContentFromPath(FString dir, FString filename);
+	FORCEINLINE TArray<FString> lGetAllMapNames();
 
-	void lGetRandomFromPath(FString dir,  TArray<FString> &OutArray, int32 number) ;
+	FString GameDir = FPaths::ProjectContentDir();
+
+	void lGetRandomFromPath(FString dir, TArray<FString>& OutArray, int32 number);
 
 	/// <summary>
 	/// get number files diffirent in the directory
@@ -126,32 +123,21 @@ public:
 	/// <param name="dir"></param>
 	/// <param name="exceptions"></param>
 	/// <param name="number"></param>
-	void lGetRandFilesFromDirectory(FString dir, TArray<FString> &exceptions,int32 number);
+	void lGetRandFilesFromDirectory(FString dir, TArray<FString>& exceptions, int32 number);
 
 	void lGetRandDirsFromDirectory(FString dir, TArray<FString>& exceptions, int32 number);
 
 	FString lGetRandFileFromDirectory(FString dir);
 
-	void lGetRandNums(TArray<int32> &Outnums,int32 maxArray, int32 maxValue);
-
-
 	UTexture2D* lGetTextureFromPath(FString imgPath);
-
 	bool lFilesExists(FString iPath);
 
 	FVector2D lGetSizeTexture(FString imgPath);
-
-	void lSetUpdateSizeRules(UPanelSlot* &panelSlot, ESlateSizeRule::Type ruleType);
-
-	bool lExistsDirectory(FString& dir) {  
+	bool lExistsDirectory(FString& dir) {
 		FString nDir = GameDir + dir;
 		UE_LOG(LogTemp, Warning, TEXT("dir : %s"), *nDir);
 		return FPaths::DirectoryExists(nDir);
 	}
-
-	const FVector2D lbaseScreenXY =FVector2D(768,1024);
-	const int lbaseScreenX = 768;
-	const int lbaseScreenY = 1024;
 
 	/// <summary>
 	/// Create Data Table 
@@ -162,14 +148,42 @@ public:
 	/// <param name="savePath"></param>
 	/// <param name=""></param>
 	/// <returns></returns>
-	UDataTable* lCreateDataTableRuntime(FString objName, FString InProjectPath, FString savePath,UScriptStruct* script);
+	UDataTable* lCreateDataTableRuntime(FString objName, FString InProjectPath, FString savePath, UScriptStruct* script);
 
 
 	/// <summary>
 	/// Create Runtime Asset , return Package Register out class T
 	/// </summary>
 	template<class T>
-	UPackage* lCreateAssetRuntime(FString objName,FString InProjectPath,FString savePath,T*& OutObject);
+	UPackage* lCreateAssetRuntime(FString objName, FString InProjectPath, FString savePath, T*& OutObject);
+
+
+#pragma endregion
+
+#pragma region GLOBAL VALUE
+	const FVector2D lbaseScreenXY = FVector2D(768, 1024);
+	const int lbaseScreenX = 768;
+	const int lbaseScreenY = 1024;
+
+#pragma endregion
+
+	float lRand(float min, float max) { return FMath::RandRange(min, max); }
+
+	int32 lRand(int32 min, int32 max) { return FMath::RandRange(min, max-1); }
+
+	int64 lRand(int64 min, int64 max) { return FMath::RandRange(min, max-1); }
+
+	bool isNull(void* ptr, FString message);
+
+
+	bool lMapExists(FString mapname);
+
+	//FORCEINLINE TArray<FString> RemoveContentFromPath(FString dir, FString filename);
+
+	void lGetRandNums(TArray<int32> &Outnums,int32 maxArray, int32 maxValue);
+
+	void lSetUpdateSizeRules(UPanelSlot* &panelSlot, ESlateSizeRule::Type ruleType);
+
 
 	//template<typename T>
 	//void lDelayFunction(UWorld* world,float delay, T &name);

@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
+#include <Components/Button.h>
 #include "leePublicInterface.h"
 #include <Components/TextBlock.h>
 #include <Components/Image.h>
@@ -26,7 +26,7 @@ public:
 		UTextBlock* ItemInfo;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "BackGround", meta = (BindWidget))
-		UImage* ItemBgr;
+		UButton* ItemBgr;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Check Item", meta = (BindWidget))
 		UImage* ItemCheck;
@@ -47,7 +47,7 @@ public:
 
 	FString ObjectStr;
 
-	UImage* lTakeItem(bool isLock);
+	UButton* lTakeItem(bool isLock);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMouseDown();

@@ -9,12 +9,13 @@ UleeHistoryItem::UleeHistoryItem(const FObjectInitializer& ObjectInitializer)
     JsGameObject = MakeShareable(new FJsonObject());
 }
 
-UImage* UleeHistoryItem::lTakeItem(bool isLock)
+UButton* UleeHistoryItem::lTakeItem(bool isLock)
 {
     UTexture2D* tex = isLock ? LockPath : UnLockPath;
     ESlateVisibility vis = isLock ? ESlateVisibility::Hidden : ESlateVisibility::Visible;
     if (tex) {
-        ItemBgr->Brush.SetResourceObject(tex);
+
+        ItemBgr->SetIsEnabled(!isLock);
         ItemCheck->SetVisibility(vis);
     }
     return ItemBgr;
@@ -27,5 +28,5 @@ void UleeHistoryItem::OnMouseDown()
 
 void UleeHistoryItem::NativeConstruct()
 {
-    ItemBgr->OnMouseButtonDownEvent.BindUFunction(this, FName("OnMouseDown"));
+    ItemBgr->OnClicked.AddDynamic(this, &UleeHistoryItem::OnMouseDown);
 }

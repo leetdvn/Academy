@@ -30,6 +30,8 @@ void AleeHub::BeginPlay()
 	//	panel = lFourBox;
 	else if (map.EndsWith("FourBox"))
 		panel = lFourBox;
+	else if (map.EndsWith("AlphaBet"))
+		panel = lAlphaBeet;
 
 	//Create Menu
 	if (!panel) return;
