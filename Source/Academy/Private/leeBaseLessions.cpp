@@ -25,7 +25,7 @@ void UleeBaseLessions::NativeConstruct()
 	//binding event drop for answers
 	//load Game History
 	lDebug(SessionID,FColor::Purple);
-	return isNewGame ? NewGameThreelineInit() : LoadThreeLineGame();
+	return isNewGame ? NewGameThreelineInit() : LoadGameAt(SessionID);
 }
 
 void UleeBaseLessions::NativeDestruct()
@@ -40,6 +40,25 @@ void UleeBaseLessions::OnReplay()
 		FTimerHandle timer;
 		GetWorld()->GetTimerManager().SetTimer(timer, [this]() {LoadThreeLineGame(); }, 3.0f, false);
 	}
+}
+
+void UleeBaseLessions::LoadGameAt(int32 sessionGameID)
+{
+	//reload data load from Save Game;
+	ReloadData();
+	TSharedPtr<FJsonValue> session= _UserData->GetGamesAt(sessionGameID);
+	FGameLession* lession = new FGameLession();
+	FJsonObjectConverter::JsonObjectToUStruct(session->AsObject().ToSharedRef(), lession);
+	FString jsStr = lJsontoStr(session->AsObject());
+	UE_LOG(LogTemp, Warning, TEXT(" check lessiong : %s"), *lession->Topics[0].ImagePath);
+
+	TArray<int32> ids = { 1,2,3 };
+	TArray<FString> correctName = lession->TopicNames;
+	lThreeline->LoadQuestions(lession->GetQuestions(), ids);
+	lThreeline->LoadAllChoise(*lession);
+	BindButtons();
+	DropCorrecttimes = 0;
+	lSetWinOnOff(false);
 }
 
 bool UleeBaseLessions::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)

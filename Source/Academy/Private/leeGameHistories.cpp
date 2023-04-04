@@ -5,6 +5,7 @@
 #include <Components/GridSlot.h>
 #include <leeHistoryItem.h>
 #include <Kismet/GameplayStatics.h>
+#include <leeHub.h>
 
 UleeGameHistories::UleeGameHistories(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
@@ -28,15 +29,33 @@ void UleeGameHistories::OnMouseClicked(UleeHistoryItem* item)
 
 	}
 	FString gtype = lGetTypeFromHistories(item);
-	return OnSwitchMapFromHistories(gtype);
+	return OnSwitchMapFromHistories(gtype,item);
 }
 
-void UleeGameHistories::OnSwitchMapFromHistories(FString gametype)
+void UleeGameHistories::OnSwitchMapFromHistories(FString gametype, UleeHistoryItem*& item)
 {
 	//Open Histories game
 	if (gametype.IsEmpty()|| !lMapExists(gametype)) return;
-	lOpenMapLevel(gametype);
+	//lOpenMapLevel(gametype);
 
+
+	//create from level remote Ahub control it
+	AleeHub* leeHub = GetleeHub();
+	if (leeHub) {
+		lDebug(FString("hub : " + FString::FromInt(item->ItemID)),FColor::Purple);
+		//leeHub->SetSessionGameID(item->ItemID);
+		leeHub->LoadThreelineFromData(item->ItemID);
+	}
+
+}
+
+AleeHub* UleeGameHistories::GetleeHub()
+{
+	UWorld* world = GetWorld();
+	AHUD* hub = world->GetFirstPlayerController()->GetHUD();
+	if (hub)
+		return Cast<AleeHub>(hub);
+	return nullptr;
 }
 
 void UleeGameHistories::lOpenMapLevel(FString mapname)

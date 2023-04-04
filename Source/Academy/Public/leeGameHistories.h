@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include <leeHistoryItem.h>
 #include <Components/GridPanel.h>
 #include <PlayerData.h>
 #include <Components/Image.h>
@@ -51,7 +52,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMouseClicked(UleeHistoryItem* item);
 
-	void OnSwitchMapFromHistories(FString gametype);
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+	void OnSwitchMapFromHistories(FString gametype, UleeHistoryItem*& item);
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+	AleeHub* GetleeHub();
 
 	void lOpenMapLevel(FString mapname);
 

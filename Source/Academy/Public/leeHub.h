@@ -49,49 +49,47 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;
 
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Current GameType")
+		TEnumAsByte<lGameType> gametype;
 	/// <summary>
 	/// Widget ingame list
 	/// </summary>
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 	TArray<TSubclassOf<class UUserWidget>> lGameWidgets;
 
-	/// <summary>
-	/// switch widget 
-	/// </summary>
-	/// <param name="index"></param>
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-	void lSetGameWidgets(int index);
-	/// <summary>
-	/// get index 
-	/// </summary>
-	/// <returns></returns>
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-	int lGetlGameWidgets();
-
-	///
-	DECLARE_EVENT(ALeetdHUD,LevelChanged)
-		LevelChanged& OnLevelChanged() { return onlevelChanged; }
-
-	UFUNCTION()
-		void OnGameStart();
-
 	UPROPERTY(BlueprintAssignable, Category = "Test")
 		FOnGameStart lOnGStart;
 
+	void SetSessionGameID(int32 gameid) { SessionGameId = gameid; }
 
+	/*LoadGame Type four box from data index saved */
+	void LoadFourBoxFromData(int32 idx);
+
+	/*LoadGame Type 3 Lines from data index saved */
+	void LoadThreelineFromData(int32 idx);
+
+	/*LoadGame TypeAlpha from data index saved */
+	void LoadAlphabetFromData(int32 idx);
+
+	/*create new game */
+	void CreateNewGame(TEnumAsByte<lGameType> gtype);
+
+	static AleeHub* GetInstance();
 #pragma endregion
 
 protected:
+
+	template<class T>
+	T* NewGameWidget(TEnumAsByte<lGameType> gametype, UUserWidget*& outWidget);
+
 	UWorld* leeWorld;
 	class UUserWidget* MenuWidget;
-	UFUNCTION()
-	void OnChangeClick();
-	void Onlevelchanged();
 	FOnGamePause lOnGPause;
 	FOnGameEnd lOnGEnd;
-	LevelChanged onlevelChanged;
+	//LevelChanged onlevelChanged;
 
 	UUserWidget* lMoveButton;
 	UUserWidget* lCurrentWidget;
+	int32 SessionGameId;
 
 };

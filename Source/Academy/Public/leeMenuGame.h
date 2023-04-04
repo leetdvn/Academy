@@ -44,7 +44,8 @@ public:
 		void OnParentClicked();
 	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 	//	void OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType);
-
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		AleeHub* lGetleeHub();
 protected:
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Menu" ,meta=(BindWidget));

@@ -21,7 +21,8 @@ enum AgeType {
 };
 
 UENUM(BlueprintType)
-enum lGameType {
+enum lGameType 
+{
 	None UMETA(DisplayName = "None"),
 	Threelines UMETA(DisplayName = "Three Lines"),
 	FourBox UMETA(DisplayName = "Four Box"),

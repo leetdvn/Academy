@@ -3,23 +3,31 @@
 
 #include "leeMenuGame.h"
 #include <Source/Private/OnlineSharingFacebookCommon.h>
+#include <leeHub.h>
 
 void UleeMenuGame::OnMenuClick(FString menuName)
 {
 	if (menuName.IsEmpty()) return;
 	lDebug(menuName);
+	AleeHub* hub = lGetleeHub();
+
 	if (menuName.EndsWith("count") || menuName.EndsWith("numbers")) {
 		mapOpen = "ThreeLines";
+		if (hub) hub->CreateNewGame(Threelines);
 	}
-	else if (menuName.StartsWith("match") || menuName.StartsWith("shape"))
+	else if (menuName.StartsWith("match") || menuName.StartsWith("shape")) {
 		mapOpen = "FourBox";
+		if (hub) hub->CreateNewGame(FourBox);
 
-	else if (menuName.StartsWith("school"))
+	}
+	else if (menuName.StartsWith("school")) {
 		mapOpen = "AlphaBet";
+		if (hub) hub->CreateNewGame(AlphaBet);
+	}
 
 	if (mapOpen.IsEmpty()) return;
 
-	UGameplayStatics::OpenLevel(GetWorld(),FName(*mapOpen));
+	//UGameplayStatics::OpenLevel(GetWorld(),FName(*mapOpen));
 }
 
 void UleeMenuGame::OnParentClicked()
@@ -29,6 +37,15 @@ void UleeMenuGame::OnParentClicked()
 		if (Settings) Settings->CheckLinkAccount();
 		//InfoText->SetText(FText::FromString(Settings->DisplayInfo));
 	}
+}
+
+AleeHub* UleeMenuGame::lGetleeHub()
+{
+	UWorld* world = GetWorld();
+	AHUD* hub = world->GetFirstPlayerController()->GetHUD();
+	if (hub)
+		return Cast<AleeHub>(hub);
+	return nullptr;
 }
 
 //void UleeMenuGame::OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType)
@@ -62,10 +79,4 @@ void UleeMenuGame::NativeConstruct()
 			}
 		}
 	}
-	//UleeGameInstance* GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	//if (GameIns) {
-	//	GameIns->LoadUserLink();
-	//	InfoText->SetText(FText::FromString(GameIns->DisplayName));
-	//}
-	//lParentsButton->OnClicked.AddDynamic(this, &UleeMenuGame::OnParentClicked);
 }

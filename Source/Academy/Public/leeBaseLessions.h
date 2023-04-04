@@ -102,6 +102,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void LoadThreeLineGame();
 
+	//load current game from save data
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void LoadGameAt(int32 sessionGameID);
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnReplay();
 	

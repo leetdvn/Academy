@@ -126,7 +126,7 @@ TSharedPtr<FJsonObject> UPlayerData::LoadHistoriesFromStr()
 		JsGames = *jsVal;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("load Histories : %d"), JsGames.Num());
+	//UE_LOG(LogTemp, Warning, TEXT("load Histories : %d"), JsGames.Num());
 
 	return JsHistoriesObject;
 }

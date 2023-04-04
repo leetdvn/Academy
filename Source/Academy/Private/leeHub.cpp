@@ -10,7 +10,6 @@ class UKidWidget;
 
 AleeHub::AleeHub()
 {
-	lOnGStart.AddDynamic(this, &AleeHub::OnGameStart);
 }
 
 void AleeHub::BeginPlay()
@@ -33,12 +32,19 @@ void AleeHub::BeginPlay()
 	else if (map.EndsWith("ThreeLines")) {
 		lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
 		UleeBaseLessions* lines = Cast<UleeBaseLessions>(lCurrentWidget);
-		lines->isNewGame = true;
+		lines->isNewGame = SessionGameId <= 0 ? true : false;
+		if (!lines->isNewGame)
+			lines->SessionID = SessionGameId;
 		//lines->NewGameThreelineInit();
 	}
 	else if (map.EndsWith("FourBox")) {
 		lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lFourBox);
 		UleeFourBox* box = Cast<UleeFourBox>(lCurrentWidget);
+
+		box->isNewGame = SessionGameId <= 0 ? true : false;
+		if (!box->isNewGame)
+			box->GameId = SessionGameId;
+
 		box->isNewGame = true;
 	}
 	else if (map.EndsWith("AlphaBet")) {
@@ -49,6 +55,9 @@ void AleeHub::BeginPlay()
 	if (lCurrentWidget) {
 		lCurrentWidget->AddToViewport();
 	}
+
+	lDebug(SessionGameId, FColor::Green);
+
 	//active Event start game
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (!GameIns) { lDebug("Game Instance Nullptr"); return; }
@@ -59,33 +68,98 @@ void AleeHub::Tick(float DeltaTime)
 	//double x{}, y{};
 }
 
-void AleeHub::lSetGameWidgets(int index)
+void AleeHub::LoadFourBoxFromData(int32 idx)
 {
-	//if (index >= lGameWidgets.Num()) return;
-	//lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lGameWidgets[index]);
-	//if (lCurrentWidget != nullptr) {
-	//	lCurrentWidget->AddToViewport();
-	//}
+	UUserWidget* nWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
+	UleeFourBox* lines = Cast<UleeFourBox>(nWidget);
+	lines->GameId = idx;
 
+	lCurrentWidget->RemoveFromViewport();
+	nWidget->AddToViewport();
+	lCurrentWidget = nWidget;
+}
+
+void AleeHub::LoadThreelineFromData(int32 idx)
+{
+	UUserWidget* nWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
+	UleeBaseLessions* lines = Cast<UleeBaseLessions>(nWidget);
+	lines->SessionID = idx;
+
+	lCurrentWidget->RemoveFromViewport();
+	nWidget->AddToViewport();
+	lCurrentWidget = nWidget;
+}
+
+void AleeHub::LoadAlphabetFromData(int32 idx)
+{
+	UUserWidget* nWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
+	UleeAlphaBet* lines = Cast<UleeAlphaBet>(nWidget);
+	//lines->SessionID = idx;
+
+	lCurrentWidget->RemoveFromViewport();
+	nWidget->AddToViewport();
+	lCurrentWidget = nWidget;
 
 }
 
-int AleeHub::lGetlGameWidgets()
+void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype)
 {
-	return 0;
-}
 
-void AleeHub::OnGameStart()
-{
+
+	switch (gtype)
+	{
+		case None: {return; }
+		case Threelines: {
+			UleeBaseLessions* line = NewGameWidget<UleeBaseLessions>(gtype, lCurrentWidget);
+			line->isNewGame = true;
+			break;
+		}
+		case FourBox: {
+			UleeFourBox* box = NewGameWidget<UleeFourBox>(gtype, lCurrentWidget);
+			box->isNewGame = true;
+			break;
+		}
+		case AlphaBet: {
+			UleeAlphaBet* alpha = NewGameWidget<UleeAlphaBet>(gtype, lCurrentWidget);
+			break;
+		}
+	}
+	if (lCurrentWidget) lCurrentWidget->RemoveFromViewport();
+	gametype = gtype;
+	lCurrentWidget->AddToViewport();
 	lOnGStart.Broadcast();
 }
 
-void AleeHub::OnChangeClick()
+AleeHub* AleeHub::GetInstance()
 {
-	//leeTdDebug("Event Dispatcher");
+	UWorld* world = GEngine->GetWorld();
+	if (world) {
+		AHUD* hub = world->GetFirstPlayerController()->GetHUD();
+		if (hub) return Cast<AleeHub>(hub);
+	}
+	return nullptr;
 }
 
-void AleeHub::Onlevelchanged()
+template<class T>
+T* AleeHub::NewGameWidget(TEnumAsByte<lGameType> gametype, UUserWidget*& outWidget)
 {
-	onlevelChanged.Broadcast();
+	switch (gametype)
+	{
+	case None:
+		break;
+	case Threelines: outWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
+		break;
+	case FourBox: outWidget = CreateWidget<UUserWidget>(GetWorld(), lFourBox);
+		break;
+	case DragDrop:
+		break;
+	case Line2Column:
+		break;
+	case AlphaBet: outWidget = CreateWidget<UUserWidget>(GetWorld(), lAlphaBeet);
+		break;
+	default:
+		break;
+	}
+	return Cast<T>(outWidget);
 }
+
