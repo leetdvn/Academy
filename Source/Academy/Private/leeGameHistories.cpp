@@ -27,49 +27,36 @@ void UleeGameHistories::OnMouseClicked(UleeHistoryItem* item)
 		return;
 
 	}
-
-	TEnumAsByte<lGameType> gtype = lGetTypeFromHistories(item);
-	UE_LOG(LogTemp, Warning, TEXT("object : %s"), gtype);
-	return;// OnSwitchMapFromHistories(gtype);
+	FString gtype = lGetTypeFromHistories(item);
+	return OnSwitchMapFromHistories(gtype);
 }
 
-void UleeGameHistories::OnSwitchMapFromHistories(lGameType gametype)
+void UleeGameHistories::OnSwitchMapFromHistories(FString gametype)
 {
-	switch (gametype)
-	{
-	case None:
-		break;
-	case Threelines: return lOpenMapLevel("ThreeLines");
-	case FourBox: return lOpenMapLevel("FourBox");
-	case DragDrop:
-		break;
-	case Line2Column:
-		break;
-	case AlphaBet:
-		break;
-	}
+	//Open Histories game
+	if (gametype.IsEmpty()|| !lMapExists(gametype)) return;
+	lOpenMapLevel(gametype);
+
 }
 
 void UleeGameHistories::lOpenMapLevel(FString mapname)
 {
-	UE_LOG(LogTemp, Warning, TEXT("histories : %s"));
 	return UGameplayStatics::OpenLevel(GetWorld(), FName(mapname));
 }
 
-TEnumAsByte<lGameType> UleeGameHistories::lGetTypeFromHistories(UleeHistoryItem* item)
+FString UleeGameHistories::lGetTypeFromHistories(UleeHistoryItem* item)
 {
 	if (!item->JsGameObject.IsValid() && item->ItemID <= 0) {
 		lDebug("Not is Valid", FColor::Purple, "Debug");
-		return None;
+		return FString();
 
 	}
 
 	TSharedPtr<FJsonValue> gEType= item->JsGameObject->TryGetField("lessionType");
-	if (!gEType.IsValid()) return None;
-	TEnumAsByte<lGameType>  gtype = lGetEnumFromStr<lGameType>("lGameType", gEType->AsString());
-	lDebug(gtype);
+	if (!gEType.IsValid()) return FString();
+	//TEnumAsByte<lGameType>  gtype = lGetEnumFromStr<lGameType>("lGameType", gEType->AsString());
 
-	return gtype;
+	return gEType->AsString();
 }
 
 void UleeGameHistories::OnOpenUp()
@@ -105,7 +92,7 @@ void UleeGameHistories::OnHistoriesInit(UPlayerData*& playerData)
 		if (gSlot) {
 			if (i % 4 == 0 && i > 0) {
 				x++;
-				lDebug(FString::FromInt(i));
+				//lDebug(FString::FromInt(i));
 				column = 0;
 			}
 
@@ -117,7 +104,8 @@ void UleeGameHistories::OnHistoriesInit(UPlayerData*& playerData)
 			if (img) {
 				bool unlock = i >= playerData->JsGames.Num() ? true : false;
 				img->lTakeItem(unlock);
-				FString label =FText::FromStringTable(FName("/Game/Stringtable/Settings"), "Histories").ToString() + " " + FString::FromInt(i + 1);
+				
+				FString label =FText::FromStringTable(FName(SETTINGTABLE), "Histories").ToString() + " " + FString::FromInt(i + 1);
 				img->ItemInfo->SetText(FText::FromString(label));
 				int32 id = i < playerData->JsGames.Num() ? i : 0;
 				img->ItemID = id;

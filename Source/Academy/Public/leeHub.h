@@ -2,6 +2,9 @@
 
 #pragma once
 #include <leeGameInstance.h>
+#include "leeBaseLessions.h"
+#include "leeFourBox.h"
+#include "leeAlphaBet.h"
 #include <Components/Image.h>
 #include "leePublicInterface.h"
 #include "CoreMinimal.h"
@@ -35,13 +38,13 @@ public:
 	TSubclassOf<UUserWidget> lMenuWidget;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
-		TSubclassOf<UUserWidget> lThreeLine;
+		TSubclassOf<UleeBaseLessions> lThreeLine;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
-		TSubclassOf<UUserWidget> lFourBox;
+		TSubclassOf<UleeFourBox> lFourBox;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
-		TSubclassOf<UUserWidget> lAlphaBeet;
+		TSubclassOf<UleeAlphaBet> lAlphaBeet;
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;

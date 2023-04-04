@@ -51,11 +51,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMouseClicked(UleeHistoryItem* item);
 
-	void OnSwitchMapFromHistories(lGameType gametype);
+	void OnSwitchMapFromHistories(FString gametype);
 
 	void lOpenMapLevel(FString mapname);
 
-	TEnumAsByte<lGameType> lGetTypeFromHistories(UleeHistoryItem* item);
+	FString lGetTypeFromHistories(UleeHistoryItem* item);
 	//UUserWidget* CreateWidgetItem(TSubclassOf<UUserWidget> widget);
 
 	template <typename T>

@@ -16,21 +16,16 @@ UleeBaseLessions::UleeBaseLessions(const FObjectInitializer& ObjectInitializer)
 	//implant static 
 	//UIleeDrop::F
 	//isNewGame = false;
+	TableStr = GAMETABLE;
+	GameType = Threelines;
 }
 
 void UleeBaseLessions::NativeConstruct()
 {
 	//binding event drop for answers
 	//load Game History
-	ReloadData();
-	lSetWinOnOff(false);
-
-	if (lThreeline->GameHistoriesButton) {
-		lThreeline->GameHistoriesButton->OnClicked.AddDynamic(this, &UleeBaseLessions::OnHistoriesUp);
-	}
-
-	return  !isNewGame ? NewGameThreelineInit() : LoadThreeLineGame();
-
+	lDebug(SessionID,FColor::Purple);
+	return isNewGame ? NewGameThreelineInit() : LoadThreeLineGame();
 }
 
 void UleeBaseLessions::NativeDestruct()
@@ -51,7 +46,6 @@ bool UleeBaseLessions::NativeOnDrop(const FGeometry& InGeometry, const FDragDrop
 {
 	UleeDragWidget* DragVisual = Cast<UleeDragWidget>(InOperation->DefaultDragVisual);
 	UleeDragWidget* DragObj = Cast<UleeDragWidget>(InOperation->Payload);
-	lDebug("drop Bgr");
 	if (DragVisual) {
 		if (DragObj)
 		{
@@ -103,8 +97,8 @@ void UleeBaseLessions::InitializeThreeLineopic(FString& sourcefolder, FString& c
 	nlession.LessionType = Threelines;
 	//register game id
 	nlession.GameID = SessionID == 0 ? 1 : SessionID;
-	nlession.GameTitle = ltitle->GetText().ToString();
-	nlession.GameDescriptions = lDescription->GetText().ToString();
+	nlession.GameTitle = "LineTitle";
+	nlession.GameDescriptions = "LineDesc";
 
 
 	// case has child
@@ -130,7 +124,7 @@ void UleeBaseLessions::InitializeThreeLineopic(FString& sourcefolder, FString& c
 	}
 	//"AcademyAssets/Assets/ChoiseAnswers/AnimalShape"
 	lCreateNewChoises(exceptions,nlession, choiseFolder,true);
-	nlession.GameID = userdata->JsGames.Num() +1;
+	nlession.GameID = _UserData->JsGames.Num() +1;
 	gamedata = nlession;
 	if(isReplay) isReplay = false;
 	//GameIns->SaveCurrentGameData(userdata);
@@ -182,14 +176,14 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 		//convert to json object Shared Ptr
 		TSharedPtr<FJsonObject> obj = FJsonObjectConverter::UStructToJsonObject<FGameLession>(gamedata);
 		//add To History type Json Obj
-		userdata->JsGames.Add(MakeShareable(new FJsonValueObject(obj)));
+		_UserData->JsGames.Add(MakeShareable(new FJsonValueObject(obj)));
 		//add to History type Struct
 		//userdata->HistoryGames.Add(userdata->CurrentGame);
 		
 		//userdata->SaveConstruct();
 		//Save game
 
-		GameIns->SaveCurrentGameData(userdata);
+		GameIns->SaveCurrentGameData(_UserData);
 		lSetWinOnOff(true);
 		DropCorrecttimes = 0;
 
@@ -197,7 +191,6 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 
 	}
 	UGameplayStatics::PlayDialogue2D(GetWorld(), lThreeline->lWaveSound[waveIdx], lThreeline->lContext[waveIdx]);
-	lDebug(DropCorrecttimes);
 }
 
 void UleeBaseLessions::LoadThreeLineGame()
@@ -205,7 +198,7 @@ void UleeBaseLessions::LoadThreeLineGame()
 
 	//reload data load from Save Game;
 	ReloadData();
-	TEnumAsByte<lGameType> lastgame = userdata->GetLastGameType();
+	TEnumAsByte<lGameType> lastgame = _UserData->GetLastGameType();
 	FGameLession current = lastgame == Threelines ? DataLastGame : gamedata;
 	isReplay = true;
 	//load Questions and Player choise
@@ -221,7 +214,6 @@ FReply UleeBaseLessions::NativeOnTouchStarted(const FGeometry& InGeometry, const
 {
 	FReply iReply = Super::NativeOnTouchStarted(InGeometry, InTouchEvent);
 	if (mouseFX) {
-		lDebug("mouse FX clicked");
 		UCanvasPanelSlot* mSlot = Cast<UCanvasPanelSlot>(mouseFX->Slot);
 		if (mSlot) {
 			FVector2D mPos = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
@@ -258,7 +250,7 @@ TArray<FString> UleeBaseLessions::lSwapChoises(FString AnswerDir, FString correc
 	lGetRandFilesFromDirectory(path, shape, 3);
 	for (int32 i = 0; i < shape.Num(); i++) {
 		shape.SwapMemory(i, lRand(i, shape.Num()));
-		UE_LOG(LogTemp,Warning,TEXT("view Swaper :%s"), *shape[i]);
+		//UE_LOG(LogTemp,Warning,TEXT("view Swaper :%s"), *shape[i]);
 	}
 	return shape;
 }
@@ -266,32 +258,39 @@ TArray<FString> UleeBaseLessions::lSwapChoises(FString AnswerDir, FString correc
 void UleeBaseLessions::ReloadData()
 {
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	if (!GameIns) { lDebug("Game Instance Nullptr"); }
+	if (!GameIns) { lDebug("Game Instance Nullptr"); return; }
 	//load data
 	GameIns->LoadGameData();
-	userdata = GameIns->GameData;
+	_UserData = GameIns->GameData;
 
 	//case new game no data
-	if (!userdata->GetLastGame().IsValid()) {
+	if (!_UserData->GetLastGame().IsValid()) {
 		lDebug("not Valid");
 		return;
 	}
 	
 
-	userdata->GetLastGameType();
+	_UserData->GetLastGameType();
 	//init data to Struct
-	TSharedPtr<FJsonValue> last = userdata->GetLastGame();
+	TSharedPtr<FJsonValue> last = _UserData->GetLastGame();
 	FJsonObjectConverter::JsonObjectToUStruct(last->AsObject().ToSharedRef(), &DataLastGame, 0, 0);
 	
 	//previe Log Debug
 	FString preview{};
 	FJsonObjectConverter::UStructToJsonObjectString(DataLastGame, preview);
-	UE_LOG(LogTemp, Warning, TEXT("load : %s"), *preview);
+	//UE_LOG(LogTemp, Warning, TEXT("load : %s"), *preview);
 }
 
 void UleeBaseLessions::NewGameThreelineInit()
 {
 	
+	ReloadData();
+	lSetWinOnOff(false);
+
+	if (lThreeline->GameHistoriesButton) {
+		lThreeline->GameHistoriesButton->OnClicked.AddDynamic(this, &UleeBaseLessions::OnHistoriesUp);
+	}
+
 	lThreeline->lTopicsAvalible();
 	///generate new game random topic answer
 	int gameid = GameIns->GameData->JsGames.Num();

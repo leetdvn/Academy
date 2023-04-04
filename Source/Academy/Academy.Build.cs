@@ -13,6 +13,7 @@ public class Academy : ModuleRules
             "FirebaseAuthentication",
             "OnlineSubsystemFacebook",
             "FirebaseGoodies",
+            "leeUltilities",
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

@@ -43,6 +43,9 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
 		TEnumAsByte<lGameType> GameType;
 
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
+		FString TableStr;
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite,Category="lee's Ultils",DisplayName="Title",meta=(BindWidget))
 		URichTextBlock* ltitle;
 
@@ -114,7 +117,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnHistoriesUp() { 
 		if (GameHistories) GameHistories->OnOpenUp(); 
-		GameHistories->OnHistoriesInit(userdata);
+		GameHistories->OnHistoriesInit(_UserData);
 
 	}
 
@@ -140,7 +143,7 @@ protected:
 	FGameLession gamedata, DataLastGame;
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils")
-		UPlayerData* userdata;
+		UPlayerData* _UserData;
 
 	TArray<UleePanelBase*> lPanels;
 	//assign delegate

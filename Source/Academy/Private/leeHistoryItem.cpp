@@ -29,4 +29,5 @@ void UleeHistoryItem::OnMouseDown()
 void UleeHistoryItem::NativeConstruct()
 {
     ItemBgr->OnClicked.AddDynamic(this, &UleeHistoryItem::OnMouseDown);
+    IINFO("abc");
 }

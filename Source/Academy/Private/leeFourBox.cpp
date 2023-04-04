@@ -3,10 +3,11 @@
 
 void UleeFourBox::NewFourBoxInit()
 {
+	ReloadData();
 	fourdata.LessionType = FourBox;
 	fourdata.GameID = userdata->JsGames.Num() + 1;
-	fourdata.GameTitle = ltitle->GetText().ToString();
-	fourdata.GameDescriptions = lDescription->GetText().ToString();
+	fourdata.GameTitle = "BoxTitle";
+	fourdata.GameDescriptions = "BoxDesc";
 	fourdata.GameDecorPath = "";
 	
 	//LoadGameAt(userdata->JsGames.Num()-1);
@@ -99,7 +100,6 @@ void UleeFourBox::BindAction()
 	TArray<UleeBaseButton*> buttons{};
 	lFourBox->lGetCorrectButtons(buttons);
 	for (auto& b : buttons) {
-		lDebug(b->lGetText());
 		b->OnCorrect.AddDynamic(this, &UleeFourBox::OnCorrectAnswer);
 	}
 
@@ -135,15 +135,13 @@ void UleeFourBox::NativeConstruct()
 {
 	//UUserWidget* widget = Cast<UUserWidget>(this);
 
-	ReloadData();
-	//lDebug("two");
 
 	if (lFourBox->GameHistoriesButton) {
 		lFourBox->GameHistoriesButton->OnClicked.AddDynamic(this, &UleeFourBox::OnHistoriesUp);
 	}
 	//GameHistories->OnHistoriesInit(userdata);
 	WinWidget->SetVisibility(ESlateVisibility::Hidden);
-	return isNewGame ? NewFourBoxInit() : LoadGameAt(userdata->JsGames.Num()-1);
+	return isNewGame ? NewFourBoxInit() : LoadGameAt(GameId);
 	//lGetTopicCaculateAt(1);
 }
 

@@ -22,21 +22,29 @@ void AleeHub::BeginPlay()
 	FString map = UGameplayStatics::GetCurrentLevelName(GetWorld());// ->GetMapName();
 	TSubclassOf<UUserWidget> panel;// = map.EndsWith("AMenu") ? lMenuWidget : lThreeLine;
 
-	if (map.EndsWith("AMenu"))
-		panel = lMenuWidget;
-	else if (map.EndsWith("ThreeLines"))
-		panel = lThreeLine;
-	//else if (map.EndsWith("AlphaBet"))
-	//	panel = lFourBox;
-	else if (map.EndsWith("FourBox"))
-		panel = lFourBox;
-	else if (map.EndsWith("AlphaBet"))
-		panel = lAlphaBeet;
 
-	//Create Menu
-	if (!panel) return;
-	lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), panel);
-	//add to view port
+	/*
+	Create Widget Default and make new game
+	Create Widget Default and make new game
+	*/
+	if (map.EndsWith("AMenu")) {
+		lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lMenuWidget);
+	}
+	else if (map.EndsWith("ThreeLines")) {
+		lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
+		UleeBaseLessions* lines = Cast<UleeBaseLessions>(lCurrentWidget);
+		lines->isNewGame = true;
+		//lines->NewGameThreelineInit();
+	}
+	else if (map.EndsWith("FourBox")) {
+		lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lFourBox);
+		UleeFourBox* box = Cast<UleeFourBox>(lCurrentWidget);
+		box->isNewGame = true;
+	}
+	else if (map.EndsWith("AlphaBet")) {
+		lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lAlphaBeet);
+
+	}
 
 	if (lCurrentWidget) {
 		lCurrentWidget->AddToViewport();

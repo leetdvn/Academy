@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "leeLibraries.h"
 #include <Components/Button.h>
 #include "leePublicInterface.h"
 #include <Components/TextBlock.h>
@@ -15,7 +16,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHistories, UleeHistoryItem*, Item);
 
 UCLASS()
-class ACADEMY_API UleeHistoryItem : public UUserWidget , public IleePublicInterface
+class ACADEMY_API UleeHistoryItem : public UUserWidget , public IleePublicInterface , public IleeLibraries
 {
 	GENERATED_BODY()
 	

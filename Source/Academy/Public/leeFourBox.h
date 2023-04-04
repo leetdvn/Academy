@@ -50,6 +50,12 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Win Widget", meta = (BindWidget))
 		UUserWidget* WinWidget;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Session ID")
+		int32 GameId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "New Game")
+		bool isNewGame;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void NewFourBoxInit();
 	
@@ -107,7 +113,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Max Correct Answer")
 		int32 AnswerCorrect;
 
-	int32 GameId;
 
 	TArray<UleeBaseButton*> lCorrectButtons;
 
@@ -115,6 +120,6 @@ protected:
 
 	UPlayerData* userdata;
 
-	bool isReplay, isNewGame = true;
+	bool isReplay;
 };
 

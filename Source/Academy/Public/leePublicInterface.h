@@ -135,7 +135,7 @@ public:
 	FVector2D lGetSizeTexture(FString imgPath);
 	bool lExistsDirectory(FString& dir) {
 		FString nDir = GameDir + dir;
-		UE_LOG(LogTemp, Warning, TEXT("dir : %s"), *nDir);
+		//UE_LOG(LogTemp, Warning, TEXT("dir : %s"), *nDir);
 		return FPaths::DirectoryExists(nDir);
 	}
 
