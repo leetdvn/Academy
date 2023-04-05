@@ -104,25 +104,28 @@ void AleeHub::LoadAlphabetFromData(int32 idx)
 
 void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype)
 {
-
-
 	switch (gtype)
 	{
 		case None: {return; }
 		case Threelines: {
-			UleeBaseLessions* line = NewGameWidget<UleeBaseLessions>(gtype, lCurrentWidget);
+			UleeBaseLessions* line = INewGameWidget<UleeBaseLessions>(gtype, lCurrentWidget);
+			gametype = line->GameType = Threelines;
 			line->isNewGame = true;
 			break;
 		}
 		case FourBox: {
-			UleeFourBox* box = NewGameWidget<UleeFourBox>(gtype, lCurrentWidget);
+			UleeFourBox* box = INewGameWidget<UleeFourBox>(gtype, lCurrentWidget);
+			gametype = FourBox;
+
 			box->isNewGame = true;
 			break;
 		}
 		case AlphaBet: {
-			UleeAlphaBet* alpha = NewGameWidget<UleeAlphaBet>(gtype, lCurrentWidget);
+			UleeAlphaBet* alpha = INewGameWidget<UleeAlphaBet>(gtype, lCurrentWidget);
 			break;
 		}
+		default:
+			break;
 	}
 	if (lCurrentWidget) lCurrentWidget->RemoveFromViewport();
 	gametype = gtype;
@@ -130,35 +133,51 @@ void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype)
 	lOnGStart.Broadcast();
 }
 
-AleeHub* AleeHub::GetInstance()
-{
-	UWorld* world = GEngine->GetWorld();
-	if (world) {
-		AHUD* hub = world->GetFirstPlayerController()->GetHUD();
-		if (hub) return Cast<AleeHub>(hub);
-	}
-	return nullptr;
-}
+//TMap<lGameType, UUserWidget*&> AleeHub::NewGameWidget1(TEnumAsByte<lGameType> gametype, UUserWidget*& outWidget)
+//{
+//	TMap<lGameType, UUserWidget>abc{};
+//
+//	switch (gametype)
+//	{
+//	case None:
+//		break;
+//	case Threelines: outWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
+//		break;
+//	case FourBox: outWidget = CreateWidget<UUserWidget>(GetWorld(), lFourBox);
+//		break;
+//	case DragDrop:
+//		break;
+//	case Line2Column:
+//		break;
+//	case AlphaBet: outWidget = CreateWidget<UUserWidget>(GetWorld(), lAlphaBeet);
+//		break;
+//	default:
+//		break;
+//	}
+//	abc.Add(gametype, *&outWidget);
+//
+//	return abc;
+//}
+
 
 template<class T>
-T* AleeHub::NewGameWidget(TEnumAsByte<lGameType> gametype, UUserWidget*& outWidget)
+T* AleeHub::INewGameWidget(TEnumAsByte<lGameType> gtype, UUserWidget*& outWidget)
 {
-	switch (gametype)
+	switch (gtype)
 	{
-	case None:
-		break;
-	case Threelines: outWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
-		break;
-	case FourBox: outWidget = CreateWidget<UUserWidget>(GetWorld(), lFourBox);
-		break;
-	case DragDrop:
-		break;
-	case Line2Column:
-		break;
-	case AlphaBet: outWidget = CreateWidget<UUserWidget>(GetWorld(), lAlphaBeet);
-		break;
-	default:
-		break;
+		case None: {
+			break;
+		}
+		case Threelines: { outWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
+			break;
+		}
+		case FourBox: { outWidget = CreateWidget<UUserWidget>(GetWorld(), lFourBox);
+			break;
+		}
+		case AlphaBet: {
+			outWidget = CreateWidget<UUserWidget>(GetWorld(), lAlphaBeet);
+			break;
+		}
 	}
 	return Cast<T>(outWidget);
 }

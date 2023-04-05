@@ -106,17 +106,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void LoadGameAt(int32 sessionGameID);
 
+	/*on replay*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnReplay();
 	
+	/*toogle on off popup win*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetWinOnOff(bool isOn);
 
-	UFUNCTION()
-		void OnlevelChange(ULevel* lv,UWorld* world)
-	{
-		UE_LOG(LogTemp,Warning,TEXT("level change.."))
-	};
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnHistoriesUp() { 

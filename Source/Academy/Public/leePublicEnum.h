@@ -1,5 +1,6 @@
 #pragma once
 #include <JsonUtilities/Public/JsonObjectConverter.h>
+#include "GameFramework/SaveGame.h"
 #include "Components/CanvasPanel.h"
 #include <Engine/DataTable.h>
 #include "CoreMinimal.h"
@@ -26,8 +27,6 @@ enum lGameType
 	None UMETA(DisplayName = "None"),
 	Threelines UMETA(DisplayName = "Three Lines"),
 	FourBox UMETA(DisplayName = "Four Box"),
-	DragDrop UMETA(DisplayName = "Drag Drop"),
-	Line2Column UMETA(DisplayName = "Shape"),
 	AlphaBet UMETA(DisplayName = "Choise"),
 };
 
@@ -216,4 +215,3 @@ struct FFourBoxData : public FTableRowBase
 	{
 	}
 };
-

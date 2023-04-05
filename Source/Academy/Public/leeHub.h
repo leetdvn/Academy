@@ -60,8 +60,6 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Test")
 		FOnGameStart lOnGStart;
 
-	void SetSessionGameID(int32 gameid) { SessionGameId = gameid; }
-
 	/*LoadGame Type four box from data index saved */
 	void LoadFourBoxFromData(int32 idx);
 
@@ -72,15 +70,20 @@ public:
 	void LoadAlphabetFromData(int32 idx);
 
 	/*create new game */
-	void CreateNewGame(TEnumAsByte<lGameType> gtype);
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void CreateNewGame(TEnumAsByte<lGameType> gtype);
 
-	static AleeHub* GetInstance();
+	template<class T>
+	T* INewGameWidget(TEnumAsByte<lGameType> gtype, UUserWidget*& outWidget);
+
+	TEnumAsByte<lGameType> GameType() { return gametype; }
+
+
 #pragma endregion
 
 protected:
 
-	template<class T>
-	T* NewGameWidget(TEnumAsByte<lGameType> gametype, UUserWidget*& outWidget);
+	void SetSessionGameID(int32 gameid) { SessionGameId = gameid; }
 
 	UWorld* leeWorld;
 	class UUserWidget* MenuWidget;
@@ -91,5 +94,6 @@ protected:
 	UUserWidget* lMoveButton;
 	UUserWidget* lCurrentWidget;
 	int32 SessionGameId;
+
 
 };

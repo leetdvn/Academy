@@ -48,25 +48,6 @@ AleeHub* UleeMenuGame::lGetleeHub()
 	return nullptr;
 }
 
-//void UleeMenuGame::OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType)
-//{
-//	if (itemname.IsEmpty()) return;
-//	FString culture = itemname == "English" ? "culture=en" : "culture=vi";
-//	lDebug("changed");
-//	lDebug(culture);
-//
-//	int32 idx = box->GetSelectedIndex();
-//	box->SetSelectedIndex(idx);
-//	//if(itemname == "English")
-//	UKismetInternationalizationLibrary::SetCurrentCulture(culture);
-//	//else
-//	UKismetInternationalizationLibrary::SetCurrentLanguage(culture, true);
-//	UKismetInternationalizationLibrary::SetCurrentLocale(culture, true);
-//	GEngine->Exec(GetWorld(), TEXT("-culture=vi"));
-//	//GEngine->Exec(GetWorld(), TEXT("stat Game"));
-//
-//}
-
 void UleeMenuGame::NativeConstruct()
 {
 	if (GameMenu) {

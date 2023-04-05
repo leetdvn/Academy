@@ -48,7 +48,7 @@ void UleeParentSettings::lSetImageTexture2D(UImage* image, UTexture2D* newtextur
 	image->SetBrushFromTexture(newtexture,true);
 }
 
-#pragma region On Language Changed
+#pragma region On Language Changed Localizations
 void UleeParentSettings::lOnEnglish(bool isReset)
 {
 	UKismetInternationalizationLibrary::SetCurrentLanguage("en", true);
@@ -68,7 +68,7 @@ void UleeParentSettings::lOnChinese(bool isReset)
 	ResetMapLevel(GetWorld());
 
 }
-#pragma endregion //On Language Changed
+#pragma endregion 
 
 bool UleeParentSettings::CheckLinkAccount()
 {

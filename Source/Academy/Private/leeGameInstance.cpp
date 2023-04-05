@@ -10,6 +10,11 @@ void UleeGameInstance::Init()
 
 	LoadPlayerInfo();
 	GameDataInit();
+
+	Line3s= DataInitialize<Ulee3LinesData>(LINE3S);
+	Box4s= DataInitialize<Ulee4BoxData>(BOX4S);
+	PlayerInfo= DataInitialize< UleeUserInfo>(USERINFO);
+	Alpha = DataInitialize<UleeAlphaData>(ALPHA);
 	//UE_LOG(LogTemp, Warning, TEXT("Data is Loaded : %s"), *GameData->GetAllGames());
 }
 
@@ -74,5 +79,36 @@ void UleeGameInstance::SaveUserInfo(UleeUserInfo*& info)
 	UGameplayStatics::SaveGameToSlot(info, SlotInfo, 0);
 
 }
+
+void UleeGameInstance::SaveGameData(TEnumAsByte<lGameType> gtype)
+{
+	switch (gtype)
+	{
+	case None:
+		break;
+	case Threelines:
+		break;
+	case FourBox:
+		break;
+	case AlphaBet:
+		break;
+	}
+}
+
+void UleeGameInstance::SaveLine3S(FGameLession& lineData)
+{
+	Line3s->CreateNewData(lineData, true);
+	UGameplayStatics::SaveGameToSlot(Line3s, LINE3S ,0);
+
+}
+
+void UleeGameInstance::SaveBox4S(FFourBoxData& boxData)
+{
+}
+
+void UleeGameInstance::Save3LinesGame(FGameLession& data)
+{
+}
+
 
 

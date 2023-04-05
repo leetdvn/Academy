@@ -202,7 +202,9 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 		//userdata->SaveConstruct();
 		//Save game
 
-		GameIns->SaveCurrentGameData(_UserData);
+		//GameIns->SaveCurrentGameData(_UserData);
+		GameIns->SaveLine3S(gamedata);
+		//GameIns->SaveGameData(GameType, gamedata);
 		lSetWinOnOff(true);
 		DropCorrecttimes = 0;
 

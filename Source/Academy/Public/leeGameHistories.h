@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include <leeLibraries.h>
 #include <leeHistoryItem.h>
 #include <Components/GridPanel.h>
 #include <PlayerData.h>
@@ -16,7 +17,7 @@
  * 
  */
 UCLASS(BlueprintType)
-class ACADEMY_API UleeGameHistories : public UUserWidget , public IleePublicInterface
+class ACADEMY_API UleeGameHistories : public UUserWidget , public IleeLibraries , public IleePublicInterface
 {
 	GENERATED_BODY()
 

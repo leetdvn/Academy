@@ -24,7 +24,7 @@ void UleeGameHistories::OnHistoriesDown()
 void UleeGameHistories::OnMouseClicked(UleeHistoryItem* item)
 {
 	if (!item->JsGameObject.IsValid()) {
-		lDebug("Not is Valid", FColor::Purple, "Debug");
+		IINFO("Not is Valid", FColor::Purple, "Debug");
 		return;
 
 	}
@@ -35,14 +35,33 @@ void UleeGameHistories::OnMouseClicked(UleeHistoryItem* item)
 void UleeGameHistories::OnSwitchMapFromHistories(FString gametype, UleeHistoryItem*& item)
 {
 	//Open Histories game
-	if (gametype.IsEmpty()|| !lMapExists(gametype)) return;
-	//lOpenMapLevel(gametype);
-
-
-	//create from level remote Ahub control it
 	AleeHub* leeHub = GetleeHub();
+	if (gametype.IsEmpty() || item == nullptr || !leeHub) return;
+	//lOpenMapLevel(gametype);
+	lGameType hisType = lGetEnumFromStr<lGameType>("lGameType", lGetTypeFromHistories(item));
+
+	switch (hisType)
+	{
+		case None: {return; }
+		case Threelines: {	
+			IINFO(" Threeline " , FColor::Purple);
+
+			break; }
+		case FourBox: {
+			IINFO(" Four Box ", FColor::Purple);
+			break;
+		}
+		case AlphaBet: {
+			IINFO(" alpha bet ", FColor::Purple);
+
+			break;
+		}
+	}
+
+	return;
+	//create from level remote Ahub control it
 	if (leeHub) {
-		lDebug(FString("hub : " + FString::FromInt(item->ItemID)),FColor::Purple);
+		IINFO(FString("hub : " + FString::FromInt(item->ItemID)),FColor::Purple);
 		//leeHub->SetSessionGameID(item->ItemID);
 		leeHub->LoadThreelineFromData(item->ItemID);
 	}
