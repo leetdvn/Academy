@@ -1,5 +1,6 @@
 #pragma once
 
+#include "lee4BoxData.h"
 #include "leeGameHistories.h"
 #include "leeGameInstance.h"
 #include "CanvasFourBox.h"
@@ -28,6 +29,8 @@ class ACADEMY_API UleeFourBox : public UUserWidget, public IleePublicInterface
 
 public:
 
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Game Type")
+		TEnumAsByte<lGameType> m_type = FourBox;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Question",meta=(BindWidget))
 		UCanvasFourBox* lFourBox;
@@ -82,11 +85,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnStarUp(int32 valueUp);
 
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		FString lGetUserId() { return userdata->UserID; }
+	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+	//	FString lGetUserId() { return userdata->UserID; }
 
-	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		int lGetStar() { return userdata->Star; }
+	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+	//	int lGetStar() { return userdata->Star; }
 
 	void OnRePlayGame(FFourBoxData & odata);
 
@@ -101,8 +104,6 @@ protected:
 
 	void ReloadData();
 
-	void OnSaveData();
-
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;
@@ -113,12 +114,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Max Correct Answer")
 		int32 AnswerCorrect;
 
+	Ulee4BoxData* box4S;
 
 	TArray<UleeBaseButton*> lCorrectButtons;
 
 	FFourBoxData fourdata,LoadData;
-
-	UPlayerData* userdata;
 
 	bool isReplay;
 };

@@ -148,6 +148,10 @@ protected:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils")
 		UPlayerData* _UserData;
 
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils")
+		Ulee3LinesData* line3S;
+
+
 	TArray<UleePanelBase*> lPanels;
 	//assign delegate
 	void BindButtons();
@@ -157,6 +161,4 @@ protected:
 	// Swap position Player Choise Shape return Array of Paths 
 	TArray<FString> lSwapChoises(FString AnswerDir, FString correctname);
 
-	void ReloadData();
-	///generate new game random topic answer
 };

@@ -36,7 +36,7 @@ void UleeParentSettings::lSaveLinkUser(FString UserId, FString Email, FString di
 {
 	///Save link User
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	UleeUserInfo* data = GameIns->LoadPlayerInfo();
+	UleeUserInfo* data = GameIns->PlayerInfo;
 	data->DisplayName = dispname;
 	data->UserID = UserId;
 	GameIns->SaveUserInfo(data);

@@ -64,19 +64,13 @@ public:
 
 	void SaveCurrentGameData(UPlayerData*& data);
 
-	UPlayerData* LoadGameData();
-
-	UPlayerData* GameDataInit();
-
-	UleeUserInfo* LoadPlayerInfo();
-
 	void SaveUserInfo(UleeUserInfo*& info);
 
 	void SaveGameData(TEnumAsByte<lGameType> gtype);
 
-	void SaveLine3S(FGameLession& lineData);
+	void SaveLine3S(Ulee3LinesData*& lineData);
 
-	void SaveBox4S(FFourBoxData& boxData);
+	void SaveBox4S(Ulee4BoxData*& boxData);
 
 	void SaveAlpha() {};
 
@@ -87,6 +81,13 @@ public:
 	/*Save & Load Game 3 Line*/
 	FGameLession Load3LinesGame(int32 idx);
 
+	/*Reoload 3Line*/
+	void ReLoadingData() {
+		Line3s = DataInitialize<Ulee3LinesData>(LINE3S);
+		Box4s = DataInitialize<Ulee4BoxData>(BOX4S);
+		PlayerInfo = DataInitialize< UleeUserInfo>(USERINFO);
+		Alpha = DataInitialize<UleeAlphaData>(ALPHA);
+	}
 
 protected:
 	FString previewStr;

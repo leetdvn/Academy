@@ -39,16 +39,18 @@ void UleeGameHistories::OnSwitchMapFromHistories(FString gametype, UleeHistoryIt
 	if (gametype.IsEmpty() || item == nullptr || !leeHub) return;
 	//lOpenMapLevel(gametype);
 	lGameType hisType = lGetEnumFromStr<lGameType>("lGameType", lGetTypeFromHistories(item));
-
+	if (!leeHub) return;
+	
 	switch (hisType)
 	{
 		case None: {return; }
 		case Threelines: {	
 			IINFO(" Threeline " , FColor::Purple);
-
+			leeHub->LoadThreelineFromData(item->ItemID);
 			break; }
 		case FourBox: {
 			IINFO(" Four Box ", FColor::Purple);
+			leeHub->LoadFourBoxFromData(item->ItemID);
 			break;
 		}
 		case AlphaBet: {
@@ -56,14 +58,6 @@ void UleeGameHistories::OnSwitchMapFromHistories(FString gametype, UleeHistoryIt
 
 			break;
 		}
-	}
-
-	//return;
-	//create from level remote Ahub control it
-	if (leeHub) {
-		IINFO(FString("hub : " + FString::FromInt(item->ItemID)),FColor::Purple);
-		//leeHub->SetSessionGameID(item->ItemID);
-		leeHub->LoadThreelineFromData(item->ItemID);
 	}
 
 }
@@ -117,74 +111,28 @@ void UleeGameHistories::NativeConstruct()
 	lBgr->OnMouseButtonDownEvent.BindUFunction(this, FName("OnCloseDown"));
 }
 
-void UleeGameHistories::OnHistoriesInit(UPlayerData*& playerData)
-{
-	if (playerData->JsGames.Num() <= 0) return;
-	int32 column = 0;
-	for (int i = 0, x = 0; i < playerData->JsGames.Num() + 12; i++,column++) {
-
-		UleeHistoryItem* img = CreateWidget<UleeHistoryItem>(GetWorld(), ItemHistories);
-		
-
-		UGridSlot* gSlot = Cast<UGridSlot>(lGridPanel->AddChild(img));
-		if (gSlot) {
-			if (i % 4 == 0 && i > 0) {
-				x++;
-				//lDebug(FString::FromInt(i));
-				column = 0;
-			}
-
-			gSlot->SetColumn(column);
-			gSlot->SetRow(x);
-			gSlot->SetPadding(FMargin{15,15});
-
-			//setup On Click
-			if (img) {
-				bool unlock = i >= playerData->JsGames.Num() ? true : false;
-				img->lTakeItem(unlock);
-				
-				FString label =FText::FromStringTable(FName(SETTINGTABLE), "Histories").ToString() + " " + FString::FromInt(i + 1);
-				img->ItemInfo->SetText(FText::FromString(label));
-				int32 id = i < playerData->JsGames.Num() ? i : 0;
-				img->ItemID = id;
-				if (i < playerData->JsGames.Num()) {
-					img->JsGameObject = playerData->JsGames[i]->AsObject();
-				}
-				img->OnItemClick.AddDynamic(this, &UleeGameHistories::OnMouseClicked);
-
-			}
-
-		}
-
-	}
-
-}
-
 void UleeGameHistories::CreateGameHistories(TEnumAsByte<lGameType> gtype)
 {
-	UGameInstance* ins= GetGameInstance();
-	if (ins) {
-		UleeGameInstance* leeIns = Cast<UleeGameInstance>(ins);
-		if (leeIns) {
-			switch (gtype)
-			{
-				case None: {
-					return;
-				}
-				case Threelines: {
-					OnHistoriesImplantment<FGameLession>(leeIns->Line3s->DataHistoriesStruct);
-					break;
-				}
-				case FourBox: {
-					OnHistoriesImplantment<FFourBoxData>(leeIns->Box4s->DataHistoriesStruct);
+	UleeGameInstance* leeIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (leeIns) {
+		switch (gtype)
+		{
+			case None: {
+				return;
+			}
+			case Threelines: {
+				OnHistoriesImplantment<FGameLession>(leeIns->Line3s->DataHistoriesStruct);
+				break;
+			}
+			case FourBox: {
+				OnHistoriesImplantment<FFourBoxData>(leeIns->Box4s->DataHistoriesStruct);
 
-					break;
-				}
-				case AlphaBet:{
-					//OnHistoriesImplantment<FFourBoxData>(leeIns->Alpha->DataHistoriesStruct);
+				break;
+			}
+			case AlphaBet:{
+				//OnHistoriesImplantment<FFourBoxData>(leeIns->Alpha->DataHistoriesStruct);
 
-					break;
-				}
+				break;
 			}
 		}
 	}

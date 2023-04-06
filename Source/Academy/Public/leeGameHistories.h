@@ -43,10 +43,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidgetAnim), Transient)
 		UWidgetAnimation* CloseDown;
 
-
 	bool isOpened;
 
-	void OnHistoriesInit(UPlayerData* &playerData);
 
 	void CreateGameHistories(TEnumAsByte<lGameType> gtype);
 

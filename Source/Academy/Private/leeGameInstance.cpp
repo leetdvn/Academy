@@ -8,9 +8,7 @@ void UleeGameInstance::Init()
 	SlotGame = "leeGameData";
 	SlotInfo = "PlayerInfo";
 
-	LoadPlayerInfo();
-	GameDataInit();
-
+	lDebug("Count ");
 	Line3s= DataInitialize<Ulee3LinesData>(LINE3S);
 	Box4s= DataInitialize<Ulee4BoxData>(BOX4S);
 	PlayerInfo= DataInitialize< UleeUserInfo>(USERINFO);
@@ -28,49 +26,6 @@ void UleeGameInstance::SaveCurrentGameData(UPlayerData*& data)
 	data->SaveConstruct();
 	UGameplayStatics::DeleteGameInSlot(SlotGame, 0);
 	UGameplayStatics::SaveGameToSlot(data, SlotGame, 0);
-}
-
-UPlayerData* UleeGameInstance::LoadGameData()
-{
-
-	if (GameData) {
-		lDebug("Data IsLoaded...",FColor::Green," Data ");
-		FString result;
-		FString fileAbc = FString(FPaths::ProjectSavedDir() + "SaveGames/ACademyPreview.json");
-		GameData->LoadHistoriesFromStr();
-		//lDebug(GameData->JsGames.Num());
-
-		//GameData->HistoriesObject=lGetJsObjectFromFile(fileAbc);
-		//GameData->PlayerHistories = lGetArrayObjFromObject(GameData->HistoriesObject, "UserHistories");
-		//lDebug(GameData->PlayerHistories.Num());
-		//FFileHelper::LoadFileToArray(GameData->HistoryGames, *fileAbc);
-		return GameData;
-	}
-	lDebug("Nullptr Game data");
-	return nullptr;
-}
-
-
-UPlayerData* UleeGameInstance::GameDataInit() {
-
-	 GameData = Cast<UPlayerData>(UGameplayStatics::LoadGameFromSlot(SlotGame, 0));
-	 if (!GameData) {
-		 GameData = Cast<UPlayerData>(UGameplayStatics::CreateSaveGameObject(UPlayerData::StaticClass()));
-		 UGameplayStatics::SaveGameToSlot(GameData, SlotGame, 0);
-		 return GameData;
-	 }
-	 GameData->LoadHistoriesFromStr();
-	 return GameData;
-}
-
-UleeUserInfo* UleeGameInstance::LoadPlayerInfo()
-{
-	PlayerInfo = Cast<UleeUserInfo>(UGameplayStatics::LoadGameFromSlot(SlotInfo, 0));
-	if (!PlayerInfo) {
-		PlayerInfo = Cast<UleeUserInfo>(UGameplayStatics::CreateSaveGameObject(UleeUserInfo::StaticClass()));
-		UGameplayStatics::SaveGameToSlot(PlayerInfo, SlotInfo, 0);
-	}
-	return PlayerInfo;
 }
 
 void UleeGameInstance::SaveUserInfo(UleeUserInfo*& info)
@@ -95,15 +50,16 @@ void UleeGameInstance::SaveGameData(TEnumAsByte<lGameType> gtype)
 	}
 }
 
-void UleeGameInstance::SaveLine3S(FGameLession& lineData)
+void UleeGameInstance::SaveLine3S(Ulee3LinesData*& lineData)
 {
-	Line3s->CreateNewData(lineData, true);
-	UGameplayStatics::SaveGameToSlot(Line3s, LINE3S ,0);
+	UGameplayStatics::SaveGameToSlot(lineData, LINE3S ,0);
 
 }
 
-void UleeGameInstance::SaveBox4S(FFourBoxData& boxData)
+void UleeGameInstance::SaveBox4S(Ulee4BoxData*& boxData)
 {
+	UGameplayStatics::SaveGameToSlot(boxData, BOX4S, 0);
+
 }
 
 void UleeGameInstance::Save3LinesGame(FGameLession& data)

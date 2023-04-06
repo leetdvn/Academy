@@ -24,9 +24,6 @@ public:
 
 	UCanvasFourBox(const FObjectInitializer& ObjectInitializer);
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Game Type")
-		TEnumAsByte<lGameType> ltypeGame = FourBox;
-
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Question")
 		TArray<UImage*> lQuestions;
 

@@ -22,9 +22,10 @@ UleeBaseLessions::UleeBaseLessions(const FObjectInitializer& ObjectInitializer)
 
 void UleeBaseLessions::NativeConstruct()
 {
+	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	line3S = GameIns->Line3s;
 	//binding event drop for answers
 	//load Game History
-	ReloadData();
 	lSetWinOnOff(false);
 
 	if (lThreeline->GameHistoriesButton) {
@@ -51,9 +52,9 @@ void UleeBaseLessions::OnReplay()
 
 void UleeBaseLessions::LoadGameAt(int32 sessionGameID)
 {
+
 	//reload data load from Save Gam
 	lDebug(sessionGameID);
-	ReloadData();
 	FGameLession newlession = GameIns->Load3LinesGame(sessionGameID);
 	FString Str{};
 	FJsonObjectConverter::UStructToJsonObjectString(newlession, Str);
@@ -155,7 +156,7 @@ void UleeBaseLessions::InitializeThreeLineopic(FString& sourcefolder, FString& c
 	}
 	//"AcademyAssets/Assets/ChoiseAnswers/AnimalShape"
 	lCreateNewChoises(exceptions,nlession, choiseFolder,true);
-	nlession.GameID = _UserData->JsGames.Num() +1;
+	nlession.GameID = line3S->DataHistoriesStruct.Num();
 	gamedata = nlession;
 	if(isReplay) isReplay = false;
 	//GameIns->SaveCurrentGameData(userdata);
@@ -203,19 +204,20 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 		//if (isReplay) return;
 		FString completed;
 		//convert to Json object string
-		bool success=FJsonObjectConverter::UStructToJsonObjectString<FGameLession>(gamedata, completed, 0,0,0, nullptr, true);
+		//bool success=FJsonObjectConverter::UStructToJsonObjectString<FGameLession>(gamedata, completed, 0,0,0, nullptr, true);
 		//convert to json object Shared Ptr
-		TSharedPtr<FJsonObject> obj = FJsonObjectConverter::UStructToJsonObject<FGameLession>(gamedata);
+		//TSharedPtr<FJsonObject> obj = FJsonObjectConverter::UStructToJsonObject<FGameLession>(gamedata);
 		//add To History type Json Obj
-		_UserData->JsGames.Add(MakeShareable(new FJsonValueObject(obj)));
+		//_UserData->JsGames.Add(MakeShareable(new FJsonValueObject(obj)));
 		//add to History type Struct
 		//userdata->HistoryGames.Add(userdata->CurrentGame);
 		
 		//userdata->SaveConstruct();
 		//Save game
 
+		line3S->DataHistoriesStruct.Add(gamedata);
 		//GameIns->SaveCurrentGameData(_UserData);
-		GameIns->SaveLine3S(gamedata);
+		GameIns->SaveLine3S(line3S);
 		//GameIns->SaveGameData(GameType, gamedata);
 		lSetWinOnOff(true);
 		DropCorrecttimes = 0;
@@ -230,7 +232,6 @@ void UleeBaseLessions::LoadThreeLineGame()
 {
 
 	//reload data load from Save Game;
-	ReloadData();
 	TEnumAsByte<lGameType> lastgame = _UserData->GetLastGameType();
 	FGameLession current = lastgame == Threelines ? DataLastGame : gamedata;
 	isReplay = true;
@@ -288,39 +289,14 @@ TArray<FString> UleeBaseLessions::lSwapChoises(FString AnswerDir, FString correc
 	return shape;
 }
 
-void UleeBaseLessions::ReloadData()
-{
-	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	if (!GameIns) { lDebug("Game Instance Nullptr"); return; }
-	//load data
-	GameIns->LoadGameData();
-	_UserData = GameIns->GameData;
-
-	//case new game no data
-	if (!_UserData->GetLastGame().IsValid()) {
-		lDebug("not Valid");
-		return;
-	}
-	
-
-	_UserData->GetLastGameType();
-	//init data to Struct
-	TSharedPtr<FJsonValue> last = _UserData->GetLastGame();
-	FJsonObjectConverter::JsonObjectToUStruct(last->AsObject().ToSharedRef(), &DataLastGame, 0, 0);
-	
-	//previe Log Debug
-	FString preview{};
-	FJsonObjectConverter::UStructToJsonObjectString(DataLastGame, preview);
-	//UE_LOG(LogTemp, Warning, TEXT("load : %s"), *preview);
-}
-
 void UleeBaseLessions::NewGameThreelineInit()
 {
-	
+	//GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+
 
 	lThreeline->lTopicsAvalible();
 	///generate new game random topic answer
-	int gameid = GameIns->GameData->JsGames.Num();
+	int gameid = line3S->DataHistoriesStruct.Num();
 	SessionID = gameid > 0 ? gameid : 1;
 	FString Topics = lThreeline->lTopicSourceFolder;
 	FString Choise = lThreeline->lChoiseSourceFolder;

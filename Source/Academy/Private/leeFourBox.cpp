@@ -4,8 +4,8 @@
 void UleeFourBox::NewFourBoxInit()
 {
 	ReloadData();
-	fourdata.LessionType = FourBox;
-	fourdata.GameID = userdata->JsGames.Num() + 1;
+	fourdata.GameID = GameIns->Box4s->DataHistoriesStruct.Num();
+	fourdata.LessionType = m_type;
 	fourdata.GameTitle = "BoxTitle";
 	fourdata.GameDescriptions = "BoxDesc";
 	fourdata.GameDecorPath = "";
@@ -19,32 +19,32 @@ void UleeFourBox::LoadGameAt(int32 dataIndex)
 {
 	//dont' need reload neet make choise new avaible
 	//lDebug("On Replay", FColor::Purple, " ");
-	if (dataIndex < 0 || dataIndex > userdata->JsGames.Num() - 1) {
+	if (dataIndex < 0) {
 		lDebug("Error");
 		return;
 	}
-
+	return;
 	isReplay = true;
 	//============================Read Data from Game Instance =========================================
-	TSharedPtr<FJsonValue> jsVal= userdata->GetGamesAt(dataIndex);
-	FFourBoxData* nData=new FFourBoxData();
-	FJsonObjectConverter::JsonObjectToUStruct(jsVal->AsObject().ToSharedRef(), nData);
+	//TSharedPtr<FJsonValue> jsVal= userdata->GetGamesAt(dataIndex);
+	FFourBoxData nData = GameIns->Box4s->DataHistoriesStruct[dataIndex];
+	//FJsonObjectConverter::JsonObjectToUStruct(jsVal->AsObject().ToSharedRef(), nData);
 	//------------------------------------------------------------------------
 
 	//==================load call data
-	if (nData->topicPaths.Num() > 0) {
+	if (nData.topicPaths.Num() > 0) {
 		int i = 0; int x = 0;
-		lFourBox->lSetQuestions(nData->topicPaths);
+		lFourBox->lSetQuestions(nData.topicPaths);
 
 		for (auto& p : lFourBox->lQuestions) {
 			//paint color panel
-			lFourBox->lSetChoiseBgr(i, nData->ChoiseBgrs[i],false);
+			lFourBox->lSetChoiseBgr(i, nData.ChoiseBgrs[i],false);
 			//lFourBox->lUserChoises[i]->lSetMakeSameAt(nData->ChoiseBgrs[i],false);
 			TArray<FString> nums{};
 			for (auto& b : lFourBox->lUserChoises[i]->lGetButtons())
 			{
 				//if(idx < nData->textsChoiss.Num())
-				nums.Add(nData->textsChoiss[x]);
+				nums.Add(nData.textsChoiss[x]);
 				x++;
 			}
 
@@ -71,8 +71,8 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 	}
 	if (AnswerCorrect == 4) {
 		/// save data pass to next game lession
-		if(!isReplay)
-			OnSaveData();
+		box4S->DataHistoriesStruct.Add(fourdata);
+		GameIns->SaveBox4S(box4S);
 		WinWidget->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 	}
 	//debug
@@ -92,7 +92,7 @@ void UleeFourBox::OnIdReCeiveClick()
 void UleeFourBox::OnHistoriesUp()
 {
 	if (GameHistories) GameHistories->OnOpenUp();	
-	GameHistories->OnHistoriesInit(userdata);
+	GameHistories->CreateGameHistories(m_type);
 }
 
 void UleeFourBox::BindAction()
@@ -118,7 +118,7 @@ void UleeFourBox::lSetWinOnOff(bool isOn)
 void UleeFourBox::OnStarUp(int32 valueUp)
 {
 	if (valueUp <= 0) return;
-	userdata->Star += valueUp;
+	//userdata->Star += valueUp;
 }
 
 void UleeFourBox::OnRePlayGame(FFourBoxData& odata)
@@ -134,7 +134,8 @@ void UleeFourBox::OnRePlayGame(FFourBoxData& odata)
 void UleeFourBox::NativeConstruct()
 {
 	//UUserWidget* widget = Cast<UUserWidget>(this);
-
+	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	box4S = GameIns->Box4s;
 
 	if (lFourBox->GameHistoriesButton) {
 		lFourBox->GameHistoriesButton->OnClicked.AddDynamic(this, &UleeFourBox::OnHistoriesUp);
@@ -150,18 +151,6 @@ void UleeFourBox::ReloadData()
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (!GameIns) { lDebug("Game Instance Nullptr"); return; }
 	//load data
-	GameIns->LoadGameData();
-	userdata = GameIns->GameData;
+	//fourdata = GameIns->Box4s;
 	//UE_LOG(LogTemp, Warning, TEXT("load Data : %s"), *userdata->GetAllGames());
-}
-
-void UleeFourBox::OnSaveData()
-{
-	ReloadData();
-	TSharedPtr<FJsonObject> game = FJsonObjectConverter::UStructToJsonObject<FFourBoxData>(fourdata, 0, 0);
-	userdata->JsGames.Add(MakeShareable(new FJsonValueObject(game)));
-
-	//save
-	if (GameIns)
-		GameIns->SaveCurrentGameData(userdata);
 }
