@@ -11,7 +11,7 @@ Ulee3LinesData::Ulee3LinesData(const FObjectInitializer& ObjectInitializer)
 
 FGameLession Ulee3LinesData::GetLinesAt(int32 index)
 {
-	if (index <= 0) return FGameLession();
+	if (index < 0) return FGameLession();
 	return DataHistoriesStruct[index];
 }
 
@@ -27,9 +27,9 @@ void Ulee3LinesData::CreateNewData(FGameLession& game, bool isPrewie)
 		DataJSonHistoriesObject = MakeShareable(new FJsonObject());
 
 		FString preview = FString(FPaths::ProjectSavedDir() + "SaveGames/LinesPreview.json");
-		for (auto& game : DataHistoriesStruct)
+		for (auto& g : DataHistoriesStruct)
 		{
-			TSharedPtr<FJsonObject> obj= FJsonObjectConverter::UStructToJsonObject(game);
+			TSharedPtr<FJsonObject> obj= FJsonObjectConverter::UStructToJsonObject(g);
 			ArrayVal.Add(MakeShareable(new FJsonValueObject(obj)));
 
 

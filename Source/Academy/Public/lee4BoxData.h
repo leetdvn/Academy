@@ -22,8 +22,6 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		int32  DataNums;
 
-	TArray<TSharedPtr<FJsonValue>> DataJSonGames;
-
 	TSharedPtr<FJsonObject> DataJSonHistoriesObject;
 
 	FFourBoxData GetLinesAt(int32 index);

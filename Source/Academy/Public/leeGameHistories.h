@@ -48,6 +48,11 @@ public:
 
 	void OnHistoriesInit(UPlayerData* &playerData);
 
+	void CreateGameHistories(TEnumAsByte<lGameType> gtype);
+
+	template<class T>
+	void OnHistoriesImplantment(TArray<T> &Games);
+
 	void OnHistoriesDown();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")

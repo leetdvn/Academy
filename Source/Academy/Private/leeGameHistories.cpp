@@ -58,7 +58,7 @@ void UleeGameHistories::OnSwitchMapFromHistories(FString gametype, UleeHistoryIt
 		}
 	}
 
-	return;
+	//return;
 	//create from level remote Ahub control it
 	if (leeHub) {
 		IINFO(FString("hub : " + FString::FromInt(item->ItemID)),FColor::Purple);
@@ -149,6 +149,80 @@ void UleeGameHistories::OnHistoriesInit(UPlayerData*& playerData)
 				img->ItemID = id;
 				if (i < playerData->JsGames.Num()) {
 					img->JsGameObject = playerData->JsGames[i]->AsObject();
+				}
+				img->OnItemClick.AddDynamic(this, &UleeGameHistories::OnMouseClicked);
+
+			}
+
+		}
+
+	}
+
+}
+
+void UleeGameHistories::CreateGameHistories(TEnumAsByte<lGameType> gtype)
+{
+	UGameInstance* ins= GetGameInstance();
+	if (ins) {
+		UleeGameInstance* leeIns = Cast<UleeGameInstance>(ins);
+		if (leeIns) {
+			switch (gtype)
+			{
+				case None: {
+					return;
+				}
+				case Threelines: {
+					OnHistoriesImplantment<FGameLession>(leeIns->Line3s->DataHistoriesStruct);
+					break;
+				}
+				case FourBox: {
+					OnHistoriesImplantment<FFourBoxData>(leeIns->Box4s->DataHistoriesStruct);
+
+					break;
+				}
+				case AlphaBet:{
+					//OnHistoriesImplantment<FFourBoxData>(leeIns->Alpha->DataHistoriesStruct);
+
+					break;
+				}
+			}
+		}
+	}
+}
+
+template<class T>
+inline void UleeGameHistories::OnHistoriesImplantment(TArray<T> &Games)
+{
+	if (Games.Num() <= 0) return;
+	int32 column = 0;
+	for (int i = 0, x = 0; i < Games.Num() + 12; i++, column++) {
+
+		UleeHistoryItem* img = CreateWidget<UleeHistoryItem>(GetWorld(), ItemHistories);
+
+
+		UGridSlot* gSlot = Cast<UGridSlot>(lGridPanel->AddChild(img));
+		if (gSlot) {
+			if (i % 4 == 0 && i > 0) {
+				x++;
+				//lDebug(FString::FromInt(i));
+				column = 0;
+			}
+
+			gSlot->SetColumn(column);
+			gSlot->SetRow(x);
+			gSlot->SetPadding(FMargin{ 15,15 });
+
+			//setup On Click
+			if (img) {
+				bool unlock = i >= Games.Num() ? true : false;
+				img->lTakeItem(unlock);
+				FString label = FText::FromStringTable(FName(SETTINGTABLE), "Histories").ToString() + " " + FString::FromInt(i + 1);
+				img->ItemInfo->SetText(FText::FromString(label));
+				int32 id = i < Games.Num() ? i : 0;
+				img->ItemID = id;
+				if (i < Games.Num()) {
+					//img->JsGameObject = playerData->JsGames[i]->AsObject();
+					img->JsGameObject = FJsonObjectConverter::UStructToJsonObject(Games[i]);
 				}
 				img->OnItemClick.AddDynamic(this, &UleeGameHistories::OnMouseClicked);
 

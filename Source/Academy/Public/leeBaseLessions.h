@@ -76,9 +76,11 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;
 
+	/*Correct click Event Delegate */
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 		FOnCompletedGame OnCorrectClick;
 
+	/*Correct click Event Delegate */
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Histories", meta = (BindWidget))
 		UleeGameHistories* GameHistories;
 
@@ -98,11 +100,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void NewGameThreelineInit();
 
-	//load current game from save data
+	/*load current game from save data */
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void LoadThreeLineGame();
 
-	//load current game from save data
+	/*Load Game From Histories data at index*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void LoadGameAt(int32 sessionGameID);
 
@@ -114,15 +116,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetWinOnOff(bool isOn);
 
-
+	/*Load Game From Histories*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnHistoriesUp() { 
 		if (GameHistories) GameHistories->OnOpenUp(); 
-		GameHistories->OnHistoriesInit(_UserData);
-
+		//GameHistories->OnHistoriesInit(_UserData);
+		GameHistories->CreateGameHistories(GameType);
 	}
 
-#pragma endregion //Unreal
+#pragma endregion 
 
 	FORCEINLINE void lGetAllPanels(UPanelWidget* parent, TArray<UleePanelBase*> &outpanels);
 protected:

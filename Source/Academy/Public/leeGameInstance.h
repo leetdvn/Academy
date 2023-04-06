@@ -84,6 +84,9 @@ public:
 	/*Save & Load Game 3 Line*/
 	void Save3LinesGame(FGameLession& data);
 
+	/*Save & Load Game 3 Line*/
+	FGameLession Load3LinesGame(int32 idx);
+
 
 protected:
 	FString previewStr;

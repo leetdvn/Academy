@@ -24,6 +24,13 @@ void UleeBaseLessions::NativeConstruct()
 {
 	//binding event drop for answers
 	//load Game History
+	ReloadData();
+	lSetWinOnOff(false);
+
+	if (lThreeline->GameHistoriesButton) {
+		lThreeline->GameHistoriesButton->OnClicked.AddDynamic(this, &UleeBaseLessions::OnHistoriesUp);
+	}
+
 	lDebug(SessionID,FColor::Purple);
 	return isNewGame ? NewGameThreelineInit() : LoadGameAt(SessionID);
 }
@@ -44,18 +51,23 @@ void UleeBaseLessions::OnReplay()
 
 void UleeBaseLessions::LoadGameAt(int32 sessionGameID)
 {
-	//reload data load from Save Game;
+	//reload data load from Save Gam
+	lDebug(sessionGameID);
 	ReloadData();
-	TSharedPtr<FJsonValue> session= _UserData->GetGamesAt(sessionGameID);
-	FGameLession* lession = new FGameLession();
-	FJsonObjectConverter::JsonObjectToUStruct(session->AsObject().ToSharedRef(), lession);
-	FString jsStr = lJsontoStr(session->AsObject());
-	UE_LOG(LogTemp, Warning, TEXT(" check lessiong : %s"), *lession->Topics[0].ImagePath);
+	FGameLession newlession = GameIns->Load3LinesGame(sessionGameID);
+	FString Str{};
+	FJsonObjectConverter::UStructToJsonObjectString(newlession, Str);
+	UE_LOG(LogTemp, Warning, TEXT(" check lessiong %d :  %s"),sessionGameID, *Str);
+
+	//TSharedPtr<FJsonValue> session= _UserData->GetGamesAt(sessionGameID);
+	//FGameLession* lession = new FGameLession();
+	//FJsonObjectConverter::JsonObjectToUStruct(session->AsObject().ToSharedRef(), lession);
+	//FString jsStr = lJsontoStr(session->AsObject());
 
 	TArray<int32> ids = { 1,2,3 };
-	TArray<FString> correctName = lession->TopicNames;
-	lThreeline->LoadQuestions(lession->GetQuestions(), ids);
-	lThreeline->LoadAllChoise(*lession);
+	TArray<FString> correctName = newlession.TopicNames;
+	lThreeline->LoadQuestions(newlession.GetQuestions(), ids);
+	lThreeline->LoadAllChoise(newlession);
 	BindButtons();
 	DropCorrecttimes = 0;
 	lSetWinOnOff(false);
@@ -305,12 +317,6 @@ void UleeBaseLessions::ReloadData()
 void UleeBaseLessions::NewGameThreelineInit()
 {
 	
-	ReloadData();
-	lSetWinOnOff(false);
-
-	if (lThreeline->GameHistoriesButton) {
-		lThreeline->GameHistoriesButton->OnClicked.AddDynamic(this, &UleeBaseLessions::OnHistoriesUp);
-	}
 
 	lThreeline->lTopicsAvalible();
 	///generate new game random topic answer
