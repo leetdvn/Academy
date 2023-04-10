@@ -51,6 +51,10 @@ public:
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Current GameType")
 		TEnumAsByte<lGameType> gametype;
+
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Current GameType")
+		TEnumAsByte<LineModes> LinesMode;
+
 	/// <summary>
 	/// Widget ingame list
 	/// </summary>
@@ -71,7 +75,7 @@ public:
 
 	/*create new game */
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void CreateNewGame(TEnumAsByte<lGameType> gtype);
+		void CreateNewGame(TEnumAsByte<lGameType> gtype, TEnumAsByte<LineModes> linemode=Normal);
 
 	template<class T>
 	T* INewGameWidget(TEnumAsByte<lGameType> gtype, UUserWidget*& outWidget);

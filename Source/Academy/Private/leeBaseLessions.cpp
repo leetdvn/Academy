@@ -25,10 +25,12 @@ void UleeBaseLessions::NativeConstruct()
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	line3S = GameIns->Line3s;
 	
-	if (isPremiumUser) {
-		lThreeline->lTopicSourceFolder = "C:/UEProjects/Academy/Content/AcademyAssets/Assets/Topic/Premium_Animal";
-		lThreeline->lChoiseSourceFolder = "C:/UEProjects/Academy/Content/AcademyAssets/Assets/ChoiseAnswers/PremiumShape";
-	}
+	//if (isPremiumUser) {
+	//	lThreeline->lTopicSourceFolder = "C:/UEProjects/Academy/Content/AcademyAssets/Assets/Topic/Premium_Animal";
+	//	lThreeline->lChoiseSourceFolder = "C:/UEProjects/Academy/Content/AcademyAssets/Assets/ChoiseAnswers/PremiumShape";
+	//}
+	lThreeline->lTopicSourceFolder = lGetTopicMatchingPath(Mode);
+	lThreeline->lChoiseSourceFolder = lGetTopicMatchingPath(Mode, true);
 	//binding event drop for answers
 	//load Game History
 	lSetWinOnOff(false);
@@ -139,9 +141,7 @@ void UleeBaseLessions::InitializeThreeLineopic(FString& sourcefolder, FString& c
 
 
 	// case has child
-	FString defaultPath = isPremiumUser ? 
-		"AcademyAssets/Assets/Topic/Premium_Animal" :
-		"AcademyAssets/Assets/Topic/Animal";
+	FString defaultPath = lGetTopicMatchingPath(Mode);
 	FString path = FPaths::ProjectContentDir() + sourcefolder;
 	TArray<FString>  exceptions{};
 	lGetRandFilesFromDirectory(path, exceptions, 3);
@@ -305,12 +305,15 @@ void UleeBaseLessions::NewGameThreelineInit()
 	///generate new game random topic answer
 	int gameid = line3S->DataHistoriesStruct.Num();
 	SessionID = gameid > 0 ? gameid : 1;
-	FString Topics = !isPremiumUser ?
-		lThreeline->lTopicSourceFolder :
-		"AcademyAssets/Assets/Topic/Premium_Animal";
-	FString Choise = !isPremiumUser ?
-		lThreeline->lChoiseSourceFolder :
-		"AcademyAssets/Assets/ChoiseAnswers/PremiumShape";
+	//FString Topics = !isPremiumUser ?
+	//	lThreeline->lTopicSourceFolder :
+	//	"AcademyAssets/Assets/Topic/Premium_Animal";
+	//FString Choise = !isPremiumUser ?
+	//	lThreeline->lChoiseSourceFolder :
+	//	"AcademyAssets/Assets/ChoiseAnswers/PremiumShape";
+
+	FString Topics = lGetTopicMatchingPath(Mode);
+	FString Choise = lGetTopicMatchingPath(Mode,true);
 	InitializeThreeLineopic(Topics, Choise);
 
 }
@@ -319,4 +322,17 @@ void UleeBaseLessions::lSetWinOnOff(bool isOn) {
 	ESlateVisibility vis = isOn ? ESlateVisibility::SelfHitTestInvisible : ESlateVisibility::Hidden;
 	return WinWidget->SetVisibility(vis);
 
+}
+
+
+FString UleeBaseLessions::lGetTopicMatchingPath(TEnumAsByte<LineModes> linemode, bool isChoise)
+{
+	switch (linemode)
+	{
+		case Normal: { return isChoise ? CHOISEDEFAULT :  TOPICDEFAULT; }
+		case ExtendPremium: {return isChoise ? CHOISEPREMIUM :  TOPICPREMIUM; }
+		case Environment: { return isChoise ? CHOISEENVI : TOPICENVI; }
+
+	}
+	return FString();
 }

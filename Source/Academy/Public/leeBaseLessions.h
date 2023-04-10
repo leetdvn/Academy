@@ -25,6 +25,15 @@ class UPanelWidget;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCompletedGame, UleeBaseLessions*, CurrentGame);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLoseGame, UleeBaseLessions*, CurrentGame);
+
+#define TOPICPREMIUM "AcademyAssets/Assets/Topic/Premium_Animal"
+#define TOPICENVI "AcademyAssets/Assets/Topic/Environment"
+#define TOPICDEFAULT "AcademyAssets/Assets/Topic/Animal"
+
+#define CHOISEPREMIUM "AcademyAssets/Assets/ChoiseAnswers/PremiumShape"
+#define CHOISEENVI "AcademyAssets/Assets/ChoiseAnswers/EnvShape"
+#define CHOISEDEFAULT "AcademyAssets/Assets/ChoiseAnswers/AnimalShape"
+
 /**
  * 
  */
@@ -43,13 +52,10 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
 		TEnumAsByte<lGameType> GameType;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
-		FString PremiumTopic;
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Lines Modes")
+		TEnumAsByte<LineModes> Mode;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
-		FString PremiumChoise;
-
-	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "StringTable")
 		FString TableStr;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Title", meta = (BindWidget))
@@ -121,6 +127,10 @@ public:
 	/*toogle on off popup win*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetWinOnOff(bool isOn);
+
+	/*Get Path Matching Topic*/
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		FString lGetTopicMatchingPath(TEnumAsByte<LineModes> linemode, bool isChoise = false);
 
 	/*check User is Premium*/
 	bool isPremiumUser=true;

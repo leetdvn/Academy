@@ -14,11 +14,11 @@ enum PanelType {
 };
 
 UENUM(BlueprintType)
-enum AgeType {
+enum LineModes {
 
-	TwoFour UMETA(DisplayName = "Age 2-4"),
-	ThreeFive UMETA(DisplayName = "Age 3-5"),
-	FourSix UMETA(DisplayName = "Age 4-6"),
+	Normal UMETA(DisplayName = "Normal"),
+	ExtendPremium UMETA(DisplayName = "Mode ExtendPremium"),
+	Environment UMETA(DisplayName = "Mode Environment"),
 };
 
 UENUM(BlueprintType)

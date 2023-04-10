@@ -60,5 +60,5 @@ protected:
 	FString StrTable = "/Game/Stringtable/HomeMenu";
 
 	/*Assign Name of Menu Button */
-	TArray<FString> leeMenu = { "Environment","Numbers","Shape","ShapeItems"};
+	TArray<FString> leeMenu = { "Environment","Numbers","Shape", "Shape2","ShapeItems"};
 };

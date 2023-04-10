@@ -69,6 +69,9 @@ public:
 	void lSetTexture(UTexture2D* newtexture) { lImagePath = newtexture->GetPathName(); return lDragImage->SetBrushResourceObject(newtexture); }
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool isEnv();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetVisibility(bool visible);
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Status Image", meta = (BindWidget))

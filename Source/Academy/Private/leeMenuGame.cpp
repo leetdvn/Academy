@@ -10,22 +10,36 @@ void UleeMenuGame::OnMenuClick(FString menuName)
 	if (menuName.IsEmpty()) return;
 	lDebug(menuName);
 	AleeHub* hub = lGetleeHub();
-
+	TEnumAsByte<LineModes> mode = Normal;
+	TEnumAsByte<lGameType> gMode = None;
 	if (menuName.EndsWith("shape")) {
 		mapOpen = "ThreeLines";
-		if (hub) hub->CreateNewGame(Threelines);
+		gMode = Threelines;
+	}
+	else if (menuName.EndsWith("shape2")) {
+		mode = LineModes::ExtendPremium;
+		gMode = Threelines;
+		mapOpen = "ThreeLines";
+	}
+	else if (menuName.EndsWith("environment")) {
+		mode = LineModes::Environment;
+		gMode = Threelines;
+		mapOpen = "ThreeLines";
 	}
 	else if (menuName.StartsWith("numbers")) {
 		mapOpen = "FourBox";
-		if (hub) hub->CreateNewGame(FourBox);
-
+		gMode = FourBox;
 	}
 	else if (menuName.StartsWith("shapeitems")) {
 		mapOpen = "AlphaBet";
-		if (hub) hub->CreateNewGame(AlphaBet);
+		gMode = AlphaBet;
 	}
 
 	if (mapOpen.IsEmpty()) return;
+
+	if (hub) {
+		hub->CreateNewGame(gMode, mode);
+	}
 
 	//UGameplayStatics::OpenLevel(GetWorld(),FName(*mapOpen));
 }

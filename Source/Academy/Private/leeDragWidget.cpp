@@ -4,6 +4,7 @@
 #include "leeDragWidget.h"
 #include <Blueprint/DragDropOperation.h>
 #include <Blueprint/WidgetBlueprintLibrary.h>
+#include <leeHub.h>
 
 UleeDragWidget::UleeDragWidget(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
@@ -82,8 +83,13 @@ bool UleeDragWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 		UleeDragWidget* DragObj = Cast<UleeDragWidget>(InOperation->Payload);
 		FString DropName = DragVisual->ltexture->GetName();
 		if (ltexture->GetName().EndsWith(DropName) && DragVisual->lIdname == lIdname) {
-			lSetTexture(DragVisual->ltexture);
-			lStatusImage->SetVisibility(ESlateVisibility::Visible);
+			if (isEnv()) {
+
+			}
+			else {
+				lSetTexture(DragVisual->ltexture);
+				lStatusImage->SetVisibility(ESlateVisibility::Visible);
+			}
 			isCorrect = true;
 		}
 		else if(DragObj)
@@ -135,6 +141,20 @@ void UleeDragWidget::lSetShadowVisible(bool visible)
 {
 	ESlateVisibility vis = visible ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
 	lShadow->SetVisibility(vis);
+}
+
+bool UleeDragWidget::isEnv()
+{
+	UWorld* world = GetWorld();
+	AHUD* hub = world->GetFirstPlayerController()->GetHUD();
+	if (hub) {
+		AleeHub* leeHub= Cast<AleeHub>(hub);
+		if (leeHub) {
+			if (leeHub->LinesMode == LineModes::Environment)
+				return true;
+		}
+	}
+	return false;
 }
 
 void UleeDragWidget::lSetVisibility(bool visible)

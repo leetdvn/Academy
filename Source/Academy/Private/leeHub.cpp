@@ -103,7 +103,7 @@ void AleeHub::LoadAlphabetFromData(int32 idx)
 
 }
 
-void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype)
+void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype,TEnumAsByte<LineModes> linemode)
 {
 	switch (gtype)
 	{
@@ -111,6 +111,7 @@ void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype)
 		case Threelines: {
 			UleeBaseLessions* line = INewGameWidget<UleeBaseLessions>(gtype, lCurrentWidget);
 			gametype = line->GameType = Threelines;
+			line->Mode = linemode;
 			line->isNewGame = true;
 			break;
 		}
@@ -131,6 +132,7 @@ void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype)
 	gametype = gtype;
 	lCurrentWidget->AddToViewport();
 	lOnGStart.Broadcast();
+	LinesMode = linemode;
 }
 
 template<class T>
