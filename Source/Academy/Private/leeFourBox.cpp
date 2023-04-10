@@ -23,12 +23,14 @@ void UleeFourBox::LoadGameAt(int32 dataIndex)
 		lDebug("Error");
 		return;
 	}
-	return;
-	isReplay = true;
+	//return;
+	//isReplay = true;
 	//============================Read Data from Game Instance =========================================
 	//TSharedPtr<FJsonValue> jsVal= userdata->GetGamesAt(dataIndex);
 	FFourBoxData nData = GameIns->Box4s->DataHistoriesStruct[dataIndex];
-	//FJsonObjectConverter::JsonObjectToUStruct(jsVal->AsObject().ToSharedRef(), nData);
+	FString prev{};
+	FJsonObjectConverter::UStructToJsonObjectString(nData,prev);
+	UE_LOG(LogTemp, Warning, TEXT("4S : %s"), *prev);
 	//------------------------------------------------------------------------
 
 	//==================load call data

@@ -24,6 +24,11 @@ void UleeBaseLessions::NativeConstruct()
 {
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	line3S = GameIns->Line3s;
+	
+	if (isPremiumUser) {
+		lThreeline->lTopicSourceFolder = "C:/UEProjects/Academy/Content/AcademyAssets/Assets/Topic/Premium_Animal";
+		lThreeline->lChoiseSourceFolder = "C:/UEProjects/Academy/Content/AcademyAssets/Assets/ChoiseAnswers/PremiumShape";
+	}
 	//binding event drop for answers
 	//load Game History
 	lSetWinOnOff(false);
@@ -134,7 +139,9 @@ void UleeBaseLessions::InitializeThreeLineopic(FString& sourcefolder, FString& c
 
 
 	// case has child
-	FString defaultPath = "AcademyAssets/Assets/Topic/Animal";
+	FString defaultPath = isPremiumUser ? 
+		"AcademyAssets/Assets/Topic/Premium_Animal" :
+		"AcademyAssets/Assets/Topic/Animal";
 	FString path = FPaths::ProjectContentDir() + sourcefolder;
 	TArray<FString>  exceptions{};
 	lGetRandFilesFromDirectory(path, exceptions, 3);
@@ -298,8 +305,12 @@ void UleeBaseLessions::NewGameThreelineInit()
 	///generate new game random topic answer
 	int gameid = line3S->DataHistoriesStruct.Num();
 	SessionID = gameid > 0 ? gameid : 1;
-	FString Topics = lThreeline->lTopicSourceFolder;
-	FString Choise = lThreeline->lChoiseSourceFolder;
+	FString Topics = !isPremiumUser ?
+		lThreeline->lTopicSourceFolder :
+		"AcademyAssets/Assets/Topic/Premium_Animal";
+	FString Choise = !isPremiumUser ?
+		lThreeline->lChoiseSourceFolder :
+		"AcademyAssets/Assets/ChoiseAnswers/PremiumShape";
 	InitializeThreeLineopic(Topics, Choise);
 
 }

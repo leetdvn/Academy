@@ -7,6 +7,8 @@ UleeAccoutAuthenication::UleeAccoutAuthenication(const FObjectInitializer& Objec
 
 void UleeAccoutAuthenication::OnGoogleClicked()
 {
+	//UFirebaseAuthenticationSubsystem* fire = NewObject<UFirebaseAuthenticationSubsystem>(UFirebaseAuthenticationSubsystem::StaticClass());
+	//fire->GoogleSignIn(OnGoogleSignin);
 	//UFirebaseAuthenticationSubsystem::GoogleSignIn(OnGoogleSignin);
 	lDebug("On Google");
 }

@@ -70,13 +70,14 @@ void AleeHub::Tick(float DeltaTime)
 
 void AleeHub::LoadFourBoxFromData(int32 idx)
 {
-	UUserWidget* nWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
+	UUserWidget* nWidget = CreateWidget<UUserWidget>(GetWorld(), lFourBox);
 	UleeFourBox* lines = Cast<UleeFourBox>(nWidget);
-	lines->GameId = idx;
-
-	lCurrentWidget->RemoveFromViewport();
-	nWidget->AddToViewport();
-	lCurrentWidget = nWidget;
+	if (lines) {
+		lines->GameId = idx;
+		lCurrentWidget->RemoveFromViewport();
+		nWidget->AddToViewport();
+		lCurrentWidget = nWidget;
+	}
 }
 
 void AleeHub::LoadThreelineFromData(int32 idx)

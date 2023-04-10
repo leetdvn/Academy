@@ -1,4 +1,5 @@
 #pragma once
+#include <FirebaseAuthenticationSubsystem.h>
 #include <Components/Image.h>
 #include "leePublicInterface.h"
 #include "Components/Button.h"
@@ -33,8 +34,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Android panel", meta = (BindWidget));
 		UPanelWidget* IOSPanel;
 
-	//UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
-	//	FOnGoogleAuthenticationCompleted OnGoogleSignin;
+	UPROPERTY()
+		FOnGoogleAuthenticationCompleted OnGoogleSignin;
 
 	//UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 	//	FOnFirebaseAuthenticationCompleted OnFacebookSignin;
@@ -43,7 +44,7 @@ public:
 	//	FOnFirebaseAuthenticationCompleted OnAppleSignin;
 
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnGoogleClicked();
 	
 	UFUNCTION()

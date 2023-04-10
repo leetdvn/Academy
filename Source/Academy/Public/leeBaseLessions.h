@@ -29,10 +29,10 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLoseGame, UleeBaseLessions*, Curr
  * 
  */
 UCLASS(BlueprintType)
-class ACADEMY_API UleeBaseLessions : public UUserWidget , public IleePublicInterface
+class ACADEMY_API UleeBaseLessions : public UUserWidget, public IleePublicInterface
 {
 	GENERATED_BODY()
-	
+
 public:
 	UleeBaseLessions(const FObjectInitializer& ObjectInitializer);
 	~UleeBaseLessions() {  };
@@ -43,10 +43,16 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
 		TEnumAsByte<lGameType> GameType;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
+		FString PremiumTopic;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
+		FString PremiumChoise;
+
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Topic Types")
 		FString TableStr;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite,Category="lee's Ultils",DisplayName="Title",meta=(BindWidget))
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Title", meta = (BindWidget))
 		URichTextBlock* ltitle;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "VFX", meta = (BindWidget))
@@ -55,12 +61,12 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Description", meta = (BindWidget))
 		UTextBlock* lDescription;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Top Decor Panel" , meta = (BindWidget))
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Top Decor Panel", meta = (BindWidget))
 		UPanelWidget* ltopdecor;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Bottom Decor Panel", meta = (BindWidget))
 		UPanelWidget* lbottomdecor;
-	
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Dynamic Canvas", meta = (BindWidget))
 		UThreeLines* lThreeline;
 
@@ -88,13 +94,13 @@ public:
 		void OnIDrop(bool isCorrect);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void InitializeThreeLineopic(FString &sourcefolder, FString& choiseFolder);
+		void InitializeThreeLineopic(FString& sourcefolder, FString& choiseFolder);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		bool lIsValidThreeLine();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void lCreateNewChoises(TArray<FString> correctName, FGameLession &lession ,FString AnswerDir="",bool isSwap=false);
+		void lCreateNewChoises(TArray<FString> correctName, FGameLession& lession, FString AnswerDir = "", bool isSwap = false);
 
 	//Create new Game Type Three line lession
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
@@ -111,10 +117,13 @@ public:
 	/*on replay*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnReplay();
-	
+
 	/*toogle on off popup win*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetWinOnOff(bool isOn);
+
+	/*check User is Premium*/
+	bool isPremiumUser=true;
 
 	/*Load Game From Histories*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
@@ -124,6 +133,7 @@ public:
 		GameHistories->CreateGameHistories(GameType);
 	}
 
+	
 #pragma endregion 
 
 	FORCEINLINE void lGetAllPanels(UPanelWidget* parent, TArray<UleePanelBase*> &outpanels);

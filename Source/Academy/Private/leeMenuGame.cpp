@@ -11,16 +11,16 @@ void UleeMenuGame::OnMenuClick(FString menuName)
 	lDebug(menuName);
 	AleeHub* hub = lGetleeHub();
 
-	if (menuName.EndsWith("count") || menuName.EndsWith("numbers")) {
+	if (menuName.EndsWith("shape")) {
 		mapOpen = "ThreeLines";
 		if (hub) hub->CreateNewGame(Threelines);
 	}
-	else if (menuName.StartsWith("match") || menuName.StartsWith("shape")) {
+	else if (menuName.StartsWith("numbers")) {
 		mapOpen = "FourBox";
 		if (hub) hub->CreateNewGame(FourBox);
 
 	}
-	else if (menuName.StartsWith("school")) {
+	else if (menuName.StartsWith("shapeitems")) {
 		mapOpen = "AlphaBet";
 		if (hub) hub->CreateNewGame(AlphaBet);
 	}
@@ -55,7 +55,7 @@ void UleeMenuGame::NativeConstruct()
 			int32 count{};
 			for (auto& btn : GameMenu->lGetButtons()) {
 				btn->OnMenuClick.AddDynamic(this, &UleeMenuGame::OnMenuClick);
-				btn->ltextblock->SetText(FText::FromStringTable(FName(*StrTable),menu[count]));
+				btn->ltextblock->SetText(FText::FromStringTable(FName(*StrTable),leeMenu[count]));
 				count++;
 			}
 		}
