@@ -16,18 +16,6 @@ void UleeGameInstance::Init()
 	//UE_LOG(LogTemp, Warning, TEXT("Data is Loaded : %s"), *GameData->GetAllGames());
 }
 
-void UleeGameInstance::SaveCurrentGameData(UPlayerData*& data)
-{
-	if (!GameData) { return; }
-
-	FString fileAbc = FString(FPaths::ProjectSavedDir() + "SaveGames/ACademyPreview.json");
-	FString outStr;
-	//Construct Data
-	data->SaveConstruct();
-	UGameplayStatics::DeleteGameInSlot(SlotGame, 0);
-	UGameplayStatics::SaveGameToSlot(data, SlotGame, 0);
-}
-
 void UleeGameInstance::SaveUserInfo(UleeUserInfo*& info)
 {
 

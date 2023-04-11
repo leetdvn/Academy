@@ -3,8 +3,8 @@
 #pragma once
 #include <leeLibraries.h>
 #include <leeHistoryItem.h>
+#include "leePublicEnum.h"
 #include <Components/GridPanel.h>
-#include <PlayerData.h>
 #include <Components/Image.h>
 #include <Components/Button.h>
 #include <Components/ScrollBox.h>

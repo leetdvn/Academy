@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include <PlayerData.h>
 #include "leePublicEnum.h"
 #include "leePublicInterface.h"
 #include <Components/RichTextBlock.h>
@@ -33,7 +32,5 @@ public:
 protected:
 
 	virtual void NativeConstruct() override;
-
-	UPlayerData* userdata;
 
 };

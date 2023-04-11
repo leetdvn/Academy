@@ -7,7 +7,6 @@
 #include "leeUserInfo.h"
 #include "leePublicEnum.h"
 #include "leePublicInterface.h"
-#include "PlayerData.h"
 #include <Kismet/GameplayStatics.h>
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
@@ -43,9 +42,6 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Slot Info")
 		FString SlotInfo;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "SaveGame")
-		UPlayerData* GameData;
-
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Info")
 		UleeUserInfo* PlayerInfo;
 
@@ -61,8 +57,6 @@ public:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Info")
 		TSubclassOf<UleeUserInfo> iinfo;
-
-	void SaveCurrentGameData(UPlayerData*& data);
 
 	void SaveUserInfo(UleeUserInfo*& info);
 

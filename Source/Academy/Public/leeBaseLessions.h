@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "leeDecorPanel.h"
 #include "leeGameInstance.h"
 #include "leeDynamicPanel.h"
 #include "leePublicEnum.h"
-#include "PlayerData.h"
 #include "leePanelBase.h"
 #include "leePublicInterface.h"
 #include <Components/TextBlock.h>
@@ -68,10 +68,10 @@ public:
 		UTextBlock* lDescription;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Top Decor Panel", meta = (BindWidget))
-		UPanelWidget* ltopdecor;
+		UleeDecorPanel* ltopdecor;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Bottom Decor Panel", meta = (BindWidget))
-		UPanelWidget* lbottomdecor;
+		UleeDecorPanel* lbottomdecor;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Dynamic Canvas", meta = (BindWidget))
 		UThreeLines* lThreeline;
@@ -164,9 +164,6 @@ protected:
 	bool lOnDropVisible;
 
 	FGameLession gamedata, DataLastGame;
-
-	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils")
-		UPlayerData* _UserData;
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils")
 		Ulee3LinesData* line3S;

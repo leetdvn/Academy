@@ -91,8 +91,8 @@ bool UleeDragWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 			}
 			else {
 				lSetTexture(DragVisual->ltexture);
-				lStatusImage->SetVisibility(ESlateVisibility::Visible);
 			}
+			lStatusImage->SetVisibility(ESlateVisibility::Visible);
 			isCorrect = true;
 		}
 		else if(DragObj)

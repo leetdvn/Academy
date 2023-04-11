@@ -1,4 +1,5 @@
 #include "CanvasFourBox.h"
+#include <Kismet/KismetStringLibrary.h>
 
 UCanvasFourBox::UCanvasFourBox(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)

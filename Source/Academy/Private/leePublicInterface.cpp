@@ -293,8 +293,8 @@ void IleePublicInterface::lGetRandNums(TArray<int32>& Outnums, int32 maxArray, i
 
 UTexture2D* IleePublicInterface::lGetTextureFromPath(FString imgPath)
 {
-	if (imgPath.IsEmpty()) return nullptr;
-	UTexture2D* tex = LoadObject<UTexture2D>(nullptr, *imgPath);
+	if (imgPath.IsEmpty()) return nullptr;;
+	UTexture2D* tex = LoadObject<UTexture2D>(nullptr,*imgPath);
 	if (tex) return tex;
 
 	lDebug("texture loading fail");

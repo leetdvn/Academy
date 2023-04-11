@@ -24,7 +24,9 @@ void UleeBaseLessions::NativeConstruct()
 {
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	line3S = GameIns->Line3s;
-	
+	ltopdecor->DecorInit(ltopdecor->lGetPath());
+	lbottomdecor->DecorInit(ltopdecor->lGetPath());
+
 	//if (isPremiumUser) {
 	//	lThreeline->lTopicSourceFolder = "C:/UEProjects/Academy/Content/AcademyAssets/Assets/Topic/Premium_Animal";
 	//	lThreeline->lChoiseSourceFolder = "C:/UEProjects/Academy/Content/AcademyAssets/Assets/ChoiseAnswers/PremiumShape";
@@ -239,8 +241,8 @@ void UleeBaseLessions::LoadThreeLineGame()
 {
 
 	//reload data load from Save Game;
-	TEnumAsByte<lGameType> lastgame = _UserData->GetLastGameType();
-	FGameLession current = lastgame == Threelines ? DataLastGame : gamedata;
+	lDebug("Maintaining");
+	FGameLession current = gamedata;
 	isReplay = true;
 	//load Questions and Player choise
 	TArray<int32> ids = { 1,2,3 };

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "leeDecorPanel.h"
 #include "lee4BoxData.h"
 #include "leeGameHistories.h"
 #include "leeGameInstance.h"
@@ -42,10 +43,10 @@ public:
 		UTextBlock* lDescription;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Top Decor Panel", meta = (BindWidget))
-		UPanelWidget* ltopdecor;
+		UleeDecorPanel* ltopdecor;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Bottom Decor Panel", meta = (BindWidget))
-		UPanelWidget* lbottomdecor;
+		UleeDecorPanel* lbottomdecor;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Histories", meta = (BindWidget))
 		UleeGameHistories* GameHistories;
@@ -90,8 +91,8 @@ public:
 
 	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 	//	int lGetStar() { return userdata->Star; }
-
-	void OnRePlayGame(FFourBoxData & odata);
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+	void OnRePlayGame();
 
 	void BindAction();
 

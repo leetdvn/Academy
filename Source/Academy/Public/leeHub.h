@@ -49,10 +49,10 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Current GameType")
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Current GameType")
 		TEnumAsByte<lGameType> gametype;
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Current GameType")
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Lines Mode")
 		TEnumAsByte<LineModes> LinesMode;
 
 	/// <summary>

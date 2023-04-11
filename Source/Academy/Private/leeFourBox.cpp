@@ -3,7 +3,9 @@
 
 void UleeFourBox::NewFourBoxInit()
 {
-	ReloadData();
+	ltopdecor->DecorInit(ltopdecor->lGetPath());
+	lbottomdecor->DecorInit(ltopdecor->lGetPath());
+
 	fourdata.GameID = GameIns->Box4s->DataHistoriesStruct.Num();
 	fourdata.LessionType = m_type;
 	fourdata.GameTitle = "BoxTitle";
@@ -123,7 +125,7 @@ void UleeFourBox::OnStarUp(int32 valueUp)
 	//userdata->Star += valueUp;
 }
 
-void UleeFourBox::OnRePlayGame(FFourBoxData& odata)
+void UleeFourBox::OnRePlayGame()
 {
 	for (auto& p : lFourBox->lUserChoises) {
 		p->lSetDisable(false);
