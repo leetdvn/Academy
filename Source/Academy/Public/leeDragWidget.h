@@ -72,6 +72,9 @@ public:
 		bool isEnv();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void lSetDropSize(FVector2D newsize);
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetVisibility(bool visible);
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Status Image", meta = (BindWidget))
@@ -82,6 +85,9 @@ public:
 	
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Drag Image", meta = (BindWidget))
 		UImage* lDragImage;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Env Image", meta = (BindWidget))
+		UImage* lEnv;
 
 	void lSetText(FString newText);
 

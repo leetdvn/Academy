@@ -84,7 +84,10 @@ bool UleeDragWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 		FString DropName = DragVisual->ltexture->GetName();
 		if (ltexture->GetName().EndsWith(DropName) && DragVisual->lIdname == lIdname) {
 			if (isEnv()) {
-
+				/*Case Environmy keep Animal on the Envi*/
+				lEnv->SetVisibility(ESlateVisibility::Visible);
+				lEnv->SetBrushResourceObject(DragVisual->lGetTexture());
+				lEnv->SetBrushSize(lDragImage->GetDesiredSize() / 2);
 			}
 			else {
 				lSetTexture(DragVisual->ltexture);
@@ -155,6 +158,11 @@ bool UleeDragWidget::isEnv()
 		}
 	}
 	return false;
+}
+
+void UleeDragWidget::lSetDropSize(FVector2D newsize)
+{
+	lDragImage->SetBrushSize(newsize);
 }
 
 void UleeDragWidget::lSetVisibility(bool visible)
