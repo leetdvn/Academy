@@ -1,5 +1,6 @@
 #pragma once
 
+#include "leeAlphaBet.h"
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
 #include "leeAlphaData.generated.h"
@@ -18,6 +19,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		int32  DataNums;
+
+	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+	TArray<FAlphaBetData> DataHistories;
 
 	TArray<TSharedPtr<FJsonValue>> DataJSonGames;
 

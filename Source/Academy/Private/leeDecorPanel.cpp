@@ -36,7 +36,7 @@ void UleeDecorPanel::DecorInit(FString pathdecor)
 				//slot->bAutoSize = true;
 				/*float max = FMath::Abs(min);*/
 				float plusRand = lRand(halfTex, 100.0);
-				UE_LOG(LogTemp, Warning, TEXT("abc : %f"), Avr);
+				//UE_LOG(LogTemp, Warning, TEXT("abc : %f"), Avr);
 
 				distX += i == 0 ? minX +halfTex: Avr;
 				//if (distX > FMath::Abs(hX))

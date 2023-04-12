@@ -308,6 +308,20 @@ bool IleePublicInterface::lFilesExists(FString iPath)
 	return FPaths::FileExists(path);
 }
 
+void IleePublicInterface::lGetRandFilesFromDirectory(FString dir, TArray<FString>& exceptions, int32 number, FString withoutStr)
+{
+	TArray<FString> files = lGetAllDirectory(dir, true);
+	if (files.Num() < number) { lDebug("folder dont' have enoght files"); return; }
+	for (auto& f : files) {
+		if (f.StartsWith(withoutStr)) continue;
+		int rand = lRand(0, files.Num());
+		if (exceptions.Num() >= number) return;
+		exceptions.AddUnique(files[rand]);
+	}
+
+	if (exceptions.Num() < number) return lGetRandFilesFromDirectory(dir, exceptions, number,withoutStr);
+}
+
 FVector2D IleePublicInterface::lGetSizeTexture(FString imgPath)
 {
 	FVector2D v2d{};

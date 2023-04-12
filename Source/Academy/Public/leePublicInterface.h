@@ -125,6 +125,8 @@ public:
 	/// <param name="number"></param>
 	void lGetRandFilesFromDirectory(FString dir, TArray<FString>& exceptions, int32 number);
 
+	void lGetRandFilesFromDirectory(FString dir, TArray<FString>& exceptions, int32 number,FString withoutStr);
+
 	void lGetRandDirsFromDirectory(FString dir, TArray<FString>& exceptions, int32 number);
 
 	FString lGetRandFileFromDirectory(FString dir);
@@ -167,10 +169,13 @@ public:
 
 #pragma endregion
 
+	/*Random float from min to max*/
 	float lRand(float min, float max) { return FMath::RandRange(min, max); }
 
+	/*Random int32 from min to max -1*/
 	int32 lRand(int32 min, int32 max) { return FMath::RandRange(min, max-1); }
 
+	/*Random int64 from min to max -1*/
 	int64 lRand(int64 min, int64 max) { return FMath::RandRange(min, max-1); }
 
 	bool isNull(void* ptr, FString message);

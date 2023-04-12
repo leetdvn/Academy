@@ -137,11 +137,7 @@ public:
 
 	/*Load Game From Histories*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnHistoriesUp() { 
-		if (GameHistories) GameHistories->OnOpenUp(); 
-		//GameHistories->OnHistoriesInit(_UserData);
-		GameHistories->CreateGameHistories(GameType);
-	}
+		void OnHistoriesUp();
 
 	
 #pragma endregion 
