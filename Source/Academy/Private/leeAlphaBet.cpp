@@ -26,12 +26,21 @@ void UleeAlphaBet::OnReplay()
 
 void UleeAlphaBet::NewGameInitialize()
 {
+	/*Init Data implantment*/
 	c_Data.topicPath =  Alpha->CreateNewTopic();
 	Alpha->CreateNewChoises();
+	c_Data.ChoiseBgrs = Alpha->GetChoises();
 }
 
 void UleeAlphaBet::LoadGameFromData(int32 gameId)
 {
+	/*Load Game Data from Game ID*/
+}
+
+void UleeAlphaBet::OnCorrectClick()
+{
+	/*do something when correct click*/
+
 }
 
 void UleeAlphaBet::NativeConstruct()
@@ -89,6 +98,7 @@ void UleeAlpha::CreateNewChoises()
 	int count{};
 	for (auto& iname : choiseName) {
 		FString path = FString("/Game/") + ALPHACHOISES + iname;
+		choisePath.Add(path);
 		UTexture2D* tex = lGetTextureFromPath(path);
 		//if (!tex) continue;
 		ChoisePanels[count]->SetBrushFromTexture(tex,true);

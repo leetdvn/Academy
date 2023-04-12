@@ -33,15 +33,23 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Choises")
 		TArray<UImage*> ChoisePanels;
 
+	/*Create new topic*/
 	FString CreateNewTopic();
 
+	/*Generator Choise*/
 	TArray<FString> GeneratorChoises();
 
+	/*Create new Choise*/
 	void CreateNewChoises();
+
+	/*Get return All Choises*/
+	TArray<FString> GetChoises() { return choisePath; }
 
 private:
 
 	FString topicName;
+
+	TArray<FString> choisePath{};
 };
 
 
@@ -87,6 +95,10 @@ public:
 	/*Load Game form Array Data : Params game Id*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void LoadGameFromData(int32 gameId);
+
+	/*On Correct clicked*/
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnCorrectClick();
 
 	bool isNewGame{};
 
