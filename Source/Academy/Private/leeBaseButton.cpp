@@ -28,6 +28,9 @@ void UleeBaseButton::NativeConstruct()
 	//lInitialized(img,text,lImageOnly);
 	FOnInputAction abc;
 	ListenForInputAction("Touching", EInputEvent::IE_Pressed, true,abc);
+	if (lButton)
+		lButton->OnClicked.AddDynamic(this, &UleeBaseButton::lClickCallBack);
+
 }
 
 void UleeBaseButton::NativeDestruct()
@@ -97,6 +100,16 @@ bool UleeBaseButton::lGetChecked()
 	return results;
 }
 
+void UleeBaseButton::lSetTexture2D(UTexture2D* tex)
+{
+	if (!tex) return;
+	lButton->WidgetStyle.Normal.SetResourceObject(tex);
+	lButton->WidgetStyle.Hovered.SetResourceObject(tex);
+	lButton->WidgetStyle.Pressed.SetResourceObject(tex);
+	lButton->WidgetStyle.Disabled.SetResourceObject(tex);
+
+}
+
 TEnumAsByte<lSlotType> UleeBaseButton::lGetSlotType()
 {
 	TEnumAsByte<lSlotType> mSlot{};
@@ -138,8 +151,6 @@ void UleeBaseButton::lInitialized(FString ImagePath,FString &text, bool ImageOnl
 	lSetNormalFromPath(ImagePath,lSizeOverride);
 	lNormalPath = ImagePath;
 
-	if (lButton)
-		lButton->OnClicked.AddDynamic(this, &UleeBaseButton::lClickCallBack);
 }
 
 UleeBaseButton* UleeBaseButton::lCopyRef(UleeBaseButton*& other)
@@ -165,7 +176,8 @@ UleeBaseButton* UleeBaseButton::lCopyRef(UleeBaseButton*& other)
 void UleeBaseButton::lClickCallBack()
 {
 	//lDebug("call back Touch..");
-	OnMenuClick.Broadcast(ltexture2D->GetName());
+	if(ltexture2D)
+		OnMenuClick.Broadcast(ltexture2D->GetName());
 	OnCorrect.Broadcast(this);
 }
 
@@ -173,6 +185,20 @@ void UleeBaseButton::lReplyFourBox()
 {
 	FString answer = " answer : " + lGetText();
 	lDebug(answer);
+}
+
+void UleeBaseButton::lClearCorrectBound()
+{
+	if (OnCorrect.IsBound())
+		OnCorrect.Clear();
+	//if (OnMenuClick.IsBound())
+	//	OnMenuClick.Clear();
+}
+
+void UleeBaseButton::lClearOnClick()
+{
+	if (lButton)
+		lButton->OnClicked.Clear();
 }
 
 void UleeBaseButton::lSetNormalFromPath(FString imgPath, FVector2D normalSize)

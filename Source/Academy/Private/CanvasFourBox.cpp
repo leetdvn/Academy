@@ -98,9 +98,7 @@ int32 UCanvasFourBox::lGetCorrectNumberAt(int32 idx)
 	return num;
 }
 
-/*
-Create topics and bgr Buttons  from generat
-*/
+/*Create topics and bgr Buttons  from generat*/
 TArray<FString> UCanvasFourBox::lGeneratorTopics(FFourBoxData& outData)
 {
 	FString sourceDir = FPaths::ProjectContentDir() + lTopicSourceFolder;

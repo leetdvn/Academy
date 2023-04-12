@@ -55,7 +55,7 @@ void UleeGameHistories::OnSwitchMapFromHistories(FString gametype, UleeHistoryIt
 		}
 		case AlphaBet: {
 			IINFO(" alpha bet ", FColor::Purple);
-
+			leeHub->LoadAlphabetFromData(item->ItemID);
 			break;
 		}
 	}
@@ -130,7 +130,7 @@ void UleeGameHistories::CreateGameHistories(TEnumAsByte<lGameType> gtype)
 				break;
 			}
 			case AlphaBet:{
-				//OnHistoriesImplantment<FFourBoxData>(leeIns->Alpha->DataHistoriesStruct);
+				OnHistoriesImplantment<FAlphaBetData>(leeIns->Alpha->DataHistories);
 
 				break;
 			}

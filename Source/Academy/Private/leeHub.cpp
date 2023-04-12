@@ -29,28 +29,28 @@ void AleeHub::BeginPlay()
 	if (map.EndsWith("AMenu")) {
 		lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lMenuWidget);
 	}
-	else if (map.EndsWith("ThreeLines")) {
-		lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
-		UleeBaseLessions* lines = Cast<UleeBaseLessions>(lCurrentWidget);
-		lines->isNewGame = SessionGameId <= 0 ? true : false;
-		if (!lines->isNewGame)
-			lines->SessionID = SessionGameId;
-		//lines->NewGameThreelineInit();
-	}
-	else if (map.EndsWith("FourBox")) {
-		lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lFourBox);
-		UleeFourBox* box = Cast<UleeFourBox>(lCurrentWidget);
+	//else if (map.EndsWith("ThreeLines")) {
+	//	lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
+	//	UleeBaseLessions* lines = Cast<UleeBaseLessions>(lCurrentWidget);
+	//	lines->isNewGame = SessionGameId <= 0 ? true : false;
+	//	if (!lines->isNewGame)
+	//		lines->SessionID = SessionGameId;
+	//	//lines->NewGameThreelineInit();
+	//}
+	//else if (map.EndsWith("FourBox")) {
+	//	lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lFourBox);
+	//	UleeFourBox* box = Cast<UleeFourBox>(lCurrentWidget);
 
-		box->isNewGame = SessionGameId <= 0 ? true : false;
-		if (!box->isNewGame)
-			box->GameId = SessionGameId;
+	//	box->isNewGame = SessionGameId <= 0 ? true : false;
+	//	if (!box->isNewGame)
+	//		box->GameId = SessionGameId;
 
-		box->isNewGame = true;
-	}
-	else if (map.EndsWith("AlphaBet")) {
-		lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lAlphaBeet);
+	//	box->isNewGame = true;
+	//}
+	//else if (map.EndsWith("AlphaBet")) {
+	//	lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lAlphaBeet);
 
-	}
+	//}
 
 	if (lCurrentWidget) {
 		lCurrentWidget->AddToViewport();
@@ -93,13 +93,13 @@ void AleeHub::LoadThreelineFromData(int32 idx)
 
 void AleeHub::LoadAlphabetFromData(int32 idx)
 {
-	UUserWidget* nWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
-	UleeAlphaBet* lines = Cast<UleeAlphaBet>(nWidget);
-	//lines->SessionID = idx;
-
-	lCurrentWidget->RemoveFromViewport();
-	nWidget->AddToViewport();
-	lCurrentWidget = nWidget;
+	//UUserWidget* nWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
+	//UleeAlphaBet* Alpha = Cast<UleeAlphaBet>(nWidget);
+	//Alpha->SessionID = idx;
+	lDebug("not Ready..");
+	//lCurrentWidget->RemoveFromViewport();
+	//nWidget->AddToViewport();
+	//lCurrentWidget = nWidget;
 
 }
 

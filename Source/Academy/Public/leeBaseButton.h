@@ -114,6 +114,9 @@ public:
 		bool lGetChecked();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void lSetTexture2D(UTexture2D* tex);
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		TEnumAsByte<lSlotType> lGetSlotType();
 	
 	UleeBaseButton* lCopyRef(UleeBaseButton*& other);
@@ -123,6 +126,10 @@ public:
 
 	UFUNCTION()
 		void lReplyFourBox();
+
+	void lClearCorrectBound();
+
+	void lClearOnClick();
 
 #pragma endregion
 	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")

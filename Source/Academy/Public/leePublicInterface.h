@@ -89,6 +89,10 @@ public:
 	/// </summary>
 	/// <param name="JsonObject"></param>
 	/// <returns></returns>
+	
+	/*Get AleeHub*/
+	AHUD* lGetHub(UWorld* world);
+
 	FString lJsontoStr(const TSharedPtr<FJsonObject> JsonObject);
 
 	/// <summary>

@@ -1,9 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "leeAlpha.h"
+#include "leeBaseButton.h"
+#include "leeGameInstance.h"
+#include <Kismet/GameplayStatics.h>
 #include <Components/HorizontalBox.h>
 #include "leeGameHistories.h"
-#include "Components/CanvasPanel.h"
 #include "leePublicEnum.h"
 #include "leeDecorPanel.h"
 #include "leePublicInterface.h"
@@ -17,40 +20,6 @@
  * 
  */
 
-#define ALPHADEFAULT "AcademyAssets/Assets/Topic/AlphaBet/"
-#define ALPHACHOISES "AcademyAssets/Assets/ChoiseAnswers/AlphaChoises/"
-
-UCLASS(BlueprintType)
-class ACADEMY_API UleeAlpha : public UCanvasPanel, public IleePublicInterface
-{
-	GENERATED_BODY()
-
-public:
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Topic")
-		UImage* topicImg;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Choises")
-		TArray<UImage*> ChoisePanels;
-
-	/*Create new topic*/
-	FString CreateNewTopic();
-
-	/*Generator Choise*/
-	TArray<FString> GeneratorChoises();
-
-	/*Create new Choise*/
-	void CreateNewChoises();
-
-	/*Get return All Choises*/
-	TArray<FString> GetChoises() { return choisePath; }
-
-private:
-
-	FString topicName;
-
-	TArray<FString> choisePath{};
-};
 
 
 UCLASS(BlueprintType)
@@ -82,6 +51,12 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Alpha", meta = (BindWidget))
 		UleeAlpha* Alpha;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Win Popup", meta = (BindWidget))
+		UUserWidget* WinPanel;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game ID")
+		int32 GameId;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnHistoriesUp();
 
@@ -94,17 +69,33 @@ public:
 
 	/*Load Game form Array Data : Params game Id*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void LoadGameFromData(int32 gameId);
+		void LoadGameFromData(int32 gameSession);
 
 	/*On Correct clicked*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnCorrectClick();
+		void OnCorrectClick(UleeBaseButton* button);
 
+	/*On Correct clicked*/
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnNextClicked();
+
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
+		UleeGameInstance* GameIns;
+
+
+	void OnBindAction(bool isUnbind=false);
+
+
+	void WinPanelOnOff(bool Onoff);
 	bool isNewGame{};
 
+	int32 iCorrectNum;
 protected:
 
 	virtual void NativeConstruct() override;
 
 	FAlphaBetData c_Data;
+
+	UleeAlphaData* AlPhaData;
+
 };

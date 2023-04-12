@@ -1,7 +1,8 @@
 #pragma once
 
-#include "leeAlphaBet.h"
+#include "leePublicEnum.h"
 #include "CoreMinimal.h"
+#include "leePublicInterface.h"
 #include "GameFramework/SaveGame.h"
 #include "leeAlphaData.generated.h"
 
@@ -10,7 +11,7 @@
  */
 
 UCLASS(BlueprintType)
-class ACADEMY_API UleeAlphaData : public USaveGame
+class ACADEMY_API UleeAlphaData : public USaveGame,public IleePublicInterface
 {
 	GENERATED_BODY()
 
@@ -27,8 +28,9 @@ public:
 
 	TSharedPtr<FJsonObject> DataJSonHistoriesObject;
 
-	//FFourBoxData GetLinesAt(int32 index);
+	FAlphaBetData GetLinesAt(int32 index) { return DataHistories[index]; }
 
 	//TSharedPtr<FJsonValue> GetGameAsJSonAt(int32 index);
 
+	void CreateNewData(FAlphaBetData& gameId, bool isPreview);
 };

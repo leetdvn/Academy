@@ -219,14 +219,7 @@ struct FAlphaBetData : public FTableRowBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		TEnumAsByte<lGameType> gtype;
-
-	//UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	//	FString GameTitle;
-
-	//UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	//	FString GameDescriptions;
-
+		TEnumAsByte<lGameType> lessionType=AlphaBet;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 		int32 GameID;
@@ -235,26 +228,17 @@ struct FAlphaBetData : public FTableRowBase
 		FString topicPath;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		TArray<int32> topicNums;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 		TArray<FString> ChoiseBgrs;
 
 	FString GetTopicPaths() { return topicPath; }
 
 	TArray<FString> GetChoiseBgrs() { return ChoiseBgrs; }
 
-	TArray<int32> GetTopicNums() { return topicNums; }
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		TArray<FString> textsChoiss;
 
 	FAlphaBetData() :
 		GameID(0),
 		topicPath({}),
-		topicNums({}),
-		ChoiseBgrs({}),
-		textsChoiss({})
+		ChoiseBgrs({})
 	{
 	}
 };

@@ -1,0 +1,65 @@
+#pragma once
+
+#include <leeAlphaData.h>
+#include "leeBaseButton.h"
+#include "Components/Image.h"
+#include "CoreMinimal.h"
+#include "leePublicInterface.h"
+#include "Components/CanvasPanel.h"
+#include "Blueprint/UserWidget.h"
+#include "leeAlpha.generated.h"
+
+
+#define ALPHADEFAULT "AcademyAssets/Assets/Topic/AlphaBet/"
+#define ALPHACHOISES "AcademyAssets/Assets/ChoiseAnswers/AlphaChoises/"
+
+
+UCLASS(BlueprintType)
+class ACADEMY_API UleeAlpha : public UCanvasPanel, public IleePublicInterface
+{
+	GENERATED_BODY()
+
+public:
+
+	UleeAlpha(const FObjectInitializer& ObjectInitializer);
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Topic")
+		UImage* topicImg;
+
+	//UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Choises")
+	//	TArray<UImage*> ChoisePanels;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Choises")
+		TArray <UleeBaseButton*> ChoiseButtons;
+
+	/*Create new topic*/
+	FString CreateNewTopic();
+
+	/*Generator Choise*/
+	TArray<FString> GeneratorChoises();
+
+	/*Create new Choise*/
+	void CreateNewChoises();
+
+	/*Get return All Choises*/
+	TArray<FString> GetChoises() { return choisePath; }
+
+	/*check Correct Names*/
+	bool isCorrectName(FString name);
+
+	TArray<UleeBaseButton*> CorrectButtons{};
+
+	/*Clear Correct Checked Button*/
+	void lClearChecked();
+
+	/*Clear All Bound Buton*/
+	void ClearAllBound();
+
+private:
+
+	FString topicName;
+
+	TArray<FString> choisePath{};
+
+	TArray<FString> CorrectNames{};
+
+};

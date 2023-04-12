@@ -50,8 +50,10 @@ void UleeGameInstance::SaveBox4S(Ulee4BoxData*& boxData)
 
 }
 
-void UleeGameInstance::Save3LinesGame(FGameLession& data)
+void UleeGameInstance::SaveAlpha(UleeAlphaData*& alphaData,bool createjS)
 {
+	UGameplayStatics::SaveGameToSlot(alphaData, ALPHA, 0);
+	SavePreview<FAlphaBetData>(Alpha->DataHistories);
 }
 
 FGameLession UleeGameInstance::Load3LinesGame(int32 idx)
@@ -66,5 +68,9 @@ FGameLession UleeGameInstance::Load3LinesGame(int32 idx)
 	return result;
 }
 
+FAlphaBetData UleeGameInstance::LoadAlphaGameAt(int32 idx)
+{
+	return idx <= 0 ? FAlphaBetData() : Alpha->GetLinesAt(idx);
+}
 
 

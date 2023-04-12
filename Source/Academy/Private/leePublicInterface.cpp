@@ -214,6 +214,13 @@ void IleePublicInterface::lCreateFileFromString(FString content, FString & filep
 	//TSharedRef< FPrettyJsonStringWriter > Writer = FPrettyJsonStringWriterFactory::Create(&filepath);
 }
 
+AHUD* IleePublicInterface::lGetHub(UWorld* world)
+{
+	 if (!world) return nullptr;
+	 AHUD* hub = world->GetFirstPlayerController()->GetHUD();
+	 return hub;
+ }
+
 //void IleePublicInterface::lCreateFileFromString(FString content, FString filepath)
 //{
 //	FFileHelper::SaveStringToFile(content, *filepath, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), EFileWrite::FILEWRITE_Silent);
@@ -313,7 +320,7 @@ void IleePublicInterface::lGetRandFilesFromDirectory(FString dir, TArray<FString
 	TArray<FString> files = lGetAllDirectory(dir, true);
 	if (files.Num() < number) { lDebug("folder dont' have enoght files"); return; }
 	for (auto& f : files) {
-		if (f.StartsWith(withoutStr)) continue;
+		if (f.Left(withoutStr.Len()) == withoutStr) continue;
 		int rand = lRand(0, files.Num());
 		if (exceptions.Num() >= number) return;
 		exceptions.AddUnique(files[rand]);

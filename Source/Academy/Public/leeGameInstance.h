@@ -62,18 +62,21 @@ public:
 
 	void SaveGameData(TEnumAsByte<lGameType> gtype);
 
+	/*Save & Load Game 3 Line*/
 	void SaveLine3S(Ulee3LinesData*& lineData);
 
 	void SaveBox4S(Ulee4BoxData*& boxData);
 
-	void SaveAlpha() {};
+	void SaveAlpha(UleeAlphaData*& alphaData, bool createjS=false);
 
 
-	/*Save & Load Game 3 Line*/
-	void Save3LinesGame(FGameLession& data);
-
+	template<class T>
+	void SavePreview(TArray<T> arrayData);
 	/*Save & Load Game 3 Line*/
 	FGameLession Load3LinesGame(int32 idx);
+
+	/*Save & Load Game Alpha Line*/
+	FAlphaBetData LoadAlphaGameAt(int32 idx);
 
 	/*Reoload 3Line*/
 	void ReLoadingData() {
@@ -97,6 +100,30 @@ protected:
 	T* DataInitialize(FString slotname);
 };
 
+
+template<class T>
+inline void UleeGameInstance::SavePreview(TArray<T> arrayData)
+{
+	if (arrayData.Num() <= 0) return;
+
+	TArray<TSharedPtr<FJsonValue>> ArrayVal;
+	TSharedPtr<FJsonObject> result = MakeShareable(new FJsonObject());
+	TSharedPtr<FJsonObject> DataJSonHistoriesObject = MakeShareable(new FJsonObject());
+
+	FString preview = FString(FPaths::ProjectSavedDir() + "SaveGames/Preview.json");
+	for (auto& g : arrayData)
+	{
+		TSharedPtr<FJsonObject> obj = FJsonObjectConverter::UStructToJsonObject(g);
+		ArrayVal.Add(MakeShareable(new FJsonValueObject(obj)));
+
+
+	}
+	result->SetArrayField("Games", ArrayVal);
+	DataJSonHistoriesObject->SetObjectField("PreViewHistories", result);
+
+	FString Str = lJsontoStr(DataJSonHistoriesObject);
+	lCreateFileFromString(Str, preview);
+}
 
 template<class T>
 inline T* UleeGameInstance::DataInitialize(FString slotname)
