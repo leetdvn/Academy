@@ -320,9 +320,12 @@ void IleePublicInterface::lGetRandFilesFromDirectory(FString dir, TArray<FString
 	TArray<FString> files = lGetAllDirectory(dir, true);
 	if (files.Num() < number) { lDebug("folder dont' have enoght files"); return; }
 	for (auto& f : files) {
-		if (f.Left(withoutStr.Len()) == withoutStr) continue;
 		int rand = lRand(0, files.Num());
 		if (exceptions.Num() >= number) return;
+		if (files[rand].Left(withoutStr.Len()) == withoutStr) {
+			//UE_LOG(LogTemp, Warning, TEXT(" 1 : %s \n 2 : %s "), *f.Left(withoutStr.Len()), *withoutStr);
+			continue;
+		}
 		exceptions.AddUnique(files[rand]);
 	}
 
