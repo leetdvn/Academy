@@ -79,17 +79,19 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnNextClicked();
 
+	/*Game Instance*/
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;
 
 
-	void OnBindAction(bool isUnbind=false);
+
+	void OnBindAction();
 
 
 	void WinPanelOnOff(bool Onoff);
-	bool isNewGame{};
-
+	bool isNewGame{}, isReplay{};
 	int32 iCorrectNum;
+
 protected:
 
 	virtual void NativeConstruct() override;

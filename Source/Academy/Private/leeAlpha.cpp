@@ -12,12 +12,6 @@ void UleeAlpha::CreateNewChoises()
 		FString path = FString("/Game/") + ALPHACHOISES + iname;
 		choisePath.Add(path);
 		UTexture2D* tex = lGetTextureFromPath(path);
-		//if (!tex) continue;
-		if (isCorrectName(iname)) {
-			//CorrectImgs.Add(ChoisePanels[count]);
-			CorrectButtons.Add(ChoiseButtons[count]);
-			lDebug(iname);
-		}
 		//ChoisePanels[count]->SetBrushFromTexture(tex,true);
 		float sX = tex->GetSizeX();
 		float sY = tex->GetSizeY();
@@ -25,6 +19,7 @@ void UleeAlpha::CreateNewChoises()
 		ChoiseButtons[count]->lSetTexture2D(tex);
 		count++;
 	}
+	CorrectButtons = GetCorrectButtons();
 }
 
 bool UleeAlpha::isCorrectName(FString name)
@@ -57,6 +52,58 @@ void UleeAlpha::ClearAllBound()
 	}
 
 	CorrectButtons = TArray<UleeBaseButton*>();
+}
+
+void UleeAlpha::SetTopicBrush(UTexture2D *tex)
+{
+	if (!tex) return;
+
+	topicImg->SetBrushFromTexture(tex, true);
+}
+
+void UleeAlpha::SetTopicBrush(FString Path)
+{
+	if (!lFilesRelativeExists(Path)) {
+		lDebug("Path Does'nt Exists.");
+		lDebug(Path);
+		return;
+	}
+	/*---------------------------*/
+
+	UTexture2D* tex = lGetTextureFromPath(Path);
+	if (tex) {
+		return SetTopicBrush(tex);
+	}
+
+}
+
+void UleeAlpha::SetChoiseBrush(TArray<FString> paths)
+{
+	if (paths.Num() <= 0) return;
+
+	int32 count{};
+	for (auto& files : paths) {
+		if (lFilesRelativeExists(files)) {
+			UTexture2D* tex = lGetTextureFromPath(files);
+			if(tex){
+				ChoiseButtons[count]->lSetTexture2D(tex);
+			}
+		}
+		count++;
+	}
+}
+
+TArray<UleeBaseButton*> UleeAlpha::GetCorrectButtons()
+{
+	TArray<UleeBaseButton*> result= TArray<UleeBaseButton*>();
+	for (auto*&btn : ChoiseButtons) {
+		FString tName = btn->lGetTextureName();
+		if (tName.Left(topicName.Len()) == topicName) {
+			result.Add(btn);
+			//UE_LOG(LogTemp, Warning, TEXT("Tex 1 : %s \n Tex 2 : %s"), *topicName, *tName.Left(topicName.Len()));
+		}
+	}
+	return result;
 }
 
 

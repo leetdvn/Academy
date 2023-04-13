@@ -22,6 +22,7 @@ void UleeAlphaBet::OnHistoriesUp()
 
 void UleeAlphaBet::OnReplay()
 {
+	isNewGame = false;
 }
 
 void UleeAlphaBet::NewGameInitialize()
@@ -32,6 +33,8 @@ void UleeAlphaBet::NewGameInitialize()
 	c_Data.topicPath =  Alpha->CreateNewTopic();
 	Alpha->CreateNewChoises();
 	c_Data.ChoiseBgrs = Alpha->GetChoises();
+	c_Data.topicNames = Alpha->GetTopicName();
+	//TArray<UleeBaseButton*> correctBtns = Alpha->GetCorrectButtons();
 	OnBindAction();
 	//iCorrectNum = 0;
 }
@@ -39,7 +42,15 @@ void UleeAlphaBet::NewGameInitialize()
 void UleeAlphaBet::LoadGameFromData(int32 gameSession)
 {
 	/*Load Game Data from Game ID*/
-
+	c_Data = GameIns->LoadAlphaGameAt(gameSession);
+	FString Str{};
+	FJsonObjectConverter::UStructToJsonObjectString(c_Data,Str);
+	UE_LOG(LogTemp, Warning, TEXT("View : %s  index : %d"), *Str,gameSession);
+	Alpha->SetTopicBrush(c_Data.topicPath);
+	Alpha->SetChoiseBrush(c_Data.ChoiseBgrs);
+	OnBindAction();
+	isNewGame = false;
+	//Alpha->topicImg->SetBrushResourceObject(c_Data);
 }
 
 void UleeAlphaBet::OnCorrectClick(UleeBaseButton* button)
@@ -52,9 +63,12 @@ void UleeAlphaBet::OnCorrectClick(UleeBaseButton* button)
 	if (iCorrectNum == 3) {
 		WinPanelOnOff(true);
 		iCorrectNum = 0;
-		AlPhaData->DataHistories.Add(c_Data);
-		//AlPhaData->CreateNewData(c_Data,true);
-		GameIns->SaveAlpha(AlPhaData,true);
+
+		if (isNewGame) {
+			AlPhaData->DataHistories.Add(c_Data);
+			//AlPhaData->CreateNewData(c_Data,true);
+			GameIns->SaveAlpha(AlPhaData, true);
+		}
 	}
 	lDebug(iCorrectNum);
 }
@@ -64,14 +78,16 @@ void UleeAlphaBet::OnNextClicked()
 	WinPanelOnOff(false);
 	Alpha->lClearChecked();
 	Alpha->ClearAllBound();
+	isNewGame = true;
 	return NativeConstruct();
 	lDebug("Coming Soon!!");
 }
 
-void UleeAlphaBet::OnBindAction(bool isUnbind)
+void UleeAlphaBet::OnBindAction()
 {
-	if (Alpha->CorrectButtons.Num() <= 0) return;
-	for (auto& img : Alpha->CorrectButtons) {
+	TArray<UleeBaseButton*> buttons = Alpha->GetCorrectButtons();
+	if (buttons.Num() <= 0) return;
+	for (auto& img : buttons) {
 		img->OnCorrect.Clear();
 		img->OnCorrect.AddDynamic(this, &UleeAlphaBet::OnCorrectClick);// .BindUFunction(this, TEXT("OnCorrectClick"));
 	}
@@ -96,7 +112,7 @@ void UleeAlphaBet::NativeConstruct()
 	iCorrectNum = 0;
 	c_Data.GameID = AlPhaData->DataHistories.Num();
 	
-	isNewGame = true;
+	//isNewGame = true;
 	return isNewGame ? NewGameInitialize() : LoadGameFromData(GameId);
 }
 

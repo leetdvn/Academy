@@ -70,7 +70,7 @@ FGameLession UleeGameInstance::Load3LinesGame(int32 idx)
 
 FAlphaBetData UleeGameInstance::LoadAlphaGameAt(int32 idx)
 {
-	return idx <= 0 ? FAlphaBetData() : Alpha->GetLinesAt(idx);
+	return idx < 0 ? FAlphaBetData() : Alpha->GetLinesAt(idx);
 }
 
 

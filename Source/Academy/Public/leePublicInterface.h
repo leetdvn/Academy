@@ -136,7 +136,15 @@ public:
 	FString lGetRandFileFromDirectory(FString dir);
 
 	UTexture2D* lGetTextureFromPath(FString imgPath);
+
+	/*Check File Exists Content Path */
 	bool lFilesExists(FString iPath);
+
+	///*Check File Exists Content Path */
+	//bool lFilesRelativeExists(FString&iPath);
+
+	/*Check File Exists Content Path */
+	bool lFilesRelativeExists(FString iPath);
 
 	FVector2D lGetSizeTexture(FString imgPath);
 	bool lExistsDirectory(FString& dir) {

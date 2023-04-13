@@ -107,7 +107,7 @@ void UleeBaseButton::lSetTexture2D(UTexture2D* tex)
 	lButton->WidgetStyle.Hovered.SetResourceObject(tex);
 	lButton->WidgetStyle.Pressed.SetResourceObject(tex);
 	lButton->WidgetStyle.Disabled.SetResourceObject(tex);
-
+	ltexture2D = tex;
 }
 
 TEnumAsByte<lSlotType> UleeBaseButton::lGetSlotType()
@@ -265,6 +265,13 @@ void UleeBaseButton::lSetText(FString newtext)
 	ltext = newtext;
 	FText::FromStringTable("", "");
 	return ltextblock->SetText(FText::FromString(newtext));
+}
+
+FString UleeBaseButton::lGetTextureName()
+{
+	if(ltexture2D)
+		return ltexture2D->GetName();
+	return lButton->WidgetStyle.Normal.GetResourceObject()->GetFName().ToString();
 }
 
 void UleeBaseButton::lSetTextVisibility(bool visible)

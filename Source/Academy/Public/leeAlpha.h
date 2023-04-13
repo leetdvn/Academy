@@ -54,6 +54,22 @@ public:
 	/*Clear All Bound Buton*/
 	void ClearAllBound();
 
+	/*Set Topic Texture*/
+	void SetTopicBrush(UTexture2D* tex);
+
+	/*Set Topic Texture*/
+	void SetTopicBrush(FString Path);
+
+	/*Set Choise Textures*/
+	void SetChoiseBrush(TArray<FString> paths);
+
+	/*Get Topic Name*/
+	FString GetTopicName() { return topicName; }
+
+	/*Get Correct Button*/
+
+	TArray<UleeBaseButton*> GetCorrectButtons();
+
 private:
 
 	FString topicName;

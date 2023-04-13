@@ -93,13 +93,15 @@ void AleeHub::LoadThreelineFromData(int32 idx)
 
 void AleeHub::LoadAlphabetFromData(int32 idx)
 {
-	//UUserWidget* nWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
-	//UleeAlphaBet* Alpha = Cast<UleeAlphaBet>(nWidget);
-	//Alpha->SessionID = idx;
-	lDebug("not Ready..");
-	//lCurrentWidget->RemoveFromViewport();
-	//nWidget->AddToViewport();
-	//lCurrentWidget = nWidget;
+	UUserWidget* nWidget = CreateWidget<UUserWidget>(GetWorld(), lAlphaBeet);
+	UleeAlphaBet* Alpha = Cast<UleeAlphaBet>(nWidget);
+	if (Alpha) {
+		Alpha->GameId = idx;
+		lDebug(idx,FColor::Purple);
+		lCurrentWidget->RemoveFromViewport();
+		nWidget->AddToViewport();
+		lCurrentWidget = nWidget;
+	}
 
 }
 
@@ -123,6 +125,8 @@ void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype,TEnumAsByte<LineModes> 
 		}
 		case AlphaBet: {
 			UleeAlphaBet* alpha = INewGameWidget<UleeAlphaBet>(gtype, lCurrentWidget);
+			alpha->isNewGame = true;
+			alpha->m_type = AlphaBet;
 			break;
 		}
 		default:

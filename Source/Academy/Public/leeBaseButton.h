@@ -90,7 +90,7 @@ public:
 		FString lGetText() { return ltextblock->GetText().ToString(); };
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		FString lGetTextureName() { return ltexture2D->GetName(); };
+		FString lGetTextureName();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetTextVisibility(bool visible);

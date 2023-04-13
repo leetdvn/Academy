@@ -396,6 +396,14 @@ UDataTable* IleePublicInterface::lCreateDataTableRuntime(FString objName, FStrin
 	return TestAsset;
 }
 
+bool IleePublicInterface::lFilesRelativeExists(FString iPath)
+{
+	if (iPath.IsEmpty()) return false;
+	FString pjDir = FPaths::ProjectContentDir();
+	FString filepath = iPath.Replace(TEXT("/Game/"), *pjDir) + ".uasset";
+	return FPaths::FileExists(filepath);
+}
+
 bool IleePublicInterface::lMapExists(FString mapname)
 {
 #pragma omp parallel for

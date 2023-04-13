@@ -228,6 +228,9 @@ struct FAlphaBetData : public FTableRowBase
 		FString topicPath;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		FString topicNames;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 		TArray<FString> ChoiseBgrs;
 
 	FString GetTopicPaths() { return topicPath; }
