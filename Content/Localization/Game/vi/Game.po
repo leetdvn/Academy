@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Game\n"
-"POT-Creation-Date: 2023-04-01 19:12\n"
-"PO-Revision-Date: 2023-04-02 02:37+0700\n"
+"POT-Creation-Date: 2023-04-14 17:21\n"
+"PO-Revision-Date: 2023-04-15 00:26+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -28,13 +28,6 @@ msgctxt ",0125BC3C4987E80CE0C26BBE7E371575"
 msgid "FPS : {FPS_input}"
 msgstr "FPS : {FPS_input}"
 
-#. Key:	0A331BEF49C1527F6918C48F4D8B2C5C
-#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.RichTextBlock_201.Text
-#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.RichTextBlock_201.Text
-msgctxt ",0A331BEF49C1527F6918C48F4D8B2C5C"
-msgid "<Blue>Chữ Cái</> <Yellow>K</>"
-msgstr "<Blue>Chữ Cái</> <Yellow>K</>"
-
 #. Key:	115E815844288FEADB27BEAF216CE1A3
 #. SourceLocation:	/Game/Widgets/Main/Settings.Settings_C:WidgetTree.Displayname.Text
 #: /Game/Widgets/Main/Settings.Settings_C:WidgetTree.Displayname.Text
@@ -42,25 +35,23 @@ msgctxt ",115E815844288FEADB27BEAF216CE1A3"
 msgid "player1213"
 msgstr ""
 
-#. Key:	28F704BA4FBB6F47C5C18BA12894FC1B
-#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_118.Text
-#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.TextBlock_118.Text
-msgctxt ",28F704BA4FBB6F47C5C18BA12894FC1B"
-msgid ""
-"Bé hãy quan sát hình bên \r\n"
-"cạnh và đọc tên của vật sau đó bé hãy\r\n"
-"dánh dấu các vật có cùng chữ cái"
-msgstr ""
-"Bé hãy quan sát hình bên \n"
-"cạnh và đọc tên của vật sau đó bé hãy\n"
-"dánh dấu các vật có cùng chữ cái"
-
 #. Key:	3153E959454C85425841C99D32027103
 #. SourceLocation:	/Game/Widgets/Main/Settings.Settings_C:WidgetTree.Title.Text
 #: /Game/Widgets/Main/Settings.Settings_C:WidgetTree.Title.Text
 msgctxt ",3153E959454C85425841C99D32027103"
 msgid "Parents"
 msgstr "Phụ Huynh"
+
+#. Key:	34727C5C46A14BF03B526FA2D724F697
+#. SourceLocation:	/Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.lDescription.Text
+#: /Game/Widgets/Main/AlphaBet.AlphaBet_C:WidgetTree.lDescription.Text
+msgctxt ",34727C5C46A14BF03B526FA2D724F697"
+msgid ""
+"Let's select all \r\n"
+"the shapes of the "
+msgstr ""
+"Hãy chọn tất cả\r\n"
+"các hình dạng của"
 
 #. Key:	56D4F55A46B3C3C857168D8082C8B7EE
 #. SourceLocation:	/Game/Widgets/Main/FourBox.FourBox_C:WidgetTree.ltitle.Text
@@ -84,13 +75,6 @@ msgctxt ",A71E19224BEC010FDF93D38F806E46E6"
 msgid "OK"
 msgstr "Đồng ý"
 
-#. Key:	D4A13AE049E51DFD5FF072AAE1286C00
-#. SourceLocation:	/Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.TextBlock_1.Text
-#: /Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.TextBlock_1.Text
-msgctxt ",D4A13AE049E51DFD5FF072AAE1286C00"
-msgid "中国人"
-msgstr "中国人"
-
 #. Key:	EAC9BF9642E68244271C9A9F70C9EBFE
 #. SourceLocation:	/Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.NoText.Text
 #: /Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.NoText.Text
@@ -106,7 +90,7 @@ msgstr "Không"
 #: /Game/Audio/Dialog/Incorrect_Dialog.Incorrect_Dialog
 msgctxt "Dialogue,0586DD0C4FB9CAFCC7D0D8B524670E14_364A12939CFA2E27"
 msgid "Incorrect"
-msgstr "Không Chính Xác"
+msgstr "Incorrect"
 
 #. Key:	E5C4B2434C3CF3EF21FDCCA15C82213A_9CFA2E27C784BCCB
 #. SourceLocation:	/Game/Audio/Dialog/Correct_Dialogue.Correct_Dialogue
@@ -117,6 +101,24 @@ msgstr "Không Chính Xác"
 msgctxt "Dialogue,E5C4B2434C3CF3EF21FDCCA15C82213A_9CFA2E27C784BCCB"
 msgid "Heelo"
 msgstr "Heelo"
+
+#. Key:	AlphaDesc
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,AlphaDesc"
+msgid ""
+"Let's select all \r\n"
+"the shapes of the "
+msgstr ""
+"Hãy chọn tất cả\r\n"
+"các hình dạng của"
+
+#. Key:	AlphaTitle
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,AlphaTitle"
+msgid "<Blue>Colors </> <Yellow>and</> <Red>Shape</>"
+msgstr "<Blue>Màu sắc</><Yellow> Và</><Red> Hình khối</>"
 
 #. Key:	BoxDesc
 #. SourceLocation:	/Game/Stringtable/Games.Games
@@ -132,6 +134,48 @@ msgctxt "Games,BoxTitle"
 msgid "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
 msgstr "<Red>Hãy</> <Blue>Chọn</> <Green> Số</><Yellow> Đúng</>"
 
+#. Key:	circle
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,circle"
+msgid "circle"
+msgstr "hình tròn"
+
+#. Key:	EnvDesc
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,EnvDesc"
+msgid "Find the right environment for animals"
+msgstr "Tìm môi trường thích hợp cho động vật"
+
+#. Key:	Environment
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,Environment"
+msgid "Environment"
+msgstr "Môi trường"
+
+#. Key:	EnvTitle
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,EnvTitle"
+msgid "<Blue>Animals</> <Red> Environment</>"
+msgstr "<Blue>Động vật</><Red> Môi trường</>"
+
+#. Key:	heart
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,heart"
+msgid "heart"
+msgstr "trái tim"
+
+#. Key:	hexagon
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,hexagon"
+msgid "hexagon"
+msgstr "Hình lục giác"
+
 #. Key:	Lession
 #. SourceLocation:	/Game/Stringtable/Games.Games
 #: /Game/Stringtable/Games.Games
@@ -143,29 +187,36 @@ msgstr "Bài Học"
 #. SourceLocation:	/Game/Stringtable/Games.Games
 #: /Game/Stringtable/Games.Games
 msgctxt "Games,LineDesc"
-msgid "Find the correct shadow of the pictures"
-msgstr "Tìm bóng chính xác của hình ảnh"
+msgid "Find the correct shadow of the Animals"
+msgstr "Tìm đúng bóng của các Con vật"
 
 #. Key:	LineTitle
 #. SourceLocation:	/Game/Stringtable/Games.Games
 #: /Game/Stringtable/Games.Games
 msgctxt "Games,LineTitle"
-msgid "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
+msgid "<Red>Animals</> <Blue>and</> <Green> Shadow</>"
 msgstr "<Red>Hãy</> <Blue>Chọn</> <Green> Số</><Yellow> Đúng</>"
 
-#. Key:	Count
-#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
-#: /Game/Stringtable/HomeMenu.HomeMenu
-msgctxt "HomeMenu,Count"
-msgid "Count"
-msgstr "Số Đếm"
+#. Key:	rectangle
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,rectangle"
+msgid "rectangle"
+msgstr "Hình chữ nhật"
 
-#. Key:	Match
+#. Key:	triangle
+#. SourceLocation:	/Game/Stringtable/Games.Games
+#: /Game/Stringtable/Games.Games
+msgctxt "Games,triangle"
+msgid "triangle"
+msgstr "hình tam giác"
+
+#. Key:	Environment
 #. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
 #: /Game/Stringtable/HomeMenu.HomeMenu
-msgctxt "HomeMenu,Match"
-msgid "Match"
-msgstr "Trùng Khớp"
+msgctxt "HomeMenu,Environment"
+msgid "Environment"
+msgstr "Môi Trường"
 
 #. Key:	None
 #. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
@@ -201,6 +252,20 @@ msgstr "Phụ Huynh"
 msgctxt "HomeMenu,Shape"
 msgid "Shape"
 msgstr "Hình Khối"
+
+#. Key:	Shape2
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,Shape2"
+msgid "Shape VIP"
+msgstr "Hình Khối"
+
+#. Key:	ShapeItems
+#. SourceLocation:	/Game/Stringtable/HomeMenu.HomeMenu
+#: /Game/Stringtable/HomeMenu.HomeMenu
+msgctxt "HomeMenu,ShapeItems"
+msgid "Geometry"
+msgstr "Hình học"
 
 #. Key:	Ads
 #. SourceLocation:	/Game/Stringtable/Settings.Settings

@@ -27,6 +27,10 @@ void UleeBaseLessions::NativeConstruct()
 	ltopdecor->DecorInit(ltopdecor->lGetPath());
 	lbottomdecor->DecorInit(ltopdecor->lGetPath());
 
+	//FText text = FText::FromStringTable(GAMETABLE, "LineDesc");
+
+	//lDescription->SetText(text);
+
 	//if (isPremiumUser) {
 	//	lThreeline->lTopicSourceFolder = "C:/UEProjects/Academy/Content/AcademyAssets/Assets/Topic/Premium_Animal";
 	//	lThreeline->lChoiseSourceFolder = "C:/UEProjects/Academy/Content/AcademyAssets/Assets/ChoiseAnswers/PremiumShape";

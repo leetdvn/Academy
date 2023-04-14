@@ -114,6 +114,12 @@ void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype,TEnumAsByte<LineModes> 
 			UleeBaseLessions* line = INewGameWidget<UleeBaseLessions>(gtype, lCurrentWidget);
 			gametype = line->GameType = Threelines;
 			line->Mode = linemode;
+			if (linemode == LineModes::Environment) {
+				FText text = FText::FromStringTable(GAMETABLE, "EnvDesc");
+				FText tit = FText::FromStringTable(GAMETABLE, "EnvTitle");
+				line->lDescription->SetText(text);
+				line->ltitle->SetText(tit);
+			}
 			line->isNewGame = true;
 			break;
 		}

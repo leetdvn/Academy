@@ -34,6 +34,11 @@ void UleeAlphaBet::NewGameInitialize()
 	Alpha->CreateNewChoises();
 	c_Data.ChoiseBgrs = Alpha->GetChoises();
 	c_Data.topicNames = Alpha->GetTopicName();
+
+	FString text = FText::FromStringTable(GAMETABLE, "AlphaDesc").ToString() +
+		FText::FromStringTable(GAMETABLE, c_Data.topicNames).ToString();
+	lDescription->SetText(FText::FromString(text));
+	//FText::FromStringTable(FName(*StrTable)
 	//TArray<UleeBaseButton*> correctBtns = Alpha->GetCorrectButtons();
 	OnBindAction();
 	//iCorrectNum = 0;
