@@ -147,6 +147,7 @@ public:
 	bool lFilesRelativeExists(FString iPath);
 
 	FVector2D lGetSizeTexture(FString imgPath);
+
 	bool lExistsDirectory(FString& dir) {
 		FString nDir = GameDir + dir;
 		//UE_LOG(LogTemp, Warning, TEXT("dir : %s"), *nDir);

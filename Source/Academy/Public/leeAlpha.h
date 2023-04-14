@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Kismet/GameplayStatics.h>
 #include <leeAlphaData.h>
 #include "leeBaseButton.h"
 #include "Components/Image.h"
@@ -30,6 +31,12 @@ public:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Choises")
 		TArray <UleeBaseButton*> ChoiseButtons;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "lee Wave")
+		TArray<UDialogueWave*> lWaveSound;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "lee Dialog Context")
+		TArray<FDialogueContext> lContext;
 
 	/*Create new topic*/
 	FString CreateNewTopic();

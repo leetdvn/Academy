@@ -77,10 +77,14 @@ public:
 
 	/*On Correct clicked*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnWrongClicked(UleeBaseButton* button);
+
+	/*On Correct clicked*/
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnNextClicked();
 
 	/*Game Instance*/
-	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
+	UPROPERTY(BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;
 
 

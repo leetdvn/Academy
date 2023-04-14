@@ -70,7 +70,15 @@ void UleeAlphaBet::OnCorrectClick(UleeBaseButton* button)
 			GameIns->SaveAlpha(AlPhaData, true);
 		}
 	}
+	UGameplayStatics::PlayDialogue2D(GetWorld(), Alpha->lWaveSound[1], Alpha->lContext[1]);
+
 	lDebug(iCorrectNum);
+}
+
+void UleeAlphaBet::OnWrongClicked(UleeBaseButton* button)
+{
+	UGameplayStatics::PlayDialogue2D(GetWorld(), Alpha->lWaveSound[0], Alpha->lContext[0]);
+
 }
 
 void UleeAlphaBet::OnNextClicked()
@@ -85,11 +93,17 @@ void UleeAlphaBet::OnNextClicked()
 
 void UleeAlphaBet::OnBindAction()
 {
-	TArray<UleeBaseButton*> buttons = Alpha->GetCorrectButtons();
+	TArray<UleeBaseButton*> buttons = Alpha->ChoiseButtons;
 	if (buttons.Num() <= 0) return;
 	for (auto& img : buttons) {
 		img->OnCorrect.Clear();
-		img->OnCorrect.AddDynamic(this, &UleeAlphaBet::OnCorrectClick);// .BindUFunction(this, TEXT("OnCorrectClick"));
+		FString tName = img->lGetTextureName();
+		FString topicN = c_Data.topicNames;
+		if(tName.Left(topicN.Len()) == topicN)
+			img->OnCorrect.AddDynamic(this, &UleeAlphaBet::OnCorrectClick);// .BindUFunction(this, TEXT("OnCorrectClick"));
+		else {
+			img->OnCorrect.AddDynamic(this, &UleeAlphaBet::OnWrongClicked);
+		}
 	}
 }
 

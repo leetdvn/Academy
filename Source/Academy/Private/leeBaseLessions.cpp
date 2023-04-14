@@ -339,7 +339,7 @@ FString UleeBaseLessions::lGetTopicMatchingPath(TEnumAsByte<LineModes> linemode,
 }
 
 void UleeBaseLessions::OnHistoriesUp() {
-	if (!GameHistories->isOpened) return;
+
 	if (GameHistories) GameHistories->OnOpenUp();
 	//GameHistories->OnHistoriesInit(_UserData);
 	GameHistories->CreateGameHistories(GameType);

@@ -18,7 +18,7 @@ void UleeGameHistories::OnHistoriesDown()
 
 
 	FTimerHandle timer;
-	GetWorld()->GetTimerManager().SetTimer(timer, [this]() {lGridPanel->ClearChildren(); }, false, 1);
+	GetWorld()->GetTimerManager().SetTimer(timer,[this]() {lGridPanel->ClearChildren(); }, false, 1);
 }
 
 void UleeGameHistories::OnMouseClicked(UleeHistoryItem* item)
