@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Game\n"
-"POT-Creation-Date: 2023-04-14 17:21\n"
-"PO-Revision-Date: 2023-04-15 00:26+0700\n"
+"POT-Creation-Date: 2023-04-14 20:08\n"
+"PO-Revision-Date: 2023-04-15 03:09+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -33,7 +33,7 @@ msgstr "FPS : {FPS_input}"
 #: /Game/Widgets/Main/Settings.Settings_C:WidgetTree.Displayname.Text
 msgctxt ",115E815844288FEADB27BEAF216CE1A3"
 msgid "player1213"
-msgstr ""
+msgstr "player1213"
 
 #. Key:	3153E959454C85425841C99D32027103
 #. SourceLocation:	/Game/Widgets/Main/Settings.Settings_C:WidgetTree.Title.Text
@@ -91,6 +91,86 @@ msgstr "Không"
 msgctxt "Dialogue,0586DD0C4FB9CAFCC7D0D8B524670E14_364A12939CFA2E27"
 msgid "Incorrect"
 msgstr "Incorrect"
+
+#. Key:	1EAE3A154D765192BE23DFB5F782BBD8_F22C1E8E00000000
+#. SourceLocation:	/Game/Audio/Dialog/Circle_Dialog.Circle_Dialog
+#. InfoMetaData:	"AudioFile" : "1EAE3A154D765192BE23DFB5F782BBD8_F22C1E8E00000000.wav"
+#. InfoMetaData:	"Context" : "Circle_V -> "
+#. InfoMetaData:	"VoiceActorDirection" : "Circle speaker"
+#: /Game/Audio/Dialog/Circle_Dialog.Circle_Dialog
+msgctxt "Dialogue,1EAE3A154D765192BE23DFB5F782BBD8_F22C1E8E00000000"
+msgid "Circle speaker"
+msgstr "hình tròn"
+
+#. Key:	2DF56ED741EA80C539F80DBC0AD44BE4_6B66BA3000000000
+#. SourceLocation:	/Game/Audio/Dialog/Heart_Dialog.Heart_Dialog
+#. InfoMetaData:	"AudioFile" : "2DF56ED741EA80C539F80DBC0AD44BE4_6B66BA3000000000.wav"
+#. InfoMetaData:	"Context" : "Heart -> "
+#. InfoMetaData:	"VoiceActorDirection" : "Heart speaker"
+#: /Game/Audio/Dialog/Heart_Dialog.Heart_Dialog
+msgctxt "Dialogue,2DF56ED741EA80C539F80DBC0AD44BE4_6B66BA3000000000"
+msgid "Heart speaker"
+msgstr "trái tim"
+
+#. Key:	46B2332747A9D210084DC1A15B591063_1764F95300000000
+#. SourceLocation:	/Game/Audio/Dialog/Rectangle_Dialog.Rectangle_Dialog
+#. InfoMetaData:	"AudioFile" : "46B2332747A9D210084DC1A15B591063_1764F95300000000.wav"
+#. InfoMetaData:	"Context" : "Rectangle -> "
+#. InfoMetaData:	"VoiceActorDirection" : "Rectangle speaker"
+#: /Game/Audio/Dialog/Rectangle_Dialog.Rectangle_Dialog
+msgctxt "Dialogue,46B2332747A9D210084DC1A15B591063_1764F95300000000"
+msgid "Rectangle speaker"
+msgstr "Hình chữ nhật"
+
+#. Key:	579E0A384640FD1EE74E90A6CA636322_EE42C84F00000000
+#. SourceLocation:	/Game/Audio/Dialog/Env_Dialog.Env_Dialog
+#. InfoMetaData:	"AudioFile" : "579E0A384640FD1EE74E90A6CA636322_EE42C84F00000000.wav"
+#. InfoMetaData:	"Context" : "Env -> "
+#. InfoMetaData:	"VoiceActorDirection" : "Environment speaker"
+#: /Game/Audio/Dialog/Env_Dialog.Env_Dialog
+msgctxt "Dialogue,579E0A384640FD1EE74E90A6CA636322_EE42C84F00000000"
+msgid "Environment speaker"
+msgstr "Môi trường"
+
+#. Key:	73FA075A408828DFCAF865B11C48AEAB_74C8410200000000
+#. SourceLocation:	/Game/Audio/Dialog/Hex_Dialog.Hex_Dialog
+#. InfoMetaData:	"AudioFile" : "73FA075A408828DFCAF865B11C48AEAB_74C8410200000000.wav"
+#. InfoMetaData:	"Context" : "Hex -> "
+#. InfoMetaData:	"VoiceActorDirection" : "Hexagon speaker"
+#: /Game/Audio/Dialog/Hex_Dialog.Hex_Dialog
+msgctxt "Dialogue,73FA075A408828DFCAF865B11C48AEAB_74C8410200000000"
+msgid "Hexagon speaker"
+msgstr "Hình lục giác"
+
+#. Key:	9745B3F647C02320CB40FD9890461DF5_AAE5A81600000000
+#. SourceLocation:	/Game/Audio/Dialog/Number_Dialog.Number_Dialog
+#. InfoMetaData:	"AudioFile" : "9745B3F647C02320CB40FD9890461DF5_AAE5A81600000000.wav"
+#. InfoMetaData:	"Context" : "Number -> "
+#. InfoMetaData:	"VoiceActorDirection" : "Number speaker"
+#: /Game/Audio/Dialog/Number_Dialog.Number_Dialog
+msgctxt "Dialogue,9745B3F647C02320CB40FD9890461DF5_AAE5A81600000000"
+msgid "Number speaker"
+msgstr "loa số"
+
+#. Key:	BD872C1F45871B38F4C36A9E750D6D59_6990BDE800000000
+#. SourceLocation:	/Game/Audio/Dialog/Triangle_Dialog.Triangle_Dialog
+#. InfoMetaData:	"AudioFile" : "BD872C1F45871B38F4C36A9E750D6D59_6990BDE800000000.wav"
+#. InfoMetaData:	"Context" : "Triangle -> "
+#. InfoMetaData:	"VoiceActorDirection" : "Triangle speaker"
+#: /Game/Audio/Dialog/Triangle_Dialog.Triangle_Dialog
+msgctxt "Dialogue,BD872C1F45871B38F4C36A9E750D6D59_6990BDE800000000"
+msgid "Triangle speaker"
+msgstr "Loa tam giác"
+
+#. Key:	C54D09F54B6A44D43ACD449E9E866529_212852B500000000
+#. SourceLocation:	/Game/Audio/Dialog/Shadow_Diaglog.Shadow_Diaglog
+#. InfoMetaData:	"AudioFile" : "C54D09F54B6A44D43ACD449E9E866529_212852B500000000.wav"
+#. InfoMetaData:	"Context" : "Shadow -> "
+#. InfoMetaData:	"VoiceActorDirection" : "Shadow speaker"
+#: /Game/Audio/Dialog/Shadow_Diaglog.Shadow_Diaglog
+msgctxt "Dialogue,C54D09F54B6A44D43ACD449E9E866529_212852B500000000"
+msgid "Shadow speaker"
+msgstr "loa bóng"
 
 #. Key:	E5C4B2434C3CF3EF21FDCCA15C82213A_9CFA2E27C784BCCB
 #. SourceLocation:	/Game/Audio/Dialog/Correct_Dialogue.Correct_Dialogue
