@@ -12,12 +12,10 @@ void UleeAlphaBet::OnHistoriesUp()
 {
 	//if (!GameHistories->isOpened) return;
 	if (GameHistories) {
-		if (!GameHistories->isOpened)
-			GameHistories->OnOpenUp();
-		else
-			GameHistories->OnCloseDown();
+		GameHistories->OnOpenUp();
+		GameHistories->CreateGameHistories(m_type);
+		SetBlackSkyVisible(true);
 	}
-	GameHistories->CreateGameHistories(m_type);
 }
 
 void UleeAlphaBet::OnReplay()
@@ -38,10 +36,12 @@ void UleeAlphaBet::NewGameInitialize()
 	FString text = FText::FromStringTable(GAMETABLE, "AlphaDesc").ToString() +
 		FText::FromStringTable(GAMETABLE, c_Data.topicNames).ToString();
 	lDescription->SetText(FText::FromString(text));
-	int32 soundIdx = GetSoundIndex();
-	if (soundIdx > 0)
-		UGameplayStatics::PlayDialogue2D(GetWorld(), Alpha->lWaveSound[soundIdx], Alpha->lContext[soundIdx]);
-
+	if (isMakeSound) {
+		int32 soundIdx = GetSoundIndex();
+		if (soundIdx > 0)
+			UGameplayStatics::PlayDialogue2D(GetWorld(), Alpha->lWaveSound[soundIdx], Alpha->lContext[soundIdx]);
+		isMakeSound = false;
+	}
 	//FText::FromStringTable(FName(*StrTable)
 	//TArray<UleeBaseButton*> correctBtns = Alpha->GetCorrectButtons();
 	OnBindAction();
@@ -57,10 +57,12 @@ void UleeAlphaBet::LoadGameFromData(int32 gameSession)
 	UE_LOG(LogTemp, Warning, TEXT("View : %s  index : %d"), *Str,gameSession);
 	Alpha->SetTopicBrush(c_Data.topicPath);
 	Alpha->SetChoiseBrush(c_Data.ChoiseBgrs);
-	int32 soundIdx = GetSoundIndex();
-	if (soundIdx > 0)
-		UGameplayStatics::PlayDialogue2D(GetWorld(), Alpha->lWaveSound[soundIdx], Alpha->lContext[soundIdx]);
-
+	if (isMakeSound) {
+		int32 soundIdx = GetSoundIndex();
+		if (soundIdx > 0)
+			UGameplayStatics::PlayDialogue2D(GetWorld(), Alpha->lWaveSound[soundIdx], Alpha->lContext[soundIdx]);
+		isMakeSound = false;
+	}
 	OnBindAction();
 	isNewGame = false;
 	//Alpha->topicImg->SetBrushResourceObject(c_Data);
@@ -102,6 +104,22 @@ void UleeAlphaBet::OnNextClicked()
 	isNewGame = true;
 	return NativeConstruct();
 	lDebug("Coming Soon!!");
+}
+
+void UleeAlphaBet::SetBlackSkyVisible(bool isOn)
+{
+	ESlateVisibility vis = isOn ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
+	BlackSky->SetVisibility(vis);
+
+}
+
+void UleeAlphaBet::OnBlackSkyTouch()
+{
+	if (!GameHistories) return;
+	if (GameHistories->isOpened) {
+		GameHistories->OnCloseDown();
+		SetBlackSkyVisible(false);
+	}
 }
 
 int32 UleeAlphaBet::GetSoundIndex()
@@ -156,6 +174,9 @@ void UleeAlphaBet::NativeConstruct()
 	iCorrectNum = 0;
 	c_Data.GameID = AlPhaData->DataHistories.Num();
 	
+	/*bind BlackSky Touch*/
+	BlackSky->OnMouseButtonDownEvent.BindUFunction(this, TEXT("OnBlackSkyTouch"));
+	if (GameHistories) GameHistories->lTurnOffButton->OnClicked.AddDynamic(this, &UleeAlphaBet::OnBlackSkyTouch);
 
 	//isNewGame = true;
 	return isNewGame ? NewGameInitialize() : LoadGameFromData(GameId);

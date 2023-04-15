@@ -321,3 +321,19 @@ UleeDragWidget* UleePanelBase::lCreateDragButton(FString imgPath, bool ImgOnly, 
 
 	return wid;
 }
+
+void UleePanelBase::lSetPanelId(int32 Id, bool isDragDrop)
+{
+	if (Id < 0) return;
+	if (!isDragDrop) {
+#pragma omp parallel for
+		for (auto& btn : lbuttons)
+			btn->Id = Id;
+		return;
+	}
+
+#pragma omp parallel for
+	for (auto& drag : lDragDropButtons)
+		drag->lIdname = Id;
+
+}

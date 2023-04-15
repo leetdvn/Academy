@@ -38,6 +38,10 @@ void UleeBaseLessions::NativeConstruct()
 	lThreeline->lTopicSourceFolder = lGetTopicMatchingPath(Mode);
 	lThreeline->lChoiseSourceFolder = lGetTopicMatchingPath(Mode, true);
 	//binding event drop for answers
+	/*bind BlackSky Touch*/
+	BlackSky->OnMouseButtonDownEvent.BindUFunction(this, TEXT("OnBlackSkyTouch"));
+	if (GameHistories) GameHistories->lTurnOffButton->OnClicked.AddDynamic(this, &UleeBaseLessions::OnBlackSkyTouch);
+
 	//load Game History
 	lSetWinOnOff(false);
 
@@ -46,13 +50,19 @@ void UleeBaseLessions::NativeConstruct()
 	}
 
 	lDebug(SessionID,FColor::Purple);
-	int32 soundIdx = Mode == LineModes::Environment ? 3 : 2;
-	UGameplayStatics::PlayDialogue2D(GetWorld(), lThreeline->lWaveSound[soundIdx], lThreeline->lContext[soundIdx]);
+	if (isMakeSound) {
+		int32 soundIdx = Mode == LineModes::Environment ? 3 : 2;
+		UGameplayStatics::PlayDialogue2D(GetWorld(), lThreeline->lWaveSound[soundIdx], lThreeline->lContext[soundIdx]);
+		isMakeSound = false;
+	}
 	return isNewGame ? NewGameThreelineInit() : LoadGameAt(SessionID);
 }
 
-void UleeBaseLessions::NativeDestruct()
+void UleeBaseLessions::SetBlackSkyVisible(bool isOn)
 {
+	ESlateVisibility vis = isOn ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
+	BlackSky->SetVisibility(vis);
+
 }
 
 void UleeBaseLessions::OnReplay()
@@ -106,6 +116,16 @@ bool UleeBaseLessions::NativeOnDrop(const FGeometry& InGeometry, const FDragDrop
 		}
 	}
 	return false;
+}
+
+void UleeBaseLessions::OnBlackSkyTouch()
+{
+	if (!GameHistories) return;
+
+	if (GameHistories->isOpened) {
+		GameHistories->OnCloseDown();
+		SetBlackSkyVisible(false);
+	}
 }
 
 void UleeBaseLessions::lCreateNewChoises(TArray<FString> correctName, FGameLession& lession , FString AnswerDir, bool isSwap)
@@ -346,7 +366,10 @@ FString UleeBaseLessions::lGetTopicMatchingPath(TEnumAsByte<LineModes> linemode,
 
 void UleeBaseLessions::OnHistoriesUp() {
 
-	if (GameHistories) GameHistories->OnOpenUp();
-	//GameHistories->OnHistoriesInit(_UserData);
-	GameHistories->CreateGameHistories(GameType);
+	if (GameHistories) {
+		GameHistories->OnOpenUp();
+		//GameHistories->OnHistoriesInit(_UserData);
+		GameHistories->CreateGameHistories(GameType);
+		SetBlackSkyVisible(true);
+	}
 }

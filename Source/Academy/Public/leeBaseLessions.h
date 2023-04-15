@@ -96,6 +96,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Histories", meta = (BindWidget))
 		UleeGameHistories* GameHistories;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Black", meta = (BindWidget))
+		UImage* BlackSky;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnIDrop(bool isCorrect);
 
@@ -139,15 +142,20 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnHistoriesUp();
 
-	
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void SetBlackSkyVisible(bool isOn);
+
+	UFUNCTION()
+		void OnBlackSkyTouch();
+
+
+	bool isMakeSound{};
 #pragma endregion 
 
 	FORCEINLINE void lGetAllPanels(UPanelWidget* parent, TArray<UleePanelBase*> &outpanels);
 protected:
 
 	virtual void NativeConstruct() override;
-
-	virtual void NativeDestruct() override;
 
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 

@@ -31,8 +31,17 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidget))
 		UleeParentSettings* Settings;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Black", meta = (BindWidget))
+		UImage* BlackSky;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMenuClick(FString menuName);
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void SetBlackSkyVisible(bool isOn);
+
+	UFUNCTION()
+		void OnBlackSkyTouch();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnParentClicked();

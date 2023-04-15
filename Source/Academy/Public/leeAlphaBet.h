@@ -54,6 +54,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Win Popup", meta = (BindWidget))
 		UUserWidget* WinPanel;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Black", meta = (BindWidget))
+		UImage* BlackSky;
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game ID")
 		int32 GameId;
 
@@ -87,6 +90,12 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void SetBlackSkyVisible(bool isOn);
+
+	UFUNCTION()
+	void OnBlackSkyTouch();
+
 	/* Get Sound Index*/
 	int32 GetSoundIndex();
 
@@ -97,6 +106,8 @@ public:
 	void WinPanelOnOff(bool Onoff);
 	bool isNewGame{}, isReplay{};
 	int32 iCorrectNum;
+
+	bool isMakeSound{};
 
 protected:
 

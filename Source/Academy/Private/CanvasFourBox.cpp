@@ -142,6 +142,7 @@ TArray<FString> UCanvasFourBox::lGeneratorChoiseBgr(FFourBoxData& outData)
 		ans->lSetMakeSameAt(cPath, false);
 		outData.ChoiseBgrs.Add(cPath);
 		results.Add(cPath);
+		ans->lSetPanelId(xcount);
 		xcount++;
 	}
 	return results;

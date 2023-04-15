@@ -112,7 +112,8 @@ void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype,TEnumAsByte<LineModes> 
 		case None: {return; }
 		case Threelines: {
 			UleeBaseLessions* line = INewGameWidget<UleeBaseLessions>(gtype, lCurrentWidget);
-			gametype = line->GameType = Threelines;
+			if(gametype != gtype)
+				line->isMakeSound = true;
 			line->Mode = linemode;
 			if (linemode == LineModes::Environment) {
 				FText text = FText::FromStringTable(GAMETABLE, "EnvDesc");
@@ -125,12 +126,16 @@ void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype,TEnumAsByte<LineModes> 
 		}
 		case FourBox: {
 			UleeFourBox* box = INewGameWidget<UleeFourBox>(gtype, lCurrentWidget);
+			if (gametype != gtype)
+				box->isMakeSound = true;
 			box->m_type = FourBox;
 			box->isNewGame = true;
 			break;
 		}
 		case AlphaBet: {
 			UleeAlphaBet* alpha = INewGameWidget<UleeAlphaBet>(gtype, lCurrentWidget);
+			if (gametype != gtype)
+				alpha->isMakeSound = true;
 			alpha->isNewGame = true;
 			alpha->m_type = AlphaBet;
 			break;
@@ -138,6 +143,8 @@ void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype,TEnumAsByte<LineModes> 
 		default:
 			break;
 	}
+
+	/*remote current widget and add new widget to viewport*/
 	if (lCurrentWidget) lCurrentWidget->RemoveFromViewport();
 	gametype = gtype;
 	lCurrentWidget->AddToViewport();

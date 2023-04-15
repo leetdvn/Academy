@@ -44,12 +44,29 @@ void UleeMenuGame::OnMenuClick(FString menuName)
 	//UGameplayStatics::OpenLevel(GetWorld(),FName(*mapOpen));
 }
 
+void UleeMenuGame::SetBlackSkyVisible(bool isOn)
+{
+	ESlateVisibility vis = isOn ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
+	BlackSky->SetVisibility(vis);
+
+}
+
+void UleeMenuGame::OnBlackSkyTouch()
+{
+	if (!Settings) return;
+
+	Settings->OnCloseDown();
+	SetBlackSkyVisible(false);
+}
+
 void UleeMenuGame::OnParentClicked()
 {
 	if (!Settings->isAvalible) {
 		Settings->OnOpenUp();
 		if (Settings) Settings->CheckLinkAccount();
 		//InfoText->SetText(FText::FromString(Settings->DisplayInfo));
+		SetBlackSkyVisible(true);
+
 	}
 }
 
@@ -74,4 +91,10 @@ void UleeMenuGame::NativeConstruct()
 			}
 		}
 	}
+
+	/*Settting implentation*/
+	if (Settings)
+		Settings->lClosed->OnClicked.AddDynamic(this, &UleeMenuGame::OnBlackSkyTouch);
+	BlackSky->OnMouseButtonDownEvent.BindUFunction(this, TEXT("OnBlackSkyTouch"));
+
 }

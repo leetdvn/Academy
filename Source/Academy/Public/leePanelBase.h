@@ -121,6 +121,7 @@ public:
 
 	UleeDragWidget* lCreateDragButton(FString imgPath, bool ImgOnly, bool isDrop, FString text = "", int32 rID = -1);
 
+	void lSetPanelId(int32 Id, bool isDragDrop=false);
 
 	void lOverrideTextName(TArray<FString> texts, TArray<UleeBaseButton*> btns);
 

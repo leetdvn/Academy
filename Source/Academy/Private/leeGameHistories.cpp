@@ -18,7 +18,7 @@ void UleeGameHistories::OnHistoriesDown()
 
 
 	FTimerHandle timer;
-	GetWorld()->GetTimerManager().SetTimer(timer,[this]() {lGridPanel->ClearChildren(); }, false, 1);
+	GetWorld()->GetTimerManager().SetTimer(timer,[this]() {lGridPanel->ClearChildren(); }, false, 1,0.6f);
 }
 
 void UleeGameHistories::OnMouseClicked(UleeHistoryItem* item)
@@ -107,8 +107,8 @@ void UleeGameHistories::OnCloseDown()
 
 void UleeGameHistories::NativeConstruct()
 {
-	lTurnOffButton->OnClicked.AddDynamic(this, &UleeGameHistories::OnCloseDown);
-	lBgr->OnMouseButtonDownEvent.BindUFunction(this, FName("OnCloseDown"));
+	//lTurnOffButton->OnClicked.AddDynamic(this, &UleeGameHistories::OnCloseDown);
+	//lBgr->OnMouseButtonDownEvent.BindUFunction(this, FName("OnCloseDown"));
 }
 
 void UleeGameHistories::CreateGameHistories(TEnumAsByte<lGameType> gtype)
@@ -142,6 +142,7 @@ template<class T>
 inline void UleeGameHistories::OnHistoriesImplantment(TArray<T> &Games)
 {
 	if (Games.Num() <= 0) return;
+	if (lGridPanel->HasAnyChildren()) lGridPanel->ClearChildren();
 	int32 column = 0;
 	for (int i = 0, x = 0; i < Games.Num() + 12; i++, column++) {
 

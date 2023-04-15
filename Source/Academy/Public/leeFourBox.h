@@ -54,6 +54,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Win Widget", meta = (BindWidget))
 		UUserWidget* WinWidget;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Black", meta = (BindWidget))
+		UImage* BlackSky;
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Session ID")
 		int32 GameId;
 
@@ -86,8 +89,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnStarUp(int32 valueUp);
 
-	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-	//	FString lGetUserId() { return userdata->UserID; }
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void SetBlackSkyVisible(bool isOn);
+
+	UFUNCTION()
+		void OnBlackSkyTouch();
 
 	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 	//	int lGetStar() { return userdata->Star; }
@@ -96,6 +102,7 @@ public:
 
 	void BindAction();
 
+	bool isMakeSound{}, BlackOpen{};
 
 protected:
 

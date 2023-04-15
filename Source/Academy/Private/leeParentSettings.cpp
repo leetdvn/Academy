@@ -112,11 +112,11 @@ void UleeParentSettings::NativeConstruct()
 
 	}
 
-	if (lClosed)
-		lClosed->OnClicked.AddDynamic(this, &UleeParentSettings::OnCloseDown);
+	//if (lClosed)
+	//	lClosed->OnClicked.AddDynamic(this, &UleeParentSettings::OnCloseDown);
 
-	if (lBgr)
-		lBgr->OnMouseButtonDownEvent.BindUFunction(this, FName("OnCloseDown"));
+	//if (lBgr)
+	//	lBgr->OnMouseButtonDownEvent.BindUFunction(this, FName("OnCloseDown"));
 
 	//on English
 	if (Language_English)

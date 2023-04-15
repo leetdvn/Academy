@@ -69,6 +69,7 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 	AnswerCorrect++;
 	
 	lFourBox->lUserChoises[button->Id]->lSetDisable(true);
+	lDebug(button->Id);
 	if (button) {
 		button->lSetChecked(true);
 		UGameplayStatics::PlayDialogue2D(GetWorld(), lFourBox->lWaveSound[1], lFourBox->lContext[1]);
@@ -95,8 +96,11 @@ void UleeFourBox::OnIdReCeiveClick()
 
 void UleeFourBox::OnHistoriesUp()
 {
-	if (GameHistories) GameHistories->OnOpenUp();	
+	if (!GameHistories) return;
+
+	GameHistories->OnOpenUp();
 	GameHistories->CreateGameHistories(m_type);
+	SetBlackSkyVisible(true);
 }
 
 void UleeFourBox::BindAction()
@@ -125,6 +129,22 @@ void UleeFourBox::OnStarUp(int32 valueUp)
 	//userdata->Star += valueUp;
 }
 
+void UleeFourBox::SetBlackSkyVisible(bool isOn)
+{
+	ESlateVisibility vis = isOn ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
+	BlackSky->SetVisibility(vis);
+}
+
+void UleeFourBox::OnBlackSkyTouch()
+{
+	if (!GameHistories) return;
+
+	if (GameHistories->isOpened) {
+		GameHistories->OnCloseDown();
+		SetBlackSkyVisible(false);
+	}
+}
+
 void UleeFourBox::OnRePlayGame()
 {
 	for (auto& p : lFourBox->lUserChoises) {
@@ -141,12 +161,19 @@ void UleeFourBox::NativeConstruct()
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	box4S = GameIns->Box4s;
 
+	/*bind BlackSky Touch*/
+	BlackSky->OnMouseButtonDownEvent.BindUFunction(this, TEXT("OnBlackSkyTouch"));
+	if (GameHistories) GameHistories->lTurnOffButton->OnClicked.AddDynamic(this, &UleeFourBox::OnBlackSkyTouch);
+
 	if (lFourBox->GameHistoriesButton) {
 		lFourBox->GameHistoriesButton->OnClicked.AddDynamic(this, &UleeFourBox::OnHistoriesUp);
 	}
 	//GameHistories->OnHistoriesInit(userdata);
 	WinWidget->SetVisibility(ESlateVisibility::Hidden);
-	UGameplayStatics::PlayDialogue2D(GetWorld(), lFourBox->lWaveSound[2], lFourBox->lContext[2]);
+	if (isMakeSound) {
+		UGameplayStatics::PlayDialogue2D(GetWorld(), lFourBox->lWaveSound[2], lFourBox->lContext[2]);
+		isMakeSound = false;
+	}
 	return isNewGame ? NewFourBoxInit() : LoadGameAt(GameId);
 	//lGetTopicCaculateAt(1);
 }
