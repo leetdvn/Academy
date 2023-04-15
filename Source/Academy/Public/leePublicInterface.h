@@ -12,6 +12,7 @@
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "Blueprint/UserWidget.h"
+#include "AudioDevice.h"
 #include "leePublicInterface.generated.h"
 
 #define lDebug(...) lDebugStr(__VA_ARGS__)
@@ -213,6 +214,8 @@ public:
 
 	int32 lGetEnumFromStr(const FString name,FString enumStr);
 
+
+	void SetSoundClassVolume(FString ClassName, float Volume, bool& Success);
 	//FString lGetEnumToString(UEnum ipEnum);
 
 #pragma region Animations

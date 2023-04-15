@@ -500,4 +500,26 @@ void IleePublicInterface::FillAnimationsMap(TMap<FString, UWidgetAnimation*>& An
 	//	UE_LOG(LogTemp, Warning, TEXT("aa"));
 	//}
 }
+void IleePublicInterface::SetSoundClassVolume(FString ClassName, float Volume, bool& Success)
+{
+	FAudioDevice* AudioDevice = GEngine->GetMainAudioDeviceRaw();
+
+	Success = false;
+	if (!AudioDevice) return;
+
+	for (auto i = AudioDevice->GetSoundClassPropertyMap().CreateConstIterator(); i; ++i)
+	{
+		USoundClass* SoundClass = i.Key();
+		FString SoundClassName;
+
+		// Test if the Split function works then, if the name was the right one
+		if (SoundClass->GetFullName().Split(TEXT("."), nullptr, &SoundClassName, ESearchCase::CaseSensitive)
+			&& SoundClassName.Equals(ClassName))
+		{
+			SoundClass->Properties.Volume = Volume;
+			Success = true;
+			return;
+		}
+	}
+}
 #pragma endregion

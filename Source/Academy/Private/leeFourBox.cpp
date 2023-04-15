@@ -146,6 +146,7 @@ void UleeFourBox::NativeConstruct()
 	}
 	//GameHistories->OnHistoriesInit(userdata);
 	WinWidget->SetVisibility(ESlateVisibility::Hidden);
+	UGameplayStatics::PlayDialogue2D(GetWorld(), lFourBox->lWaveSound[2], lFourBox->lContext[2]);
 	return isNewGame ? NewFourBoxInit() : LoadGameAt(GameId);
 	//lGetTopicCaculateAt(1);
 }

@@ -46,6 +46,8 @@ void UleeBaseLessions::NativeConstruct()
 	}
 
 	lDebug(SessionID,FColor::Purple);
+	int32 soundIdx = Mode == LineModes::Environment ? 3 : 2;
+	UGameplayStatics::PlayDialogue2D(GetWorld(), lThreeline->lWaveSound[soundIdx], lThreeline->lContext[soundIdx]);
 	return isNewGame ? NewGameThreelineInit() : LoadGameAt(SessionID);
 }
 

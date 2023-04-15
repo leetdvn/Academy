@@ -38,6 +38,10 @@ void UleeAlphaBet::NewGameInitialize()
 	FString text = FText::FromStringTable(GAMETABLE, "AlphaDesc").ToString() +
 		FText::FromStringTable(GAMETABLE, c_Data.topicNames).ToString();
 	lDescription->SetText(FText::FromString(text));
+	int32 soundIdx = GetSoundIndex();
+	if (soundIdx > 0)
+		UGameplayStatics::PlayDialogue2D(GetWorld(), Alpha->lWaveSound[soundIdx], Alpha->lContext[soundIdx]);
+
 	//FText::FromStringTable(FName(*StrTable)
 	//TArray<UleeBaseButton*> correctBtns = Alpha->GetCorrectButtons();
 	OnBindAction();
@@ -53,6 +57,10 @@ void UleeAlphaBet::LoadGameFromData(int32 gameSession)
 	UE_LOG(LogTemp, Warning, TEXT("View : %s  index : %d"), *Str,gameSession);
 	Alpha->SetTopicBrush(c_Data.topicPath);
 	Alpha->SetChoiseBrush(c_Data.ChoiseBgrs);
+	int32 soundIdx = GetSoundIndex();
+	if (soundIdx > 0)
+		UGameplayStatics::PlayDialogue2D(GetWorld(), Alpha->lWaveSound[soundIdx], Alpha->lContext[soundIdx]);
+
 	OnBindAction();
 	isNewGame = false;
 	//Alpha->topicImg->SetBrushResourceObject(c_Data);
@@ -96,6 +104,23 @@ void UleeAlphaBet::OnNextClicked()
 	lDebug("Coming Soon!!");
 }
 
+int32 UleeAlphaBet::GetSoundIndex()
+{
+	int32 result=-1;
+	if (c_Data.topicNames == "circle")
+		result = 2;
+	else if (c_Data.topicNames == "triangle")
+		result = 3;
+	else if (c_Data.topicNames == "heart")
+		result = 4;
+	else if (c_Data.topicNames == "rectangle")
+		result = 5;
+	else if (c_Data.topicNames == "hexagon")
+		result = 6;
+
+	return result;
+}
+
 void UleeAlphaBet::OnBindAction()
 {
 	TArray<UleeBaseButton*> buttons = Alpha->ChoiseButtons;
@@ -131,6 +156,7 @@ void UleeAlphaBet::NativeConstruct()
 	iCorrectNum = 0;
 	c_Data.GameID = AlPhaData->DataHistories.Num();
 	
+
 	//isNewGame = true;
 	return isNewGame ? NewGameInitialize() : LoadGameFromData(GameId);
 }

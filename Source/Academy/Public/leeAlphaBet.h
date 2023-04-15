@@ -87,6 +87,8 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;
 
+	/* Get Sound Index*/
+	int32 GetSoundIndex();
 
 
 	void OnBindAction();
