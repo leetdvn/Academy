@@ -59,6 +59,14 @@ void UleeMenuGame::OnBlackSkyTouch()
 	SetBlackSkyVisible(false);
 }
 
+void UleeMenuGame::OnPremiumLockClick()
+{
+	SetConfirmToogle(true,"Menupremiumclick");
+	Confirm->lButtonYes->OnClicked.AddDynamic(this, &UleeMenuGame::OnParentClicked);
+	Confirm->lButtonNo->OnClicked.AddDynamic(this,&UleeMenuGame::ConfirmClosed);
+
+}
+
 void UleeMenuGame::OnParentClicked()
 {
 	if (!Settings->isAvalible) {
@@ -66,7 +74,7 @@ void UleeMenuGame::OnParentClicked()
 		if (Settings) Settings->CheckLinkAccount();
 		//InfoText->SetText(FText::FromString(Settings->DisplayInfo));
 		SetBlackSkyVisible(true);
-
+		SetConfirmToogle();
 	}
 }
 
@@ -77,6 +85,40 @@ AleeHub* UleeMenuGame::lGetleeHub()
 	if (hub)
 		return Cast<AleeHub>(hub);
 	return nullptr;
+}
+
+void UleeMenuGame::SetConfirmToogle(bool isOn,FString field)
+{
+	/*empty message return*/
+	if (isOn && field.IsEmpty()) return;
+	ESlateVisibility vis = isOn ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
+	Confirm->SetVisibility(vis);
+
+	/*set Message from Table*/
+	Confirm->lSetTitleFromTable(field);
+}
+
+void UleeMenuGame::SetUnLockPremium(bool Unlock)
+{
+	if (GameMenu->lGetButtons().Num() > 0) {
+		int32 count{};
+		ESlateVisibility vis = Unlock ? ESlateVisibility::Visible : ESlateVisibility::HitTestInvisible;
+		for (auto& btn : GameMenu->lGetButtons()) {
+			if (IsPremium(btn->lGetTextureName())) {
+				btn->lButton->SetIsEnabled(Unlock);
+				btn->Premium->SetVisibility(vis);
+				btn->Premium->OnMouseButtonDownEvent.BindUFunction(this, TEXT("OnPremiumLockClick"));
+				//lDebug(btn->lGetTextureName());
+			}
+			count++;
+		}
+	}
+
+}
+
+void UleeMenuGame::OnConfirmOpen()
+{
+	SetUnLockPremium(true);
 }
 
 void UleeMenuGame::NativeConstruct()
@@ -90,7 +132,8 @@ void UleeMenuGame::NativeConstruct()
 				//btn->Premium = btn->WidgetTree->FindWidget(TEXT("Premium"));
 				if (IsPremium(btn->lGetTextureName())) {
 					btn->lButton->SetIsEnabled(false);
-					btn->Premium->SetVisibility(ESlateVisibility::HitTestInvisible);
+					btn->Premium->SetVisibility(ESlateVisibility::Visible);
+					btn->Premium->OnMouseButtonDownEvent.BindUFunction(this, TEXT("OnPremiumLockClick"));
 					lDebug(btn->lGetTextureName());
 				}
 				count++;

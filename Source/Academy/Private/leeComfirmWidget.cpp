@@ -9,6 +9,13 @@ void UleeComfirmWidget::lSetConfirmTittle(FString Message)
 		lMessage->SetText(FText::FromString(Message));
 }
 
+void UleeComfirmWidget::lSetTitleFromTable(FString field)
+{
+	if (field.IsEmpty()) return;
+
+	FText text = FText::FromStringTable(SETTINGTABLE, field);
+}
+
 void UleeComfirmWidget::lSetVisible(bool isShow)
 {
 	ESlateVisibility vis = isShow ? ESlateVisibility::SelfHitTestInvisible :

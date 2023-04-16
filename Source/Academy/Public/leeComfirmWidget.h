@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "leePublicInterface.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
@@ -27,6 +28,8 @@ public:
 		UTextBlock* lMessage;
 
 	void lSetConfirmTittle(FString Message);
+
+	void lSetTitleFromTable(FString field);
 
 	void lSetVisible(bool isShow);
 };

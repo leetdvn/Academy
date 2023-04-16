@@ -5,6 +5,7 @@
 //#include <OnlineSubsystemUtils/Public/OnlineSubsystemUtils.h>
 //#include <OnlineSubsystem.h>
 //#include <OnlineSubsystemFacebook.h>
+#include "leeComfirmWidget.h"
 #include "leeParentSettings.h"
 #include <Kismet/KismetInternationalizationLibrary.h>
 #include <Components/ComboBoxString.h>
@@ -34,6 +35,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Black", meta = (BindWidget))
 		UImage* BlackSky;
 
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Confirm Panel", meta = (BindWidget))
+		UleeComfirmWidget* Confirm;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMenuClick(FString menuName);
 
@@ -43,6 +47,12 @@ public:
 	UFUNCTION()
 		void OnBlackSkyTouch();
 
+	UFUNCTION()
+		void OnPremiumLockClick();
+
+	UFUNCTION()
+		void ConfirmClosed() { return SetConfirmToogle(); }
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnParentClicked();
 	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
@@ -50,12 +60,19 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		AleeHub* lGetleeHub();
 
-	
+	void SetConfirmToogle(bool isOn=false,FString field ="");
+
+
 protected:
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Menu" ,meta=(BindWidget));
 		UleePanelBase* GameMenu;
 	
+	void SetUnLockPremium(bool Unlock = false);
+
+	void OnConfirmOpen();
+
+
 	virtual void NativeConstruct() override;
 
 	FString mapOpen;
