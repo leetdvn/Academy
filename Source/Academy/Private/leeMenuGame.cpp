@@ -21,7 +21,7 @@ void UleeMenuGame::OnMenuClick(FString menuName)
 		gMode = Threelines;
 		mapOpen = "ThreeLines";
 	}
-	else if (menuName.EndsWith("environment")) {
+	else if (menuName.EndsWith("shape3")) {
 		mode = LineModes::Environment;
 		gMode = Threelines;
 		mapOpen = "ThreeLines";
@@ -87,6 +87,11 @@ void UleeMenuGame::NativeConstruct()
 			for (auto& btn : GameMenu->lGetButtons()) {
 				btn->OnMenuClick.AddDynamic(this, &UleeMenuGame::OnMenuClick);
 				btn->ltextblock->SetText(FText::FromStringTable(FName(*StrTable),leeMenu[count]));
+				//btn->Premium = btn->WidgetTree->FindWidget(TEXT("Premium"));
+				if (IsPremium(btn->lGetTextureName())) {
+					btn->Premium->SetVisibility(ESlateVisibility::HitTestInvisible);
+					lDebug(btn->lGetTextureName());
+				}
 				count++;
 			}
 		}
@@ -97,4 +102,13 @@ void UleeMenuGame::NativeConstruct()
 		Settings->lClosed->OnClicked.AddDynamic(this, &UleeMenuGame::OnBlackSkyTouch);
 	BlackSky->OnMouseButtonDownEvent.BindUFunction(this, TEXT("OnBlackSkyTouch"));
 
+}
+
+bool UleeMenuGame::IsPremium(FString textName)
+{
+	if (textName.IsEmpty()) return false;
+	for (auto& vip : PremiumLists) {
+		if (vip == textName) return true;
+	}
+	return false;
 }

@@ -49,6 +49,8 @@ public:
 	//	void OnSelectChanged(FString itemname, ESelectInfo::Type SelectionType);
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		AleeHub* lGetleeHub();
+
+	
 protected:
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Menu" ,meta=(BindWidget));
@@ -62,6 +64,10 @@ protected:
 
 	FString StrTable = "/Game/Stringtable/HomeMenu";
 
+	bool IsPremium(FString textName);
 	/*Assign Name of Menu Button */
-	TArray<FString> leeMenu = { "Environment","Numbers","Shape", "Shape2","ShapeItems"};
+	TArray<FString> leeMenu = { "Numbers","Shape", "Shape2","Environment","ShapeItems"};
+
+	TArray<FString> PremiumLists = { "shape2","shape3","shapeitems" };
+
 };

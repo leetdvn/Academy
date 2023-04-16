@@ -50,6 +50,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Runtime", DisplayName = "Check Status", meta = (BindWidget))
 		UImage* lCheckStatus;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Runtime", DisplayName = "Premium", meta = (BindWidget))
+		UImage* Premium;
+
 	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Runtime", DisplayName = "Image Only")
 		bool lImageOnly;
 	
