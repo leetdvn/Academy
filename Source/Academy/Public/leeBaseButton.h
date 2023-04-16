@@ -78,6 +78,9 @@ public:
 		void lSetPressFromPath(FString imgPath);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void lSetDisableFromPath(FString imgPath);
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetTextFont(int32 fontsize);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")

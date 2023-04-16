@@ -70,6 +70,8 @@ void UleeBaseButton::lSetContentSize()
 		lButton->WidgetStyle.Normal.SetImageSize(vector2D);
 		lButton->WidgetStyle.Hovered.SetImageSize(vector2D*1.05);
 		lButton->WidgetStyle.Pressed.SetImageSize(vector2D);
+		lButton->WidgetStyle.Disabled.SetImageSize(vector2D);
+
 		lSize = vector2D;
 		lSetButtonSize(vector2D);
 		//lSetButtonSize(vector2D);
@@ -216,6 +218,7 @@ void UleeBaseButton::lSetNormalFromPath(FString imgPath, FVector2D normalSize)
 	Texture->GetPathName();
 	lSetHorverFromPath(imgPath);
 	lSetPressFromPath(imgPath);
+	lSetDisableFromPath(imgPath);
 	//lButton->OnClicked.AddDynamic(this, &UleeBaseButton::OnCorrectClicked);
 }
 
@@ -233,6 +236,15 @@ void UleeBaseButton::lSetPressFromPath(FString imgPath)
 	if (!tex) return;
 	lButton->WidgetStyle.Pressed.TintColor = FLinearColor{ 1,1,1,1 };
 	lButton->WidgetStyle.Pressed.SetResourceObject(tex);
+}
+
+void UleeBaseButton::lSetDisableFromPath(FString imgPath)
+{
+	UTexture2D* tex = lGetTextureFromPath(imgPath);
+	if (!tex) return;
+	//lButton->WidgetStyle.Disabled.TintColor = FLinearColor{ 1,1,1,1 };
+	lButton->WidgetStyle.Disabled.SetResourceObject(tex);
+
 }
 
 void UleeBaseButton::lSetTextFont(int32 fontsize)

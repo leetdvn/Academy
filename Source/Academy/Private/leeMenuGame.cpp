@@ -89,6 +89,7 @@ void UleeMenuGame::NativeConstruct()
 				btn->ltextblock->SetText(FText::FromStringTable(FName(*StrTable),leeMenu[count]));
 				//btn->Premium = btn->WidgetTree->FindWidget(TEXT("Premium"));
 				if (IsPremium(btn->lGetTextureName())) {
+					btn->lButton->SetIsEnabled(false);
 					btn->Premium->SetVisibility(ESlateVisibility::HitTestInvisible);
 					lDebug(btn->lGetTextureName());
 				}
