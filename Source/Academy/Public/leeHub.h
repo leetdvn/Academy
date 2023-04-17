@@ -55,6 +55,7 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Lines Mode")
 		TEnumAsByte<LineModes> LinesMode;
 
+
 	/// <summary>
 	/// Widget ingame list
 	/// </summary>
@@ -63,6 +64,15 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Test")
 		FOnGameStart lOnGStart;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "lee Wave")
+		UDialogueWave* lKidMusic;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "lee Dialog Context")
+		FDialogueContext lMusic;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils")
+		USoundClass* KidMusic;
 
 	/*LoadGame Type four box from data index saved */
 	void LoadFourBoxFromData(int32 idx);
@@ -82,6 +92,10 @@ public:
 
 	TEnumAsByte<lGameType> GameType() { return gametype; }
 
+	void SetMusicVolume(float volume) {
+		if (volume < 0 || volume > 1) return;
+		KidMusic->Properties.Volume = volume;
+	};
 
 #pragma endregion
 

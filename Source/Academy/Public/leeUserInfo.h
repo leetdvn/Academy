@@ -35,6 +35,13 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		bool IsUserPurChased;
 
+	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+		bool Sound;
+
+	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+		bool Music;
+
+
 	const FString SlotName = "PlayerInfo";
 
 	FString lGetDisplayName() { return DisplayName; }

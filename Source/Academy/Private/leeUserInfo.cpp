@@ -6,6 +6,8 @@
 UleeUserInfo::UleeUserInfo(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
 {
+	Music = true;
+	Sound = true;
 }
 
 void UleeUserInfo::lSetDisplayName(FString displayname)

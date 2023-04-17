@@ -20,8 +20,6 @@ void AleeHub::BeginPlay()
 
 	FString map = UGameplayStatics::GetCurrentLevelName(GetWorld());// ->GetMapName();
 	TSubclassOf<UUserWidget> panel;// = map.EndsWith("AMenu") ? lMenuWidget : lThreeLine;
-
-
 	/*
 	Create Widget Default and make new game
 	Create Widget Default and make new game
@@ -60,6 +58,11 @@ void AleeHub::BeginPlay()
 
 	//active Event start game
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (lKidMusic) {
+		float vol = GameIns->PlayerInfo->Music ? 0.5f : 0.0f;
+		SetMusicVolume(vol);
+		UGameplayStatics::PlayDialogue2D(GetWorld(), lKidMusic, lMusic);
+	}
 	if (!GameIns) { lDebug("Game Instance Nullptr"); return; }
 }
 

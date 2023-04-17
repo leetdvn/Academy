@@ -218,6 +218,8 @@ public:
 	void SetSoundClassVolume(FString ClassName, float Volume, bool& Success);
 	//FString lGetEnumToString(UEnum ipEnum);
 
+	void SetSoundVolume(UWorld* would, float Volume, bool& Success);
+
 #pragma region Animations
 	void FillAnimationsMap(TMap<FString, UWidgetAnimation*>& AnimationsMap,UUserWidget* Widget);
 

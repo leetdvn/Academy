@@ -39,6 +39,8 @@ void UleeMenuGame::OnMenuClick(FString menuName)
 
 	if (hub) {
 		hub->CreateNewGame(gMode, mode);
+
+		//Settings->SetMusicVolume(0.2f);
 	}
 
 	//UGameplayStatics::OpenLevel(GetWorld(),FName(*mapOpen));
@@ -124,6 +126,7 @@ void UleeMenuGame::OnConfirmOpen()
 void UleeMenuGame::NativeConstruct()
 {
 	if (GameMenu) {
+
 		if (GameMenu->lGetButtons().Num() > 0) {
 			int32 count{};
 			for (auto& btn : GameMenu->lGetButtons()) {

@@ -522,4 +522,9 @@ void IleePublicInterface::SetSoundClassVolume(FString ClassName, float Volume, b
 		}
 	}
 }
+
+void IleePublicInterface::SetSoundVolume(UWorld* would, float Volume, bool& Success) {
+
+	//UGameplayStatics::SetSoundMixClassOverride(world,USoundMix::)
+}
 #pragma endregion

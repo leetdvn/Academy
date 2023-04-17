@@ -36,7 +36,7 @@ void UleeParentSettings::lSaveLinkUser(FString UserId, FString Email, FString di
 {
 	///Save link User
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	UleeUserInfo* data = GameIns->PlayerInfo;
+	data = GameIns->PlayerInfo;
 	data->DisplayName = dispname;
 	data->UserID = UserId;
 	GameIns->SaveUserInfo(data);
@@ -74,7 +74,7 @@ bool UleeParentSettings::CheckLinkAccount()
 {
 	//check link Account Uuser
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	UleeUserInfo* data = GameIns->PlayerInfo;
+	data = GameIns->PlayerInfo;
 
 	FString DisplayName = data->DisplayName;
 	DisplayInfo = data->DisplayName;
@@ -99,15 +99,51 @@ void UleeParentSettings::lLanguageInitialize()
 
 }
 
+void UleeParentSettings::InItSoundClass()
+{
+	//FStringAssetReference MyAssetPath("SoundClass'/Game/Audio/KidSound.KidSound'");
+	//UObject* MyAsset = MyAssetPath.TryLoad();
+	//KidSound = Cast<USoundClass>(MyAsset);
+	if (!Sound) return;
+
+	UTexture2D* tex = soundToogle ?
+		lGetTextureFromPath(SoundOn) :
+		lGetTextureFromPath(SoundOff);
+	Sound->SetBrushResourceObject(tex);
+	float volume = !soundToogle ? 0 : 1;
+	SetSoundVolume(volume);
+}
+
+void UleeParentSettings::InItMusicClass()
+{
+	UTexture2D* tex = MusicToogle ?
+		lGetTextureFromPath(SoundOn) :
+		lGetTextureFromPath(SoundOff);
+	Music->SetBrushResourceObject(tex);
+
+	AHUD* hub = lGetHub(GetWorld());
+	//AleeHub *leeHub = Cast<AleeHub>(H)
+	float volume = !MusicToogle ? 0 : 1;
+	SetMusicVolume(volume);
+
+}
+
 void UleeParentSettings::NativeConstruct()
 {
+	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	data = GameIns->PlayerInfo;
+	soundToogle = data->Sound;
+	MusicToogle = data->Music;
 
+	//UGameplayStatics::PlayDialogue2D(GetWorld(), lKidMusic, lMusic, vol);
 	//bind function
 	if (Sound) {
+		InItSoundClass();
 		Sound->OnMouseButtonDownEvent.BindUFunction(this, FName("OnSoundToogle"));
 	}
 
 	if (Music) {
+		InItMusicClass();
 		Music->OnMouseButtonDownEvent.BindUFunction(this, FName("OnMusicToogle"));
 
 	}
@@ -137,22 +173,22 @@ void UleeParentSettings::NativeConstruct()
 
 void UleeParentSettings::OnSoundToogle()
 {
-	//lDebug(Sound->Brush.GetResourceObject()->GetPathName());
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *Sound->Brush.GetResourceObject()->GetPathName());
+	/*Sound Toogle CLickc*/
 	soundToogle = !soundToogle;
-	UTexture2D* tex = !soundToogle ? 
-		lGetTextureFromPath(SoundOn) :
-		lGetTextureFromPath(SoundOff);
-	Sound->SetBrushResourceObject(tex);
+	float volume = !soundToogle ? 0 : 1;
+	KidSound->Properties.Volume = volume;
+	data->Sound = soundToogle;
+	GameIns->SaveUserInfo(data);
+	InItSoundClass();
 }
 
 void UleeParentSettings::OnMusicToogle()
 {
-	//lDebug("Music clickd");
+	/*Music Toogle CLickc*/
 	MusicToogle = !MusicToogle;
-	UTexture2D* tex = !MusicToogle ? 
-		lGetTextureFromPath(SoundOn) :
-		lGetTextureFromPath(SoundOff);
-	Music->SetBrushResourceObject(tex);
-
+	float volume = !soundToogle ? 0 : 0.5f;
+	KidMusic->Properties.Volume = volume;
+	data->Music = MusicToogle;
+	GameIns->SaveUserInfo(data);
+	InItMusicClass();
 }

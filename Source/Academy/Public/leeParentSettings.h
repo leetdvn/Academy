@@ -60,12 +60,19 @@ public:
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Star", meta = (BindWidget));
 		class URichTextBlock* KidStar;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils")
+		USoundClass* KidSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils")
+		USoundClass* KidMusic;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidgetAnim), Transient)
 		UWidgetAnimation* OpenUp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidgetAnim), Transient)
 		UWidgetAnimation* CloseDown;
+
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnCloseDown();
@@ -110,9 +117,25 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		FString DisplayInfo;
 
+	UPROPERTY()
+		UleeUserInfo* data;
 
 	bool isAvalible;
 
+	void InItSoundClass();
+
+	void InItMusicClass();
+
+
+	void SetSoundVolume(float volume) { 
+		if (volume < 0 || volume > 1) return;
+		KidSound->Properties.Volume = volume;
+	}
+
+	void SetMusicVolume(float volume) { 
+		if (volume < 0 || volume > 1) return;
+		KidMusic->Properties.Volume = volume; 
+	};
 
 protected:
 
@@ -121,9 +144,11 @@ protected:
 
 	virtual void NativeConstruct() override;
 
+	/*Sound Toogle CLickc*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnSoundToogle();
 
+	/*Music Toogle CLickc*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMusicToogle();
 
