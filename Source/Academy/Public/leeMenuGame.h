@@ -38,11 +38,14 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Confirm Panel", meta = (BindWidget))
 		UleeComfirmWidget* Confirm;
 
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Confirm Premium Panel", meta = (BindWidget))
+		UleeComfirmWidget* ConfirmPremium;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMenuClick(FString menuName);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void SetBlackSkyVisible(bool isOn);
+		void SetBlackSkyVisible(bool isOn,int32 zOder=0);
 
 	UFUNCTION()
 		void OnBlackSkyTouch();
@@ -50,8 +53,17 @@ public:
 	UFUNCTION()
 		void OnPremiumLockClick();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void ConfirmClosed() { return SetConfirmToogle(); }
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnOperConfirm() { return SetConfirmToogle(true); }
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnOperConfirmPre() { return SetConfirmPremiumToogle(true); }
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void ConfirmPremiumClosed() { return SetConfirmPremiumToogle(); }
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnParentClicked();
@@ -60,8 +72,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		AleeHub* lGetleeHub();
 
-	void SetConfirmToogle(bool isOn=false,FString field ="");
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void SetConfirmToogle(bool isOn=false,FString field ="");
 
+
+	void SetConfirmPremiumToogle(bool isOn = false);
 
 protected:
 

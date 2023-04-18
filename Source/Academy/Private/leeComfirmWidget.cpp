@@ -14,6 +14,7 @@ void UleeComfirmWidget::lSetTitleFromTable(FString field)
 	if (field.IsEmpty()) return;
 
 	FText text = FText::FromStringTable(SETTINGTABLE, field);
+	lMessage->SetText(text);
 }
 
 void UleeComfirmWidget::lSetVisible(bool isShow)
