@@ -254,7 +254,9 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 		//GameIns->SaveCurrentGameData(_UserData);
 		GameIns->SaveLine3S(line3S);
 		//GameIns->SaveGameData(GameType, gamedata);
-		lSetWinOnOff(true);
+		FTimerHandle timer;
+		GetWorld()->GetTimerManager().SetTimer(timer, [this]() {	lSetWinOnOff(true);}, 3.0f, false,0.5f);
+
 		DropCorrecttimes = 0;
 
 		//UE_LOG(LogTemp, Warning, TEXT("view : %s"), *completed);
