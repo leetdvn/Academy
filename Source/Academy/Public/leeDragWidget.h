@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include <Particles/ParticleSystemComponent.h>
+#include <NiagaraSystemWidget.h>
 #include <PaperSprite.h>
 #include "Components/CanvasPanelSlot.h"
 #include "Components/Image.h"
@@ -41,6 +43,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Can Drop")
 		bool lIsDrop;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Smoke", meta = (BindWidget))
+		UNiagaraSystemWidget* Smoke;
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void lSetTexture(FString path);

@@ -94,6 +94,7 @@ bool UleeDragWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 			}
 			lStatusImage->SetVisibility(ESlateVisibility::Visible);
 			isCorrect = true;
+			Smoke->ActivateSystem(true);
 		}
 		else if(DragObj)
 			DragObj->lSetVisibility(false);
