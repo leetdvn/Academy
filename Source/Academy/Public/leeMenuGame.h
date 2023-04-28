@@ -78,6 +78,9 @@ public:
 
 	void SetConfirmPremiumToogle(bool isOn = false);
 
+
+	UleeGameInstance* GIns;
+
 protected:
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Menu" ,meta=(BindWidget));

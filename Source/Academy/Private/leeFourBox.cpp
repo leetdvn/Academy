@@ -80,7 +80,7 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 		GameIns->SaveBox4S(box4S);
 		WinWidget->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 	}
-	//debug
+	button->lActiveSmoke();
 }
 
 void UleeFourBox::OnUnCorrectAnswer()

@@ -13,6 +13,7 @@
 #include "leePublicInterface.h"
 #include "leePublicEnum.h"
 #include "CoreMinimal.h"
+#include <NiagaraUIComponent.h>
 #include "Components/CanvasPanel.h"
 #include <Components/RichTextBlock.h>
 #include "leeFourBox.generated.h"
@@ -22,6 +23,7 @@
  *
  class game type fourbox all 
  */
+
 
 UCLASS(BlueprintType)
 class ACADEMY_API UleeFourBox : public UUserWidget, public IleePublicInterface

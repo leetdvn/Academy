@@ -123,7 +123,8 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Default Path")
 		FString lImageDefault;
-
+	
+	bool canDrag = true;
 private:
 
 	void lInitializeDefault(FString ipath);

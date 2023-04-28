@@ -14,6 +14,7 @@ public class Academy : ModuleRules
             "OnlineSubsystemFacebook",
             "FirebaseGoodies",
             "leeUltilities",
+            "Niagara",
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

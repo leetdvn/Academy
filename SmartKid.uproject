@@ -26,10 +26,6 @@
 			"Enabled": false
 		},
 		{
-			"Name": "AISupport",
-			"Enabled": false
-		},
-		{
 			"Name": "AppleMoviePlayer",
 			"Enabled": false
 		},

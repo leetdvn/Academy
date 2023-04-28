@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include <NiagaraSystemWidget.h>
+#include <NiagaraWidgetProperties.h>
 #include "UILeeDelegate.h"
 #include "leePublicEnum.h"
 #include "leePublicInterface.h"
@@ -61,6 +63,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "lee's Runtime", DisplayName = "Text Block", meta = (BindWidget))
 		UTextBlock* ltextblock;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "VFX", meta = (BindWidget))
+		UNiagaraSystemWidget* Smoke;
 
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 		FOnMenuClick OnMenuClick;
@@ -125,6 +130,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		TEnumAsByte<lSlotType> lGetSlotType();
 	
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void lActiveSmoke() { Smoke->ActivateSystem(true); }
+
 	UleeBaseButton* lCopyRef(UleeBaseButton*& other);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")

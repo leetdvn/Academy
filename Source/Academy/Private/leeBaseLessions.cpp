@@ -114,7 +114,10 @@ bool UleeBaseLessions::NativeOnDrop(const FGeometry& InGeometry, const FDragDrop
 				DragObj->lDragImage->SetVisibility(ESlateVisibility::Visible);
 			}
 		}
+		DragVisual->lDragImage->SetBrushSize(FVector2D{ 164,165 });
+
 	}
+
 	return false;
 }
 
@@ -284,15 +287,15 @@ void UleeBaseLessions::LoadThreeLineGame()
 FReply UleeBaseLessions::NativeOnTouchStarted(const FGeometry& InGeometry, const FPointerEvent& InTouchEvent)
 {
 	FReply iReply = Super::NativeOnTouchStarted(InGeometry, InTouchEvent);
-	if (mouseFX) {
-		UCanvasPanelSlot* mSlot = Cast<UCanvasPanelSlot>(mouseFX->Slot);
-		if (mSlot) {
-			FVector2D mPos = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
-			mSlot->SetPosition(mPos);
+	//if (mouseFX) {
+	//	UCanvasPanelSlot* mSlot = Cast<UCanvasPanelSlot>(mouseFX->Slot);
+	//	if (mSlot) {
+	//		FVector2D mPos = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
+	//		mSlot->SetPosition(mPos);
 
-			mouseFX->ActivateSystem(true);
-		}
-	}
+	//		mouseFX->ActivateSystem(true);
+	//	}
+	//}
 	return iReply;
 }
 

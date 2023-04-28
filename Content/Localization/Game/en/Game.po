@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Game\n"
-"POT-Creation-Date: 2023-04-14 20:08\n"
-"PO-Revision-Date: 2023-04-14 20:08\n"
+"POT-Creation-Date: 2023-04-28 04:08\n"
+"PO-Revision-Date: 2023-04-28 04:08\n"
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,13 @@ msgstr "Account :    {email}"
 msgctxt ",0125BC3C4987E80CE0C26BBE7E371575"
 msgid "FPS : {FPS_input}"
 msgstr "FPS : {FPS_input}"
+
+#. Key:	0BF6AF8A4295402E958E70A0470A37AC
+#. SourceLocation:	/Game/Widgets/BaseWidget/Common/ConfirmPremium.ConfirmPremium_C:WidgetTree.NoText.Text
+#: /Game/Widgets/BaseWidget/Common/ConfirmPremium.ConfirmPremium_C:WidgetTree.NoText.Text
+msgctxt ",0BF6AF8A4295402E958E70A0470A37AC"
+msgid "No"
+msgstr "No"
 
 #. Key:	115E815844288FEADB27BEAF216CE1A3
 #. SourceLocation:	/Game/Widgets/Main/Settings.Settings_C:WidgetTree.Displayname.Text
@@ -55,6 +62,20 @@ msgctxt ",56D4F55A46B3C3C857168D8082C8B7EE"
 msgid "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
 msgstr "<Red>Choose</> <Blue>the</> <Green> correct</><Yellow> number</>"
 
+#. Key:	64B2C75A401A25007FF63D914B4D5335
+#. SourceLocation:	/Game/Widgets/item/ShopItem.ShopItem_C:ExecuteUbergraph_ShopItem [Script Bytecode]
+#: /Game/Widgets/item/ShopItem.ShopItem_C:ExecuteUbergraph_ShopItem [Script Bytecode]
+msgctxt ",64B2C75A401A25007FF63D914B4D5335"
+msgid "{value} $"
+msgstr "{value} $"
+
+#. Key:	6657B61B44F89F0B228392ACE781C2AD
+#. SourceLocation:	/Game/Widgets/item/ShopItem.ShopItem_C:ExecuteUbergraph_ShopItem [Script Bytecode]
+#: /Game/Widgets/item/ShopItem.ShopItem_C:ExecuteUbergraph_ShopItem [Script Bytecode]
+msgctxt ",6657B61B44F89F0B228392ACE781C2AD"
+msgid "{label} Star"
+msgstr "{label} Star"
+
 #. Key:	7558307A40906F66BA8404849EAEF76A
 #. SourceLocation:	/Game/Widgets/Main/Settings.Settings_C:ExecuteUbergraph_Settings [Script Bytecode]
 #: /Game/Widgets/Main/Settings.Settings_C:ExecuteUbergraph_Settings [Script Bytecode]
@@ -62,19 +83,12 @@ msgctxt ",7558307A40906F66BA8404849EAEF76A"
 msgid " {email}"
 msgstr " {email}"
 
-#. Key:	A71E19224BEC010FDF93D38F806E46E6
-#. SourceLocation:	/Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.Yestext.Text
-#: /Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.Yestext.Text
-msgctxt ",A71E19224BEC010FDF93D38F806E46E6"
+#. Key:	EDEEE1074E4609A1A3478BBBD34D972F
+#. SourceLocation:	/Game/Widgets/BaseWidget/Common/ConfirmPremium.ConfirmPremium_C:WidgetTree.Yestext.Text
+#: /Game/Widgets/BaseWidget/Common/ConfirmPremium.ConfirmPremium_C:WidgetTree.Yestext.Text
+msgctxt ",EDEEE1074E4609A1A3478BBBD34D972F"
 msgid "OK"
 msgstr "OK"
-
-#. Key:	EAC9BF9642E68244271C9A9F70C9EBFE
-#. SourceLocation:	/Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.NoText.Text
-#: /Game/Widgets/BaseWidget/Common/ConfirmPopup.ConfirmPopup_C:WidgetTree.NoText.Text
-msgctxt ",EAC9BF9642E68244271C9A9F70C9EBFE"
-msgid "No"
-msgstr "No"
 
 #. Key:	0586DD0C4FB9CAFCC7D0D8B524670E14_364A12939CFA2E27
 #. SourceLocation:	/Game/Audio/Dialog/Incorrect_Dialog.Incorrect_Dialog
@@ -344,6 +358,13 @@ msgctxt "Settings,Ads"
 msgid "No Ads"
 msgstr "No Ads"
 
+#. Key:	AdsPurchase
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,AdsPurchase"
+msgid "do you want to buy the No Ads package cost 2.99 $?"
+msgstr "do you want to buy the No Ads package cost 2.99 $?"
+
 #. Key:	Apple
 #. SourceLocation:	/Game/Stringtable/Settings.Settings
 #: /Game/Stringtable/Settings.Settings
@@ -414,12 +435,61 @@ msgctxt "Settings,Login"
 msgid "Link Account"
 msgstr "Link Account"
 
+#. Key:	Menupremiumclick
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Menupremiumclick"
+msgid "You need to purchase a premium pack to unlock\r\n          these features. Do you want to buy it?"
+msgstr "You need to purchase a premium pack to unlock\r\n          these features. Do you want to buy it?"
+
 #. Key:	Music
 #. SourceLocation:	/Game/Stringtable/Settings.Settings
 #: /Game/Stringtable/Settings.Settings
 msgctxt "Settings,Music"
 msgid "Music"
 msgstr "Music"
+
+#. Key:	N
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,N"
+msgid "No"
+msgstr "No"
+
+#. Key:	PremiumDetail
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,PremiumDetail"
+msgid "- No Ads\r\n- Unlimited number of lessions\r\n- free update of lession packages forever"
+msgstr "- No Ads\r\n- Unlimited number of lessions\r\n- free update of lession packages forever"
+
+#. Key:	PremiumLabel
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,PremiumLabel"
+msgid "Upgrate to Premium Account"
+msgstr "Upgrate to Premium Account"
+
+#. Key:	ShopItem1
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,ShopItem1"
+msgid "do you want to buy 10 pieces the star package cost 0.99 $?"
+msgstr "do you want to buy 10 pieces the star package cost 0.99 $?"
+
+#. Key:	ShopItem2
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,ShopItem2"
+msgid "do you want to buy 25 pieces the star package cost 1.99 $?"
+msgstr "do you want to buy 25 pieces the star package cost 1.99 $?"
+
+#. Key:	ShopItem3
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,ShopItem3"
+msgid "do you want to buy 50 pieces the star package cost 2.99 $?"
+msgstr "do you want to buy 50 pieces the star package cost 2.99 $?"
 
 #. Key:	Sound
 #. SourceLocation:	/Game/Stringtable/Settings.Settings
@@ -455,4 +525,11 @@ msgstr "Vietnamese"
 msgctxt "Settings,Vip"
 msgid "Premium"
 msgstr "Premium"
+
+#. Key:	Y
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,Y"
+msgid "Yes"
+msgstr "Yes"
 

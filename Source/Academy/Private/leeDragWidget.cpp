@@ -40,20 +40,22 @@ void UleeDragWidget::NativePreConstruct()
 void UleeDragWidget::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
 {
 	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
-	if (lIsDrop) return;
+	if (lIsDrop || !canDrag) return;
 
 	//lDebug("Touching Detected");
 	if (!lDragSubVisual || !lDragSubOperation) return;
 
 	UleeDragWidget* WidgetVisual = CreateWidget<UleeDragWidget>(GetWorld(), lDragSubVisual);
 	WidgetVisual->lSetTexture(ltexture);
+	WidgetVisual->SetRenderScale(FVector2D{ 1.5,1.5 });
 	WidgetVisual->lIdname = lIdname;
 	WidgetVisual->lShadow->SetVisibility(ESlateVisibility::Hidden);
 	//WidgetVisual->lSetButtonSize(iSize);
 
 	UDragDropOperation* DragVisual = NewObject<UDragDropOperation>(GetWorld(), lDragSubOperation);
+
 	DragVisual->Pivot = EDragPivot::CenterCenter;
-	DragVisual->Payload = this;// lGetTextureFromPath(lNormalPath);
+	DragVisual->Payload = this;// lGetTextureFromPath(lNormalPath)
 	DragVisual->DefaultDragVisual = WidgetVisual;
 	OutOperation = DragVisual;
 	//SetVisibility(ESlateVisibility::Hidden);
@@ -63,7 +65,7 @@ void UleeDragWidget::NativeOnDragDetected(const FGeometry& InGeometry, const FPo
 FReply UleeDragWidget::NativeOnTouchStarted(const FGeometry& InGeometry, const FPointerEvent& InTouchEvent)
 {
 	FEventReply iReply = UWidgetBlueprintLibrary::DetectDragIfPressed(InTouchEvent, this, EKeys::LeftMouseButton);
-	if (lIsDrop) return iReply.NativeReply;
+	if (lIsDrop ) return iReply.NativeReply;
 
 	if (InTouchEvent.IsTouchEvent()) {
 		iReply.NativeReply.DetectDrag(TakeWidget(), EKeys::LeftMouseButton);
@@ -95,11 +97,14 @@ bool UleeDragWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 			lStatusImage->SetVisibility(ESlateVisibility::Visible);
 			isCorrect = true;
 			Smoke->ActivateSystem(true);
+			DragObj->canDrag = false;
 		}
 		else if(DragObj)
 			DragObj->lSetVisibility(false);
 	}
+	//lDragImage->SetBrushSize(FVector2D{164,165});
 	OniDrop.Broadcast(isCorrect);
+
 	return false;
 }
 

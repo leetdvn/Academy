@@ -138,6 +138,8 @@ void UleeMenuGame::OnConfirmOpen()
 
 void UleeMenuGame::NativeConstruct()
 {
+	GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+
 	if (GameMenu) {
 
 		if (GameMenu->lGetButtons().Num() > 0) {
@@ -146,11 +148,14 @@ void UleeMenuGame::NativeConstruct()
 				btn->OnMenuClick.AddDynamic(this, &UleeMenuGame::OnMenuClick);
 				btn->ltextblock->SetText(FText::FromStringTable(FName(*StrTable),leeMenu[count]));
 				//btn->Premium = btn->WidgetTree->FindWidget(TEXT("Premium"));
-				if (IsPremium(btn->lGetTextureName())) {
-					btn->lButton->SetIsEnabled(false);
-					btn->Premium->SetVisibility(ESlateVisibility::Visible);
-					btn->Premium->OnMouseButtonDownEvent.BindUFunction(this, TEXT("OnPremiumLockClick"));
-					lDebug(btn->lGetTextureName());
+				if (GIns->PlayerInfo->IsUserPurChased) {
+					if (IsPremium(btn->lGetTextureName())) {
+						btn->lButton->SetIsEnabled(false);
+						btn->Premium->SetVisibility(ESlateVisibility::Visible);
+						btn->Premium->OnMouseButtonDownEvent.BindUFunction(this, TEXT("OnPremiumLockClick"));
+						lDebug(btn->lGetTextureName());
+					}
+
 				}
 				count++;
 			}
