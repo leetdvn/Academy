@@ -9,7 +9,8 @@ public class Academy : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore","UMG" ,"JSon", "JsonUtilities", "Paper2D" ,
-            "OnlineSubsystem", "OnlineSubsystemUtils", "Networking", "Sockets",
+            "OnlineSubsystem", 
+            "OnlineSubsystemUtils",
             "FirebaseAuthentication",
             "OnlineSubsystemFacebook",
             "FirebaseGoodies",

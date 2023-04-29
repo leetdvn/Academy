@@ -90,17 +90,6 @@
 			"Enabled": false
 		},
 		{
-			"Name": "OpenXRHandTracking",
-			"Enabled": false,
-			"SupportedTargetPlatforms": [
-				"Win32",
-				"Win64",
-				"Linux",
-				"HoloLens",
-				"Android"
-			]
-		},
-		{
 			"Name": "MacGraphicsSwitching",
 			"Enabled": false
 		},
@@ -317,10 +306,6 @@
 			"Enabled": true
 		},
 		{
-			"Name": "SteamAudio",
-			"Enabled": true
-		},
-		{
 			"Name": "SpeedTreeImporter",
 			"Enabled": false
 		},
@@ -352,6 +337,26 @@
 			"Name": "AndroidPlayBilling",
 			"Enabled": true,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/ad0040f7dbbc45cebdcbc4b2c5982904"
+		},
+		{
+			"Name": "NullSourceCodeAccess",
+			"Enabled": false
+		},
+		{
+			"Name": "LinuxDeviceProfileSelector",
+			"Enabled": false
+		},
+		{
+			"Name": "OodleNetwork",
+			"Enabled": false
+		},
+		{
+			"Name": "TcpMessaging",
+			"Enabled": false
+		},
+		{
+			"Name": "UdpMessaging",
+			"Enabled": false
 		}
 	],
 	"TargetPlatforms": [
