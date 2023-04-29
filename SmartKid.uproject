@@ -212,10 +212,6 @@
 			"Enabled": false
 		},
 		{
-			"Name": "NullSourceCodeAccess",
-			"Enabled": false
-		},
-		{
 			"Name": "LightPropagationVolume",
 			"Enabled": false
 		},
@@ -353,8 +349,9 @@
 			"Enabled": false
 		},
 		{
-			"Name": "LinuxDeviceProfileSelector",
-			"Enabled": false
+			"Name": "AndroidPlayBilling",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/ad0040f7dbbc45cebdcbc4b2c5982904"
 		}
 	],
 	"TargetPlatforms": [
