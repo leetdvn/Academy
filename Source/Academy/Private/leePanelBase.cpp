@@ -104,7 +104,7 @@ void UleePanelBase::lNewPanelImageFromFiles(FString dir, bool Hastext)
 void UleePanelBase::lInitializePanels(FString dir, TEnumAsByte<PanelType> panel, bool Hastext)
 {
 	if (dir == lCurrentDir) {
-		lDebug("current load this", FColor::Green, "Current Panels.");
+		//lDebug("current load this", FColor::Green, "Current Panels.");
 		return;
 	}
 
@@ -196,6 +196,16 @@ void UleePanelBase::NativePreConstruct()
 	//	if (img) lStaticImage.AddUnique(img);
 	//}
 #endif
+}
+
+void UleePanelBase::NativeDestruct()
+{
+	if (lbuttons.Num() <= 0 ) return;
+
+	for (auto& btn : lbuttons) {
+		if (btn->OnMenuClick.IsBound()) btn->OnMenuClick.Clear();
+		if (btn->lButton->OnClicked.IsBound()) btn->lButton->OnClicked.Clear();
+	}
 }
 
 UleeBaseButton* UleePanelBase::lGetButton(int idx)

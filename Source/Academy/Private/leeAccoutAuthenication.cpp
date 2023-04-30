@@ -53,3 +53,9 @@ void UleeAccoutAuthenication::NativeConstruct()
 
 }
 
+void UleeAccoutAuthenication::NativeDestruct()
+{
+	if (black_bgr->OnMouseButtonDownEvent.IsBound())
+		black_bgr->OnMouseButtonDownEvent.Clear();
+}
+

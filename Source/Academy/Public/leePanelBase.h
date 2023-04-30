@@ -146,6 +146,8 @@ protected:
 
 	virtual void NativePreConstruct() override;
 
+	virtual void NativeDestruct() override;
+
 	UleePanelBase* ins;
 private:
 	FString lCurrentDir;

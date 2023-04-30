@@ -74,20 +74,23 @@ void UleeAlphaBet::OnCorrectClick(UleeBaseButton* button)
 	iCorrectNum++;
 	button->lSetChecked(true);
 	button->lButton->SetIsEnabled(false);
+	button->lActiveSmoke();
+	UGameplayStatics::PlayDialogue2D(GetWorld(), Alpha->lWaveSound[1], Alpha->lContext[1]);
 
 	if (iCorrectNum == 3) {
-		WinPanelOnOff(true);
-		iCorrectNum = 0;
 
 		if (isNewGame) {
 			AlPhaData->DataHistories.Add(c_Data);
 			//AlPhaData->CreateNewData(c_Data,true);
 			GameIns->SaveAlpha(AlPhaData, true);
 		}
-	}
-	UGameplayStatics::PlayDialogue2D(GetWorld(), Alpha->lWaveSound[1], Alpha->lContext[1]);
+		FTimerHandle timer;
+		GetWorld()->GetTimerManager().SetTimer(timer, [this]() {
+			WinPanelOnOff(true);
+			iCorrectNum = 0;
+			}, 3.0f, false, 0.5f);
 
-	lDebug(iCorrectNum);
+	}
 }
 
 void UleeAlphaBet::OnWrongClicked(UleeBaseButton* button)

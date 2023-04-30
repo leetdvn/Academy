@@ -59,4 +59,6 @@ public:
 protected:
 
 	virtual void NativeConstruct() override;
+	
+	virtual void NativeDestruct() override;
 };

@@ -23,10 +23,28 @@ UButton* UleeHistoryItem::lTakeItem(bool isLock)
 
 void UleeHistoryItem::OnMouseDown()
 {
+    isActive = true;
     OnItemClick.Broadcast(this);
+    
 }
 
 void UleeHistoryItem::NativeConstruct()
 {
     ItemBgr->OnClicked.AddDynamic(this, &UleeHistoryItem::OnMouseDown);
+}
+
+void UleeHistoryItem::NativeDestruct()
+{
+    if (OnItemClick.IsBound()) OnItemClick.Clear();
+    if (ItemBgr->OnClicked.IsBound()) ItemBgr->OnClicked.Clear();
+}
+
+FReply UleeHistoryItem::NativeOnTouchStarted(const FGeometry& InGeometry, const FPointerEvent& InTouchEvent)
+{
+    FReply iReply = Super::NativeOnTouchStarted(InGeometry, InTouchEvent);
+    if (ItemBgr->GetIsEnabled()) return iReply;
+    isActive = false;
+    OnItemClick.Broadcast(this);
+    lDebug("aaaaaaaaaaaaaaaaaaaa");
+    return iReply;
 }

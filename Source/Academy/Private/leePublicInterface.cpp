@@ -502,25 +502,26 @@ void IleePublicInterface::FillAnimationsMap(TMap<FString, UWidgetAnimation*>& An
 }
 void IleePublicInterface::SetSoundClassVolume(FString ClassName, float Volume, bool& Success)
 {
-	FAudioDevice* AudioDevice = GEngine->GetMainAudioDeviceRaw();
+	return;
+	//FAudioDevice* AudioDevice = GEngine->GetMainAudioDeviceRaw();
 
-	Success = false;
-	if (!AudioDevice) return;
+	//Success = false;
+	//if (!AudioDevice) return;
 
-	for (auto i = AudioDevice->GetSoundClassPropertyMap().CreateConstIterator(); i; ++i)
-	{
-		USoundClass* SoundClass = i.Key();
-		FString SoundClassName;
+	//for (auto i = AudioDevice->GetSoundClassPropertyMap().CreateConstIterator(); i; ++i)
+	//{
+	//	USoundClass* SoundClass = i.Key();
+	//	FString SoundClassName;
 
-		// Test if the Split function works then, if the name was the right one
-		if (SoundClass->GetFullName().Split(TEXT("."), nullptr, &SoundClassName, ESearchCase::CaseSensitive)
-			&& SoundClassName.Equals(ClassName))
-		{
-			SoundClass->Properties.Volume = Volume;
-			Success = true;
-			return;
-		}
-	}
+	//	// Test if the Split function works then, if the name was the right one
+	//	if (SoundClass->GetFullName().Split(TEXT("."), nullptr, &SoundClassName, ESearchCase::CaseSensitive)
+	//		&& SoundClassName.Equals(ClassName))
+	//	{
+	//		SoundClass->Properties.Volume = Volume;
+	//		Success = true;
+	//		return;
+	//	}
+	//}
 }
 
 void IleePublicInterface::SetSoundVolume(UWorld* would, float Volume, bool& Success) {

@@ -19,7 +19,8 @@
 /**
  * 
  */
-UCLASS()
+
+UCLASS(BlueprintType)
 class ACADEMY_API UleeMenuGame : public UUserWidget, public IleePublicInterface
 {
 	GENERATED_BODY()
@@ -41,16 +42,26 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Confirm Premium Panel", meta = (BindWidget))
 		UleeComfirmWidget* ConfirmPremium;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Login Widget", meta = (BindWidget));
+		UleeAccoutAuthenication* AccountLogin;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMenuClick(FString menuName);
+
+	UFUNCTION(BlueprintCallable,Category="lee's Ultils")
+		void OnOpenLogIn();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void CleanButtonYes() { Confirm->lButtonYes->OnClicked.Clear(); }
+
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void SetBlackSkyVisible(bool isOn,int32 zOder=0);
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnBlackSkyTouch();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnPremiumLockClick();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
@@ -75,6 +86,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void SetConfirmToogle(bool isOn=false,FString field ="");
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void GotoPurchase() {};
 
 	void SetConfirmPremiumToogle(bool isOn = false);
 
@@ -92,6 +105,8 @@ protected:
 
 
 	virtual void NativeConstruct() override;
+
+	virtual void NativeDestruct() override;
 
 	FString mapOpen;
 	

@@ -171,6 +171,16 @@ void UleeParentSettings::NativeConstruct()
 
 }
 
+void UleeParentSettings::NativeDestruct()
+{
+	/*clear event */
+	Sound->OnMouseButtonDownEvent.Clear();
+	Music->OnMouseButtonDownEvent.Clear();
+	Language_English->OnMouseButtonDownEvent.Clear();
+	Language_Chinese->OnMouseButtonDownEvent.Clear();
+	Language_Vietnamese->OnMouseButtonDownEvent.Clear();
+}
+
 void UleeParentSettings::OnSoundToogle()
 {
 	/*Sound Toogle CLickc*/

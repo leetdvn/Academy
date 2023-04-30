@@ -28,6 +28,13 @@ void UleeGameHistories::OnMouseClicked(UleeHistoryItem* item)
 		return;
 
 	}
+	else if (!item->isActive)
+	{
+		lDebug("non active");
+		/* open purchase*/
+		return;
+	}
+	
 	FString gtype = lGetTypeFromHistories(item);
 	return OnSwitchMapFromHistories(gtype,item);
 }
@@ -141,7 +148,7 @@ void UleeGameHistories::CreateGameHistories(TEnumAsByte<lGameType> gtype)
 template<class T>
 inline void UleeGameHistories::OnHistoriesImplantment(TArray<T> &Games)
 {
-	if (Games.Num() <= 0) return;
+	//if (Games.Num() <= 0) return;
 	if (lGridPanel->HasAnyChildren()) lGridPanel->ClearChildren();
 	int32 column = 0;
 	for (int i = 0, x = 0; i < Games.Num() + 12; i++, column++) {
@@ -174,7 +181,6 @@ inline void UleeGameHistories::OnHistoriesImplantment(TArray<T> &Games)
 					img->JsGameObject = FJsonObjectConverter::UStructToJsonObject(Games[i]);
 				}
 				img->OnItemClick.AddDynamic(this, &UleeGameHistories::OnMouseClicked);
-
 			}
 
 		}

@@ -120,7 +120,8 @@ public:
 	UPROPERTY()
 		UleeUserInfo* data;
 
-	bool isAvalible;
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Status")
+		bool isAvalible;
 
 	void InItSoundClass();
 
@@ -144,6 +145,7 @@ protected:
 
 	virtual void NativeConstruct() override;
 
+	virtual void NativeDestruct() override;
 	/*Sound Toogle CLickc*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnSoundToogle();

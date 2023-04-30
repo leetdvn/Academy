@@ -27,9 +27,14 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Message", meta = (BindWidget))
 		UTextBlock* lMessage;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Price")
+		FString ProductID;
+
 	void lSetConfirmTittle(FString Message);
 
 	void lSetTitleFromTable(FString field);
 
 	void lSetVisible(bool isShow);
+
+
 };

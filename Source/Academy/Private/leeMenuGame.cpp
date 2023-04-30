@@ -46,6 +46,14 @@ void UleeMenuGame::OnMenuClick(FString menuName)
 	//UGameplayStatics::OpenLevel(GetWorld(),FName(*mapOpen));
 }
 
+void UleeMenuGame::OnOpenLogIn()
+{
+	ESlateVisibility vis = AccountLogin->GetVisibility() == ESlateVisibility::Hidden ?
+		ESlateVisibility::SelfHitTestInvisible :
+		ESlateVisibility::Hidden;
+	return AccountLogin->SetVisibility(vis);
+}
+
 void UleeMenuGame::SetBlackSkyVisible(bool isOn, int32 zOder)
 {
 	ESlateVisibility vis = isOn ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
@@ -71,7 +79,6 @@ void UleeMenuGame::OnPremiumLockClick()
 	SetConfirmToogle(true,"Menupremiumclick");
 	Confirm->lButtonYes->OnClicked.AddDynamic(this, &UleeMenuGame::OnParentClicked);
 	Confirm->lButtonNo->OnClicked.AddDynamic(this,&UleeMenuGame::ConfirmClosed);
-
 }
 
 void UleeMenuGame::OnParentClicked()
@@ -104,6 +111,11 @@ void UleeMenuGame::SetConfirmToogle(bool isOn,FString field)
 	/*set Message from Table*/
 	Confirm->lSetTitleFromTable(field);
 
+	if (field == "") {
+		Confirm->lButtonYes->OnClicked.Clear();
+		Confirm->lButtonYes->OnClicked.AddDynamic(this, &UleeMenuGame::GotoPurchase);
+
+	}
 }
 
 void UleeMenuGame::SetConfirmPremiumToogle(bool isOn)
@@ -173,11 +185,18 @@ void UleeMenuGame::NativeConstruct()
 
 	if (Confirm) {
 		Confirm->lButtonNo->OnClicked.AddDynamic(this, &UleeMenuGame::ConfirmClosed);
-
 	}
 
 	BlackSky->OnMouseButtonDownEvent.BindUFunction(this, TEXT("OnBlackSkyTouch"));
 
+}
+
+void UleeMenuGame::NativeDestruct()
+{
+	/*clear event*/
+	Settings->lClosed->OnClicked.Clear();
+	ConfirmPremium->lButtonNo->OnClicked.Clear();
+	BlackSky->OnMouseButtonDownEvent.Clear();
 }
 
 bool UleeMenuGame::IsPremium(FString textName)

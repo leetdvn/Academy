@@ -50,10 +50,16 @@ public:
 
 	UButton* lTakeItem(bool isLock);
 
+	bool isActive;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMouseDown();
 
 protected:
 
 	virtual void NativeConstruct() override;
+
+	virtual void NativeDestruct() override;
+
+	virtual FReply NativeOnTouchStarted(const FGeometry& InGeometry, const FPointerEvent& InTouchEvent) override;
 };
