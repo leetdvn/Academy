@@ -37,6 +37,8 @@ void UleeBaseButton::NativeDestruct()
 {
 	//debug ondestroying
 	//lDebug("native destroy...");
+	if (lButton->OnClicked.IsBound())
+		lButton->OnClicked.Clear();
 }
 
 void UleeBaseButton::lSetPading(FMargin newMargin)

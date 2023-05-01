@@ -8,7 +8,6 @@
 #include <Components/Image.h>
 #include "leePublicInterface.h"
 #include "CoreMinimal.h"
-#include "UILeeDelegate.h"
 #include "GameFramework/HUD.h"
 #include "leeHub.generated.h"
 

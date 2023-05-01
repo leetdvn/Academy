@@ -3,7 +3,6 @@
 #pragma once
 #include <NiagaraSystemWidget.h>
 #include <NiagaraWidgetProperties.h>
-#include "UILeeDelegate.h"
 #include "leePublicEnum.h"
 #include "leePublicInterface.h"
 #include <Components/Image.h>

@@ -39,7 +39,6 @@ void UleeMenuGame::OnMenuClick(FString menuName)
 
 	if (hub) {
 		hub->CreateNewGame(gMode, mode);
-
 		//Settings->SetMusicVolume(0.2f);
 	}
 
@@ -173,7 +172,7 @@ void UleeMenuGame::NativeConstruct()
 			}
 		}
 	}
-
+	UKismetSystemLibrary::ShowAdBanner(0, false);
 	/*Settting implentation*/
 	if (Settings)
 		Settings->lClosed->OnClicked.AddDynamic(this, &UleeMenuGame::OnBlackSkyTouch);

@@ -146,10 +146,9 @@ void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype,TEnumAsByte<LineModes> 
 		default:
 			break;
 	}
-
+	gametype = gtype;
 	/*remote current widget and add new widget to viewport*/
 	if (lCurrentWidget) lCurrentWidget->RemoveFromViewport();
-	gametype = gtype;
 	lCurrentWidget->AddToViewport();
 	lOnGStart.Broadcast();
 	LinesMode = linemode;
