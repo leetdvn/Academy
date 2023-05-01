@@ -188,6 +188,10 @@ void UleeMenuGame::NativeConstruct()
 
 	BlackSky->OnMouseButtonDownEvent.BindUFunction(this, TEXT("OnBlackSkyTouch"));
 
+	
+	PlayAnimation(Khicau1, 0, 0);;
+	PlayAnimation(Khicau2, 0, 0);;
+
 }
 
 void UleeMenuGame::NativeDestruct()
@@ -196,6 +200,7 @@ void UleeMenuGame::NativeDestruct()
 	Settings->lClosed->OnClicked.Clear();
 	ConfirmPremium->lButtonNo->OnClicked.Clear();
 	BlackSky->OnMouseButtonDownEvent.Clear();
+	UKismetSystemLibrary::HideAdBanner();
 }
 
 bool UleeMenuGame::IsPremium(FString textName)

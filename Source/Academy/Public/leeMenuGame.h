@@ -45,6 +45,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Login Widget", meta = (BindWidget))
 		UleeAccoutAuthenication* AccountLogin;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Anim Widget", meta = (BindWidgetAnim), Transient)
+		UWidgetAnimation* Khicau1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Anim 2 Widget", meta = (BindWidgetAnim), Transient)
+		UWidgetAnimation* Khicau2;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "is Idle")
 		bool isIdle;
 
