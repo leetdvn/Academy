@@ -65,6 +65,9 @@ public:
 
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void LinkUser(FString UserId, FString Email, FString dispname);
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void SetBlackSkyVisible(bool isOn,int32 zOder=0);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")

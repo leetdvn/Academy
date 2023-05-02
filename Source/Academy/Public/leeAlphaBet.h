@@ -22,7 +22,7 @@
 
 
 
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, Blueprintable)
 class ACADEMY_API UleeAlphaBet : public UUserWidget , public IleePublicInterface
 {
 	GENERATED_BODY()

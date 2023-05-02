@@ -83,6 +83,8 @@ void UleeAlphaBet::OnCorrectClick(UleeBaseButton* button)
 			AlPhaData->DataHistories.Add(c_Data);
 			//AlPhaData->CreateNewData(c_Data,true);
 			GameIns->SaveAlpha(AlPhaData, true);
+			GameIns->PlayerInfo->Star++;
+			/*neet more vfx star*/
 		}
 		FTimerHandle timer;
 		GetWorld()->GetTimerManager().SetTimer(timer, [this]() {

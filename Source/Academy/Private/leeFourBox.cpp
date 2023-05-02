@@ -78,6 +78,9 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 		/// save data pass to next game lession
 		box4S->DataHistoriesStruct.Add(fourdata);
 		GameIns->SaveBox4S(box4S);
+		GameIns->PlayerInfo->Star++;
+		/*neet more vfx star*/
+
 		WinWidget->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 	}
 	button->lActiveSmoke();

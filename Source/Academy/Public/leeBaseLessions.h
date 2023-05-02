@@ -34,10 +34,12 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLoseGame, UleeBaseLessions*, Curr
 #define CHOISEENVI "AcademyAssets/Assets/ChoiseAnswers/EnvShape"
 #define CHOISEDEFAULT "AcademyAssets/Assets/ChoiseAnswers/AnimalShape"
 
+
+class AleeHub;
 /**
  * 
  */
-UCLASS(BlueprintType)
+UCLASS(BlueprintType,Blueprintable)
 class ACADEMY_API UleeBaseLessions : public UUserWidget, public IleePublicInterface
 {
 	GENERATED_BODY()
@@ -101,6 +103,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnIDrop(bool isCorrect);
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnSaveUserStar();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void InitializeThreeLineopic(FString& sourcefolder, FString& choiseFolder);
@@ -176,6 +181,7 @@ protected:
 	TArray<UleePanelBase*> lPanels;
 	//assign delegate
 	void BindButtons();
+
 
 	bool isReplay;
 

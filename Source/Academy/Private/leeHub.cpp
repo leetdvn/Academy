@@ -22,33 +22,11 @@ void AleeHub::BeginPlay()
 	TSubclassOf<UUserWidget> panel;// = map.EndsWith("AMenu") ? lMenuWidget : lThreeLine;
 	/*
 	Create Widget Default and make new game
-	Create Widget Default and make new game
 	*/
 	if (map.EndsWith("AMenu")) {
 		lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lMenuWidget);
 	}
-	//else if (map.EndsWith("ThreeLines")) {
-	//	lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
-	//	UleeBaseLessions* lines = Cast<UleeBaseLessions>(lCurrentWidget);
-	//	lines->isNewGame = SessionGameId <= 0 ? true : false;
-	//	if (!lines->isNewGame)
-	//		lines->SessionID = SessionGameId;
-	//	//lines->NewGameThreelineInit();
-	//}
-	//else if (map.EndsWith("FourBox")) {
-	//	lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lFourBox);
-	//	UleeFourBox* box = Cast<UleeFourBox>(lCurrentWidget);
 
-	//	box->isNewGame = SessionGameId <= 0 ? true : false;
-	//	if (!box->isNewGame)
-	//		box->GameId = SessionGameId;
-
-	//	box->isNewGame = true;
-	//}
-	//else if (map.EndsWith("AlphaBet")) {
-	//	lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lAlphaBeet);
-
-	//}
 
 	if (lCurrentWidget) {
 		lCurrentWidget->AddToViewport();
@@ -64,11 +42,36 @@ void AleeHub::BeginPlay()
 		UGameplayStatics::PlayDialogue2D(GetWorld(), lKidMusic, lMusic);
 	}
 	if (!GameIns) { lDebug("Game Instance Nullptr"); return; }
+	Player = GameIns->PlayerInfo;
+	lDebug(Player->isFirstTime,FColor::Purple,"First Time");
 }
 
 void AleeHub::Tick(float DeltaTime)
 {
 	//double x{}, y{};
+	if (gametype == lGameType::None) return;
+	if (!isKidAFK) return;
+	KidTimeAFK += DeltaTime;
+
+	if (!Player->isFirstTime)
+	{
+		ShowTutorials();
+		GameIns->SaveUserInfo(Player);
+		Player->isFirstTime = true;
+	}
+	else if (KidTimeAFK > KidTimeUp && !isTutorialShow)
+		ShowTutorials();
+
+	/*De bug Screen*/
+	FString  mess = "AFK : " + FString::FromInt(KidTimeAFK);
+	if (GEngine) {
+		GEngine->AddOnScreenDebugMessage(
+			-5,
+			5,
+			FColor::Purple,
+			*mess
+		);
+	}
 }
 
 void AleeHub::LoadFourBoxFromData(int32 idx)
@@ -152,6 +155,25 @@ void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype,TEnumAsByte<LineModes> 
 	lCurrentWidget->AddToViewport();
 	lOnGStart.Broadcast();
 	LinesMode = linemode;
+}
+
+void AleeHub::ShowTutorials()
+{
+	if (isTutorialShow) return;
+	if (TutorialWidget)
+		TutorialWidget->RemoveFromParent();
+	TutorialWidget= CreateWidget<UleeTutorials>(GetWorld(), Tutorials);
+
+	FString Feild = gametype == Threelines ? "drag" : "correct";
+	bool iDragTut = gametype == Threelines ? true : false;
+
+	FText text = FText::FromStringTable(TEXT("/Game/Stringtable/Tutorial"), Feild);
+	TutorialWidget->Desc->SetText(text);
+	TutorialWidget->isDragTutorials = iDragTut;
+	TutorialWidget->AddToViewport();
+	isTutorialShow = true;
+	isKidAFK = false;
+	StartOverTutorialTime();
 }
 
 template<class T>

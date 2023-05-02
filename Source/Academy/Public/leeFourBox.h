@@ -25,7 +25,7 @@
  */
 
 
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, Blueprintable)
 class ACADEMY_API UleeFourBox : public UUserWidget, public IleePublicInterface
 {
 	GENERATED_BODY()

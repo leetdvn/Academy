@@ -256,16 +256,28 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 		line3S->DataHistoriesStruct.Add(gamedata);
 		//GameIns->SaveCurrentGameData(_UserData);
 		GameIns->SaveLine3S(line3S);
-		//GameIns->SaveGameData(GameType, gamedata);
+		GameIns->PlayerInfo->Star++;
+		/*neet more vfx star*/
+
 		FTimerHandle timer;
 		GetWorld()->GetTimerManager().SetTimer(timer, [this]() {	lSetWinOnOff(true);}, 3.0f, false,0.5f);
 
 		DropCorrecttimes = 0;
 
-		//UE_LOG(LogTemp, Warning, TEXT("view : %s"), *completed);
 
 	}
 	UGameplayStatics::PlayDialogue2D(GetWorld(), lThreeline->lWaveSound[waveIdx], lThreeline->lContext[waveIdx]);
+}
+
+void UleeBaseLessions::OnSaveUserStar()
+{
+	UleeUserInfo* Player = GameIns->PlayerInfo;
+	if (!Player) return;
+	if (!Player->isPurChased()) return;
+
+
+	/*Save data to Firebase Data Base*/
+
 }
 
 void UleeBaseLessions::LoadThreeLineGame()

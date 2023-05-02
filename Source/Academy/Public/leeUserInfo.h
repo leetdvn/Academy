@@ -20,19 +20,22 @@ public:
 	UleeUserInfo(const FObjectInitializer& ObjectInitializer);
 	~UleeUserInfo() {};
 
-	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Displayname")
 		FString DisplayName;
 
-	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player UserId")
 		FString UserID;
 
-	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Star")
 		int Star;
+
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Star")
+		FString Email;
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		int GamesCompleted;
 
-	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Purchased")
 		bool IsUserPurChased;
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
@@ -40,7 +43,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		bool Music;
-
+	
+	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+		bool isFirstTime;
 
 	const FString SlotName = "PlayerInfo";
 

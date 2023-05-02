@@ -45,17 +45,17 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Info")
 		UleeUserInfo* PlayerInfo;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Info")
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Line3s")
 		Ulee3LinesData* Line3s;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Info")
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Box4s")
 		Ulee4BoxData* Box4s;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Info")
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Alpha")
 		UleeAlphaData* Alpha;
 
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Info")
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "User Info")
 		TSubclassOf<UleeUserInfo> iinfo;
 
 	void SaveUserInfo(UleeUserInfo*& info);

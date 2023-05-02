@@ -53,6 +53,20 @@ void UleeMenuGame::OnOpenLogIn()
 	return AccountLogin->SetVisibility(vis);
 }
 
+void UleeMenuGame::LinkUser(FString UserId, FString Email, FString dispname)
+{
+	///Save link User
+	if(!GIns)
+		GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	UleeUserInfo* data = GIns->PlayerInfo;
+	data->DisplayName = dispname;
+	data->UserID = UserId;
+	data->Email = Email;
+	GIns->SaveUserInfo(data);
+
+
+}
+
 void UleeMenuGame::SetBlackSkyVisible(bool isOn, int32 zOder)
 {
 	ESlateVisibility vis = isOn ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
@@ -174,8 +188,9 @@ void UleeMenuGame::NativeConstruct()
 	}
 	UKismetSystemLibrary::ShowAdBanner(0, false);
 	/*Settting implentation*/
-	if (Settings)
+	if (Settings) {
 		Settings->lClosed->OnClicked.AddDynamic(this, &UleeMenuGame::OnBlackSkyTouch);
+	}
 
 	if (ConfirmPremium) {
 		ConfirmPremium->lButtonNo->OnClicked.AddDynamic(this, &UleeMenuGame::ConfirmPremiumClosed);
