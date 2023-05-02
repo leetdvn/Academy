@@ -76,6 +76,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Music Context")
 		USoundClass* KidMusic;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Open Shop")
+		bool isOpenShop;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Kid AFk")
 		bool isKidAFK;
 

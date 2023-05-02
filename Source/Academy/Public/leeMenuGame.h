@@ -5,6 +5,7 @@
 //#include <OnlineSubsystemUtils/Public/OnlineSubsystemUtils.h>
 //#include <OnlineSubsystem.h>
 //#include <OnlineSubsystemFacebook.h>
+#include <leeHub.h>
 #include "leeComfirmWidget.h"
 #include "leeParentSettings.h"
 #include <Kismet/KismetInternationalizationLibrary.h>
@@ -132,4 +133,5 @@ protected:
 
 	TArray<FString> PremiumLists = { "shape2","shape3","shapeitems" };
 
+	AleeHub* hub;
 };

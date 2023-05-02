@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "leeComfirmWidget.h"
 #include "leeAlpha.h"
 #include "leeBaseButton.h"
 #include "leeGameInstance.h"
@@ -47,6 +48,9 @@ public:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Histories", meta = (BindWidget))
 		UleeGameHistories* GameHistories;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Confirm Widget", meta = (BindWidget))
+		UleeComfirmWidget* ConfirmPopup;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Alpha", meta = (BindWidget))
 		UleeAlpha* Alpha;
@@ -95,6 +99,23 @@ public:
 
 	UFUNCTION()
 	void OnBlackSkyTouch();
+
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void ToogleConfirmed(bool isOn, FString FeildMessage = "");
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void CloseDialog() { ToogleConfirmed(false); };
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnUnlockDialog();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnPlayerGetWard();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnGoToShop();
+
 
 	/* Get Sound Index*/
 	int32 GetSoundIndex();

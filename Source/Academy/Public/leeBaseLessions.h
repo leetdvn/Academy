@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "leeComfirmWidget.h"
 #include "leeDecorPanel.h"
 #include "leeGameInstance.h"
 #include "leeDynamicPanel.h"
@@ -24,7 +25,6 @@ class UImage;
 class UPanelWidget;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCompletedGame, UleeBaseLessions*, CurrentGame);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLoseGame, UleeBaseLessions*, CurrentGame);
 
 #define TOPICPREMIUM "AcademyAssets/Assets/Topic/Premium_Animal"
 #define TOPICENVI "AcademyAssets/Assets/Topic/Environment"
@@ -81,6 +81,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Win Widget", meta = (BindWidget))
 		UUserWidget* WinWidget;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Confirm Widget", meta = (BindWidget))
+		UleeComfirmWidget* ConfirmPopup;
+
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game ID")
 		int  SessionID;
 
@@ -91,7 +94,7 @@ public:
 		UleeGameInstance* GameIns;
 
 	/*Correct click Event Delegate */
-	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
+	UPROPERTY(BlueprintAssignable,  Category = "EventDispatchers")
 		FOnCompletedGame OnCorrectClick;
 
 	/*Correct click Event Delegate */
@@ -103,6 +106,22 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnIDrop(bool isCorrect);
+
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnUnlockDialog();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnPlayerGetWard();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnGoToShop();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void ToogleConfirmed(bool isOn,FString FeildMessage="");
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void CloseDialog() { ToogleConfirmed(false); };
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnSaveUserStar();

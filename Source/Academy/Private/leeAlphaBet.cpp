@@ -127,6 +127,62 @@ void UleeAlphaBet::OnBlackSkyTouch()
 	}
 }
 
+void UleeAlphaBet::ToogleConfirmed(bool isOn, FString FeildMessage)
+{
+	ESlateVisibility vis = isOn ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
+	ConfirmPopup->SetVisibility(vis);
+	ConfirmPopup->isOpen = isOn;
+
+	if (FeildMessage.IsEmpty()) return;
+
+	ConfirmPopup->lMessage->SetText(FText::FromStringTable(GAMETABLE, FeildMessage));
+
+}
+
+void UleeAlphaBet::OnUnlockDialog()
+{
+	//if (GameIns->PlayerInfo->Star < 5) return;
+	ConfirmPopup->lMessage->SetText(FText::FromStringTable(GAMETABLE, "unlock"));
+	ToogleConfirmed(true);
+	ConfirmPopup->lButtonYes->OnClicked.Clear();
+	ConfirmPopup->lButtonYes->OnClicked.AddDynamic(this, &UleeAlphaBet::OnPlayerGetWard);
+
+}
+
+void UleeAlphaBet::OnPlayerGetWard()
+{
+	/*Not Enoght Star*/
+	if (GameIns->PlayerInfo->Star < 5) {
+		lDebug("Not Enogh Star");
+		ConfirmPopup->lMessage->SetText(FText::FromStringTable(GAMETABLE, "gotoshop"));
+		ConfirmPopup->lButtonYes->OnClicked.Clear();
+		ConfirmPopup->lButtonYes->OnClicked.AddDynamic(this, &UleeAlphaBet::OnGoToShop);
+		return;
+	}
+
+	/*Go To Unlock close Dialog*/
+	ToogleConfirmed(false);
+	/*Turn off histories*/
+	OnBlackSkyTouch();
+	/*Create New Game and Save to Histories*/
+	NewGameInitialize();
+
+	AlPhaData->DataHistories.Add(c_Data);
+	//AlPhaData->CreateNewData(c_Data,true);
+	GameIns->SaveAlpha(AlPhaData,true);
+}
+
+void UleeAlphaBet::OnGoToShop()
+{
+	/*Go To Unlock close Dialog*/
+	ToogleConfirmed(false);
+	/*Turn off histories*/
+	OnBlackSkyTouch();
+
+	UGameplayStatics::OpenLevel(GetWorld(), TEXT("AMenu"));
+
+}
+
 int32 UleeAlphaBet::GetSoundIndex()
 {
 	int32 result=-1;
@@ -181,7 +237,17 @@ void UleeAlphaBet::NativeConstruct()
 	
 	/*bind BlackSky Touch*/
 	BlackSky->OnMouseButtonDownEvent.BindUFunction(this, TEXT("OnBlackSkyTouch"));
-	if (GameHistories) GameHistories->lTurnOffButton->OnClicked.AddDynamic(this, &UleeAlphaBet::OnBlackSkyTouch);
+	if (GameHistories) {
+		GameHistories->lTurnOffButton->OnClicked.AddDynamic(this, &UleeAlphaBet::OnBlackSkyTouch);
+		/*Star*/
+		GameHistories->OnNewUnlock.AddDynamic(this, &UleeAlphaBet::OnUnlockDialog);
+		if (ConfirmPopup) {
+			ConfirmPopup->lButtonYes->OnClicked.AddDynamic(this, &UleeAlphaBet::OnPlayerGetWard);
+			ConfirmPopup->lButtonNo->OnClicked.AddDynamic(this, &UleeAlphaBet::CloseDialog);
+			//ConfirmPopup->
+		}
+
+	}
 
 	//isNewGame = true;
 	return isNewGame ? NewGameInitialize() : LoadGameFromData(GameId);

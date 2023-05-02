@@ -30,8 +30,9 @@ void UleeGameHistories::OnMouseClicked(UleeHistoryItem* item)
 	}
 	else if (!item->isActive)
 	{
-		lDebug("non active");
+		//lDebug("non active");
 		/* open purchase*/
+		OnNewUnlock.Broadcast();
 		return;
 	}
 	

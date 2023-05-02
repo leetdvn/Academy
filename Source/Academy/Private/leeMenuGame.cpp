@@ -3,13 +3,11 @@
 
 #include "leeMenuGame.h"
 #include <Source/Private/OnlineSharingFacebookCommon.h>
-#include <leeHub.h>
 
 void UleeMenuGame::OnMenuClick(FString menuName)
 {
 	if (menuName.IsEmpty()) return;
 	lDebug(menuName);
-	AleeHub* hub = lGetleeHub();
 	TEnumAsByte<LineModes> mode = Normal;
 	TEnumAsByte<lGameType> gMode = None;
 	if (menuName.EndsWith("shape")) {
@@ -108,9 +106,9 @@ void UleeMenuGame::OnParentClicked()
 AleeHub* UleeMenuGame::lGetleeHub()
 {
 	UWorld* world = GetWorld();
-	AHUD* hub = world->GetFirstPlayerController()->GetHUD();
-	if (hub)
-		return Cast<AleeHub>(hub);
+	AHUD* uhub = world->GetFirstPlayerController()->GetHUD();
+	if (uhub)
+		return Cast<AleeHub>(uhub);
 	return nullptr;
 }
 
@@ -164,6 +162,8 @@ void UleeMenuGame::OnConfirmOpen()
 void UleeMenuGame::NativeConstruct()
 {
 	GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	hub = lGetleeHub();
+	if (hub->isOpenShop) OnBlackSkyTouch();
 
 	if (GameMenu) {
 

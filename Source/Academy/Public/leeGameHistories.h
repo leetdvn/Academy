@@ -13,6 +13,7 @@
 #include "Blueprint/UserWidget.h"
 #include "leeGameHistories.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnUnlock);
 /**
  * 
  */
@@ -42,6 +43,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", meta = (BindWidgetAnim), Transient)
 		UWidgetAnimation* CloseDown;
+
+	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
+		FOnUnlock OnNewUnlock;
 
 	bool isOpened;
 

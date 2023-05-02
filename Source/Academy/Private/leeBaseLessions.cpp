@@ -22,6 +22,7 @@ UleeBaseLessions::UleeBaseLessions(const FObjectInitializer& ObjectInitializer)
 
 void UleeBaseLessions::NativeConstruct()
 {
+	Super::NativeConstruct();
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	line3S = GameIns->Line3s;
 	ltopdecor->DecorInit(ltopdecor->lGetPath());
@@ -40,7 +41,18 @@ void UleeBaseLessions::NativeConstruct()
 	//binding event drop for answers
 	/*bind BlackSky Touch*/
 	BlackSky->OnMouseButtonDownEvent.BindUFunction(this, TEXT("OnBlackSkyTouch"));
-	if (GameHistories) GameHistories->lTurnOffButton->OnClicked.AddDynamic(this, &UleeBaseLessions::OnBlackSkyTouch);
+	if (GameHistories) {
+		GameHistories->lTurnOffButton->OnClicked.AddDynamic(this, &UleeBaseLessions::OnBlackSkyTouch);
+		
+		/*Star*/
+		GameHistories->OnNewUnlock.AddDynamic(this, &UleeBaseLessions::OnUnlockDialog);
+		if (ConfirmPopup){
+			ConfirmPopup->lButtonYes->OnClicked.AddDynamic(this, &UleeBaseLessions::OnPlayerGetWard);
+			ConfirmPopup->lButtonNo->OnClicked.AddDynamic(this, &UleeBaseLessions::CloseDialog);
+			//ConfirmPopup->
+		}
+
+	}
 
 	//load Game History
 	lSetWinOnOff(false);
@@ -55,6 +67,9 @@ void UleeBaseLessions::NativeConstruct()
 		UGameplayStatics::PlayDialogue2D(GetWorld(), lThreeline->lWaveSound[soundIdx], lThreeline->lContext[soundIdx]);
 		isMakeSound = false;
 	}
+
+	/*bind Confirm Popup*/
+
 	return isNewGame ? NewGameThreelineInit() : LoadGameAt(SessionID);
 }
 
@@ -267,6 +282,63 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 
 	}
 	UGameplayStatics::PlayDialogue2D(GetWorld(), lThreeline->lWaveSound[waveIdx], lThreeline->lContext[waveIdx]);
+}
+
+void UleeBaseLessions::OnUnlockDialog()
+{
+	/*User Unlock from Star*/
+
+	//if (GameIns->PlayerInfo->Star < 5) return;
+	ConfirmPopup->lMessage->SetText(FText::FromStringTable(GAMETABLE, "unlock"));
+	ToogleConfirmed(true);
+	ConfirmPopup->lButtonYes->OnClicked.Clear();
+	ConfirmPopup->lButtonYes->OnClicked.AddDynamic(this, &UleeBaseLessions::OnPlayerGetWard);
+
+	//GameIns->PlayerInfo->Star -= 5;
+
+
+}
+
+void UleeBaseLessions::OnPlayerGetWard()
+{
+	/*Not Enoght Star*/
+	if (GameIns->PlayerInfo->Star < 5) {
+		lDebug("Not Enogh Star");
+		ConfirmPopup->lMessage->SetText(FText::FromStringTable(GAMETABLE, "gotoshop"));
+		ConfirmPopup->lButtonYes->OnClicked.Clear();
+		ConfirmPopup->lButtonYes->OnClicked.AddDynamic(this, &UleeBaseLessions::OnGoToShop);
+		return;
+	}
+
+	/*Go To Unlock close Dialog*/
+	ToogleConfirmed(false);
+	/*Turn off histories*/
+	OnBlackSkyTouch();
+	/*Create New Game and Save to Histories*/
+	NewGameThreelineInit();
+	line3S->DataHistoriesStruct.Add(gamedata);
+	GameIns->SaveLine3S(line3S);
+
+}
+
+void UleeBaseLessions::OnGoToShop()
+{
+	/*Go To Unlock close Dialog*/
+	ToogleConfirmed(false);
+	/*Turn off histories*/
+	OnBlackSkyTouch();
+
+	UGameplayStatics::OpenLevel(GetWorld(), TEXT("AMenu"));
+}
+
+void UleeBaseLessions::ToogleConfirmed(bool isOn, FString FeildMessage)
+{
+	ESlateVisibility vis = isOn ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
+	ConfirmPopup->SetVisibility(vis);
+	ConfirmPopup->isOpen = isOn;
+	if (FeildMessage.IsEmpty()) return;
+
+	ConfirmPopup->lMessage->SetText(FText::FromStringTable(GAMETABLE, FeildMessage));
 }
 
 void UleeBaseLessions::OnSaveUserStar()

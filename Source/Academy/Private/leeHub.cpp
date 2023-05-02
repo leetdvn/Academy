@@ -16,23 +16,25 @@ void AleeHub::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if (!lMenuWidget) return;
-
 	FString map = UGameplayStatics::GetCurrentLevelName(GetWorld());// ->GetMapName();
 	TSubclassOf<UUserWidget> panel;// = map.EndsWith("AMenu") ? lMenuWidget : lThreeLine;
 	/*
 	Create Widget Default and make new game
 	*/
 	if (map.EndsWith("AMenu")) {
+		if (lCurrentWidget)
+			lCurrentWidget->RemoveFromParent();
 		lCurrentWidget = CreateWidget<UUserWidget>(GetWorld(), lMenuWidget);
+		
 	}
 
 
 	if (lCurrentWidget) {
 		lCurrentWidget->AddToViewport();
+
 	}
 
-	lDebug(SessionGameId, FColor::Green);
+	//lDebug(SessionGameId, FColor::Green);
 
 	//active Event start game
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));

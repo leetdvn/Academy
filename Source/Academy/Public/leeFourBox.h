@@ -1,5 +1,6 @@
 #pragma once
 
+#include "leeComfirmWidget.h"
 #include "leeDecorPanel.h"
 #include "lee4BoxData.h"
 #include "leeGameHistories.h"
@@ -62,6 +63,10 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Session ID")
 		int32 GameId;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Confirm Widget", meta = (BindWidget))
+		UleeComfirmWidget* ConfirmPopup;
+
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "New Game")
 		bool isNewGame;
 
@@ -96,6 +101,22 @@ public:
 
 	UFUNCTION()
 		void OnBlackSkyTouch();
+
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void ToogleConfirmed(bool isOn, FString FeildMessage = "");
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void CloseDialog() { ToogleConfirmed(false); };
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnUnlockDialog();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnPlayerGetWard();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void OnGoToShop();
 
 	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 	//	int lGetStar() { return userdata->Star; }

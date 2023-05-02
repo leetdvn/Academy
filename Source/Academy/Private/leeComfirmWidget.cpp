@@ -23,3 +23,13 @@ void UleeComfirmWidget::lSetVisible(bool isShow)
 		ESlateVisibility::Hidden;
 	return this->SetVisibility(vis);
 }
+
+void UleeComfirmWidget::NativeDestruct()
+{
+	if (lButtonNo->OnClicked.IsBound())
+		lButtonNo->OnClicked.Clear();
+
+	if (lButtonYes->OnClicked.IsBound())
+		lButtonYes->OnClicked.Clear();
+
+}
