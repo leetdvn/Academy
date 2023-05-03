@@ -82,6 +82,7 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 		/*neet more vfx star*/
 
 		WinWidget->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+		isGameRuning = false;
 	}
 	button->lActiveSmoke();
 }
@@ -243,6 +244,7 @@ void UleeFourBox::NativeConstruct()
 		UGameplayStatics::PlayDialogue2D(GetWorld(), lFourBox->lWaveSound[2], lFourBox->lContext[2]);
 		isMakeSound = false;
 	}
+	isGameRuning = true;
 	return isNewGame ? NewFourBoxInit() : LoadGameAt(GameId);
 	//lGetTopicCaculateAt(1);
 }

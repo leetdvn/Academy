@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "leeSmartCharacter2D.h"
 #include "leeComfirmWidget.h"
 #include "leeDecorPanel.h"
 #include "leeGameInstance.h"
@@ -89,6 +90,10 @@ public:
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "New Game")
 		bool isNewGame;
+
+
+	UPROPERTY(BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Runing")
+		bool isGameRuning;
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		UleeGameInstance* GameIns;

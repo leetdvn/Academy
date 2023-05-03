@@ -47,7 +47,8 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 		FOnUnlock OnNewUnlock;
 
-	bool isOpened;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "is Opened")
+		bool isOpened;
 
 
 	void CreateGameHistories(TEnumAsByte<lGameType> gtype);

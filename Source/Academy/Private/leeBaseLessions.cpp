@@ -69,7 +69,7 @@ void UleeBaseLessions::NativeConstruct()
 	}
 
 	/*bind Confirm Popup*/
-
+	isGameRuning = true;
 	return isNewGame ? NewGameThreelineInit() : LoadGameAt(SessionID);
 }
 
@@ -278,7 +278,16 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 		GetWorld()->GetTimerManager().SetTimer(timer, [this]() {	lSetWinOnOff(true);}, 3.0f, false,0.5f);
 
 		DropCorrecttimes = 0;
-
+		/*Check Ads Runing*/
+		//if(GameIns->PlayerInfo->oAd)
+		AleeSmartCharacter2D* character = IGetChacter<AleeSmartCharacter2D>(GetWorld());
+		if (character) {
+			if (character->CompletedGameCount == 3)
+			{
+				/*Turn On Ads*/
+				character->ShowInterestialAds();
+			}
+		}
 
 	}
 	UGameplayStatics::PlayDialogue2D(GetWorld(), lThreeline->lWaveSound[waveIdx], lThreeline->lContext[waveIdx]);
@@ -417,7 +426,7 @@ void UleeBaseLessions::NewGameThreelineInit()
 {
 	//GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 
-
+	isGameRuning = true;
 	lThreeline->lTopicsAvalible();
 	///generate new game random topic answer
 	int gameid = line3S->DataHistoriesStruct.Num();
@@ -436,6 +445,7 @@ void UleeBaseLessions::NewGameThreelineInit()
 }
 
 void UleeBaseLessions::lSetWinOnOff(bool isOn) {
+	isGameRuning = !isOn;
 	ESlateVisibility vis = isOn ? ESlateVisibility::SelfHitTestInvisible : ESlateVisibility::Hidden;
 	return WinWidget->SetVisibility(vis);
 

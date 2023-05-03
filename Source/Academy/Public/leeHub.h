@@ -95,6 +95,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Kid Tut is Showed")
 		UleeTutorials* TutorialWidget;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Current Widget")
+		UUserWidget* lCurrentWidget;
+
 	/*LoadGame Type four box from data index saved */
 	void LoadFourBoxFromData(int32 idx);
 
@@ -133,6 +136,7 @@ public:
 		KidMusic->Properties.Volume = volume;
 	};
 
+
 #pragma endregion
 
 protected:
@@ -146,7 +150,6 @@ protected:
 	//LevelChanged onlevelChanged;
 
 	UUserWidget* lMoveButton;
-	UUserWidget* lCurrentWidget;
 	int32 SessionGameId;
 
 	UleeUserInfo* Player;

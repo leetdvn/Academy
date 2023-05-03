@@ -64,6 +64,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game ID")
 		int32 GameId;
 
+	UPROPERTY(BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Runing")
+		bool isGameRuning;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnHistoriesUp();
 

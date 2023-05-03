@@ -218,6 +218,7 @@ void UleeAlphaBet::OnBindAction()
 
 void UleeAlphaBet::WinPanelOnOff(bool Onoff)
 {
+	isGameRuning = !Onoff;
 	ESlateVisibility vis = Onoff ? ESlateVisibility::SelfHitTestInvisible : ESlateVisibility::Hidden;
 	return WinPanel->SetVisibility(vis);
 
@@ -248,7 +249,7 @@ void UleeAlphaBet::NativeConstruct()
 		}
 
 	}
-
+	isGameRuning = true;
 	//isNewGame = true;
 	return isNewGame ? NewGameInitialize() : LoadGameFromData(GameId);
 }

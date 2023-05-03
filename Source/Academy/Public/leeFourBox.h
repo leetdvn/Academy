@@ -66,6 +66,8 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Confirm Widget", meta = (BindWidget))
 		UleeComfirmWidget* ConfirmPopup;
 
+	UPROPERTY(BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Runing")
+		bool isGameRuning;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "New Game")
 		bool isNewGame;
