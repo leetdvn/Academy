@@ -183,6 +183,17 @@ void UleeAlphaBet::OnGoToShop()
 
 }
 
+bool UleeAlphaBet::CheckTutorial()
+{
+	if (!GameIns->PlayerInfo->isFirstAlpha) {
+		UleeUserInfo* info = GameIns->PlayerInfo;
+		info->isFirstAlpha = true;
+		GameIns->SaveUserInfo(info);
+		return false;
+	}
+	return true;
+}
+
 int32 UleeAlphaBet::GetSoundIndex()
 {
 	int32 result=-1;
@@ -227,6 +238,7 @@ void UleeAlphaBet::WinPanelOnOff(bool Onoff)
 
 void UleeAlphaBet::NativeConstruct()
 {
+	Super::NativeConstruct();
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	AlPhaData = GameIns->Alpha;
 	/*generate decorations image*/

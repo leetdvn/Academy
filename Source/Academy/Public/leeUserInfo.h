@@ -47,6 +47,12 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		bool isFirstTime;
 
+	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+		bool isFirstBox;
+
+	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
+		bool isFirstAlpha;
+
 	const FString SlotName = "PlayerInfo";
 
 	FString lGetDisplayName() { return DisplayName; }

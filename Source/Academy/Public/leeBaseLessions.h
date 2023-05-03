@@ -174,9 +174,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void SetBlackSkyVisible(bool isOn);
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool CheckTutorials();
+
 	UFUNCTION()
 		void OnBlackSkyTouch();
 
+	template<class T>
+	T* IGetChacter(UWorld* world);
 
 	bool isMakeSound{};
 #pragma endregion 
@@ -213,3 +218,13 @@ protected:
 	TArray<FString> lSwapChoises(FString AnswerDir, FString correctname);
 
 };
+
+template<class T>
+inline T* UleeBaseLessions::IGetChacter(UWorld* world)
+{
+	if (!world) return nullptr;
+	ACharacter* fCharacter = UGameplayStatics::GetPlayerCharacter(world, 0);
+	if (fCharacter)
+		return Cast<T>(fCharacter);
+	return nullptr;
+}

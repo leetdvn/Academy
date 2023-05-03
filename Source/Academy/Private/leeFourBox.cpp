@@ -149,6 +149,17 @@ void UleeFourBox::OnBlackSkyTouch()
 	}
 }
 
+bool UleeFourBox::CheckTutorial()
+{
+	if (!GameIns->PlayerInfo->isFirstBox) {
+		UleeUserInfo* info = GameIns->PlayerInfo;
+		info->isFirstBox = true;
+		GameIns->SaveUserInfo(info);
+		return false;
+	}
+	return true;
+}
+
 void UleeFourBox::ToogleConfirmed(bool isOn, FString FeildMessage)
 {
 	ESlateVisibility vis = isOn ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
@@ -216,6 +227,7 @@ void UleeFourBox::OnRePlayGame()
 
 void UleeFourBox::NativeConstruct()
 {
+	Super::NativeConstruct();
 	//UUserWidget* widget = Cast<UUserWidget>(this);
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	box4S = GameIns->Box4s;

@@ -104,6 +104,8 @@ public:
 	UFUNCTION()
 		void OnBlackSkyTouch();
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")	
+		bool CheckTutorial();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void ToogleConfirmed(bool isOn, FString FeildMessage = "");

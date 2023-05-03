@@ -80,6 +80,17 @@ void UleeBaseLessions::SetBlackSkyVisible(bool isOn)
 
 }
 
+bool UleeBaseLessions::CheckTutorials()
+{
+	if (!GameIns->PlayerInfo->isFirstTime) {
+		UleeUserInfo* info = GameIns->PlayerInfo;
+		info->isFirstTime = true;
+		GameIns->SaveUserInfo(info);
+		return false;
+	}
+	return true;
+}
+
 void UleeBaseLessions::OnReplay()
 {
 	FString current = GetWorld()->GetMapName();

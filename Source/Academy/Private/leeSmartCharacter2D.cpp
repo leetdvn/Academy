@@ -28,8 +28,8 @@ void AleeSmartCharacter2D::BeginPlay()
 	Super::BeginPlay();
 
 	/*Show Banner*/
-	UKismetSystemLibrary::ShowAdBanner(0, false);
-	ShowInterestialAds();
+	//UKismetSystemLibrary::ShowAdBanner(0, false);
+	//ShowInterestialAds();
 }
 
 //void AleeSmartCharacter2D::Tick(float Deltatime)

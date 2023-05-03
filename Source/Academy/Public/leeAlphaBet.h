@@ -119,7 +119,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnGoToShop();
 
-
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool CheckTutorial();
 	/* Get Sound Index*/
 	int32 GetSoundIndex();
 

@@ -24,15 +24,6 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCorrectDrop, FString, ShapeName);
 
-template<class T>
-T* IGetChacter(UWorld* world) {
-	if (!world) return nullptr;
-	ACharacter* fCharacter= UGameplayStatics::GetPlayerCharacter(world, 0);
-	if (fCharacter)
-		return Cast<T>(fCharacter);
-	return nullptr;
-}
-
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class UleePublicInterface : public UInterface
