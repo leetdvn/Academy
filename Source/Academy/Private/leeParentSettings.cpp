@@ -120,7 +120,7 @@ void UleeParentSettings::InItMusicClass()
 		lGetTextureFromPath(SoundOff);
 	Music->SetBrushResourceObject(tex);
 
-	AHUD* hub = lGetHub(GetWorld());
+	//AHUD* hub = lGetHub(GetWorld());
 	//AleeHub *leeHub = Cast<AleeHub>(H)
 	float volume = !MusicToogle ? 0 : 1;
 	SetMusicVolume(volume);

@@ -161,6 +161,7 @@ void UleeMenuGame::OnConfirmOpen()
 
 void UleeMenuGame::NativeConstruct()
 {
+	Super::NativeConstruct();
 	GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	hub = lGetleeHub();
 	if (hub->isOpenShop) OnBlackSkyTouch();

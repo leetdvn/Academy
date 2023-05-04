@@ -224,6 +224,4 @@ public:
 
 #pragma endregion
 
-
-	//void ShowInterestialAds(UWorld* world, int32 cap);
 };
