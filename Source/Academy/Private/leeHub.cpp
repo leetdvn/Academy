@@ -45,6 +45,7 @@ void AleeHub::BeginPlay()
 	}
 	if (!GameIns) { lDebug("Game Instance Nullptr"); return; }
 	Player = GameIns->PlayerInfo;
+
 	lDebug(Player->isFirstTime,FColor::Purple,"First Time");
 }
 

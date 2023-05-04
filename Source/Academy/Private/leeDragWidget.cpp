@@ -23,6 +23,7 @@ void UleeDragWidget::lSetText(FString newText)
 
 void UleeDragWidget::NativeConstruct()
 {
+	Super::NativeConstruct();
 	if (!lFilesExists(lImagePath)) lInitializeDefault(lImageDefault);
 	lInitializeDefault(lImagePath);
 }

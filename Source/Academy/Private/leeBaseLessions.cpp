@@ -82,6 +82,7 @@ void UleeBaseLessions::SetBlackSkyVisible(bool isOn)
 
 bool UleeBaseLessions::CheckTutorials()
 {
+	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (!GameIns->PlayerInfo->isFirstTime) {
 		UleeUserInfo* info = GameIns->PlayerInfo;
 		info->isFirstTime = true;
@@ -290,13 +291,14 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 
 		DropCorrecttimes = 0;
 		/*Check Ads Runing*/
-		//if(GameIns->PlayerInfo->oAd)
-		AleeSmartCharacter2D* character = IGetChacter<AleeSmartCharacter2D>(GetWorld());
-		if (character) {
-			if (character->CompletedGameCount == 3)
-			{
-				/*Turn On Ads*/
-				character->ShowInterestialAds();
+		if (GameIns->PlayerInfo->isNoAds) {
+			AleeSmartCharacter2D* character = IGetChacter<AleeSmartCharacter2D>(GetWorld());
+			if (character) {
+				if (character->CompletedGameCount == 3)
+				{
+					/*Turn On Ads*/
+					character->ShowInterestialAds();
+				}
 			}
 		}
 

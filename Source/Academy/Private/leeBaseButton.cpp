@@ -22,7 +22,7 @@ UleeBaseButton::UleeBaseButton(const FObjectInitializer& ObjectInitializer)
 
 void UleeBaseButton::NativeConstruct()
 {
-
+	Super::NativeConstruct();
 	//lDebug("Construction debug.. ", FColor::Purple, "Native :");
 	//FString text = "", img = "";
 	//lInitialized(img,text,lImageOnly);

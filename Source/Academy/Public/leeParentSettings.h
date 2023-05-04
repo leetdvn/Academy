@@ -129,12 +129,12 @@ public:
 
 
 	void SetSoundVolume(float volume) { 
-		if (volume < 0 || volume > 1) return;
+		//if (volume < 0 || volume > 1) return;
 		KidSound->Properties.Volume = volume;
 	}
 
 	void SetMusicVolume(float volume) { 
-		if (volume < 0 || volume > 1) return;
+		//if (volume < 0 || volume > 1) return;
 		KidMusic->Properties.Volume = volume; 
 	};
 

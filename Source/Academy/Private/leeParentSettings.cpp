@@ -104,7 +104,6 @@ void UleeParentSettings::InItSoundClass()
 	//FStringAssetReference MyAssetPath("SoundClass'/Game/Audio/KidSound.KidSound'");
 	//UObject* MyAsset = MyAssetPath.TryLoad();
 	//KidSound = Cast<USoundClass>(MyAsset);
-	if (!Sound) return;
 
 	UTexture2D* tex = soundToogle ?
 		lGetTextureFromPath(SoundOn) :
@@ -130,6 +129,7 @@ void UleeParentSettings::InItMusicClass()
 
 void UleeParentSettings::NativeConstruct()
 {
+	Super::NativeConstruct();
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	data = GameIns->PlayerInfo;
 	soundToogle = data->Sound;
@@ -174,11 +174,11 @@ void UleeParentSettings::NativeConstruct()
 void UleeParentSettings::NativeDestruct()
 {
 	/*clear event */
-	Sound->OnMouseButtonDownEvent.Clear();
-	Music->OnMouseButtonDownEvent.Clear();
-	Language_English->OnMouseButtonDownEvent.Clear();
-	Language_Chinese->OnMouseButtonDownEvent.Clear();
-	Language_Vietnamese->OnMouseButtonDownEvent.Clear();
+	//Sound->OnMouseButtonDownEvent.Clear();
+	//Music->OnMouseButtonDownEvent.Clear();
+	//Language_English->OnMouseButtonDownEvent.Clear();
+	//Language_Chinese->OnMouseButtonDownEvent.Clear();
+	//Language_Vietnamese->OnMouseButtonDownEvent.Clear();
 }
 
 void UleeParentSettings::OnSoundToogle()
