@@ -174,7 +174,7 @@ void UleeMenuGame::NativeConstruct()
 				btn->OnMenuClick.AddDynamic(this, &UleeMenuGame::OnMenuClick);
 				btn->ltextblock->SetText(FText::FromStringTable(FName(*StrTable),leeMenu[count]));
 				//btn->Premium = btn->WidgetTree->FindWidget(TEXT("Premium"));
-				if (GIns->PlayerInfo->IsUserPurChased) {
+				if (!GIns->PlayerInfo->IsUserPurChased) {
 					if (IsPremium(btn->lGetTextureName())) {
 						btn->lButton->SetIsEnabled(false);
 						btn->Premium->SetVisibility(ESlateVisibility::Visible);

@@ -131,7 +131,7 @@ protected:
 	/*Assign Name of Menu Button */
 	TArray<FString> leeMenu = { "Numbers","Shape", "Shape2","Environment","ShapeItems"};
 
-	TArray<FString> PremiumLists = { "shape2","shape3","shapeitems" };
+	TArray<FString> PremiumLists = { "shape3","shapeitems" };
 
 	AleeHub* hub;
 };

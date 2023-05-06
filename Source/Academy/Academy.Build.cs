@@ -22,7 +22,6 @@ public class Academy : ModuleRules
 
 		// Uncomment if you are using Slate UI
 		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
-
         DynamicallyLoadedModuleNames.Add("OnlineSubsystemGooglePlay");
 
         PublicIncludePaths.Add("F:/Epic Games/UE_4.27/Engine/Plugins/Online/OnlineSubsystemFacebook/Source/Public");
