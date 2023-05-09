@@ -297,7 +297,7 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 				if (character->CompletedGameCount == 3)
 				{
 					/*Turn On Ads*/
-					//character->ShowInterestialAds();
+					character->ShowInterestialAds();
 				}
 			}
 		}
