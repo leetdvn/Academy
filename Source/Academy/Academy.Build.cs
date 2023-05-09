@@ -18,11 +18,9 @@ public class Academy : ModuleRules
             "OnlineSubsystem",
         });
 
-		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
 		// Uncomment if you are using Slate UI
 		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
-        DynamicallyLoadedModuleNames.Add("OnlineSubsystemGooglePlay");
 
         PublicIncludePaths.Add("F:/Epic Games/UE_4.27/Engine/Plugins/Online/OnlineSubsystemFacebook/Source/Public");
         //Add IOS if you're using it
@@ -33,12 +31,11 @@ public class Academy : ModuleRules
             //Facebook Subsystem
             PrivateDependencyModuleNames.Add("OnlineSubsystemFacebook");
 
-            //Include
-            //PublicIncludePaths.Add("Runtime/Online/OnlineSubsystemFacebook/Public");
-            //PublicIncludePaths.Add("Runtime/Online/OnlineSubsystemFacebook/Private/Windows");
         }    // Uncomment if you are using online features
-             // PrivateDependencyModuleNames.Add("OnlineSubsystem");
-
-        // To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
+        if (Target.Platform == UnrealTargetPlatform.Android)
+        {
+            PrivateDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "OnlineSubsystem" });
+            DynamicallyLoadedModuleNames.Add("OnlineSubsystemGooglePlay");
+        }
     }
 }
