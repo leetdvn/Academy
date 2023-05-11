@@ -27,16 +27,19 @@ public:
 		FString UserID;
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Star")
-		int Star;
+		int32 Star;
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Star")
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Email")
 		FString Email;
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
-		int GamesCompleted;
+		int32 GamesCompleted;
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Purchased")
-		bool IsUserPurChased;
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Premium")
+		bool IsPremium;
+
+	UPROPERTY(VisibleAnyWhere, Category = "lee's Ultils", DisplayName = "Player Premium")
+		int32 rawStar;
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		bool Sound;
@@ -66,7 +69,9 @@ public:
 
 	int lGetCompletedGames() { return GamesCompleted; }
 
-	bool isPurChased() { return IsUserPurChased; }
+	bool isPurChased() { return IsPremium; }
+
+	bool isAntiAds() { return isNoAds; }
 
 	void lSetDisplayName(FString displayname);
 

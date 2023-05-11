@@ -7,6 +7,7 @@
 #include "leePublicInterface.h"
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
+#include <Components/RichTextBlock.h>
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "leeParentSettings.generated.h"
@@ -56,10 +57,10 @@ public:
 		UleeAccoutAuthenication* AccountLogin;
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Displayname", meta = (BindWidget));
-		class UTextBlock* Displayname;
+		UTextBlock* Displayname;
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils", DisplayName = "Star", meta = (BindWidget));
-		class URichTextBlock* KidStar;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Star", meta = (BindWidget));
+		URichTextBlock* KidStar;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils")
 		USoundClass* KidSound;

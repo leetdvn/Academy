@@ -35,5 +35,5 @@ void UleeUserInfo::lSetGamesCompleted(int gamescompleted)
 
 void UleeUserInfo::lSetIsPurchased(bool ispurchase)
 {
-	IsUserPurChased = ispurchase;
+	IsPremium = ispurchase;
 }

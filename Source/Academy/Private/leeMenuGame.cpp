@@ -97,6 +97,7 @@ void UleeMenuGame::OnParentClicked()
 	if (!Settings->isAvalible) {
 		Settings->OnOpenUp();
 		if (Settings) Settings->CheckLinkAccount();
+
 		//InfoText->SetText(FText::FromString(Settings->DisplayInfo));
 		SetBlackSkyVisible(true);
 		SetConfirmToogle();
@@ -128,6 +129,115 @@ void UleeMenuGame::SetConfirmToogle(bool isOn,FString field)
 
 	}
 }
+
+#pragma region get Data Player
+
+bool UleeMenuGame::IsAdsShield()
+{
+	if (!GIns) {
+		GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+
+	// return Data
+	return GIns->PlayerInfo->isAntiAds();
+}
+
+bool UleeMenuGame::IsPremium()
+{
+	if (!GIns) {
+		GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+
+	// return Data
+	return GIns->PlayerInfo->isPurChased();
+}
+
+FString UleeMenuGame::GetUserId()
+{
+	if (!GIns) {
+		GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+
+	return GIns->PlayerInfo->lGetUID();
+}
+
+bool UleeMenuGame::isFirebaseLogins()
+{
+	if (!GIns) {
+		GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+
+	FString UID = GIns->PlayerInfo->lGetUID();
+
+	return  UID != "" ? true : false;
+}
+
+int32 UleeMenuGame::GetUserStar()
+{
+	if (!GIns) {
+		GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+
+	return GIns->PlayerInfo->lGetStar();
+}
+
+void UleeMenuGame::StarCheckout(int32 number)
+{
+	if (!GIns) {
+		GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+
+	UleeUserInfo* udata = GIns->PlayerInfo;
+	udata->Star += number;
+	GIns->SaveUserInfo(udata);
+}
+
+void UleeMenuGame::AdsShieldCheckout()
+{
+	if (!GIns) {
+		GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+
+	UleeUserInfo* udata = GIns->PlayerInfo;
+	udata->isNoAds = true;
+	GIns->SaveUserInfo(udata);
+}
+
+void UleeMenuGame::PremiumCheckout()
+{
+	if (!GIns) {
+		GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+
+	UleeUserInfo* udata = GIns->PlayerInfo;
+	udata->IsPremium = true;
+	GIns->SaveUserInfo(udata);
+
+	for (auto& btn : GameMenu->lGetButtons()) {
+
+	}
+
+}
+
+void UleeMenuGame::SetDataFromFirebase(bool AdSheild, bool isPremium, int32 fireStar, FString uid, FString email, FString displayname)
+{
+	if (!GIns) {
+		GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+
+	UleeUserInfo* udata = GIns->PlayerInfo;
+	udata->isNoAds = AdSheild; 
+	udata->IsPremium = isPremium;
+	udata->Star = fireStar;
+	udata->rawStar = fireStar;
+	udata->UserID = uid;
+	udata->Email = email;
+	udata->DisplayName = displayname;
+	/*Generate Game*/
+	GIns->SaveUserInfo(udata);
+}
+
+#pragma endregion
 
 void UleeMenuGame::SetConfirmPremiumToogle(bool isOn)
 {
@@ -174,7 +284,7 @@ void UleeMenuGame::NativeConstruct()
 				btn->OnMenuClick.AddDynamic(this, &UleeMenuGame::OnMenuClick);
 				btn->ltextblock->SetText(FText::FromStringTable(FName(*StrTable),leeMenu[count]));
 				//btn->Premium = btn->WidgetTree->FindWidget(TEXT("Premium"));
-				if (!GIns->PlayerInfo->IsUserPurChased) {
+				if (!GIns->PlayerInfo->IsPremium) {
 					if (IsPremium(btn->lGetTextureName())) {
 						btn->lButton->SetIsEnabled(false);
 						btn->Premium->SetVisibility(ESlateVisibility::Visible);

@@ -78,8 +78,9 @@ bool UleeParentSettings::CheckLinkAccount()
 
 	FString DisplayName = data->DisplayName;
 	DisplayInfo = data->DisplayName;
-	lDebug(DisplayName);
 	Displayname->SetText(FText::FromString(DisplayName));
+	FString tex = FString::FromInt(data->Star) + FText::FromStringTable(SETTINGTABLE, "Star").ToString();
+	KidStar->SetText(FText::FromString(tex));
 	if (!data->DisplayName.IsEmpty()) {
 		AccountLink->SetVisibility(ESlateVisibility::Hidden);
 		return true;

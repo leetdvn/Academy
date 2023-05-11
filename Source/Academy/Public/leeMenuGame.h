@@ -55,6 +55,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "is Idle")
 		bool isIdle;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Lee Instance")
+		UleeGameInstance* GIns;
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMenuClick(FString menuName);
 
@@ -99,13 +102,43 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void SetConfirmToogle(bool isOn=false,FString field ="");
 
+	/* Bind To Purchase*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void GotoPurchase() {};
+
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool IsAdsShield();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool IsPremium();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		FString GetUserId();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool isFirebaseLogins();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		int32 GetUserStar();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void StarCheckout(int32 number);
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void AdsShieldCheckout();
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void PremiumCheckout();
+
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void SetDataFromFirebase(bool AdSheild, bool isPremium, int32 fireStar, FString uid,  FString email, FString displayname);
 
 	void SetConfirmPremiumToogle(bool isOn = false);
 
 
-	UleeGameInstance* GIns;
+
 
 protected:
 
@@ -131,7 +164,7 @@ protected:
 	/*Assign Name of Menu Button */
 	TArray<FString> leeMenu = { "Numbers","Shape", "Shape2","Environment","ShapeItems"};
 
-	TArray<FString> PremiumLists = { "shape3","shapeitems" };
+	TArray<FString> PremiumLists = {"shape2", "shape3","shapeitems"};
 
 	AleeHub* hub;
 };

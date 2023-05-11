@@ -69,6 +69,7 @@ public:
 
 	void SaveAlpha(UleeAlphaData*& alphaData, bool createjS=false);
 
+	bool CheckPremiumUser() { return PlayerInfo->isPurChased(); }
 
 	template<class T>
 	void SavePreview(TArray<T> arrayData);
