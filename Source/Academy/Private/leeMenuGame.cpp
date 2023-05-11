@@ -186,10 +186,8 @@ void UleeMenuGame::StarCheckout(int32 number)
 	if (!GIns) {
 		GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	}
+	return AddStarToData(number);
 
-	UleeUserInfo* udata = GIns->PlayerInfo;
-	udata->Star += number;
-	GIns->SaveUserInfo(udata);
 }
 
 void UleeMenuGame::AdsShieldCheckout()
@@ -219,6 +217,17 @@ void UleeMenuGame::PremiumCheckout()
 
 }
 
+void UleeMenuGame::AddStarToData(int32 starnumber)
+{
+	if (!GIns) {
+		GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+
+	UleeUserInfo* udata = GIns->PlayerInfo;
+	udata->AddStar(starnumber);
+	GIns->SaveUserInfo(udata);
+}
+
 void UleeMenuGame::SetDataFromFirebase(bool AdSheild, bool isPremium, int32 fireStar, FString uid, FString email, FString displayname)
 {
 	if (!GIns) {
@@ -228,8 +237,7 @@ void UleeMenuGame::SetDataFromFirebase(bool AdSheild, bool isPremium, int32 fire
 	UleeUserInfo* udata = GIns->PlayerInfo;
 	udata->isNoAds = AdSheild; 
 	udata->IsPremium = isPremium;
-	udata->Star = fireStar;
-	udata->rawStar = fireStar;
+	udata->BaseStar = udata->Star = fireStar;
 	udata->UserID = uid;
 	udata->Email = email;
 	udata->DisplayName = displayname;

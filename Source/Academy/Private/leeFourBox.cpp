@@ -79,6 +79,7 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 		box4S->DataHistoriesStruct.Add(fourdata);
 		GameIns->SaveBox4S(box4S);
 		GameIns->PlayerInfo->Star++;
+		GameIns->PlayerInfo->BaseStar++;
 		/*neet more vfx star*/
 
 		WinWidget->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
@@ -192,6 +193,7 @@ void UleeFourBox::OnPlayerGetWard()
 		return;
 	}
 
+	GameIns->PlayerInfo->Star -= 5;
 	/*Go To Unlock close Dialog*/
 	ToogleConfirmed(false);
 	/*Turn off histories*/

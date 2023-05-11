@@ -62,6 +62,8 @@ public:
 
 	void SaveGameData(TEnumAsByte<lGameType> gtype);
 
+	void AddStarValue(int32 addvalue);
+
 	/*Save & Load Game 3 Line*/
 	void SaveLine3S(Ulee3LinesData*& lineData);
 

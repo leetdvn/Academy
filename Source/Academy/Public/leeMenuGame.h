@@ -131,6 +131,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void PremiumCheckout();
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		void AddStarToData(int32 starnumber);
+
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void SetDataFromFirebase(bool AdSheild, bool isPremium, int32 fireStar, FString uid,  FString email, FString displayname);

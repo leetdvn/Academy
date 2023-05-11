@@ -284,6 +284,7 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 		//GameIns->SaveCurrentGameData(_UserData);
 		GameIns->SaveLine3S(line3S);
 		GameIns->PlayerInfo->Star++;
+		GameIns->PlayerInfo->BaseStar++;
 		/*neet more vfx star*/
 
 		FTimerHandle timer;
@@ -332,6 +333,7 @@ void UleeBaseLessions::OnPlayerGetWard()
 		return;
 	}
 
+	GameIns->PlayerInfo->Star -= 5;
 	/*Go To Unlock close Dialog*/
 	ToogleConfirmed(false);
 	/*Turn off histories*/

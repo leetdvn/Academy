@@ -20,10 +20,16 @@ void UleeUserInfo::lSetUID(FString userId)
 	UserID = userId;
 }
 
-void UleeUserInfo::lSetStar(int userStar)
+void UleeUserInfo::AddStar(int userStar)
 {
-	if (userStar < 0 || userStar == Star) return;
-	Star = userStar;
+	if (userStar < 0 ) return;
+	Star += userStar;
+	BaseStar += userStar;
+}
+
+void UleeUserInfo::SetStarValue(int nvalue)
+{
+	BaseStar = Star = nvalue;
 }
 
 void UleeUserInfo::lSetGamesCompleted(int gamescompleted)

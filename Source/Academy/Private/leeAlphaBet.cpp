@@ -84,6 +84,7 @@ void UleeAlphaBet::OnCorrectClick(UleeBaseButton* button)
 			//AlPhaData->CreateNewData(c_Data,true);
 			GameIns->SaveAlpha(AlPhaData, true);
 			GameIns->PlayerInfo->Star++;
+			GameIns->PlayerInfo->BaseStar++;
 			/*neet more vfx star*/
 		}
 		FTimerHandle timer;
@@ -159,7 +160,7 @@ void UleeAlphaBet::OnPlayerGetWard()
 		ConfirmPopup->lButtonYes->OnClicked.AddDynamic(this, &UleeAlphaBet::OnGoToShop);
 		return;
 	}
-
+	GameIns->PlayerInfo->Star -= 5;
 	/*Go To Unlock close Dialog*/
 	ToogleConfirmed(false);
 	/*Turn off histories*/

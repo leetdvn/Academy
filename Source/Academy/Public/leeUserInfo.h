@@ -38,8 +38,8 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Premium")
 		bool IsPremium;
 
-	UPROPERTY(VisibleAnyWhere, Category = "lee's Ultils", DisplayName = "Player Premium")
-		int32 rawStar;
+	UPROPERTY(VisibleAnyWhere, Category = "lee's Ultils", DisplayName = "Base Star")
+		int BaseStar;
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")
 		bool Sound;
@@ -77,7 +77,9 @@ public:
 
 	void lSetUID(FString userId);
 
-	void lSetStar(int userStar);
+	void AddStar(int userStar);
+
+	void SetStarValue(int nvalue);
 
 	void lSetGamesCompleted(int gamescompleted);
 
