@@ -293,10 +293,12 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 
 		line3S->DataHistoriesStruct.Add(gamedata);
 		//GameIns->SaveCurrentGameData(_UserData);
-		UleeUserInfo* udata = GameIns->PlayerInfo;
-		udata->AddStar(1);
-		GameIns->SaveUserInfo(udata);
-		GameIns->SaveLine3S(line3S);
+		if (isNewGame) {
+			UleeUserInfo* udata = GameIns->PlayerInfo;
+			udata->AddStar(1);
+			GameIns->SaveUserInfo(udata);
+			GameIns->SaveLine3S(line3S);
+		}
 		/*neet more vfx star*/
 
 		FTimerHandle timer;

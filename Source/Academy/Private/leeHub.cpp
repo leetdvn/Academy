@@ -85,6 +85,7 @@ void AleeHub::LoadFourBoxFromData(int32 idx)
 	if (lines) {
 		lines->GameId = idx;
 		lCurrentWidget->RemoveFromViewport();
+		lines->isReplay = true;
 		nWidget->AddToViewport();
 		lCurrentWidget = nWidget;
 	}

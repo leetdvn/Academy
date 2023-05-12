@@ -134,6 +134,8 @@ public:
 
 	bool isMakeSound{}, BlackOpen{};
 
+	bool isReplay;
+
 protected:
 
 	virtual void NativeConstruct() override;
@@ -158,6 +160,5 @@ protected:
 
 	FFourBoxData fourdata,LoadData;
 
-	bool isReplay;
 };
 

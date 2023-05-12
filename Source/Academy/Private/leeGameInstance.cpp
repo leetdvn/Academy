@@ -46,19 +46,20 @@ void UleeGameInstance::AddStarValue(int32 addvalue)
 void UleeGameInstance::SaveLine3S(Ulee3LinesData*& lineData)
 {
 	UGameplayStatics::SaveGameToSlot(lineData, LINE3S ,0);
+	//SavePreview<FGameLession>(Line3s->DataHistoriesStruct);
 
 }
 
 void UleeGameInstance::SaveBox4S(Ulee4BoxData*& boxData)
 {
 	UGameplayStatics::SaveGameToSlot(boxData, BOX4S, 0);
+	//SavePreview<FFourBoxData>(Box4s->DataHistoriesStruct);
 
 }
 
 void UleeGameInstance::SaveAlpha(UleeAlphaData*& alphaData,bool createjS)
 {
 	UGameplayStatics::SaveGameToSlot(alphaData, ALPHA, 0);
-	SavePreview<FAlphaBetData>(Alpha->DataHistories);
 }
 
 FGameLession UleeGameInstance::Load3LinesGame(int32 idx)

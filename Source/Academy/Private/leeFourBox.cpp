@@ -77,10 +77,14 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 	if (AnswerCorrect == 4) {
 		/// save data pass to next game lession
 		box4S->DataHistoriesStruct.Add(fourdata);
-		UleeUserInfo* udata = GameIns->PlayerInfo;
-		udata->AddStar(1);
-		GameIns->SaveUserInfo(udata);
-		GameIns->SaveBox4S(box4S);
+
+		if (isNewGame) {
+			
+			UleeUserInfo* udata = GameIns->PlayerInfo;
+			udata->AddStar(1);
+			GameIns->SaveUserInfo(udata);
+			GameIns->SaveBox4S(box4S);
+		}
 		/*neet more vfx star*/
 
 		WinWidget->SetVisibility(ESlateVisibility::SelfHitTestInvisible);

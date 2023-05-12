@@ -64,7 +64,6 @@ void UleeAlphaBet::LoadGameFromData(int32 gameSession)
 		isMakeSound = false;
 	}
 	OnBindAction();
-	isNewGame = false;
 	//Alpha->topicImg->SetBrushResourceObject(c_Data);
 }
 
@@ -283,6 +282,7 @@ void UleeAlphaBet::NativeDestruct()
 {
 	Super::NativeDestruct();
 
+	/*clear event*/
 	if (Alpha->ChoiseButtons.Num() < 0) return;
 
 	for (auto& abtn : Alpha->ChoiseButtons) {
