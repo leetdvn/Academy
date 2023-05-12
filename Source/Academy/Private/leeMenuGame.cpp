@@ -28,7 +28,7 @@ void UleeMenuGame::OnMenuClick(FString menuName)
 		mapOpen = "FourBox";
 		gMode = FourBox;
 	}
-	else if (menuName.StartsWith("shapeitems")) {
+	else if (menuName.StartsWith("shape1")) {
 		mapOpen = "AlphaBet";
 		gMode = AlphaBet;
 	}
@@ -212,7 +212,9 @@ void UleeMenuGame::PremiumCheckout()
 	GIns->SaveUserInfo(udata);
 
 	for (auto& btn : GameMenu->lGetButtons()) {
-
+		btn->lButton->SetIsEnabled(true);
+		btn->Premium->SetVisibility(ESlateVisibility::Hidden);
+		btn->Premium->OnMouseButtonDownEvent.Clear();
 	}
 
 }
@@ -226,6 +228,14 @@ void UleeMenuGame::AddStarToData(int32 starnumber)
 	UleeUserInfo* udata = GIns->PlayerInfo;
 	udata->AddStar(starnumber);
 	GIns->SaveUserInfo(udata);
+}
+
+bool UleeMenuGame::isAdsSheildProtected()
+{
+	if (!GIns) {
+		GIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+	return GIns->PlayerInfo->isAntiAds();
 }
 
 void UleeMenuGame::SetDataFromFirebase(bool AdSheild, bool isPremium, int32 fireStar, FString uid, FString email, FString displayname)

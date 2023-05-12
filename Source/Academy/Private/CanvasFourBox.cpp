@@ -10,14 +10,14 @@ UCanvasFourBox::UCanvasFourBox(const FObjectInitializer& ObjectInitializer)
 
 UleePanelBase* UCanvasFourBox::lGetChoiseAt(int32 idx)
 {
-	if (idx <= 0 || idx > lUserChoises.Num())
+	if (idx < 0 || idx > lUserChoises.Num())
 		return nullptr;
 	return lUserChoises[idx];
 }
 
 UImage* UCanvasFourBox::lGetQuestionAt(int32 idx)
 {
-	if (idx <= 0 || idx > lQuestions.Num())
+	if (idx < 0 || idx > lQuestions.Num())
 		return nullptr;
 	return lQuestions[idx];
 }
@@ -26,13 +26,15 @@ void UCanvasFourBox::lSetChoiseBgr(int32 idx, FString& path, bool isDragButton)
 {
 	if (idx < 0 || idx > lUserChoises.Num())
 		return;
-	
+	for (auto& b : lUserChoises[idx]->lGetButtons())
+		b->Id = idx;
+		
 	return lUserChoises[idx]->lSetMakeSameAt(path, isDragButton);
 }
 
 void UCanvasFourBox::lSetQuestions(TArray<FString> &paths)
 {
-	if (paths.Num() <= 0) return;
+	if (paths.Num() < 0) return;
 	//set size-------------------------------------------------
 	int i = 0;
 	for (auto& img : lQuestions) {

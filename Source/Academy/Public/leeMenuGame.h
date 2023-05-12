@@ -134,6 +134,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void AddStarToData(int32 starnumber);
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool isAdsSheildProtected();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void SetDataFromFirebase(bool AdSheild, bool isPremium, int32 fireStar, FString uid,  FString email, FString displayname);
@@ -165,9 +167,9 @@ protected:
 
 	bool IsPremium(FString textName);
 	/*Assign Name of Menu Button */
-	TArray<FString> leeMenu = { "Numbers","Shape", "Shape2","Environment","ShapeItems"};
+	TArray<FString> leeMenu = { "Numbers","Shape","ShapeItems","Shape2","Environment"};
 
-	TArray<FString> PremiumLists = {"shape2", "shape3","shapeitems"};
+	TArray<FString> PremiumLists = {"shape2", "shape3"};
 
 	AleeHub* hub;
 };

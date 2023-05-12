@@ -103,6 +103,9 @@ public:
 	UFUNCTION()
 	void OnBlackSkyTouch();
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool isFirebaseLogins();
+
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void ToogleConfirmed(bool isOn, FString FeildMessage = "");
@@ -137,6 +140,8 @@ public:
 protected:
 
 	virtual void NativeConstruct() override;
+
+	virtual void NativeDestruct() override;
 
 	FAlphaBetData c_Data;
 

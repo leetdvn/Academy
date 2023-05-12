@@ -92,6 +92,17 @@ bool UleeBaseLessions::CheckTutorials()
 	return true;
 }
 
+bool UleeBaseLessions::isFirebaseLogins()
+{
+	if (!GameIns) {
+		GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+
+	FString UID = GameIns->PlayerInfo->lGetUID();
+
+	return  UID != "" ? true : false;
+}
+
 void UleeBaseLessions::OnReplay()
 {
 	FString current = GetWorld()->GetMapName();
@@ -282,9 +293,10 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 
 		line3S->DataHistoriesStruct.Add(gamedata);
 		//GameIns->SaveCurrentGameData(_UserData);
+		UleeUserInfo* udata = GameIns->PlayerInfo;
+		udata->AddStar(1);
+		GameIns->SaveUserInfo(udata);
 		GameIns->SaveLine3S(line3S);
-		GameIns->PlayerInfo->Star++;
-		GameIns->PlayerInfo->BaseStar++;
 		/*neet more vfx star*/
 
 		FTimerHandle timer;

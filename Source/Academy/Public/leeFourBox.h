@@ -104,6 +104,9 @@ public:
 	UFUNCTION()
 		void OnBlackSkyTouch();
 
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool isFirebaseLogins();
+
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")	
 		bool CheckTutorial();
 

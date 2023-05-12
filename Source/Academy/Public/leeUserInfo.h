@@ -38,7 +38,7 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Player Premium")
 		bool IsPremium;
 
-	UPROPERTY(VisibleAnyWhere, Category = "lee's Ultils", DisplayName = "Base Star")
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Base Star")
 		int BaseStar;
 
 	UPROPERTY(VisibleAnywhere, Category = "lee's Ultils")

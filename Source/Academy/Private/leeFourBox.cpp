@@ -77,9 +77,10 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 	if (AnswerCorrect == 4) {
 		/// save data pass to next game lession
 		box4S->DataHistoriesStruct.Add(fourdata);
+		UleeUserInfo* udata = GameIns->PlayerInfo;
+		udata->AddStar(1);
+		GameIns->SaveUserInfo(udata);
 		GameIns->SaveBox4S(box4S);
-		GameIns->PlayerInfo->Star++;
-		GameIns->PlayerInfo->BaseStar++;
 		/*neet more vfx star*/
 
 		WinWidget->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
@@ -148,6 +149,17 @@ void UleeFourBox::OnBlackSkyTouch()
 		GameHistories->OnCloseDown();
 		SetBlackSkyVisible(false);
 	}
+}
+
+bool UleeFourBox::isFirebaseLogins()
+{
+	if (!GameIns) {
+		GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+
+	FString UID = GameIns->PlayerInfo->lGetUID();
+
+	return  UID != "" ? true : false;
 }
 
 bool UleeFourBox::CheckTutorial()

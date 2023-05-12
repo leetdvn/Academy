@@ -81,6 +81,9 @@ void UThreeLines::LoadAllChoise(FGameLession& data)
 
 			if (wd->lEnv->GetVisibility() == ESlateVisibility::Visible)
 				wd->lEnv->SetVisibility(ESlateVisibility::Hidden);
+
+			wd->lShadow->SetVisibility(ESlateVisibility::Hidden);
+
 		}
 		n++;
 	}

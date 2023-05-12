@@ -136,7 +136,7 @@ void UleePanelBase::lOverrideTextName(TArray<FString> texts, TArray<UleeDragWidg
 
 void UleePanelBase::lOverrideTextName(TArray<FString> texts, bool isDragButtons)
 {
-	if (texts.Num() <= 0) return;
+	if (texts.Num() < 0) return;
 
 	if (!isDragButtons) {
 		return lOverrideTextName(texts, lbuttons);
@@ -237,7 +237,7 @@ void UleePanelBase::ClearButtons()
 
 void UleePanelBase::lSetDisable(bool disables)
 {
-	if (lbuttons.Num() <= 0) return;
+	if (lbuttons.Num() < 0) return;
 
 	ESlateVisibility vis = disables ? ESlateVisibility::HitTestInvisible : ESlateVisibility::SelfHitTestInvisible;
 

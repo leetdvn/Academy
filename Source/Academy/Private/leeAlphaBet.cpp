@@ -82,9 +82,10 @@ void UleeAlphaBet::OnCorrectClick(UleeBaseButton* button)
 		if (isNewGame) {
 			AlPhaData->DataHistories.Add(c_Data);
 			//AlPhaData->CreateNewData(c_Data,true);
+			UleeUserInfo* udata = GameIns->PlayerInfo;
+			udata->AddStar(1);
+			GameIns->SaveUserInfo(udata);
 			GameIns->SaveAlpha(AlPhaData, true);
-			GameIns->PlayerInfo->Star++;
-			GameIns->PlayerInfo->BaseStar++;
 			/*neet more vfx star*/
 		}
 		FTimerHandle timer;
@@ -126,6 +127,17 @@ void UleeAlphaBet::OnBlackSkyTouch()
 		GameHistories->OnCloseDown();
 		SetBlackSkyVisible(false);
 	}
+}
+
+bool UleeAlphaBet::isFirebaseLogins()
+{
+	if (!GameIns) {
+		GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	}
+
+	FString UID = GameIns->PlayerInfo->lGetUID();
+
+	return  UID != "" ? true : false;
 }
 
 void UleeAlphaBet::ToogleConfirmed(bool isOn, FString FeildMessage)
@@ -265,5 +277,16 @@ void UleeAlphaBet::NativeConstruct()
 	isGameRuning = true;
 	//isNewGame = true;
 	return isNewGame ? NewGameInitialize() : LoadGameFromData(GameId);
+}
+
+void UleeAlphaBet::NativeDestruct()
+{
+	Super::NativeDestruct();
+
+	if (Alpha->ChoiseButtons.Num() < 0) return;
+
+	for (auto& abtn : Alpha->ChoiseButtons) {
+		abtn->OnCorrect.Clear();
+	}
 }
 
