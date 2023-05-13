@@ -34,7 +34,7 @@ public class Academy : ModuleRules
         }    // Uncomment if you are using online features
         if (Target.Platform == UnrealTargetPlatform.Android)
         {
-            PrivateDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "OnlineSubsystem" });
+            PrivateDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "OnlineSubsystem","AndroidAdvertising" });
             DynamicallyLoadedModuleNames.Add("OnlineSubsystemGooglePlay");
         }
     }

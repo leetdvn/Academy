@@ -46,7 +46,7 @@ void UleeGameInstance::AddStarValue(int32 addvalue)
 void UleeGameInstance::SaveLine3S(Ulee3LinesData*& lineData)
 {
 	UGameplayStatics::SaveGameToSlot(lineData, LINE3S ,0);
-	//SavePreview<FGameLession>(Line3s->DataHistoriesStruct);
+	SavePreview<FGameLession>(Line3s->DataHistoriesStruct);
 
 }
 

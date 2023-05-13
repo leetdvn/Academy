@@ -291,9 +291,9 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 		//userdata->SaveConstruct();
 		//Save game
 
-		line3S->DataHistoriesStruct.Add(gamedata);
 		//GameIns->SaveCurrentGameData(_UserData);
 		if (isNewGame) {
+			line3S->DataHistoriesStruct.Add(gamedata);
 			UleeUserInfo* udata = GameIns->PlayerInfo;
 			udata->AddStar(1);
 			GameIns->SaveUserInfo(udata);
@@ -312,7 +312,7 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 				if (character->CompletedGameCount == 3)
 				{
 					/*Turn On Ads*/
-					character->ShowInterestialAds();
+					//character->ShowInterestialAds();
 				}
 			}
 		}

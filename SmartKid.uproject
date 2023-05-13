@@ -360,7 +360,7 @@
 		},
 		{
 			"Name": "BanshAds",
-			"Enabled": true,
+			"Enabled": false,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/63ec0d8268bf45d59c3fa1648c56ddc6",
 			"SupportedTargetPlatforms": [
 				"Android"
