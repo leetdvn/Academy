@@ -86,6 +86,10 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 			GameIns->SaveUserInfo(udata);
 			GameIns->SaveBox4S(box4S);
 		}
+		AleeSmartCharacter2D* character = IGetChacter<AleeSmartCharacter2D>(GetWorld());
+		if (character) {
+			character->CompletedGameCount++;
+		}
 		/*neet more vfx star*/
 
 		WinWidget->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
@@ -97,10 +101,6 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 void UleeFourBox::OnUnCorrectAnswer()
 {
 	UGameplayStatics::PlayDialogue2D(GetWorld(), lFourBox->lWaveSound[0], lFourBox->lContext[0]);
-	AleeSmartCharacter2D* character = IGetChacter<AleeSmartCharacter2D>(GetWorld());
-	if (character) {
-		character->CompletedGameCount++;
-	}
 
 }
 

@@ -87,10 +87,6 @@ void UleeAlphaBet::OnCorrectClick(UleeBaseButton* button)
 			GameIns->SaveUserInfo(udata);
 			GameIns->SaveAlpha(AlPhaData, true);
 			/*neet more vfx star*/
-			AleeSmartCharacter2D* character = IGetChacter<AleeSmartCharacter2D>(GetWorld());
-			if (character) {
-				character->CompletedGameCount++;
-			}
 
 		}
 		FTimerHandle timer;
@@ -98,6 +94,11 @@ void UleeAlphaBet::OnCorrectClick(UleeBaseButton* button)
 			WinPanelOnOff(true);
 			iCorrectNum = 0;
 			}, 3.0f, false, 0.5f);
+
+		AleeSmartCharacter2D* character = IGetChacter<AleeSmartCharacter2D>(GetWorld());
+		if (character) {
+			character->CompletedGameCount++;
+		}
 
 	}
 }
