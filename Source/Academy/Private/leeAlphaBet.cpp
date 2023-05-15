@@ -2,6 +2,7 @@
 
 
 #include "leeAlphaBet.h"
+#include <leeSmartCharacter2D.h>
 
 UleeAlphaBet::UleeAlphaBet(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
@@ -86,6 +87,11 @@ void UleeAlphaBet::OnCorrectClick(UleeBaseButton* button)
 			GameIns->SaveUserInfo(udata);
 			GameIns->SaveAlpha(AlPhaData, true);
 			/*neet more vfx star*/
+			AleeSmartCharacter2D* character = IGetChacter<AleeSmartCharacter2D>(GetWorld());
+			if (character) {
+				character->CompletedGameCount++;
+			}
+
 		}
 		FTimerHandle timer;
 		GetWorld()->GetTimerManager().SetTimer(timer, [this]() {
@@ -204,6 +210,15 @@ bool UleeAlphaBet::CheckTutorial()
 		return false;
 	}
 	return true;
+}
+
+bool UleeAlphaBet::CheckIsAntiAds()
+{
+	if (!GameIns)
+		GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+
+	return GameIns->PlayerInfo->isAntiAds();
+
 }
 
 int32 UleeAlphaBet::GetSoundIndex()

@@ -76,3 +76,4 @@ DerivedDataCache/*
 /Platforms
 .vsconfig
 .vs
+/packages

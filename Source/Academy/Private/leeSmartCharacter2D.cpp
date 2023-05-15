@@ -3,24 +3,24 @@
 
 #include "leeSmartCharacter2D.h"
 
-void AleeSmartCharacter2D::ShowInterestialAds()
-{
-	bool avalible = UKismetSystemLibrary::IsInterstitialAdAvailable();
-	bool requets = UKismetSystemLibrary::IsInterstitialAdRequested();
-
-	FLatentActionInfo action{};
-	action.ExecutionFunction = "ShowInterestialAds";
-	action.CallbackTarget = this;
-	count++;
-	lDebug(count);
-	if (!avalible)
-		return UKismetSystemLibrary::Delay(this, AdsDelay, action);
-	if(!requets)
-		return UKismetSystemLibrary::Delay(this, AdsDelay, action);
-
-	UKismetSystemLibrary::LoadInterstitialAd(1);
-	UKismetSystemLibrary::ShowInterstitialAd();
-}
+//void AleeSmartCharacter2D::ShowInterestialAds()
+//{
+//	bool avalible = UKismetSystemLibrary::IsInterstitialAdAvailable();
+//	bool requets = UKismetSystemLibrary::IsInterstitialAdRequested();
+//
+//	FLatentActionInfo action{};
+//	action.ExecutionFunction = "ShowInterestialAds";
+//	action.CallbackTarget = this;
+//	count++;
+//	lDebug(count);
+//	if (!avalible)
+//		return UKismetSystemLibrary::Delay(this, AdsDelay, action);
+//	if(!requets)
+//		return UKismetSystemLibrary::Delay(this, AdsDelay, action);
+//
+//	UKismetSystemLibrary::LoadInterstitialAd(1);
+//	UKismetSystemLibrary::ShowInterstitialAd();
+//}
 
 
 void AleeSmartCharacter2D::BeginPlay()
@@ -31,13 +31,13 @@ void AleeSmartCharacter2D::BeginPlay()
 	//UKismetSystemLibrary::ShowAdBanner(0, false);
 	//ShowInterestialAds();
 }
-
+//
 //void AleeSmartCharacter2D::Tick(float Deltatime)
 //{
-//	if (CompletedGameCount > NextRewardAds) {
 //
-//		NextRewardAds += 2;
-//		lDebug("RunAds");
-//		
+//	if (NextInterstitials < Deltatime)
+//	{
+//		LoadInterstitials = true;
+//		NextInterstitials += 60;
 //	}
 //}

@@ -91,7 +91,6 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "New Game")
 		bool isNewGame;
 
-
 	UPROPERTY(BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game Runing")
 		bool isGameRuning;
 
@@ -163,6 +162,10 @@ public:
 	/*Get Path Matching Topic*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		FString lGetTopicMatchingPath(TEnumAsByte<LineModes> linemode, bool isChoise = false);
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool CheckIsAntiAds();
+
 
 	/*check User is Premium*/
 	bool isPremiumUser=true;

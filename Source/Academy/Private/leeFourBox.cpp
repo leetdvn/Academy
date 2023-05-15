@@ -1,5 +1,6 @@
 #include "leeFourBox.h"
 #include "Kismet/KismetStringLibrary.h"
+#include <leeSmartCharacter2D.h>
 
 void UleeFourBox::NewFourBoxInit()
 {
@@ -96,6 +97,10 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 void UleeFourBox::OnUnCorrectAnswer()
 {
 	UGameplayStatics::PlayDialogue2D(GetWorld(), lFourBox->lWaveSound[0], lFourBox->lContext[0]);
+	AleeSmartCharacter2D* character = IGetChacter<AleeSmartCharacter2D>(GetWorld());
+	if (character) {
+		character->CompletedGameCount++;
+	}
 
 }
 
@@ -230,6 +235,15 @@ void UleeFourBox::OnGoToShop()
 	OnBlackSkyTouch();
 
 	UGameplayStatics::OpenLevel(GetWorld(), TEXT("AMenu"));
+
+}
+
+bool UleeFourBox::CheckIsAntiAds()
+{
+	if (!GameIns)
+		GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+
+	return GameIns->PlayerInfo->isAntiAds();
 
 }
 

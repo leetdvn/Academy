@@ -125,6 +125,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnGoToShop();
 
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool CheckIsAntiAds();
+
 	//UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 	//	int lGetStar() { return userdata->Star; }
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
@@ -160,5 +164,17 @@ protected:
 
 	FFourBoxData fourdata,LoadData;
 
+	template<class T>
+	T* IGetChacter(UWorld* world);
+
 };
 
+template<class T>
+inline T* UleeFourBox::IGetChacter(UWorld* world)
+{
+	if (!world) return nullptr;
+	ACharacter* fCharacter = UGameplayStatics::GetPlayerCharacter(world, 0);
+	if (fCharacter)
+		return Cast<T>(fCharacter);
+	return nullptr;
+}

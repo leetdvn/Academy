@@ -124,6 +124,11 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		bool CheckTutorial();
+
+
+	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
+		bool CheckIsAntiAds();
+
 	/* Get Sound Index*/
 	int32 GetSoundIndex();
 
@@ -137,6 +142,8 @@ public:
 
 	bool isMakeSound{};
 
+
+
 protected:
 
 	virtual void NativeConstruct() override;
@@ -147,4 +154,17 @@ protected:
 
 	UleeAlphaData* AlPhaData;
 
+	template<class T>
+	T* IGetChacter(UWorld* world);
+
 };
+
+template<class T>
+inline T* UleeAlphaBet::IGetChacter(UWorld* world)
+{
+	if (!world) return nullptr;
+	ACharacter* fCharacter = UGameplayStatics::GetPlayerCharacter(world, 0);
+	if (fCharacter)
+		return Cast<T>(fCharacter);
+	return nullptr;
+}

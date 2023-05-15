@@ -12,6 +12,9 @@
 /**
  * 
  */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnShowRewads);
+
+
 UCLASS(BlueprintType, Blueprintable)
 class ACADEMY_API AleeSmartCharacter2D : public APaperCharacter , public IleePublicInterface
 {
@@ -19,20 +22,19 @@ class ACADEMY_API AleeSmartCharacter2D : public APaperCharacter , public IleePub
 	
 public:
 
-
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Number Game Show Ads Reward")
-		int32 NextRewardAds;
+		int32 CompletedGameCount;
 
-	int32 CompletedGameCount;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Number Game Show ")
+		int32 GameNumberShow;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Delay")
-		float AdsDelay{};
-
+	UPROPERTY(BlueprintAssignable, Category = "lee's Ultils")
+		FOnShowRewads isShowReward;
 
 	int32 count;
 
-	UFUNCTION()
-		void ShowInterestialAds();
+	//UFUNCTION()
+	//	void ShowInterestialAds();
 
 
 

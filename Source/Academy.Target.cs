@@ -12,8 +12,8 @@ public class AcademyTarget : TargetRules
 		ExtraModuleNames.AddRange( new string[] { "Academy" } );
         if (Target.Platform == UnrealTargetPlatform.Android)
         {
-            ExtraModuleNames.Add("OnlineSubsystemGooglePlay");
             ExtraModuleNames.Add("OnlineSubsystem");
+            ExtraModuleNames.Add("OnlineSubsystemGooglePlay");
             ExtraModuleNames.Add("AndroidAdvertising");
         }
     }

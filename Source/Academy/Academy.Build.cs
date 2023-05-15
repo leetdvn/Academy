@@ -1,5 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
+using System.IO;
 using UnrealBuildTool;
 
 public class Academy : ModuleRules
@@ -7,8 +8,10 @@ public class Academy : ModuleRules
 	public Academy(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore","UMG" ,"JSon", "JsonUtilities", "Paper2D" ,
+
+        PublicIncludePaths.Add("F:/Epic Games/UE_4.27/Engine/Plugins/Online/OnlineSubsystemFacebook/Source/Public");
+
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore","UMG" ,"JSon", "JsonUtilities", "Paper2D" ,
             "OnlineSubsystemUtils",
             "FirebaseAuthentication",
             "OnlineSubsystemFacebook",
@@ -20,9 +23,8 @@ public class Academy : ModuleRules
 
 
 		// Uncomment if you are using Slate UI
-		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore",  });
 
-        PublicIncludePaths.Add("F:/Epic Games/UE_4.27/Engine/Plugins/Online/OnlineSubsystemFacebook/Source/Public");
         //Add IOS if you're using it
         if ((Target.Platform == UnrealTargetPlatform.Win32) || (Target.Platform == UnrealTargetPlatform.Win64))
         {
@@ -34,8 +36,13 @@ public class Academy : ModuleRules
         }    // Uncomment if you are using online features
         if (Target.Platform == UnrealTargetPlatform.Android)
         {
-            PrivateDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "OnlineSubsystem","AndroidAdvertising" });
+            PublicDependencyModuleNames.AddRange(new string[] {"Launch"});
+            PrivateDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "OnlineSubsystem" , });
+            PrivateDependencyModuleNames.Add("AndroidAdvertising");
             DynamicallyLoadedModuleNames.Add("OnlineSubsystemGooglePlay");
+            //string PluginPath = Utils.MakePathRelativeTo(ModuleDirectory, Target.RelativeEnginePath);
+            //AdditionalPropertiesForReceipt.Add("AndroidPlugin", Path.Combine(PluginPath, "Academy_APL.xml"));
+
         }
     }
 }
