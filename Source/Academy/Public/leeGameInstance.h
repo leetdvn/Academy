@@ -73,6 +73,12 @@ public:
 
 	bool CheckPremiumUser() { return PlayerInfo->isPurChased(); }
 
+	int32 GetNumberLinesCompleted() { return Line3s->DataHistoriesStruct.Num(); }
+
+	int32 GetNumber4BoxCompleted() { return Box4s->DataHistoriesStruct.Num(); }
+
+	int32 GetNumberAlphaCompleted() { return Alpha->DataHistories.Num(); }
+
 	template<class T>
 	void SavePreview(TArray<T> arrayData);
 	/*Save & Load Game 3 Line*/
