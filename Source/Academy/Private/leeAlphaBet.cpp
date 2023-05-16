@@ -263,7 +263,6 @@ void UleeAlphaBet::WinPanelOnOff(bool Onoff)
 
 }
 
-
 void UleeAlphaBet::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -296,7 +295,6 @@ void UleeAlphaBet::NativeConstruct()
 
 void UleeAlphaBet::NativeDestruct()
 {
-	Super::NativeDestruct();
 
 	/*clear event*/
 	if (Alpha->ChoiseButtons.Num() < 0) return;
@@ -304,5 +302,15 @@ void UleeAlphaBet::NativeDestruct()
 	for (auto& abtn : Alpha->ChoiseButtons) {
 		abtn->OnCorrect.Clear();
 	}
+
+	int32 btnCorrect = Alpha->GetCorrectButtons().Num();
+	if (btnCorrect < 0) return;
+
+	for (auto& btn : Alpha->GetCorrectButtons()) {
+		btn->OnCorrect.Clear();
+	}
+	BlackSky->OnMouseButtonDownEvent.Clear();
+	Super::NativeDestruct();
+
 }
 
