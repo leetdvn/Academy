@@ -53,6 +53,7 @@ void AleeHub::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	//double x{}, y{};
+	
 	if (gametype == lGameType::None) return;
 	if (!isKidAFK) return;
 	KidTimeAFK += DeltaTime;

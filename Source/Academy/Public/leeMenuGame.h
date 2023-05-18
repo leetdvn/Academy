@@ -20,6 +20,9 @@
 /**
  * 
  */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnLoginSuccess);
+
+
 
 UCLASS(BlueprintType)
 class ACADEMY_API UleeMenuGame : public UUserWidget, public IleePublicInterface
@@ -57,6 +60,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Lee Instance")
 		UleeGameInstance* GIns;
+
+	UPROPERTY(BlueprintAssignable, Category = "lee's Ultils")
+		FOnLoginSuccess OnLoginSuccess;
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void OnMenuClick(FString menuName);

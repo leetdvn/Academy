@@ -2,6 +2,7 @@
 
 
 #include "leeSmartCharacter2D.h"
+#include <leeGameInstance.h>
 
 //void AleeSmartCharacter2D::ShowInterestialAds()
 //{
@@ -23,21 +24,75 @@
 //}
 
 
+AleeSmartCharacter2D::AleeSmartCharacter2D()
+{
+	//bAllowTickBeforeBeginPlay = true;
+	//bTiechenalbe
+}
+
 void AleeSmartCharacter2D::BeginPlay()
 {
 	Super::BeginPlay();
+	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 
+	LoadRewardsTime = ShowInterstititalTime / 2;
+	LoadsInterstitials = ShowInterstititalTime / 2;
+	showinterAds = ShowInterstititalTime;
+	showRewadsAds = ShowRewardsTime;
+
+	AdsBlocked = IsAntiAds();
+	lDebug(AdsBlocked);
+	if (!AdsBlocked) {
+		OnBannerS.Broadcast();
+		OnLoadRewads.Broadcast();
+
+	}
 	/*Show Banner*/
 	//UKismetSystemLibrary::ShowAdBanner(0, false);
 	//ShowInterestialAds();
 }
-//
-//void AleeSmartCharacter2D::Tick(float Deltatime)
-//{
-//
-//	if (NextInterstitials < Deltatime)
-//	{
-//		LoadInterstitials = true;
-//		NextInterstitials += 60;
-//	}
-//}
+
+void AleeSmartCharacter2D::Tick(float Deltatime)
+{
+	Super::Tick(Deltatime);
+
+	if (AdsBlocked) return;
+	DeltaCount += Deltatime;
+
+	if (DeltaCount > LoadsInterstitials / 2)
+	{
+		LoadsInterstitials += ShowInterstititalTime / 2;
+		OnLoadIntertititals.Broadcast();
+		lDebug("Create Ads");
+	}
+	else if (DeltaCount > showinterAds) {
+		showinterAds += ShowInterstititalTime;
+		OnShowInterstitials.Broadcast();
+		lDebug("Show Intertitials");
+	}
+
+	if (CompletedGameCount == GameNumberShow)
+	{
+		CompletedGameCount = 0;
+		OnShowRewads.Broadcast();
+		lDebug("Reload Rewads");
+		/*Reload Rewads*/
+		OnLoadRewads.Broadcast();
+	}
+}
+
+bool AleeSmartCharacter2D::IsAntiAds() {
+	if(!GameIns)
+		GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+
+	return GameIns->PlayerInfo->isAntiAds();
+}
+
+void AleeSmartCharacter2D::Destroyed()
+{
+	OnLoadIntertititals.Clear();
+	OnShowInterstitials.Clear();
+	OnLoadRewads.Clear();
+	OnShowRewads.Clear();
+	OnBannerS.Clear();
+}
