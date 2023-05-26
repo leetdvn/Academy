@@ -119,7 +119,7 @@ void UleeGameHistories::NativeConstruct()
 	//lBgr->OnMouseButtonDownEvent.BindUFunction(this, FName("OnCloseDown"));
 }
 
-void UleeGameHistories::CreateGameHistories(TEnumAsByte<lGameType> gtype)
+void UleeGameHistories::CreateGameHistories(TEnumAsByte<lGameType> gtype, TEnumAsByte<LineModes> mode)
 {
 	UleeGameInstance* leeIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (leeIns) {
@@ -129,7 +129,10 @@ void UleeGameHistories::CreateGameHistories(TEnumAsByte<lGameType> gtype)
 				return;
 			}
 			case Threelines: {
-				OnHistoriesImplantment<FGameLession>(leeIns->Line3s->DataHistoriesStruct);
+				if(mode == Environment)
+					OnHistoriesImplantment<FGameLession>(leeIns->lineEnvi->DataHistoriesStruct);
+				else
+					OnHistoriesImplantment<FGameLession>(leeIns->Line3s->DataHistoriesStruct);
 				break;
 			}
 			case FourBox: {

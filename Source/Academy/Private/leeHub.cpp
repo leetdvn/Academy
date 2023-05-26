@@ -103,6 +103,17 @@ void AleeHub::LoadThreelineFromData(int32 idx)
 	lCurrentWidget = nWidget;
 }
 
+void AleeHub::LoadEnvironmentFromData(int32 idx)
+{
+	UUserWidget* nWidget = CreateWidget<UUserWidget>(GetWorld(), lEnvironment);
+	UleelineEnvironment* envi = Cast<UleelineEnvironment>(nWidget);
+	envi->SessionID = idx;
+
+	lCurrentWidget->RemoveFromViewport();
+	nWidget->AddToViewport();
+	lCurrentWidget = nWidget;
+}
+
 void AleeHub::LoadAlphabetFromData(int32 idx)
 {
 	UUserWidget* nWidget = CreateWidget<UUserWidget>(GetWorld(), lAlphaBeet);
@@ -123,21 +134,33 @@ void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype,TEnumAsByte<LineModes> 
 	{
 		case None: {return; }
 		case Threelines: {
-			UleeBaseLessions* line = INewGameWidget<UleeBaseLessions>(gtype, lCurrentWidget);
-			if(gametype != gtype)
-				line->isMakeSound = true;
-			line->Mode = linemode;
-			if (linemode == LineModes::Environment) {
-				FText text = FText::FromStringTable(GAMETABLE, "EnvDesc");
-				FText tit = FText::FromStringTable(GAMETABLE, "EnvTitle");
-				line->lDescription->SetText(text);
-				line->ltitle->SetText(tit);
+			switch (linemode)
+			{
+				case Normal: {
+					UleeBaseLessions* line = INewGameWidget<UleeBaseLessions>(gtype, lCurrentWidget,linemode);
+					if (gametype != gtype)
+						line->isMakeSound = true;
+					line->isNewGame = true;
+					break;
+				}
+				case ExtendPremium: {
+					break;
+				}
+				case Environment: {
+					UleelineEnvironment* line = INewGameWidget<UleelineEnvironment>(gtype, lCurrentWidget,linemode);
+					FText text = FText::FromStringTable(GAMETABLE, "EnvDesc");
+					FText tit = FText::FromStringTable(GAMETABLE, "EnvTitle");
+					line->lDescription->SetText(text);
+					line->ltitle->SetText(tit);
+					line->Mode = Environment;
+					line->isNewGame = true;
+					break;
+				}
 			}
-			line->isNewGame = true;
 			break;
 		}
 		case FourBox: {
-			UleeFourBox* box = INewGameWidget<UleeFourBox>(gtype, lCurrentWidget);
+			UleeFourBox* box = INewGameWidget<UleeFourBox>(gtype, lCurrentWidget,linemode);
 			if (gametype != gtype)
 				box->isMakeSound = true;
 			box->m_type = FourBox;
@@ -145,7 +168,7 @@ void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype,TEnumAsByte<LineModes> 
 			break;
 		}
 		case AlphaBet: {
-			UleeAlphaBet* alpha = INewGameWidget<UleeAlphaBet>(gtype, lCurrentWidget);
+			UleeAlphaBet* alpha = INewGameWidget<UleeAlphaBet>(gtype, lCurrentWidget,linemode);
 			if (gametype != gtype)
 				alpha->isMakeSound = true;
 			alpha->isNewGame = true;
@@ -183,14 +206,16 @@ void AleeHub::ShowTutorials()
 }
 
 template<class T>
-T* AleeHub::INewGameWidget(TEnumAsByte<lGameType> gtype, UUserWidget*& outWidget)
+T* AleeHub::INewGameWidget(TEnumAsByte<lGameType> gtype, UUserWidget*& outWidget, TEnumAsByte<LineModes> mode)
 {
 	switch (gtype)
 	{
 		case None: {
 			break;
 		}
-		case Threelines: { outWidget = CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
+		case Threelines: {
+			outWidget = mode == Environment ? CreateWidget<UUserWidget>(GetWorld(), lEnvironment) :
+				CreateWidget<UUserWidget>(GetWorld(), lThreeLine);
 			break;
 		}
 		case FourBox: { outWidget = CreateWidget<UUserWidget>(GetWorld(), lFourBox);

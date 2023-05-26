@@ -40,7 +40,7 @@ class AleeHub;
 /**
  * 
  */
-UCLASS(BlueprintType,Blueprintable)
+UCLASS(Abstract,BlueprintType,Blueprintable)
 class ACADEMY_API UleeBaseLessions : public UUserWidget, public IleePublicInterface
 {
 	GENERATED_BODY()
@@ -109,17 +109,17 @@ public:
 		UImage* BlackSky;
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnIDrop(bool isCorrect);
+		virtual void OnIDrop(bool isCorrect);
 
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnUnlockDialog();
+		virtual void OnUnlockDialog();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnPlayerGetWard();
+		virtual void OnPlayerGetWard();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void OnGoToShop();
+		virtual void OnGoToShop();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		void ToogleConfirmed(bool isOn,FString FeildMessage="");
@@ -141,7 +141,7 @@ public:
 
 	//Create new Game Type Three line lession
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void NewGameThreelineInit();
+		virtual void NewGameThreelineInit();
 
 	/*load current game from save data */
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
@@ -149,7 +149,7 @@ public:
 
 	/*Load Game From Histories data at index*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void LoadGameAt(int32 sessionGameID);
+		virtual	void LoadGameAt(int32 sessionGameID);
 
 	/*on replay*/
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")

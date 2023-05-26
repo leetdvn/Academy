@@ -203,9 +203,11 @@ void UleePanelBase::NativeDestruct()
 	if (lbuttons.Num() <= 0 ) return;
 
 	for (auto& btn : lbuttons) {
-		if (btn->OnMenuClick.IsBound()) btn->OnMenuClick.Clear();
-		if (btn->lButton->OnClicked.IsBound()) btn->lButton->OnClicked.Clear();
+		btn->OnMenuClick.Clear();
+		btn->OnCorrect.Clear();
+		btn->lButton->OnClicked.Clear();
 	}
+		
 }
 
 UleeBaseButton* UleePanelBase::lGetButton(int idx)

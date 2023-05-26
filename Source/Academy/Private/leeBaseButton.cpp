@@ -35,10 +35,14 @@ void UleeBaseButton::NativeConstruct()
 
 void UleeBaseButton::NativeDestruct()
 {
+	Super::NativeDestruct();
 	//debug ondestroying
 	//lDebug("native destroy...");
-	if (lButton->OnClicked.IsBound())
-		lButton->OnClicked.Clear();
+	//if (lButton->OnClicked.IsBound())
+	lButton->OnClicked.Clear();
+	Premium->OnMouseButtonDownEvent.Clear();
+	OnCorrect.Clear();
+	OnMenuClick.Clear();
 }
 
 void UleeBaseButton::lSetPading(FMargin newMargin)
@@ -180,7 +184,10 @@ UleeBaseButton* UleeBaseButton::lCopyRef(UleeBaseButton*& other)
 void UleeBaseButton::lClickCallBack()
 {
 	//lDebug("call back Touch..");
-	if(ltexture2D)
+
+	FString log = GetParent()->GetClass()->GetName();
+	//UE_LOG(LogTemp,Warning, TEXT("Log : %s"),*log)
+	if(ltexture2D && log == "ScrollBox")
 		OnMenuClick.Broadcast(ltexture2D->GetName());
 	OnCorrect.Broadcast(this);
 }
@@ -193,10 +200,8 @@ void UleeBaseButton::lReplyFourBox()
 
 void UleeBaseButton::lClearCorrectBound()
 {
-	if (OnCorrect.IsBound())
-		OnCorrect.Clear();
-	//if (OnMenuClick.IsBound())
-	//	OnMenuClick.Clear();
+	OnCorrect.Clear();
+	OnMenuClick.Clear();
 }
 
 void UleeBaseButton::lClearOnClick()

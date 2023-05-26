@@ -66,6 +66,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "VFX", meta = (BindWidget))
 		UNiagaraSystemWidget* Smoke;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Menu", meta = (BindWidget))
+		bool isMenu;
+
 	UPROPERTY(BlueprintAssignable, Category = "EventDispatchers")
 		FOnMenuClick OnMenuClick;
 	

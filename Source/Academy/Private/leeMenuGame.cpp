@@ -299,10 +299,12 @@ void UleeMenuGame::NativeConstruct()
 		if (GameMenu->lGetButtons().Num() > 0) {
 			int32 count{};
 			for (auto& btn : GameMenu->lGetButtons()) {
+				if (btn->OnMenuClick.IsBound())
+					btn->OnMenuClick.Clear();
 				btn->OnMenuClick.AddDynamic(this, &UleeMenuGame::OnMenuClick);
 				btn->ltextblock->SetText(FText::FromStringTable(FName(*StrTable),leeMenu[count]));
 				//btn->Premium = btn->WidgetTree->FindWidget(TEXT("Premium"));
-				if (!GIns->PlayerInfo->IsPremium) {
+				if (GIns->PlayerInfo->IsPremium) {
 					if (IsPremium(btn->lGetTextureName())) {
 						btn->lButton->SetIsEnabled(false);
 						btn->Premium->SetVisibility(ESlateVisibility::Visible);
@@ -340,11 +342,18 @@ void UleeMenuGame::NativeConstruct()
 
 void UleeMenuGame::NativeDestruct()
 {
+	Super::NativeDestruct();
 	/*clear event*/
 	Settings->lClosed->OnClicked.Clear();
 	ConfirmPremium->lButtonNo->OnClicked.Clear();
 	BlackSky->OnMouseButtonDownEvent.Clear();
-	UKismetSystemLibrary::HideAdBanner();
+	OnLoginSuccess.Clear();
+	Confirm->lButtonNo->OnClicked.Clear();
+	Confirm->lButtonYes->OnClicked.Clear();
+	for (auto& btn : GameMenu->lGetButtons()) {
+		btn->OnMenuClick.Clear();
+		btn->lButton->OnClicked.Clear();
+	}
 }
 
 bool UleeMenuGame::IsPremium(FString textName)

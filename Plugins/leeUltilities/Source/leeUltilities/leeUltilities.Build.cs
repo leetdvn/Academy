@@ -1,5 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
+using System.IO;
 using UnrealBuildTool;
 
 public class leeUltilities : ModuleRules
@@ -57,5 +58,18 @@ public class leeUltilities : ModuleRules
 				// ... add any modules that your module loads dynamically here ...
 			}
 			);
-	}
+
+        PrivateIncludePathModuleNames.Add("Settings");
+        //PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "Public"));
+        //PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "Interfaces"));
+
+        /*Android Platform*/
+        if (Target.Platform == UnrealTargetPlatform.Android)
+		{
+            PrivateDependencyModuleNames.AddRange(new string[] { "Core", "Engine", "Slate", "SlateCore", "Launch" });
+            string PluginPath = Utils.MakePathRelativeTo(ModuleDirectory, Target.RelativeEnginePath);
+            AdditionalPropertiesForReceipt.Add("AndroidPlugin", Path.Combine(PluginPath, "leeUltilities_APL.xml"));
+
+        }
+    }
 }

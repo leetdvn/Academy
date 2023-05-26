@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+  <androidManifestUpdates>
+    
+    
+    <loopElements tag="activity">
+      <setStringFromAttribute  result="ExportTag" tag="$" name="android:name"/>
+      <setBoolIsEqual result="ShouldNotAddExportTag" arg1="$S(ExportTag)" arg2="com.epicgames.ue4.SplashActivity"/>
+      <if condition="ShouldNotAddExportTag">
+        <true>
+          <addAttribute tag="$" name="android:exported" value="true"/>
+        </true>
+      </if>
+    </loopElements>
+
+    <loopElements tag="meta-data">
+      <setStringFromAttribute  result="ExportTag" tag="$" name="android:value"/>
+      <setBoolIsEqual result="ShouldNotAddExportTag" arg1="$S(ExportTag)" arg2="android.permission.GET_ACCOUNTS"/>
+      <if condition="ShouldNotAddExportTag">
+        <true>
+          <addAttribute tag="$" name="android:value" value="android.permission.GET_ACCOUNTS,android.permission.WRITE_EXTERNAL_STORAGE,android.permission.READ_EXTERNAL_STORAGE"/>
+        </true>
+      </if>
+    </loopElements>
+    
+    <!--<loopElements tag="activity">
+      <setStringFromAttribute  result="ExportTag" tag="$" name="android:exported"/>
+      <setBoolIsEqual result="ShouldNotAddExportTag" arg1="$S(ExportTag)" arg2="false"/>
+      <if condition="ShouldNotAddExportTag">
+        <false>
+          <addAttribute tag="$" name="android:exported" value="true"/>
+        </false>
+      </if>
+    </loopElements>
+
+    <loopElements tag="service">
+      <setStringFromAttribute  result="ExportTag" tag="$" name="android:exported"/>
+      <setBoolIsEqual result="ShouldNotAddExportTag" arg1="$S(ExportTag)" arg2="false"/>
+      <if condition="ShouldNotAddExportTag">
+        <false>
+          <addAttribute tag="$" name="android:exported" value="true"/>
+        </false>
+      </if>
+    </loopElements>-->
+
+  </androidManifestUpdates>
+
+</root>

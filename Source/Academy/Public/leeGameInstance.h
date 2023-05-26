@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "leeEnvironment.h"
 #include "lee3LinesData.h"
 #include "lee4BoxData.h"
 #include "leeAlphaData.h"
@@ -24,6 +25,7 @@
 #define LINE3S	"ThreeLines"
 #define BOX4S	"FourBox"
 #define ALPHA	"AlphaBet"
+#define ENVIRONMENT  "Environment"
 
 #pragma endregion
 
@@ -54,6 +56,8 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Alpha")
 		UleeAlphaData* Alpha;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Environment")
+		UleeEnvironment* lineEnvi;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "User Info")
 		TSubclassOf<UleeUserInfo> iinfo;
@@ -66,6 +70,10 @@ public:
 
 	/*Save & Load Game 3 Line*/
 	void SaveLine3S(Ulee3LinesData*& lineData);
+
+	/*Save & Load Game 3 Line*/
+	void SaveLineEnvi(UleeEnvironment*& env);
+
 
 	void SaveBox4S(Ulee4BoxData*& boxData);
 
@@ -83,6 +91,9 @@ public:
 	void SavePreview(TArray<T> arrayData);
 	/*Save & Load Game 3 Line*/
 	FGameLession Load3LinesGame(int32 idx);
+
+	/*Save & Load Game 3 Line*/
+	FGameLession LoadEnvironmentGame(int32 idx);
 
 	/*Save & Load Game Alpha Line*/
 	FAlphaBetData LoadAlphaGameAt(int32 idx);

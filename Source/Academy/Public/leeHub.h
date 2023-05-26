@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "leelineEnvironment.h"
 #include "leeTutorials.h"
 #include <leeGameInstance.h>
 #include "leeBaseLessions.h"
@@ -39,6 +40,9 @@ public:
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		TSubclassOf<UleeBaseLessions> lThreeLine;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
+		TSubclassOf<UleelineEnvironment> lEnvironment;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils")
 		TSubclassOf<UleeFourBox> lFourBox;
@@ -104,6 +108,10 @@ public:
 	/*LoadGame Type 3 Lines from data index saved */
 	void LoadThreelineFromData(int32 idx);
 
+
+	/*LoadGame Type 3 Lines from data index saved */
+	void LoadEnvironmentFromData(int32 idx);
+
 	/*LoadGame TypeAlpha from data index saved */
 	void LoadAlphabetFromData(int32 idx);
 
@@ -127,7 +135,7 @@ public:
 		void TurnOnMeasure() { isKidAFK = true, KidTimeAFK = 0; if(isTutorialShow) isTutorialShow = false; };
 
 	template<class T>
-	T* INewGameWidget(TEnumAsByte<lGameType> gtype, UUserWidget*& outWidget);
+	T* INewGameWidget(TEnumAsByte<lGameType> gtype, UUserWidget*& outWidget, TEnumAsByte<LineModes> mode);
 
 	TEnumAsByte<lGameType> GameType() { return gametype; }
 

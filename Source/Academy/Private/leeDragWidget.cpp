@@ -109,6 +109,14 @@ bool UleeDragWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 	return false;
 }
 
+void UleeDragWidget::NativeDestruct()
+{
+	OniDrop.Clear();
+	lShadow->OnMouseButtonDownEvent.Clear();
+	lDragImage->OnMouseButtonDownEvent.Clear();
+	lEnv->OnMouseButtonDownEvent.Clear();
+}
+
 void UleeDragWidget::lInitializeDefault(FString ipath)
 {
 	FVector2D currenRes, sizeRes;

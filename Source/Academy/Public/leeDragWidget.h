@@ -108,6 +108,7 @@ protected:
 	
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 
+	virtual void NativeDestruct() override;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Drag Drop Operation")
 		TSubclassOf<UDragDropOperation> lDragSubOperation;

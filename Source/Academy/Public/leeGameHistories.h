@@ -51,7 +51,7 @@ public:
 		bool isOpened;
 
 
-	void CreateGameHistories(TEnumAsByte<lGameType> gtype);
+	void CreateGameHistories(TEnumAsByte<lGameType> gtype, TEnumAsByte<LineModes> mode=Normal);
 
 	template<class T>
 	void OnHistoriesImplantment(TArray<T> &Games);
