@@ -145,6 +145,11 @@ void AleeHub::CreateNewGame(TEnumAsByte<lGameType> gtype,TEnumAsByte<LineModes> 
 					break;
 				}
 				case ExtendPremium: {
+					UleeBaseLessions* line = INewGameWidget<UleeBaseLessions>(gtype, lCurrentWidget, linemode);
+					if (gametype != gtype)
+						line->isMakeSound = true;
+					line->Mode = linemode;
+					line->isNewGame = true;
 					break;
 				}
 				case Environment: {
