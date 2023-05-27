@@ -54,7 +54,10 @@ void UleeGameHistories::OnSwitchMapFromHistories(FString gametype, UleeHistoryIt
 		case None: {return; }
 		case Threelines: {	
 			IINFO(" Threeline " , FColor::Purple);
-			leeHub->LoadThreelineFromData(item->ItemID);
+			if (leeHub->LinesMode == Environment)
+				leeHub->LoadEnvironmentFromData(item->ItemID);
+			else
+				leeHub->LoadThreelineFromData(item->ItemID);
 			break; }
 		case FourBox: {
 			IINFO(" Four Box ", FColor::Purple);

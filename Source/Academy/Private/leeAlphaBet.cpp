@@ -85,7 +85,16 @@ void UleeAlphaBet::OnCorrectClick(UleeBaseButton* button)
 			UleeUserInfo* udata = GameIns->PlayerInfo;
 			udata->AddStar(1);
 			GameIns->SaveUserInfo(udata);
-			GameIns->SaveAlpha(AlPhaData, true);
+
+			bool canSave{};
+			if (udata->isPurChased())
+				canSave = true;
+			else if (!udata->isPurChased() && AlPhaData->DataHistories.Num() <= 20)
+				canSave = true;
+
+			if (canSave) {
+				GameIns->SaveAlpha(AlPhaData, true);
+			}
 			/*neet more vfx star*/
 
 		}
@@ -170,6 +179,15 @@ void UleeAlphaBet::OnUnlockDialog()
 
 void UleeAlphaBet::OnPlayerGetWard()
 {
+
+	if (!GameIns->PlayerInfo->isPurChased()) {
+		if (AlPhaData->DataHistories.Num() >= 20) {
+			ConfirmPopup->lMessage->SetText(FText::FromStringTable(SETTINGTABLE, "reuiquiredP"));
+			ConfirmPopup->lButtonYes->OnClicked.Clear();
+			ConfirmPopup->lButtonYes->OnClicked.AddDynamic(this, &UleeAlphaBet::OnGoToShop);
+			return;
+		}
+	}
 	/*Not Enoght Star*/
 	if (GameIns->PlayerInfo->Star < 5) {
 		lDebug("Not Enogh Star");

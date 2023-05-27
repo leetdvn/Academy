@@ -88,6 +88,9 @@ public:
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Game ID")
 		int  SessionID;
 
+	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "Maxium")
+		int32  MaxiumFree;
+
 	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, Category = "lee's Ultils", DisplayName = "New Game")
 		bool isNewGame;
 
@@ -131,7 +134,7 @@ public:
 		void OnSaveUserStar();
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
-		void InitializeThreeLineopic(FString& sourcefolder, FString& choiseFolder);
+		void InitializeThreeLineopic(FString& sourcefolder, FString& choiseFolder, int32 historiesNum);
 
 	UFUNCTION(BlueprintCallable, Category = "lee's Ultils")
 		bool lIsValidThreeLine();

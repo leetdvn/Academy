@@ -22,7 +22,16 @@ void UleelineEnvironment::OnIDrop(bool isCorrect)
 			UleeUserInfo* udata = GameIns->PlayerInfo;
 			udata->AddStar(1);
 			GameIns->SaveUserInfo(udata);
-			GameIns->SaveLineEnvi(lineEnvi);
+
+			bool canSave{};
+			if (udata->isPurChased())
+				canSave = true;
+			else if (!udata->isPurChased() && line3S->DataHistoriesStruct.Num() <= 20)
+				canSave = true;
+
+			if (canSave) {
+				GameIns->SaveLineEnvi(lineEnvi);
+			}
 		}
 		/*neet more vfx star*/
 
@@ -58,8 +67,63 @@ void UleelineEnvironment::NewGameThreelineInit()
 
 	FString Topics = lGetTopicMatchingPath(Mode);
 	FString Choise = lGetTopicMatchingPath(Mode, true);
-	InitializeThreeLineopic(Topics, Choise);
+	InitializeThreeLineopic(Topics, Choise,lineEnvi->DataHistoriesStruct.Num());
 
+}
+
+void UleelineEnvironment::OnPlayerGetWard()
+{
+
+	if (!GameIns->PlayerInfo->isPurChased() ){
+		if (lineEnvi->DataHistoriesStruct.Num() >= 20) {
+			ConfirmPopup->lMessage->SetText(FText::FromStringTable(SETTINGTABLE, "reuiquiredP"));
+			ConfirmPopup->lButtonYes->OnClicked.Clear();
+			ConfirmPopup->lButtonYes->OnClicked.AddDynamic(this, &UleeBaseLessions::OnGoToShop);
+			return;
+		}
+	}
+	/*Not Enoght Star*/
+	if (GameIns->PlayerInfo->Star < 5) {
+		lDebug("Not Enogh Star");
+		ConfirmPopup->lMessage->SetText(FText::FromStringTable(GAMETABLE, "gotoshop"));
+		ConfirmPopup->lButtonYes->OnClicked.Clear();
+		ConfirmPopup->lButtonYes->OnClicked.AddDynamic(this, &UleeBaseLessions::OnGoToShop);
+		return;
+	}
+
+	GameIns->PlayerInfo->Star -= 5;
+	/*Go To Unlock close Dialog*/
+	ToogleConfirmed(false);
+	/*Turn off histories*/
+	OnBlackSkyTouch();
+	/*Create New Game and Save to Histories*/
+	NewGameThreelineInit();
+	lineEnvi->DataHistoriesStruct.Add(gamedata);
+	GameIns->SaveLineEnvi(lineEnvi);
+
+}
+
+void UleelineEnvironment::LoadGameAt(int32 sessionGameID)
+{
+	//reload data load from Save Gam
+	lDebug(sessionGameID);
+	FGameLession newlession = GameIns->LoadEnvironmentGame(sessionGameID);
+	FString Str{};
+	FJsonObjectConverter::UStructToJsonObjectString(newlession, Str);
+	UE_LOG(LogTemp, Warning, TEXT(" check lessiong %d :  %s"), sessionGameID, *Str);
+
+	//TSharedPtr<FJsonValue> session= _UserData->GetGamesAt(sessionGameID);
+	//FGameLession* lession = new FGameLession();
+	//FJsonObjectConverter::JsonObjectToUStruct(session->AsObject().ToSharedRef(), lession);
+	//FString jsStr = lJsontoStr(session->AsObject());
+
+	TArray<int32> ids = { 1,2,3 };
+	TArray<FString> correctName = newlession.TopicNames;
+	lThreeline->LoadQuestions(newlession.GetQuestions(), ids);
+	lThreeline->LoadAllChoise(newlession);
+	BindButtons();
+	DropCorrecttimes = 0;
+	lSetWinOnOff(false);
 }
 
 void UleelineEnvironment::NativeConstruct()

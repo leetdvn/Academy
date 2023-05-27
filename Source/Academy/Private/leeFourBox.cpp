@@ -84,7 +84,16 @@ void UleeFourBox::OnCorrectAnswer(UleeBaseButton* button)
 			UleeUserInfo* udata = GameIns->PlayerInfo;
 			udata->AddStar(1);
 			GameIns->SaveUserInfo(udata);
-			GameIns->SaveBox4S(box4S);
+
+			bool canSave{};
+			if (udata->isPurChased())
+				canSave = true;
+			else if (!udata->isPurChased() && box4S->DataHistoriesStruct.Num() <= 20)
+				canSave = true;
+
+			if (canSave) {
+				GameIns->SaveBox4S(box4S);
+			}
 		}
 		AleeSmartCharacter2D* character = IGetChacter<AleeSmartCharacter2D>(GetWorld());
 		if (character) {
@@ -205,6 +214,17 @@ void UleeFourBox::OnUnlockDialog()
 
 void UleeFourBox::OnPlayerGetWard()
 {
+
+	/*Not Enoght Star*/
+	if (!GameIns->PlayerInfo->isPurChased()) {
+		if (box4S->DataHistoriesStruct.Num() >= 20) {
+			ConfirmPopup->lMessage->SetText(FText::FromStringTable(SETTINGTABLE, "reuiquiredP"));
+			ConfirmPopup->lButtonYes->OnClicked.Clear();
+			ConfirmPopup->lButtonYes->OnClicked.AddDynamic(this, &UleeFourBox::OnGoToShop);
+			return;
+		}
+	}
+
 	/*Not Enoght Star*/
 	if (GameIns->PlayerInfo->Star < 5) {
 		lDebug("Not Enogh Star");

@@ -19,6 +19,10 @@ public:
 
 	virtual void NewGameThreelineInit() override;
 
+	virtual void OnPlayerGetWard() override;
+
+	virtual	void LoadGameAt(int32 sessionGameID);
+
 protected:
 
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "lee's Ultils")

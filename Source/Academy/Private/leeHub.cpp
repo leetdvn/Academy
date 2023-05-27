@@ -107,6 +107,7 @@ void AleeHub::LoadEnvironmentFromData(int32 idx)
 {
 	UUserWidget* nWidget = CreateWidget<UUserWidget>(GetWorld(), lEnvironment);
 	UleelineEnvironment* envi = Cast<UleelineEnvironment>(nWidget);
+	envi->Mode = Environment;
 	envi->SessionID = idx;
 
 	lCurrentWidget->RemoveFromViewport();

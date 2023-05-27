@@ -194,7 +194,7 @@ void UleeBaseLessions::lCreateNewChoises(TArray<FString> correctName, FGameLessi
 	}
 }
 
-void UleeBaseLessions::InitializeThreeLineopic(FString& sourcefolder, FString& choiseFolder)
+void UleeBaseLessions::InitializeThreeLineopic(FString& sourcefolder, FString& choiseFolder,int32 historiesNum)
 {
 	//if (lPanelWidget->GetClass()->GetName().StartsWith("Scroll")) return;
 	if (!lIsValidThreeLine()) {
@@ -232,7 +232,7 @@ void UleeBaseLessions::InitializeThreeLineopic(FString& sourcefolder, FString& c
 	}
 	//"AcademyAssets/Assets/ChoiseAnswers/AnimalShape"
 	lCreateNewChoises(exceptions,nlession, choiseFolder,true);
-	nlession.GameID = line3S->DataHistoriesStruct.Num();
+	nlession.GameID = historiesNum;
 	gamedata = nlession;
 	if(isReplay) isReplay = false;
 	//GameIns->SaveCurrentGameData(userdata);
@@ -297,7 +297,16 @@ void UleeBaseLessions::OnIDrop(bool isCorrect)
 			UleeUserInfo* udata = GameIns->PlayerInfo;
 			udata->AddStar(1);
 			GameIns->SaveUserInfo(udata);
-			GameIns->SaveLine3S(line3S);
+
+			bool canSave{};
+			if (udata->isPurChased())
+				canSave = true;
+			else if (!udata->isPurChased() && line3S->DataHistoriesStruct.Num() <= 20)
+				canSave = true;
+			
+			if (canSave) {
+				GameIns->SaveLine3S(line3S);
+			}
 		}
 		/*neet more vfx star*/
 
@@ -332,7 +341,15 @@ void UleeBaseLessions::OnUnlockDialog()
 
 void UleeBaseLessions::OnPlayerGetWard()
 {
+	
 	/*Not Enoght Star*/
+	if (!GameIns->PlayerInfo->isPurChased() && line3S->DataHistoriesStruct.Num() >= 20) {
+		ConfirmPopup->lMessage->SetText(FText::FromStringTable(SETTINGTABLE, "requiredP"));
+		ConfirmPopup->lButtonYes->OnClicked.Clear();
+		ConfirmPopup->lButtonYes->OnClicked.AddDynamic(this, &UleeBaseLessions::OnGoToShop);
+		return;
+	}
+
 	if (GameIns->PlayerInfo->Star < 5) {
 		lDebug("Not Enogh Star");
 		ConfirmPopup->lMessage->SetText(FText::FromStringTable(GAMETABLE, "gotoshop"));
@@ -463,7 +480,7 @@ void UleeBaseLessions::NewGameThreelineInit()
 
 	FString Topics = lGetTopicMatchingPath(Mode);
 	FString Choise = lGetTopicMatchingPath(Mode,true);
-	InitializeThreeLineopic(Topics, Choise);
+	InitializeThreeLineopic(Topics, Choise,gameid);
 
 }
 
@@ -499,7 +516,7 @@ void UleeBaseLessions::OnHistoriesUp() {
 	if (GameHistories) {
 		GameHistories->OnOpenUp();
 		//GameHistories->OnHistoriesInit(_UserData);
-		GameHistories->CreateGameHistories(GameType);
+		GameHistories->CreateGameHistories(GameType,Mode);
 		SetBlackSkyVisible(true);
 	}
 }
