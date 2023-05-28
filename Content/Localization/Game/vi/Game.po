@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Game\n"
-"POT-Creation-Date: 2023-05-12 10:58\n"
-"PO-Revision-Date: 2023-05-16 17:45+0700\n"
+"POT-Creation-Date: 2023-05-28 04:34\n"
+"PO-Revision-Date: 2023-05-28 11:35+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.3\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #. Key:	007BD1D141D0E53257245982BB302CA3
 #. SourceLocation:	/Game/Widgets/Main/Settings.Default__Settings_C.Format
@@ -100,11 +100,12 @@ msgctxt ",84FC7DDA416A52C1D823A3892D462D4C"
 msgid "{Star}  <img id=\"Currency\"></>"
 msgstr ""
 
-#. Key:	8966F0B24276F150668906964D0357F0
-#. SourceLocation:	/Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.EMail2.Text
-#: /Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.EMail2.Text
-msgctxt ",8966F0B24276F150668906964D0357F0"
-msgid "Test Rewards"
+#. Key:	9158308B4F2F46CD55F139878A7C074B
+#. SourceLocation:	/Game/Widgets/Main/LineEnvironment.LineEnvironment_C:GetText_0 [Script Bytecode]
+#: /Game/Widgets/Main/LineEnvironment.LineEnvironment_C:GetText_0 [Script
+#: Bytecode]
+msgctxt ",9158308B4F2F46CD55F139878A7C074B"
+msgid "FPS : {FPS_input}"
 msgstr ""
 
 #. Key:	9210C44F459BF236CF67A597FF831C52
@@ -293,13 +294,6 @@ msgid ""
 "In order to resolve a complaint regarding the Services or to receive further information regarding use of the Services, please contact us at:\r\n"
 "Dulkun Studio\r\n"
 "leetdvn225@gmail.com "
-msgstr ""
-
-#. Key:	FC3C13E349FC52848666328F5892BA7F
-#. SourceLocation:	/Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.Email1.Text
-#: /Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.Email1.Text
-msgctxt ",FC3C13E349FC52848666328F5892BA7F"
-msgid "Test Interstitial"
 msgstr ""
 
 #. Key:	0586DD0C4FB9CAFCC7D0D8B524670E14_364A12939CFA2E27
@@ -727,6 +721,13 @@ msgstr ""
 msgctxt "Settings,PremiumLabel"
 msgid "14.99 to $ Upgrade Premium"
 msgstr "14,99 để $ Nâng cấp Premium"
+
+#. Key:	reuiquiredP
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,reuiquiredP"
+msgid "Premium package is required to purchase more lessons"
+msgstr "Cần có gói cao cấp để mua thêm bài học"
 
 #. Key:	ShopItem1
 #. SourceLocation:	/Game/Stringtable/Settings.Settings

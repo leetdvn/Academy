@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Game\n"
-"POT-Creation-Date: 2023-05-12 10:58\n"
-"PO-Revision-Date: 2023-05-16 17:50+0700\n"
+"POT-Creation-Date: 2023-05-28 04:34\n"
+"PO-Revision-Date: 2023-05-28 11:38+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.3\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #. Key:	007BD1D141D0E53257245982BB302CA3
 #. SourceLocation:	/Game/Widgets/Main/Settings.Default__Settings_C.Format
@@ -100,11 +100,12 @@ msgctxt ",84FC7DDA416A52C1D823A3892D462D4C"
 msgid "{Star}  <img id=\"Currency\"></>"
 msgstr ""
 
-#. Key:	8966F0B24276F150668906964D0357F0
-#. SourceLocation:	/Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.EMail2.Text
-#: /Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.EMail2.Text
-msgctxt ",8966F0B24276F150668906964D0357F0"
-msgid "Test Rewards"
+#. Key:	9158308B4F2F46CD55F139878A7C074B
+#. SourceLocation:	/Game/Widgets/Main/LineEnvironment.LineEnvironment_C:GetText_0 [Script Bytecode]
+#: /Game/Widgets/Main/LineEnvironment.LineEnvironment_C:GetText_0 [Script
+#: Bytecode]
+msgctxt ",9158308B4F2F46CD55F139878A7C074B"
+msgid "FPS : {FPS_input}"
 msgstr ""
 
 #. Key:	9210C44F459BF236CF67A597FF831C52
@@ -135,7 +136,7 @@ msgstr ""
 #: /Game/Widgets/Main/LoginMessage.LoginMessage_C:WidgetTree.TextBlock_129.Text
 msgctxt ",C275980C4F8907AF6F030A8CE10C0779"
 msgid "Close"
-msgstr ""
+msgstr "结束"
 
 #. Key:	EE74C60C48B4C8FAC7C808A35E0D2250
 #. SourceLocation:	/Game/Widgets/Main/Policy.Policy_C:WidgetTree.TextBlock_184.Text
@@ -295,13 +296,6 @@ msgid ""
 "leetdvn225@gmail.com "
 msgstr ""
 
-#. Key:	FC3C13E349FC52848666328F5892BA7F
-#. SourceLocation:	/Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.Email1.Text
-#: /Game/Widgets/Main/MenuWidget.MenuWidget_C:WidgetTree.Email1.Text
-msgctxt ",FC3C13E349FC52848666328F5892BA7F"
-msgid "Test Interstitial"
-msgstr ""
-
 #. Key:	0586DD0C4FB9CAFCC7D0D8B524670E14_364A12939CFA2E27
 #. SourceLocation:	/Game/Audio/Dialog/Incorrect_Dialog.Incorrect_Dialog
 #. InfoMetaData:	"AudioFile" : "0586DD0C4FB9CAFCC7D0D8B524670E14_364A12939CFA2E27.wav"
@@ -310,7 +304,7 @@ msgstr ""
 #: /Game/Audio/Dialog/Incorrect_Dialog.Incorrect_Dialog
 msgctxt "Dialogue,0586DD0C4FB9CAFCC7D0D8B524670E14_364A12939CFA2E27"
 msgid "Incorrect"
-msgstr "Incorrect"
+msgstr "不正确"
 
 #. Key:	1EAE3A154D765192BE23DFB5F782BBD8_F22C1E8E00000000
 #. SourceLocation:	/Game/Audio/Dialog/Circle_Dialog.Circle_Dialog
@@ -725,6 +719,13 @@ msgstr ""
 msgctxt "Settings,PremiumLabel"
 msgid "14.99 to $ Upgrade Premium"
 msgstr "14.99 美元升级高级版"
+
+#. Key:	reuiquiredP
+#. SourceLocation:	/Game/Stringtable/Settings.Settings
+#: /Game/Stringtable/Settings.Settings
+msgctxt "Settings,reuiquiredP"
+msgid "Premium package is required to purchase more lessons"
+msgstr "要购买更多的课程，需要购买高级套餐"
 
 #. Key:	ShopItem1
 #. SourceLocation:	/Game/Stringtable/Settings.Settings

@@ -350,10 +350,7 @@ void UleeMenuGame::NativeDestruct()
 	OnLoginSuccess.Clear();
 	Confirm->lButtonNo->OnClicked.Clear();
 	Confirm->lButtonYes->OnClicked.Clear();
-	for (auto& btn : GameMenu->lGetButtons()) {
-		btn->OnMenuClick.Clear();
-		btn->lButton->OnClicked.Clear();
-	}
+
 }
 
 bool UleeMenuGame::IsPremium(FString textName)

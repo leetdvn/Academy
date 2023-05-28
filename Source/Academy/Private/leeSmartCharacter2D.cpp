@@ -35,7 +35,7 @@ void AleeSmartCharacter2D::BeginPlay()
 	Super::BeginPlay();
 	GameIns = Cast<UleeGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 
-	LoadRewardsTime = ShowInterstititalTime / 2;
+	LoadRewardsTime = ShowRewardsTime / 2;
 	LoadsInterstitials = ShowInterstititalTime / 2;
 	showinterAds = ShowInterstititalTime;
 	showRewadsAds = ShowRewardsTime;
@@ -56,7 +56,6 @@ void AleeSmartCharacter2D::Tick(float Deltatime)
 {
 	Super::Tick(Deltatime);
 
-	if (AdsBlocked) return;
 	DeltaCount += Deltatime;
 
 	if (DeltaCount > LoadsInterstitials / 2)
