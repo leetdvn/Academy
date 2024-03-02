@@ -24,7 +24,7 @@ T* IGetChacter(UWorld* world,int32 idx) {
 }
 
 // This class does not need to be modified.
-UINTERFACE(MinimalAPI, Blueprintable)
+UINTERFACE(MinimalAPI)
 class UleeLibraries : public UInterface
 {
 	GENERATED_BODY()
